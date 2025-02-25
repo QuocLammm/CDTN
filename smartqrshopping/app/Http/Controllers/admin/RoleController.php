@@ -5,9 +5,9 @@ namespace App\Http\Controllers\admin;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 
-class CustomerController extends Controller
+class RoleController extends Controller
 {
     public function index(){
-        return view('admin.customer.index');
+        return view('admin.roles.index');
     }
 }

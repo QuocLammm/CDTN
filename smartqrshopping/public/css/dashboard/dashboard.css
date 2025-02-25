@@ -6,8 +6,8 @@ body {
 }
 .sidebar {
     width: 250px;
-    background: #333;
-    color: white;
+    background: white;
+    color: black;
     height: 100vh;
     padding: 20px;
     transition: width 0.3s;
@@ -15,6 +15,9 @@ body {
     display: flex;
     flex-direction: column;
     align-items: center;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1); /* Thêm bóng đổ */
+    border-radius: 8px; /* Bo góc nhẹ cho khung */
+    z-index: 10; /* Đưa khung lên trên */
 }
 .sidebar.collapsed {
     width: 60px;
@@ -43,7 +46,7 @@ body {
     cursor: pointer;
     white-space: nowrap;
     overflow: hidden;
-    transition: opacity 0.3s;
+    transition: opacity 0.3s, background 0.3s, color 0.3s; /* Thêm background và color vào transition */
     text-align: left;
     font-size: 18px;
     display: flex;
@@ -53,15 +56,13 @@ body {
 .sidebar.collapsed ul li {
     opacity: 0;
 }
-.sidebar ul li:hover {
-    background: #555;
-}
+
 .header {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    background: #444;
-    color: white;
+    background: #744DAA;
+    color: black;
     padding: 10px 20px;
     width: calc(100vw - 318px);
     position: fixed;
@@ -94,11 +95,12 @@ body {
     gap: 15px;
     margin-left: auto;
 }
-.sidebar ul li.active {
-    background: #555;
-    font-weight: bold;
-}
 
+
+.sidebar ul li:hover {
+    background: #f0f0f0; /* Thêm màu nền khi rê chuột vào */
+    color: orange; /* Đổi màu chữ thành màu cam khi hover */
+}
 /* Lớp phủ mờ */
 .overlay {
     position: fixed;
