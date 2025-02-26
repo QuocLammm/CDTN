@@ -20,6 +20,11 @@ Route::prefix('admin')->group(function () {
 Route::prefix('customer')->group(function () {
     Route::get('/index', [UserController::class, 'index'])->name('customer.index');
     Route::get('/create', [UserController::class, 'create'])->name('customer.create');
+    Route::get('/edit/{id}', [UserController::class, 'edit'])->name('customer.edit');
+    Route::post('/store', [UserController::class, 'store'])->name('customer.store');
+    Route::put('/update/{id}', [UserController::class, 'update'])->name('customer.update');
+    Route::delete('/destroy/{id}', [UserController::class, 'destroy'])->name('customer.destroy');
+
 });
 
 //Categories

@@ -67,7 +67,7 @@
 
 @section('content')
     <div class="container customer-page">
-    <div class="d-flex justify-content-between align-items-center mb-3">
+         <div class="d-flex justify-content-between align-items-center mb-3">
             <h2>Danh sách khách hàng</h2>
             <a href="{{ route('customer.create') }}" class="btn btn-primary">Thêm mới</a>
         </div>
@@ -93,16 +93,12 @@
 {{--                            <td>--}}
 {{--                                <img src="{{ asset('storage/' . $user->avatar) }}" width="50" height="50" class="rounded-circle">--}}
 {{--                            </td>--}}
-                            <td>{{ $user->Phone }}</td>
+                            <td>{{ $user->Date_of_Birth }}</td>
                             <td>{{ $user->Email }}</td>
-{{--                            <td>--}}
-{{--                                <a href="{{ route('customers.edit', $user->id) }}" class="btn btn-warning btn-sm">Sửa</a>--}}
-{{--                                <form action="{{ route('customers.destroy', $user->id) }}" method="POST" class="d-inline">--}}
-{{--                                    @csrf--}}
-{{--                                    @method('DELETE')--}}
-{{--                                    <button type="submit" class="btn btn-danger btn-sm" onclick="return confirm('Bạn có chắc muốn xóa?')">Xóa</button>--}}
-{{--                                </form>--}}
-{{--                            </td>--}}
+                            <td>
+                                <a href="{{ route('customer.edit', $user->UserID) }}" class="btn btn-warning btn-sm">Sửa</a>
+                                <button class="btn btn-danger btn-sm delete-btn" data-id="{{ $user->UserID }}">Xóa</button>
+                            </td>
                         </tr>
                     @endforeach
                     </tbody>
@@ -116,3 +112,53 @@
         </div>
     </div>
 @endsection
+@push('script')
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            const deleteButtons = document.querySelectorAll(".delete-btn");
+
+            deleteButtons.forEach(button => {
+                button.addEventListener("click", function () {
+                    let userID = this.getAttribute("data-id");
+
+                    Swal.fire({
+                        title: "Bạn có chắc chắn muốn xóa?",
+                        text: "Hành động này không thể hoàn tác!",
+                        icon: "warning",
+                        showCancelButton: true,
+                        confirmButtonColor: "#d33",
+                        cancelButtonColor: "#3085d6",
+                        confirmButtonText: "Xóa ngay!",
+                        cancelButtonText: "Hủy",
+                    }).then((result) => {
+                        if (result.isConfirmed) {
+                            // Tạo form và gửi request DELETE
+                            let form = document.createElement("form");
+                            form.action = `/customer/${userID}`;
+                            form.method = "POST";
+
+                            let csrfInput = document.createElement("input");
+                            csrfInput.type = "hidden";
+                            csrfInput.name = "_token";
+                            csrfInput.value = "{{ csrf_token() }}";
+
+                            let methodInput = document.createElement("input");
+                            methodInput.type = "hidden";
+                            methodInput.name = "_method";
+                            methodInput.value = "DELETE";
+
+                            form.appendChild(csrfInput);
+                            form.appendChild(methodInput);
+                            document.body.appendChild(form);
+                            form.submit();
+                        }
+                    });
+                });
+            });
+        });
+
+    </script>
+@endpush
+
