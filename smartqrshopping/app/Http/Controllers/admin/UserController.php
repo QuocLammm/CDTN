@@ -77,10 +77,17 @@ class UserController extends Controller
     // Xóa khách hàng
     public function destroy($id)
     {
-        $user = User::findOrFail($id);
+        $user = User::find($id);
+
+        if (!$user) {
+            return response()->json(['message' => 'Không tìm thấy khách hàng!'], 404);
+        }
+
         $user->delete();
-        return response()->json(['success' => 'Xóa thành công!']);
+
+        return response()->json(['message' => 'Khách hàng đã được xóa!']);
     }
+
 
 
 }

@@ -64,10 +64,10 @@ body {
     background: #744DAA;
     color: black;
     padding: 10px 20px;
-    width: calc(100vw - 318px);
+    width: calc(100vw - 315px);
     position: fixed;
     top: 0;
-    left: 259px;
+    left: 258px;
     height: 50px;
     transition: left 0.3s, width 0.3s;
 }

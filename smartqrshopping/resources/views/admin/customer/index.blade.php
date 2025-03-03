@@ -112,53 +112,47 @@
         </div>
     </div>
 @endsection
-@push('script')
+@push('scripts')
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
     <script>
-        document.addEventListener("DOMContentLoaded", function () {
-            const deleteButtons = document.querySelectorAll(".delete-btn");
+        $(document).ready(function () {
+            $(".delete-btn").click(function () {
+                let userID = $(this).data("id");
 
-            deleteButtons.forEach(button => {
-                button.addEventListener("click", function () {
-                    let userID = this.getAttribute("data-id");
-
-                    Swal.fire({
-                        title: "Bạn có chắc chắn muốn xóa?",
-                        text: "Hành động này không thể hoàn tác!",
-                        icon: "warning",
-                        showCancelButton: true,
-                        confirmButtonColor: "#d33",
-                        cancelButtonColor: "#3085d6",
-                        confirmButtonText: "Xóa ngay!",
-                        cancelButtonText: "Hủy",
-                    }).then((result) => {
-                        if (result.isConfirmed) {
-                            // Tạo form và gửi request DELETE
-                            let form = document.createElement("form");
-                            form.action = `/customer/${userID}`;
-                            form.method = "POST";
-
-                            let csrfInput = document.createElement("input");
-                            csrfInput.type = "hidden";
-                            csrfInput.name = "_token";
-                            csrfInput.value = "{{ csrf_token() }}";
-
-                            let methodInput = document.createElement("input");
-                            methodInput.type = "hidden";
-                            methodInput.name = "_method";
-                            methodInput.value = "DELETE";
-
-                            form.appendChild(csrfInput);
-                            form.appendChild(methodInput);
-                            document.body.appendChild(form);
-                            form.submit();
-                        }
-                    });
+                Swal.fire({
+                    title: "Bạn có chắc chắn muốn xóa?",
+                    text: "Hành động này không thể hoàn tác!",
+                    icon: "warning",
+                    showCancelButton: true,
+                    confirmButtonColor: "#d33",
+                    cancelButtonColor: "#3085d6",
+                    confirmButtonText: "Xóa ngay!",
+                    cancelButtonText: "Hủy",
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        $.ajax({
+                            url: `/customer/${userID}`, // Đúng đường dẫn
+                            type: "DELETE",
+                            data: {
+                                _token: "{{ csrf_token() }}"
+                            },
+                            success: function (response) {
+                                Swal.fire("Đã xóa!", "Khách hàng đã bị xóa.", "success").then(() => {
+                                    location.reload();
+                                });
+                            },
+                            error: function () {
+                                Swal.fire("Lỗi!", "Đã xảy ra lỗi khi xóa.", "error");
+                            }
+                        });
+                    }
                 });
             });
         });
-
     </script>
 @endpush
+
+
 
