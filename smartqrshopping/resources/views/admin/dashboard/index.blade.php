@@ -1,8 +1,20 @@
-@extends('layouts.admin')
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="/css/login/login.css">
+    <link href="https://fonts.googleapis.com/css2?family=Material+Icons+Sharp" rel="stylesheet" />
+</head>
+<body>
+<div class="container">
+    @include('layouts.sidebar')
+    <main></main>
+    @include('layouts.right_section')
+</div>
 
-@section('title', 'Trang Quản Trị')
-
-@section('content')
-    <h1>Chào mừng đến với Trang Quản trị</h1>
-    <p>Đây là trang Dashboard.</p>
-@endsection
+<script src="/js/login/order.js"></script>
+<script src="/js/login/index.js"></script>
+</body>
+</html>

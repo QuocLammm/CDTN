@@ -3,57 +3,91 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="css/login/style.css">
-    <title>Document</title>
+    <title>HASH TECHIE OFFICIAL</title>
+    <link rel="stylesheet" href="/css/login/style.css">
+    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
 </head>
 <body>
-<div class="container" id="container">
-    <div class="form-container sign-up" >
-        <form action="">
-            <h1>Create Account</h1>
-            <div class="social-icons">
-                <a href="#" class="icon"><i class="fa-brands fa-google-plus-g"></i></a>
-                <a href="#" class="icon"><i class="fa-brands fa-facebook-f"></i></a>
-                <a href="#" class="icon"><i class="fa-brands fa-google-plus-g"></i></a>
+<div class="container">
+    <div class="Form login-form">
+        <h2>Login</h2>
+        <form action="#">
+            <div class="input-box">
+                <i class='bx bxs-user'></i>
+                <label for="#">Username</label>
+                <input type="text" placeholder="Enter Your Username*">
+
+
             </div>
-            <span>Or use email for register?</span>
-            <input type="text" placeholder="Name">
-            <input type="email" placeholder="Email">
-            <input type="password" placeholder="Password">
-            <button>Sign Up</button>
+            <div class="input-box">
+                <i class='bx bxs-envelope' ></i>
+                <input type="text" placeholder="Enter Your Password*">
+                <label for="#">Password</label>
+
+            </div>
+            <div class="forgot-section">
+                <span><input type="checkbox" name="" id="checked">Remember Me</span>
+                <span><a href="#">Forgot Password ?</a></span>
+            </div>
+            <button class="btn">Login</button>
         </form>
-    </div>
-    <!--Hi-->
-    <div class="form-container sign-in" >
-        <form action="">
-            <h1>Sign In</h1>
-            <div class="social-icons">
-                <a href="#" class="icon"><i class="fa-brands fa-google-plus-g"></i></a>
-                <a href="#" class="icon"><i class="fa-brands fa-facebook-f"></i></a>
-                <a href="#" class="icon"><i class="fa-brands fa-google-plus-g"></i></a>
-            </div>
-            <span>Or use your email password</span>
-            <input type="email" placeholder="Email">
-            <input type="password" placeholder="Password">
-            <a href="#">Forget Your Password?</a>
-            <button>Sign In</button>
-        </form>
-    </div>
-    <div class="toggle-container">
-        <div class="toggle">
-            <div class="toggle-panel toggle-left">
-                <h1>Welcome Back!</h1>
-                <p>Enter your personal details to use all of site features</p>
-                <button class="hidden" id="login">Sign In</button>
-            </div>
-            <div class="toggle-panel toggle-right">
-                <h1>Hello!</h1>
-                <p>Register with your personal details to use all of site features</p>
-                <button class="hidden" id="register">Sign Up</button>
-            </div>
+        <p>Or Sign up using</p>
+        <div class="social-media">
+            <i class='bx bxl-facebook'></i>
+            <i class='bx bxl-google'></i>
+            <i class='bx bxl-twitter'></i>
         </div>
+        <p class="RegisteBtn RegiBtn"><a href="#">Register Now</a></p>
+    </div>
+    <div class="Form Register-form">
+        <h2>Register</h2>
+        <form action="#">
+            <div class="input-box">
+                <i class='bx bxs-user'></i>
+                <label for="#">Username</label>
+                <input type="text" placeholder="Enter Your Username*">
+
+
+            </div>
+            <div class="input-box">
+                <i class='bx bxs-envelope' ></i>
+                <input type="text" placeholder="Enter Your Password*">
+                <label for="#">Password</label>
+            </div>
+            <div class="input-box">
+                <i class='bx bxs-envelope' ></i>
+                <input type="text" placeholder="Enter Your Password*">
+                <label for="#">Confirm Password</label>
+            </div>
+            <div class="forgot-section">
+                <span><input type="checkbox" name="" id="checked">Remember Me</span>
+                <span><a href="#">Forgot Password ?</a></span>
+            </div>
+            <button class="btn" class="loginBtn">Register</button>
+        </form>
+        <p>Or Sign up using</p>
+        <div class="social-media">
+            <i class='bx bxl-facebook'></i>
+            <i class='bx bxl-google'></i>
+            <i class='bx bxl-twitter'></i>
+        </div>
+        <p class="LoginBtn"><a href="#">Login Now</a></p>
     </div>
 </div>
-<script src="script.js"></script>
+<script>
+    const container=document.querySelector(".container") ;
+    const loginForm=document.querySelector('.login-form')
+    const RegisterForm=document.querySelector('.Register-form');
+    const RegiBtn=document.querySelector('.RegiBtn');
+    const LoginBtn=document.querySelector('.LoginBtn');
+    RegiBtn.addEventListener('click',()=>{
+        RegisterForm.classList.add('active');
+        loginForm.classList.add('active')
+    })
+    LoginBtn.addEventListener('click',()=>{
+        RegisterForm.classList.remove('active');
+        loginForm.classList.remove('active')
+    })
+</script>
 </body>
 </html>
