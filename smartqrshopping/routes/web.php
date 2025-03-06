@@ -7,6 +7,7 @@ use \App\Http\Controllers\admin\CategoriesController;
 use \App\Http\Controllers\admin\ProductController;
 use \App\Http\Controllers\admin\FaqController;
 use \App\Http\Controllers\admin\RoleController;
+use \App\Http\Controllers\admin\StaticController;
 
 Route::get('/', function () {
     return view('welcome');
@@ -50,4 +51,9 @@ Route::prefix('faqs')->group(function () {
 //Phân quyền
 Route::prefix('roles')->group(function () {
     Route::get('/index', [RoleController::class, 'index'])->name('roles.index');
+});
+
+//Thống kê
+Route::prefix('statics')->group(function () {
+    Route::get('/index', [StaticController::class, 'index'])->name('statics.index');
 });

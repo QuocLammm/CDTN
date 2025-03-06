@@ -1,8 +1,22 @@
-@extends('layouts.admin')
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sản phẩm</title>
+    <link rel="stylesheet" href="/css/login/login.css">
+    <link href="https://fonts.googleapis.com/css2?family=Material+Icons+Sharp" rel="stylesheet" />
+</head>
+<body>
+<div class="container">
+    @include('layouts.sidebar')
+    <main>
+        <h1>Danh sách sản phẩm</h1>
+    </main>
+    @include('layouts.right_section')
+</div>
 
-@section('title', 'Sản Phẩm')
-
-@section('content')
-    <h1>Quản lý sản phẩm</h1>
-    <p>Danh sách và các thông tin các sản phẩm sẽ được hiển thị tại đây.</p>
-@endsection
+<script src="/js/login/order.js"></script>
+<script src="/js/login/index.js"></script>
+</body>
+</html>

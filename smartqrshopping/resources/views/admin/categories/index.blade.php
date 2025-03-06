@@ -9,7 +9,6 @@
     <link href="https://fonts.googleapis.com/css2?family=Material+Icons+Sharp" rel="stylesheet" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <link href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css" rel="stylesheet">
-
 </head>
 <body>
 <div class="container">
@@ -18,22 +17,24 @@
         <div class="main-container">
             <h1>Danh sách khách hàng</h1>
             <div class="top-bar">
-                <a href="{{ route('categories.create') }}" class="add-customer-btn">Thêm mới</a>
-                <div class="search-container">
-                    <form action="{{ route('categories.index') }}" method="GET">
-                        <div style="position: relative;">
-                            <input type="text" name="search" placeholder="Nhập loại sản phẩm cần tìm" value="{{ request()->query('search') }}">
-                            @if($search)
-                                <a
-                                    href="{{ route('categories.index') }}"
-                                    id="clearButton"
-                                    style="position: absolute; right: 20%; top: 50%; transform: translateY(-50%); text-decoration: none; color: #D5D5D5; font-size: 18px; cursor: pointer;">
-                                    ✖
-                                </a>
-                            @endif
-                        </div>
-                        <button type="submit">Tìm kiếm</button>
-                    </form>
+                <div class="top-bar-content">
+                    <a href="{{ route('categories.create') }}" class="add-customer-btn">Thêm mới</a>
+                    <div class="search-container">
+                        <form action="{{ route('categories.index') }}" method="GET">
+                            <div style="position: relative;">
+                                <input type="text" name="search" placeholder="Nhập loại sản phẩm cần tìm" value="{{ request()->query('search') }}">
+                                @if($search)
+                                    <a
+                                        href="{{ route('categories.index') }}"
+                                        id="clearButton"
+                                        style="position: absolute; right: 20%; top: 50%; transform: translateY(-50%); text-decoration: none; color: #D5D5D5; font-size: 18px; cursor: pointer;">
+                                        ✖
+                                    </a>
+                                @endif
+                            </div>
+                            <button type="submit">Tìm kiếm</button>
+                        </form>
+                    </div>
                 </div>
             </div>
             {{-- Hiển thị thông báo tìm kiếm --}}
@@ -122,6 +123,7 @@
 <script src="/js/login/index.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+<script src="/'js/admin/script.js'"></script>
 </body>
 </html>
 

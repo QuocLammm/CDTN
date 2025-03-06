@@ -4,21 +4,21 @@ const closeBtn = document.getElementById('close-btn');
 
 const darkMode = document.querySelector('.dark-mode');
 
-menuBtn.addEventListener('click', ()=>{
+menuBtn.addEventListener('click', () => {
     sideMenu.style.display = 'block';
 });
 
-closeBtn.addEventListener('click', ()=>{
-    sideMenu.style.display='none';
+closeBtn.addEventListener('click', () => {
+    sideMenu.style.display = 'none';
 });
 
-darkMode.addEventListener('click', ()=>{
+darkMode.addEventListener('click', () => {
     document.body.classList.toggle('dark-mode-variables'); // Laays tuwf been css qua
     darkMode.querySelector('span:nth-child(1)').classList.toggle('active');
     darkMode.querySelector('span:nth-child(2)').classList.toggle('active');
 });
 
-Orders.forEach(order=>{
+Orders.forEach(order => {
     const tr = document.createElement('tr');
     const trContent = `
         <td>${order.productName}</td>
@@ -32,3 +32,6 @@ Orders.forEach(order=>{
     tr.innerHTML = trContent;
     document.querySelector('table tbody').appendChild(tr);
 });
+
+
+//Loading

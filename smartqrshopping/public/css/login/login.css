@@ -53,6 +53,7 @@ body{
     overflow-y: auto;
     color: var(--color-dark);
     background-color: var(--color-background);
+    transition: background-color 0.3s ease, color 0.3s ease; /* Smooth transition for background and text color */
 }
 
 a{
@@ -654,7 +655,7 @@ main .recent-orders a{
     }
 }
 
-/**/
+/*-----------------------------------------*/
 .main-container {
     background-color: var(--color-light); /* Light background */
     border-radius: 8px; /* Rounded corners */
@@ -706,7 +707,8 @@ main .recent-orders a{
 /* Button styles */
 .add-customer-btn,
 .edit-button,
-.delete-button {
+.delete-button,
+.form{
     background-color: #6C9BCF; /* Button background color */
     color: white; /* Button text color */
     border: none; /* No border */
@@ -716,8 +718,105 @@ main .recent-orders a{
     transition: background-color 0.3s; /* Transition for hover effect */
 }
 
-/*.add-customer-btn:hover,*/
-/*.edit-button:hover,*/
-/*.delete-button:hover {*/
-/*    background-color: #5a8bbf; !* Darken background on hover *!*/
-/*}*/
+.add-customer-btn:hover,
+.edit-button:hover,
+.delete-button:hover {
+    background-color: #5a8bbf; /* Darken background on hover */
+}
+
+.top-bar {
+    display: flex;
+    justify-content: space-between; /* Space between elements */
+    align-items: center; /* Center vertically */
+    margin-bottom: 20px; /* Margin below the top bar */
+}
+
+.top-bar-content {
+    display: flex;
+    align-items: center; /* Center items vertically */
+}
+
+.search-container {
+    margin-left: 20px; /* Space between the buttons */
+}
+
+.search-container input {
+    padding: 8px; /* Padding for the input */
+    border: 1px solid #ccc; /* Border for the input */
+    border-radius: 4px; /* Rounded corners for the input */
+}
+
+.search-container button {
+    padding: 8px 12px; /* Padding for the button */
+    margin-left: 5px; /* Space between input and button */
+    background-color: #6C9BCF; /* Button background color */
+    color: white; /* Button text color */
+    border: none; /* No border */
+    border-radius: 4px; /* Rounded corners for the button */
+    cursor: pointer; /* Pointer cursor on hover */
+}
+
+.search-container button:hover {
+    background-color: #5a8bbf; /* Darken background on hover */
+}
+
+/*----------------Loading-------------------------*/
+
+.loading-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(255, 255, 255, 0.8); /* Use a semi-transparent white */
+    z-index: 9999; /* High z-index to cover other elements */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.infinity-loader {
+    width: 100px; /* Width of the loader */
+    height: 50px; /* Height of the loader */
+    position: relative;
+}
+
+.infinity {
+    position: absolute;
+    width: 100px; /* Adjust based on your design */
+    height: 100%; /* Full height */
+    border: 5px solid var(--color-primary); /* Change color to your primary color */
+    border-radius: 50px; /* Rounded corners */
+    animation: spin 1.5s infinite ease-in-out;
+    box-sizing: border-box;
+}
+
+.infinity::before,
+.infinity::after {
+    content: '';
+    position: absolute;
+    width: 100px; /* Adjust based on your design */
+    height: 100%; /* Full height */
+    border: 5px solid var(--color-primary);
+    border-radius: 50px;
+    box-sizing: border-box;
+}
+
+.infinity::before {
+    left: -50px; /* Half of the width */
+    animation: spin 1.5s infinite ease-in-out;
+}
+
+.infinity::after {
+    left: 50px; /* Half of the width */
+    animation: spin 1.5s infinite ease-in-out reverse;
+}
+
+@keyframes spin {
+    0% {
+        transform: rotate(0);
+    }
+    100% {
+        transform: rotate(360deg);
+    }
+}

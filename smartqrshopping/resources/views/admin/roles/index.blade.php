@@ -10,7 +10,9 @@
 <body>
 <div class="container">
     @include('layouts.sidebar')
-    <main></main>
+    <main>
+        <h1>Phân quyền</h1>
+    </main>
     @include('layouts.right_section')
 </div>
 
