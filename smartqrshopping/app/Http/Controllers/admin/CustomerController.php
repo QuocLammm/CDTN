@@ -6,13 +6,13 @@ use App\Http\Controllers\Controller;
 use App\Models\User;
 use Illuminate\Http\Request;
 
-class UserController extends Controller
+class CustomerController extends Controller
 {
     public function index()
     {
 
         $users = User::paginate(3); // Hiển thị 3 khách hàng mỗi trang
-        return view('admin.staff.index', compact('users'));
+        return view('admin.customer.index', compact('users'));
     }
 
     //Hiển thị form tạo mới
@@ -48,14 +48,14 @@ class UserController extends Controller
             'Date_of_birth' => $request->Date_of_birth,
         ]);
 
-        return redirect()->route('staff.index')->with('success', 'Thêm khách hàng thành công!');
+        return redirect()->route('customer.index')->with('success', 'Thêm khách hàng thành công!');
     }
 
     // Hiển thị form chỉnh sửa
     public function edit($id)
     {
         $user = User::findOrFail($id);
-        return view('admin.staff.edit', compact('user'));
+        return view('admin.customer.edit', compact('user'));
     }
 
     // Cập nhật thông tin người dùng
@@ -71,7 +71,7 @@ class UserController extends Controller
         $user = User::findOrFail($id);
         $user->update($request->all());
 
-        return redirect()->route('staff.index')->with('success', 'Cập nhật thành công!');
+        return redirect()->route('customer.index')->with('success', 'Cập nhật thành công!');
     }
 
     // Xóa khách hàng
@@ -87,7 +87,4 @@ class UserController extends Controller
 
         return response()->json(['message' => 'Khách hàng đã được xóa!']);
     }
-
-
-
 }

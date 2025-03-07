@@ -8,6 +8,7 @@ use \App\Http\Controllers\admin\ProductController;
 use \App\Http\Controllers\admin\FaqController;
 use \App\Http\Controllers\admin\RoleController;
 use \App\Http\Controllers\admin\StaticController;
+use \App\Http\Controllers\admin\CustomerController;
 
 Route::get('/', function () {
     return view('welcome');
@@ -18,13 +19,25 @@ Route::prefix('admin')->group(function () {
     Route::get('/dashboard', [DashboardController::class, 'index'])->name('admin.dashboard');
 });
 
+// Khách hàng
 Route::prefix('customer')->group(function () {
-    Route::get('/index', [UserController::class, 'index'])->name('customer.index');
-    Route::get('/create', [UserController::class, 'create'])->name('customer.create');
-    Route::get('/edit/{id}', [UserController::class, 'edit'])->name('customer.edit');
-    Route::post('/store', [UserController::class, 'store'])->name('customer.store');
-    Route::put('/update/{id}', [UserController::class, 'update'])->name('customer.update');
-    Route::delete('/{id}', [UserController::class, 'destroy'])->name('customer.destroy');
+    Route::get('/index', [CustomerController::class, 'index'])->name('customer.index');
+    Route::get('/create', [CustomerController::class, 'create'])->name('customer.create');
+    Route::get('/edit/{id}', [CustomerController::class, 'edit'])->name('customer.edit');
+    Route::post('/store', [CustomerController::class, 'store'])->name('customer.store');
+    Route::put('/update/{id}', [CustomerController::class, 'update'])->name('customer.update');
+    Route::delete('/{id}', [CustomerController::class, 'destroy'])->name('customer.destroy');
+
+});
+
+// Nhân viên
+Route::prefix('staff')->group(function () {
+    Route::get('/index', [UserController::class, 'index'])->name('staff.index');
+    Route::get('/create', [UserController::class, 'create'])->name('staff.create');
+    Route::get('/edit/{id}', [UserController::class, 'edit'])->name('staff.edit');
+    Route::post('/store', [UserController::class, 'store'])->name('staff.store');
+    Route::put('/update/{id}', [UserController::class, 'update'])->name('staff.update');
+    Route::delete('/{id}', [UserController::class, 'destroy'])->name('staff.destroy');
 
 });
 

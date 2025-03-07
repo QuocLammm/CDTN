@@ -12,9 +12,13 @@
             <span class="material-icons-sharp">analytics</span>
             <h3>Trang Quản Trị</h3>
         </a>
+        <a href="{{ route('staff.index') }}" class="{{ request()->routeIs('staff.index') ? 'active' : '' }}">
+            <span class="material-icons-sharp">person</span>
+            <h3>Nhân viên</h3>
+        </a>
         <a href="{{ route('customer.index') }}" class="{{ request()->routeIs('customer.index') ? 'active' : '' }}">
             <span class="material-icons-sharp">person</span>
-            <h3>Người dùng</h3>
+            <h3>Khách hàng</h3>
         </a>
         <a href="{{ route('products.index') }}" class="{{ request()->routeIs('products.index') ? 'active' : '' }}">
             <span class="material-icons-sharp">inventory_2</span>
