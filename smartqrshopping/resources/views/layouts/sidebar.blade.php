@@ -28,10 +28,10 @@
             <span class="material-icons-sharp">category</span>
             <h3>Loại sản phẩm</h3>
         </a>
-        <a href="{{ route('faqs.index') }}" class="{{ request()->routeIs('faqs.index') ? 'active' : '' }}">
-            <span class="material-icons-sharp">quiz</span>
-            <h3>FAQ</h3>
-        </a>
+{{--        <a href="{{ route('faqs.index') }}" class="{{ request()->routeIs('faqs.index') ? 'active' : '' }}">--}}
+{{--            <span class="material-icons-sharp">quiz</span>--}}
+{{--            <h3>FAQ</h3>--}}
+{{--        </a>--}}
         <a href="{{ route('statics.index') }}" class="{{ request()->routeIs('statics.index') ? 'active' : '' }}">
             <span class="material-icons-sharp">equalizer</span>
             <h3>Thống kê</h3>

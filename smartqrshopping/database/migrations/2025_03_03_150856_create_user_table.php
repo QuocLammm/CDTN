@@ -14,7 +14,7 @@ class CreateUserTable extends Migration
             $table->string('Password', 255);
             $table->string('Phone', 15)->nullable();
             $table->text('Address')->nullable();
-            $table->integer('RoleID')->nullable();
+            $table->foreignId('RoleID')->nullable()->constrained('roles', 'RoleID');
             $table->boolean('Status')->default(1);
             $table->timestamp('CreatedAt')->default(DB::raw('CURRENT_TIMESTAMP'));
             $table->timestamp('UpdatedAt')->default(DB::raw('CURRENT_TIMESTAMP'))->onUpdate(DB::raw('CURRENT_TIMESTAMP'));

@@ -9,7 +9,7 @@ class CreateProductDetailsTable extends Migration
     {
         Schema::create('product_details', function (Blueprint $table) {
             $table->increments('ProductDetailID');
-            $table->integer('ProductID')->nullable();
+            $table->foreignId('ProductID')->nullable()->constrained('products')->onDelete('set null');
             $table->string('Size', 10)->nullable();
             $table->string('Color', 30)->nullable();
             $table->integer('Quantity')->default(0);

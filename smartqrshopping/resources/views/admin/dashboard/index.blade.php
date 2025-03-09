@@ -78,7 +78,7 @@
 
         <!--Start new user-->
         <div class="new-users">
-            <h2>New Users</h2>
+            <h2>Nhân viên</h2>
             <div class="user-list">
                 <div class="user">
                     <img src="/images/quoclam.jpg" alt="">
@@ -105,14 +105,14 @@
         <!--End of New User-->
         <!--Recen Order-->
         <div class="recent-orders">
-            <h2>Recent Orders</h2>
+            <h2>Đơn hàng gần đây</h2>
             <table>
                 <thead>
                 <tr>
-                    <th>Couese Name</th>
-                    <th>Course Number</th>
-                    <th>Payment</th>
-                    <th>Status</th>
+                    <th>Tên sản phẩm</th>
+                    <th>Mã sản phẩm</th>
+                    <th>Thanh toán</th>
+                    <th>Trạng thái</th>
                     <th></th>
                 </tr>
                 </thead>

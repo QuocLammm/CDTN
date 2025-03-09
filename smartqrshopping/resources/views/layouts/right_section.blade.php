@@ -28,7 +28,7 @@
         <!--End of Nav-->
         <div class="user-profile">
             <div class="logo">
-                <img src="images/logo.png" alt="">
+                <img src="/images/logo.png" alt="">
                 <h2>TRUCDOAN<span style="color: red;">PHAM</span></h2>
                 <p>Chuyên giày dép nữ</p>
             </div>

@@ -10,8 +10,14 @@ use \App\Http\Controllers\admin\RoleController;
 use \App\Http\Controllers\admin\StaticController;
 use \App\Http\Controllers\admin\CustomerController;
 
+//Test - login
 Route::get('/', function () {
     return view('welcome');
+});
+
+//Homegpage -User
+Route::get('/homepage', function () {
+    return view('users.homepage');
 });
 
 // Dashboard

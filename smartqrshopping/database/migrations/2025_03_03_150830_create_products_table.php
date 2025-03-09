@@ -9,7 +9,7 @@ class CreateProductsTable extends Migration
     {
         Schema::create('products', function (Blueprint $table) {
             $table->increments('ProductID');
-            $table->integer('CategoryID')->nullable();
+            $table->foreignId('CategoryID')->nullable()->constrained('categories')->onDelete('set null');
             $table->string('ProductName', 100);
             $table->text('Description')->nullable();
             $table->decimal('Price', 10, 2);

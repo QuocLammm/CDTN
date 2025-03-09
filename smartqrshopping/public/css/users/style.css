@@ -1,0 +1,335 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,300;0,400;0,500;1,500&display=swap');
+:root{
+    --color-primary: #1d4ed8;
+    --color-danger: #FF0060;
+    --color-success: #189C85;
+    --color-warning: #F7D060;
+    --color-white: #fff;
+    --color-info-dark: #7d8da1;
+    --color-dark: #363949;
+    --color-light: rgba(132,139,200, 0.18);
+    --color-dark-variant: #677483;
+    --color-background: #f6f6f9;
+
+    --card-border-radius: 2rem;
+    --border-radius-1: 0.4rem;
+    --border-radius-2: 1.2rem;
+
+    --card-padding: 1.8rem;
+    --padding-1: 1.2rem;
+
+    --box-shadow: 0 2rem 3rem var(var(--color-light));
+}
+*{
+    padding:0;
+    margin: 0;
+    outline: none;
+    border: none;
+    box-sizing: border-box;
+}
+html {
+    scroll-behavior: smooth;
+}
+
+img{
+    width: 100%;
+    display: flex;
+}
+a{
+    text-decoration: none;
+}
+
+body{
+    font-family: 'Poppins', sans-serif;
+    background-color: #fff;
+}
+nav {
+    position: fixed; /* Giữ cho nav luôn ở trên cùng */
+    top: 0;
+    left: 0;
+    width: 100%;
+    z-index: 1000; /* Đảm bảo nav nằm trên các phần tử khác */
+    display: flex;
+    align-items: center; /* Căn giữa theo chiều dọc */
+    justify-content: space-between; /* Phân bổ không gian giữa logo, nav-links và button */
+    padding: 1rem; /* Khoảng cách bên trong */
+    background-color: transparent; /* Background mặc định là trong suốt */
+    transition: background-color 0.3s ease, border-bottom 0.3s ease; /* Hiệu ứng chuyển màu nền và border */
+    border-bottom: none; /* Không có border khi ở trạng thái trong suốt */
+}
+
+nav.scrolled {
+    background-color: white; /* Màu nền khi cuộn xuống */
+    border-bottom: 2px solid #ccc; /* Đường viền dưới khi cuộn xuống */
+}
+
+.nav-logo {
+    display: flex; /* Use flex to align logo and text */
+    align-items: center; /* Center vertically */
+    gap: 0.5rem; /* Space between logo and text */
+}
+
+.nav-logo img {
+    max-width: 80px; /* Limit the width of the logo */
+    height: auto; /* Maintain aspect ratio */
+}
+
+.nav-links {
+    list-style: none;
+    display: flex;
+    align-items: center;
+    gap: 3rem;
+    justify-content: center; /* Căn giữa các liên kết nav */
+    flex-grow: 1; /* Đẩy các phần tử còn lại sang hai bên */
+}
+
+.nav-links .link a {
+    font-size: 1.2rem; /* Tăng kích thước chữ */
+    font-weight: bold; /* Đặt chữ in đậm */
+    color: inherit; /* Giữ màu chữ theo màu của nav */
+    text-decoration: none; /* Bỏ gạch chân */
+    transition: color 0.3s ease; /* Hiệu ứng chuyển màu chữ khi hover */
+}
+
+.nav-links .link a:hover {
+    color: #007bff; /* Thay đổi màu chữ khi hover (có thể điều chỉnh) */
+}
+
+.icon-container {
+    display: flex; /* Align icons in a row */
+    align-items: center; /* Center them vertically */
+    gap: 15px; /* Space between icons */
+}
+
+.icon {
+    width: 30px; /* Set width for icons */
+    height: 30px; /* Set height for icons */
+    display: flex; /* Center the image */
+    justify-content: center; /* Center horizontally */
+    align-items: center; /* Center vertically */
+}
+
+.icon img {
+    width: 100%; /* Make images responsive */
+    height: auto; /* Maintain aspect ratio */
+}
+
+.link a{
+    position: relative;
+    padding-bottom: 0.75rem;
+    color: #18181B;
+}
+.link a::after{
+    content: "";
+    position: absolute;
+    height: 2px;
+    width: 0;
+    bottom: 0;
+    left: 0;
+    background-color: var(--color-primary);
+    transition: all 0.3s ease;
+}
+
+.link a:hover::after{
+    width: 70%;
+}
+.btn{
+    padding: 1rem 1rem;
+    font-size: 1rem;
+    color: var(--color-background);
+    background-color: var(--color-primary);
+    border-radius: 5px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+.btn:hover{
+    background-color: #134ed3;
+}
+
+/* Global container */
+.container {
+    max-width: 1200px;
+    margin: auto;
+    padding: 5rem 2rem;
+}
+
+/* Banner Styles */
+.banner {
+    width: 100%;
+    height: 100vh; /* Full viewport height */
+    overflow: hidden;
+    position: relative;
+    z-index: 1; /* Set z-index lower than nav */
+}
+
+.slider {
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    position: relative;
+}
+
+.slides {
+    display: flex;
+    width: 300%; /* 3 images */
+    transition: transform 0.5s ease-in-out;
+}
+
+.slides img {
+    width: 100vw; /* Full width of the viewport */
+    height: 100vh; /* Full height of the viewport */
+    object-fit: cover;
+}
+
+/* Navigation buttons */
+.banner button {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    background: rgba(0, 0, 0, 0.5);
+    color: white;
+    border: none;
+    padding: 10px 15px;
+    cursor: pointer;
+    font-size: 24px;
+    border-radius: 5px;
+}
+
+.prev { left: 10px; }
+.next { right: 10px; }
+
+.banner button:hover {
+    background: rgba(0, 0, 0, 0.8);
+}
+
+/*Card San Pham */
+section .header{
+    margin-top: 0rem;
+    color: #000000;
+    text-align: center;
+    font-size: 2.25rem;
+    font-weight: 600;
+}
+.features {
+    margin-top: 4rem;
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 2rem;
+}
+
+.features .card {
+    background-color: white;
+    padding: 1rem;
+    border: 2px solid transparent;
+    border-radius: 15px;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+    height: 100%; /* Đảm bảo chiều cao thẻ bằng nhau */
+}
+
+.features .card:hover {
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2); /* Tăng cường đổ bóng khi hover */
+    transform: translateY(-5px); /* Nhấc card lên một chút khi hover */
+}
+
+.product-image {
+    width: 100%; /* Chiều rộng hình ảnh */
+    height: auto; /* Giữ tỷ lệ khung hình */
+    border-radius: var(--border-radius-1); /* Bo góc cho hình ảnh */
+    margin-bottom: 1rem; /* Khoảng cách giữa hình ảnh và tiêu đề */
+}
+
+.card a{
+    text-decoration: none;
+    color: #000000;
+    text-align: center;
+}
+
+.card p{
+    text-align: center;
+}
+
+.color-options {
+    display: flex; /* Sử dụng flex để căn giữa các nút màu */
+    justify-content: center; /* Căn giữa các nút màu */
+    margin: 1rem 0; /* Khoảng cách trên và dưới */
+}
+
+.color-button {
+    width: 30px; /* Kích thước nút màu */
+    height: 30px; /* Kích thước nút màu */
+    border-radius: 50%; /* Bo góc thành hình tròn */
+    border: none; /* Không đường viền */
+    cursor: pointer; /* Con trỏ khi hover */
+    margin: 0 5px; /* Khoảng cách giữa các nút màu */
+    transition: transform 0.3s; /* Hiệu ứng khi hover */
+}
+
+.color-button:hover {
+    transform: scale(1.2); /* Phóng to nút màu khi hover */
+}
+
+.features .view-all {
+    grid-column: span 5; /* Make it span across all columns */
+    text-align: center;
+    text-decoration: none; /* Remove the default underline */
+    color: #000000; /* Change color as needed */
+    margin: 20px 0; /* Space above and below */
+    font-weight: 600; /* Make it bold for emphasis */
+    position: relative; /* Allow positioning of the pseudo-element */
+}
+
+.features .view-all::after {
+    content: '';
+    position: absolute; /* Position relative to the link */
+    left: 0;
+    right: 0;
+    bottom: -2px; /* Adjust this to move the line up or down */
+    height: 1px; /* Line thickness */
+    background-color: gray; /* Change color as needed */
+}
+/**/
+.social-icons {
+    position: fixed; /* Fixed position */
+    right: 20px; /* Distance from the right */
+    bottom: 20px; /* Distance from the bottom */
+    display: flex;
+    flex-direction: column; /* Stack icons vertically */
+    gap: 10px; /* Space between icons */
+}
+
+.social-icon {
+    width: 50px; /* Base size of the icons */
+    height: 50px; /* Base size of the icons */
+    border-radius: 50%; /* Circular shape */
+    overflow: hidden; /* Ensure content stays within the circle */
+    display: flex; /* Center the image */
+    justify-content: center; /* Center horizontally */
+    align-items: center; /* Center vertically */
+    animation: shake 0.5s infinite alternate, pulse 1s infinite; /* Vibration and pulsating effect */
+}
+
+.facebook img {
+    width: 100%; /* Make image responsive */
+    height: auto; /* Maintain aspect ratio */
+}
+
+@keyframes shake {
+    0% { transform: translate(0); }
+    100% { transform: translate(-5px, 0); }
+}
+
+@keyframes pulse {
+    0% {
+        transform: scale(1);
+        opacity: 1;
+    }
+    50% {
+        transform: scale(1.2); /* Scale up */
+        opacity: 0.8; /* Slightly fade */
+    }
+    100% {
+        transform: scale(1);
+        opacity: 1;
+    }
+}

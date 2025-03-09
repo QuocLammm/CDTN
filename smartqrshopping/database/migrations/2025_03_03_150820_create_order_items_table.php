@@ -9,8 +9,8 @@ class CreateOrderItemsTable extends Migration
     {
         Schema::create('order_items', function (Blueprint $table) {
             $table->increments('OrderItemID');
-            $table->integer('OrderID')->nullable();
-            $table->integer('ProductDetailID')->nullable();
+            $table->foreignId('OrderID')->constrained('orders')->onDelete('cascade');
+            $table->foreignId('ProductDetailID')->constrained('product_details')->onDelete('cascade');
             $table->integer('Quantity');
             $table->decimal('Price', 10, 2);
         });

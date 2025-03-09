@@ -9,7 +9,7 @@ class CreateOrdersTable extends Migration
     {
         Schema::create('orders', function (Blueprint $table) {
             $table->increments('OrderID');
-            $table->integer('UserID')->nullable();
+            $table->foreignId('UserID')->nullable()->constrained('user')->onDelete('set null');
             $table->decimal('TotalAmount', 10, 2);
             $table->enum('Status', ['Pending', 'Processing', 'Completed', 'Cancelled'])->default('Pending');
             $table->timestamp('CreatedAt')->default(DB::raw('CURRENT_TIMESTAMP'));

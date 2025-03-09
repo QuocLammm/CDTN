@@ -10,8 +10,8 @@ class CreateCartItemsTable extends Migration
     {
         Schema::create('cart_items', function (Blueprint $table) {
             $table->increments('CartItemID');
-            $table->integer('CartID')->nullable();
-            $table->integer('ProductDetailID')->nullable();
+            $table->foreignId('CartID')->constrained('carts')->onDelete('cascade');
+            $table->foreignId('ProductDetailID')->constrained('product_details')->onDelete('cascade');
             $table->integer('Quantity');
         });
     }

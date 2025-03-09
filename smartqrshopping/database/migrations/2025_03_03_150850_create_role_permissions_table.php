@@ -8,8 +8,8 @@ class CreateRolePermissionsTable extends Migration
     public function up()
     {
         Schema::create('role_permissions', function (Blueprint $table) {
-            $table->integer('RoleID');
-            $table->integer('PermissionID');
+            $table->foreignId('RoleID')->constrained('roles')->onDelete('cascade');
+            $table->foreignId('PermissionID')->constrained('permissions')->onDelete('cascade');
             $table->primary(['RoleID', 'PermissionID']);
         });
     }

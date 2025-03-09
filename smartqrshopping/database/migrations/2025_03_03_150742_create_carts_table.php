@@ -10,7 +10,7 @@ class CreateCartsTable extends Migration
     {
         Schema::create('carts', function (Blueprint $table) {
             $table->increments('CartID');
-            $table->integer('UserID')->nullable();
+            $table->foreignId('UserID')->nullable()->constrained('user','UserID');
             $table->timestamp('CreatedAt')->default(DB::raw('CURRENT_TIMESTAMP'));
         });
     }
