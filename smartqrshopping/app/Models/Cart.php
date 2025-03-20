@@ -16,7 +16,7 @@ class Cart extends Model
     protected $fillable = ['UserID', 'CreatedAt'];
 
     public function user() {
-        return $this->belongsTo(User::class, 'UserID');
+        return $this->belongsTo(Users::class, 'UserID');
     }
 
     public function cartItems() {

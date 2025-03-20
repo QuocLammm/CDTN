@@ -14,11 +14,9 @@
     --card-border-radius: 2rem;
     --border-radius-1: 0.4rem;
     --border-radius-2: 1.2rem;
-
     --card-padding: 1.8rem;
     --padding-1: 1.2rem;
-
-    --box-shadow: 0 2rem 3rem var(var(--color-light));
+    --box-shadow: 0 2rem 3rem var(--color-light);
 }
 
 .dark-mode-variables{
@@ -53,7 +51,7 @@ body{
     overflow-y: auto;
     color: var(--color-dark);
     background-color: var(--color-background);
-    transition: background-color 0.3s ease, color 0.3s ease; /* Smooth transition for background and text color */
+    transition: background-color 0.3s ease, color 0.3s ease;
 }
 
 a{
@@ -667,23 +665,30 @@ main .recent-orders a{
 
 /* Table styles */
 .table {
-    width: 100%; /* Full width for the table */
-    border-collapse: collapse; /* Collapse borders */
+    width: 100%;
+    border-collapse: collapse; /* Kết hợp các đường biên */
 }
 
-.table th,
-.table td {
-    padding: 12px; /* Padding inside table cells */
-    text-align: left; /* Left-align text */
-    border-bottom: 1px solid var(--color-light); /* Bottom border for rows */
-    transition: all 0.3s, color 0.3s; /* Transition for smooth color change */
+.table th, .table td {
+    border: 2px solid #333; /* Đường biên đậm với màu tối */
+    padding: 10px; /* Khoảng cách bên trong ô */
+    text-align: left; /* Căn trái văn bản */
+    vertical-align: middle; /* Căn giữa theo chiều dọc */
 }
 
 .table th {
-    background-color: var(--color-background); /* Header background color */
-    font-weight: bold; /* Bold text for headers */
+    background-color: #444; /* Màu nền cho tiêu đề đậm hơn */
+    color: white; /* Màu chữ trắng cho tiêu đề */
 }
 
+/* Đường kẻ dọc rõ ràng */
+.table td {
+    border-right: none; /* Đường kẻ dọc giữa các ô */
+}
+
+.table tr td:last-child {
+    border-right: none; /* Không có đường kẻ dọc bên phải ô cuối cùng */
+}
 
 /* Dark mode styles */
 .dark-mode .main-container {
@@ -708,6 +713,7 @@ main .recent-orders a{
 .add-customer-btn,
 .edit-button,
 .delete-button,
+.qr-button,
 .form{
     background-color: #6C9BCF; /* Button background color */
     color: white; /* Button text color */
@@ -720,6 +726,7 @@ main .recent-orders a{
 
 .add-customer-btn:hover,
 .edit-button:hover,
+.qr-button:hover,
 .delete-button:hover {
     background-color: #5a8bbf; /* Darken background on hover */
 }
@@ -761,62 +768,63 @@ main .recent-orders a{
 }
 
 /*----------------Loading-------------------------*/
-
 .loading-overlay {
     position: fixed;
     top: 0;
     left: 0;
     width: 100%;
     height: 100%;
-    background: rgba(255, 255, 255, 0.8); /* Use a semi-transparent white */
-    z-index: 9999; /* High z-index to cover other elements */
+    background: rgba(255, 255, 255, 0.7); /* Nền trắng mờ */
+    z-index: 9999; /* Đảm bảo nằm trên tất cả các phần tử khác */
     display: flex;
     justify-content: center;
     align-items: center;
 }
 
-.infinity-loader {
-    width: 100px; /* Width of the loader */
-    height: 50px; /* Height of the loader */
-    position: relative;
-}
-
-.infinity {
-    position: absolute;
-    width: 100px; /* Adjust based on your design */
-    height: 100%; /* Full height */
-    border: 5px solid var(--color-primary); /* Change color to your primary color */
-    border-radius: 50px; /* Rounded corners */
-    animation: spin 1.5s infinite ease-in-out;
-    box-sizing: border-box;
-}
-
-.infinity::before,
-.infinity::after {
-    content: '';
-    position: absolute;
-    width: 100px; /* Adjust based on your design */
-    height: 100%; /* Full height */
-    border: 5px solid var(--color-primary);
-    border-radius: 50px;
-    box-sizing: border-box;
-}
-
-.infinity::before {
-    left: -50px; /* Half of the width */
-    animation: spin 1.5s infinite ease-in-out;
-}
-
-.infinity::after {
-    left: 50px; /* Half of the width */
-    animation: spin 1.5s infinite ease-in-out reverse;
+.loader {
+    border: 8px solid #f3f3f3; /* Màu nền của vòng tròn */
+    border-top: 8px solid #3498db; /* Màu của phần đang quay */
+    border-radius: 50%; /* Để tạo hình tròn */
+    width: 50px; /* Đường kính vòng tròn */
+    height: 50px; /* Đường kính vòng tròn */
+    animation: spin 1s linear infinite; /* Hiệu ứng quay */
 }
 
 @keyframes spin {
-    0% {
-        transform: rotate(0);
-    }
-    100% {
-        transform: rotate(360deg);
-    }
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+/*Phân trang loại sản phẩm*/
+.pagination {
+    display: flex; /* Hiển thị theo hàng */
+    justify-content: center; /* Căn giữa */
+    margin: 20px 0; /* Khoảng cách trên và dưới */
+    list-style: none; /* Bỏ dấu chấm */
+    padding: 0; /* Bỏ khoảng đệm */
+}
+
+.pagination .page-link {
+    color: #007bff; /* Màu chữ cho liên kết */
+    background-color: #fff; /* Màu nền cho liên kết */
+    border: 1px solid #007bff; /* Đường viền cho liên kết */
+    border-radius: 5px; /* Bo góc cho liên kết */
+    padding: 10px 15px; /* Khoảng đệm cho liên kết */
+    margin: 0 5px; /* Thêm khoảng cách giữa các liên kết */
+    transition: background-color 0.3s; /* Hiệu ứng chuyển màu */
+}
+
+.pagination .page-link:hover {
+    background-color: #007bff; /* Màu nền khi hover */
+    color: #fff; /* Màu chữ khi hover */
+}
+
+.pagination .active .page-link {
+    background-color: #007bff; /* Màu nền cho trang hiện tại */
+    color: #fff; /* Màu chữ cho trang hiện tại */
+}
+
+.pagination .disabled .page-link {
+    color: #6c757d; /* Màu chữ cho liên kết bị vô hiệu hóa */
+    background-color: #fff; /* Màu nền cho liên kết bị vô hiệu hóa */
+    border: 1px solid #6c757d; /* Đường viền cho liên kết bị vô hiệu hóa */
 }

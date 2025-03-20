@@ -17,7 +17,7 @@ class Order extends Model
 
     public function user()
     {
-        return $this->belongsTo(User::class, 'UserID');
+        return $this->belongsTo(Users::class, 'UserID');
     }
 
     public function orderItems()

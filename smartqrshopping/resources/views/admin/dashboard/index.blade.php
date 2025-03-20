@@ -102,7 +102,7 @@
                 </div>
             </div>
         </div>
-        <!--End of New User-->
+        <!--End of New Users-->
         <!--Recen Order-->
         <div class="recent-orders">
             <h2>Đơn hàng gần đây</h2>

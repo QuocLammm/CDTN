@@ -3,22 +3,29 @@
 namespace App\Http\Controllers\admin;
 
 use App\Http\Controllers\Controller;
-use App\Models\User;
+use App\Models\Role;
+use App\Models\Users;
 use Illuminate\Http\Request;
 
 class UserController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
+        $search = $request->input('search');
+        $searchPerformed = !empty($search);
 
-        $users = User::paginate(3); // Hiển thị 3 khách hàng mỗi trang
-        return view('admin.staff.index', compact('users'));
+        $users = Users::where('FullName', 'LIKE', '%' . $search . '%')
+            ->paginate(5); // Phân trang 5 người dùng 1 trang
+
+        $totalResults = $users->total(); // Đếm tổng số kết quả
+        return view('admin.staff.index', compact('users','search', 'searchPerformed', 'totalResults'));
     }
 
     //Hiển thị form tạo mới
     public function create()
     {
-        return view('admin.customer.create');
+        $roles = Role::all(); // Fetch all roles from the database
+        return view('admin.staff.create', compact('roles'));
     }
 
     // Lưu thông tin của người dùng mới
@@ -35,7 +42,7 @@ class UserController extends Controller
         ]);
 
         // Tạo mới user
-        User::create([
+        Users::create([
             'FullName' => $request->FullName,
             'Email' => $request->Email,
             'Password' => null, // Mật khẩu có thể thêm sau nếu cần
@@ -54,7 +61,7 @@ class UserController extends Controller
     // Hiển thị form chỉnh sửa
     public function edit($id)
     {
-        $user = User::findOrFail($id);
+        $user = Users::findOrFail($id);
         return view('admin.staff.edit', compact('user'));
     }
 
@@ -68,7 +75,7 @@ class UserController extends Controller
             'Address' => 'nullable|string|max:255',
         ]);
 
-        $user = User::findOrFail($id);
+        $user = Users::findOrFail($id);
         $user->update($request->all());
 
         return redirect()->route('staff.index')->with('success', 'Cập nhật thành công!');
@@ -77,7 +84,7 @@ class UserController extends Controller
     // Xóa khách hàng
     public function destroy($id)
     {
-        $user = User::find($id);
+        $user = Users::find($id);
 
         if (!$user) {
             return response()->json(['message' => 'Không tìm thấy khách hàng!'], 404);
@@ -88,6 +95,12 @@ class UserController extends Controller
         return response()->json(['message' => 'Khách hàng đã được xóa!']);
     }
 
+    //Kiểm tra mail là duy nhất
+    public function checkEmail(Request $request)
+    {
+        $email = $request->input('email');
+        $exists = Users::where('email', $email)->exists(); // Adjust this according to your User model
 
-
+        return response()->json(['exists' => $exists]);
+    }
 }

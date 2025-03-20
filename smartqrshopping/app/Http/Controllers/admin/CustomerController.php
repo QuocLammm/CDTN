@@ -3,7 +3,7 @@
 namespace App\Http\Controllers\admin;
 
 use App\Http\Controllers\Controller;
-use App\Models\User;
+use App\Models\Users;
 use Illuminate\Http\Request;
 
 class CustomerController extends Controller
@@ -11,7 +11,7 @@ class CustomerController extends Controller
     public function index()
     {
 
-        $users = User::paginate(3); // Hiển thị 3 khách hàng mỗi trang
+        $users = Users::paginate(3); // Hiển thị 3 khách hàng mỗi trang
         return view('admin.customer.index', compact('users'));
     }
 
@@ -35,7 +35,7 @@ class CustomerController extends Controller
         ]);
 
         // Tạo mới user
-        User::create([
+        Users::create([
             'FullName' => $request->FullName,
             'Email' => $request->Email,
             'Password' => null, // Mật khẩu có thể thêm sau nếu cần
@@ -54,7 +54,7 @@ class CustomerController extends Controller
     // Hiển thị form chỉnh sửa
     public function edit($id)
     {
-        $user = User::findOrFail($id);
+        $user = Users::findOrFail($id);
         return view('admin.customer.edit', compact('user'));
     }
 
@@ -68,7 +68,7 @@ class CustomerController extends Controller
             'Address' => 'nullable|string|max:255',
         ]);
 
-        $user = User::findOrFail($id);
+        $user = Users::findOrFail($id);
         $user->update($request->all());
 
         return redirect()->route('customer.index')->with('success', 'Cập nhật thành công!');
@@ -77,7 +77,7 @@ class CustomerController extends Controller
     // Xóa khách hàng
     public function destroy($id)
     {
-        $user = User::find($id);
+        $user = Users::find($id);
 
         if (!$user) {
             return response()->json(['message' => 'Không tìm thấy khách hàng!'], 404);

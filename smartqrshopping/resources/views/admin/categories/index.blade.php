@@ -11,11 +11,14 @@
     <link href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css" rel="stylesheet">
 </head>
 <body>
+<div class="loading-overlay" id="loadingOverlay" style="display: none;">
+    <div class="loader"></div>
+</div>
 <div class="container">
     @include('layouts.sidebar')
     <main>
         <div class="main-container">
-            <h1>Danh sách khách hàng</h1>
+            <h1>Danh sách loại sản phẩm</h1>
             <div class="top-bar">
                 <div class="top-bar-content">
                     <a href="{{ route('categories.create') }}" class="add-customer-btn">Thêm mới</a>
@@ -64,15 +67,15 @@
                     <tbody>
                     @foreach($categories as $index => $category)
                         <tr>
-                            <td>{{ $index + 1 }}</td>
+                            <td>{{ $categories->currentPage() * $categories->perPage() + $index + 1 - $categories->perPage() }}</td>
                             <td>{{ $category->CategoryName }}</td>
                             <td>{{ $category->Description }}</td>
                             <td>
-                                @if ($category->Status === "Còn hàng")
+                                @if ($category->Status === 1)
                                     <span style="color:green; font-size: 40px; margin-right: 2px; vertical-align: middle;">&#8226;</span>
                                     <span style="vertical-align: middle;">Còn hàng</span>
                                 @endif
-                                @if ($category->Status === "Hết hàng")
+                                @if ($category->Status === 0)
                                     <span style="color:red; font-size: 40px; margin-right: 2px; vertical-align: middle;">&#8226;</span>
                                     <span style="vertical-align: middle;">Hết hàng</span>
                                 @endif
@@ -90,13 +93,15 @@
                                 </form>
                             </td>
                         </tr>
+
                     @endforeach
                     </tbody>
                 </table>
             </div>
             <div class="pagination">
-                {{-- {{ $customers->links('pagination::bootstrap-4') }} --}}
+                 {{ $categories->links('pagination::bootstrap-4') }}
             </div>
+
         </div>
     </main>
     @include('layouts.right_section')
@@ -123,7 +128,7 @@
 <script src="/js/login/index.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
-<script src="/'js/admin/script.js'"></script>
+<script src="/js/admin/script.js'"></script>
 </body>
 </html>
 

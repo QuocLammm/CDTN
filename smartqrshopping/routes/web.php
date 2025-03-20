@@ -15,7 +15,7 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-//Homegpage -User
+//Homegpage -Users
 Route::get('/homepage', function () {
     return view('users.homepage');
 });
@@ -44,7 +44,7 @@ Route::prefix('staff')->group(function () {
     Route::post('/store', [UserController::class, 'store'])->name('staff.store');
     Route::put('/update/{id}', [UserController::class, 'update'])->name('staff.update');
     Route::delete('/{id}', [UserController::class, 'destroy'])->name('staff.destroy');
-
+    Route::post('/checkmail', [UserController::class, 'checkEmail'])->name('staff.checkmail');
 });
 
 //Categories
@@ -60,6 +60,12 @@ Route::prefix('categories')->group(function () {
 //Product
 Route::prefix('products')->group(function () {
     Route::get('/index', [ProductController::class, 'index'])->name('products.index');
+    Route::get('/{id}/qr', [ProductController::class, 'showQRCode'])->name('products.qr');
+    Route::get('/create', [ProductController::class, 'create'])->name('products.create');
+    Route::get('/edit/{id}', [ProductController::class, 'edit'])->name('products.edit');
+    Route::post('/store', [ProductController::class, 'store'])->name('products.store'); // Đã sửa tên
+    Route::put('/update/{id}', [ProductController::class, 'update'])->name('products.update'); // Đã sửa tên
+    Route::delete('/destroy/{id}', [ProductController::class, 'destroy'])->name('products.destroy'); // Thêm route cho destroy
 });
 
 //FAQ

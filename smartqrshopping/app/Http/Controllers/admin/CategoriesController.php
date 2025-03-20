@@ -8,21 +8,18 @@ use Illuminate\Http\Request;
 
 class CategoriesController extends Controller
 {
+    // Controller
     public function index(Request $request) {
         $search = $request->input('search');
-        $searchPerformed = !empty($search);  // Kiểm tra xem có thực hiện tìm kiếm hay không
+        $searchPerformed = !empty($search);
 
         $categories = Category::where('CategoryName', 'LIKE', '%' . $search . '%')
             ->orWhere('Description', 'LIKE', '%' . $search . '%')
-            ->get();
+            ->paginate(5); // Phân trang 5 sản phẩm 1 trang
 
-        $totalResults = $categories->count(); // Đếm số lượng kết quả tìm kiếm
+        $totalResults = $categories->total(); // Đếm tổng số kết quả
 
-        return view('admin.categories.index',
-            compact('categories',
-                'search',
-                'searchPerformed',
-                'totalResults'));
+        return view('admin.categories.index', compact('categories', 'search', 'searchPerformed', 'totalResults'));
     }
 
     // Tạo mới loại sản phẩm
