@@ -9,6 +9,8 @@ use \App\Http\Controllers\admin\FaqController;
 use \App\Http\Controllers\admin\RoleController;
 use \App\Http\Controllers\admin\StaticController;
 use \App\Http\Controllers\admin\CustomerController;
+use \App\Http\Controllers\admin\OrderController;
+use \App\Http\Controllers\admin\SaleController;
 
 //Test - login
 Route::get('/', function () {
@@ -81,4 +83,13 @@ Route::prefix('roles')->group(function () {
 //Thống kê
 Route::prefix('statics')->group(function () {
     Route::get('/index', [StaticController::class, 'index'])->name('statics.index');
+});
+
+//Đơn hàng
+Route::prefix('orders')->group(function () {
+    Route::get('/index', [OrderController::class, 'index'])->name('orders.index');
+});
+// Khuyến mãi
+Route::prefix('sales')->group(function () {
+    Route::get('/index', [SaleController::class, 'index'])->name('sales.index');
 });

@@ -29,10 +29,15 @@
             <span class="material-icons-sharp">category</span>
             <h3>Loại sản phẩm</h3>
         </a>
-{{--        <a href="{{ route('faqs.index') }}" class="{{ request()->routeIs('faqs.index') ? 'active' : '' }}">--}}
-{{--            <span class="material-icons-sharp">quiz</span>--}}
-{{--            <h3>FAQ</h3>--}}
-{{--        </a>--}}
+        <a href="{{ route('orders.index') }}" class="{{ request()->routeIs('orders.index') ? 'active' : '' }}">
+            <span class="material-icons-sharp">shopping_bag</span>
+            <h3>Đơn hàng</h3>
+        </a>
+        <a href="{{ route('sales.index') }}" class="{{ request()->routeIs('sales.index') ? 'active' : '' }}">
+             <span class="material-icons-sharp">sell</span>
+            <h3>Khuyến mãi</h3>
+        </a>
+
         <a href="{{ route('statics.index') }}" class="{{ request()->routeIs('statics.index') ? 'active' : '' }}">
             <span class="material-icons-sharp">equalizer</span>
             <h3>Thống kê</h3>

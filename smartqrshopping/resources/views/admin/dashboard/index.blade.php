@@ -80,28 +80,23 @@
         <div class="new-users">
             <h2>Nhân viên</h2>
             <div class="user-list">
+                @foreach($recentStaff as $staff)
+                    <div class="user">
+                        <img src="{{ asset('/images/staff/' . $staff->avt) }}" alt="{{ $staff->FullName }}">
+                        <h2>{{ $staff->FullName }}</h2>
+                        <p>{{ \Carbon\Carbon::parse($staff->CreatedAt)->diffForHumans() }}</p>
+                    </div>
+                @endforeach
                 <div class="user">
-                    <img src="/images/quoclam.jpg" alt="">
-                    <h2>Quốc Lâm</h2>
-                    <p>5 Min Ago</p>
-                </div>
-                <div class="user">
-                    <img src="/images/1.jpg" alt="">
-                    <h2>Hữu Lộc</h2>
-                    <p>115 Min Ago</p>
-                </div>
-                <div class="user">
-                    <img src="/images/nf.jpg" alt="">
-                    <h2>Quỳnh Như</h2>
-                    <p>22 Min Ago</p>
-                </div>
-                <div class="user">
-                    <img src="/images/plus.jpg" alt="">
-                    <h2>More</h2>
-                    <p>New User</p>
+                    <a href="{{ route('staff.create') }}">
+                        <img src="{{ asset('/images/plus.jpg') }}" alt="Thêm nhân viên">
+                        <h2>More</h2>
+                        <p>New User</p>
+                    </a>
                 </div>
             </div>
         </div>
+
         <!--End of New Users-->
         <!--Recen Order-->
         <div class="recent-orders">

@@ -8,11 +8,17 @@ use Illuminate\Http\Request;
 
 class CustomerController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
+        $search = $request->input('search');
+        $searchPerformed = !empty($search);
 
-        $users = Users::paginate(3); // Hiển thị 3 khách hàng mỗi trang
-        return view('admin.customer.index', compact('users'));
+        $customers = Users::where('RoleID', 2)
+            ->where('FullName', 'LIKE', '%' . $search . '%')
+            ->paginate(5);  // Pagination for 5 customers per page
+        $totalResults = $customers->total(); // Đếm tổng số kết quả
+
+        return view('admin.customer.index', compact('customers','search', 'searchPerformed', 'totalResults'));
     }
 
     //Hiển thị form tạo mới

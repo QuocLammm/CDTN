@@ -9,10 +9,46 @@
     <link href="https://fonts.googleapis.com/css2?family=Material+Icons+Sharp" rel="stylesheet" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <link href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css" rel="stylesheet">
+    <style>
+        /* Container của loading spinner */
+        .loading-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+            z-index: 9999;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            display: none; /* Mặc định ẩn */
+        }
+
+        /* Spinner */
+        .spinner {
+            border: 8px solid #f3f3f3;
+            border-top: 8px solid #3498db;
+            border-radius: 50%;
+            width: 60px;
+            height: 60px;
+            animation: spin 1s linear infinite;
+        }
+
+        /* Animation quay */
+        @keyframes spin {
+            0% {
+                transform: rotate(0deg);
+            }
+            100% {
+                transform: rotate(360deg);
+            }
+        }
+    </style>
 </head>
 <body>
-<div class="loading-overlay" id="loadingOverlay" style="display: none;">
-    <div class="loader"></div>
+<div class="loading-overlay">
+    <div class="spinner"></div>
 </div>
 <div class="container">
     @include('layouts.sidebar')
@@ -59,7 +95,7 @@
                     <tr>
                         <th>STT</th>
                         <th>Tên sản phẩm</th>
-                        <th>Mô tả</th>
+                        <th class="description-border">Mô tả</th>
                         <th>Trạng thái</th>
                         <th>Thao tác</th>
                     </tr>

@@ -18,22 +18,22 @@
             <div class="top-bar">
                 <div class="top-bar-content">
                     <a href="{{ route('staff.create') }}" class="add-customer-btn">Thêm mới</a>
-                    <div class="search-container">
-                        <form action="{{ route('staff.index') }}" method="GET">
-                            <div style="position: relative;">
-                                <input type="text" name="search" placeholder="Nhập loại sản phẩm cần tìm" value="{{ request()->query('search') }}">
-                                @if($search)
-                                    <a
-                                        href="{{ route('staff.index') }}"
-                                        id="clearButton"
-                                        style="position: absolute; right: 20%; top: 50%; transform: translateY(-50%); text-decoration: none; color: #D5D5D5; font-size: 18px; cursor: pointer;">
-                                        ✖
-                                    </a>
-                                @endif
-                            </div>
+                </div>
+                <div class="search-container">
+                    <form action="{{ route('staff.index') }}" method="GET">
+                        <div style="display: flex; align-items: center;">
+                            <input type="text" name="search" placeholder="Nhập nhân viên cần tìm" value="{{ request()->query('search') }}">
+                            @if($search)
+                                <a
+                                    href="{{ route('staff.index') }}"
+                                    id="clearButton"
+                                    style="text-decoration: none; color: #D5D5D5; font-size: 18px; cursor: pointer;">
+                                    ✖
+                                </a>
+                            @endif
                             <button type="submit">Tìm kiếm</button>
-                        </form>
-                    </div>
+                        </div>
+                    </form>
                 </div>
             </div>
             {{-- Hiển thị thông báo tìm kiếm --}}
@@ -55,8 +55,9 @@
                     <tr>
                         <th>STT</th>
                         <th>Họ và tên</th>
-                        <th>Hình ảnh</th>
+                        <th class="avt-border">Hình ảnh</th>
                         <th>Email</th>
+                        <th>Trạng thái</th>
                         <th>Thao tác</th>
                     </tr>
                     </thead>
@@ -66,14 +67,24 @@
                             <td>{{ $users->currentPage() * $users->perPage() + $index + 1 - $users->perPage() }}</td>
                             <td>{{ $user->FullName }}</td>
                             <td>
-                                <img src="{{ asset('/images/staff/' . $user->avt) }}" alt="{{ $user->FullName }}" style="width: 100px; height: auto;">
+                                <img src="{{ asset('/images/staff/' . $user->avt) }}" alt="{{ $user->FullName }}" style="width: 200px; height: 120px;  border-radius: 15px;">
                             </td>
                             <td>{{ $user->Email }}</td>
                             <td>
-                                <form action="{{ route('categories.edit', $user->UserID) }}" style="display:inline;">
+                                @if ($user->Status === 1)
+                                    <span style="color:green; font-size: 40px; margin-right: 2px; vertical-align: middle;">&#8226;</span>
+                                    <span style="vertical-align: middle;">Hoạt động</span>
+                                @endif
+                                @if ($user->Status === 0)
+                                    <span style="color:red; font-size: 40px; margin-right: 2px; vertical-align: middle;">&#8226;</span>
+                                    <span style="vertical-align: middle;">Ngừng hoạt động</span>
+                                @endif
+                            </td>
+                            <td>
+                                <form action="{{ route('staff.edit', $user->UserID) }}" style="display:inline;">
                                     <button type="submit" class="edit-button"><i class="fas fa-edit"></i></button>
                                 </form>
-                                <form action="{{ route('categories.destroy', $user->UserID) }}" method="POST" style="display:inline;" id="deleteForm{{ $user->UserID }}">
+                                <form action="{{ route('staff.destroy', $user->UserID) }}" method="POST" style="display:inline;" id="deleteForm{{ $user->UserID }}">
                                     @csrf
                                     @method('DELETE')
                                     <button type="button" class="delete-button" onclick="showDeleteModal(event, 'deleteForm{{ $user->UserID }}')">
@@ -95,7 +106,28 @@
     </main>
     @include('layouts.right_section')
 </div>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<script>
+    function showDeleteModal(event, formId) {
+        event.preventDefault();  // Prevent the default form submission
+        const form = document.getElementById(formId);
 
+        Swal.fire({
+            title: 'Bạn có chắc chắn muốn xóa?',
+            text: "Hành động này không thể hoàn tác!",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonText: 'Xóa',
+            cancelButtonText: 'Hủy',
+            reverseButtons: true
+        }).then((result) => {
+            if (result.isConfirmed) {
+                // Submit the form if the user confirms the deletion
+                form.submit();
+            }
+        });
+    }
+</script>
 <script src="/js/login/order.js"></script>
 <script src="/js/login/index.js"></script>
 </body>

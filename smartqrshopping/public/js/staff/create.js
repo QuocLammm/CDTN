@@ -58,13 +58,15 @@ document.addEventListener("DOMContentLoaded", function () {
 
     // Kiểm tra họ và tên
     fullName.addEventListener("input", function () {
-        const nameRegex = /^[A-Za-zÀÁÂÃÈÉÊÌÍÒÓÔÕÙÚÝàáâãèéêìíòóôõùúý\s]+$/;
-        if (!nameRegex.test(this.value)) {
+        const nameRegex = /^[A-Za-zÀ-ỹ]+(?:\s[A-Za-zÀ-ỹ]+)*$/;
+        const trimmedValue = this.value.trim(); // Xóa khoảng trắng đầu/cuối
+        if (!nameRegex.test(trimmedValue)) {
             showError(this, "Họ và tên không hợp lệ (chỉ chứa chữ và khoảng trắng).");
         } else {
             clearError(this);
         }
     });
+
 
     // Kiểm tra số điện thoại
     phone.addEventListener("input", function () {
@@ -184,6 +186,24 @@ document.addEventListener("DOMContentLoaded", function () {
         }
     });
 });
+
+document.addEventListener("DOMContentLoaded", function () {
+    const passwordSelect = document.getElementById("Password");
+    const manualPassword = document.getElementById("manualPassword");
+
+    passwordSelect.addEventListener("change", function () {
+        if (this.value === "manual") {
+            manualPassword.style.display = "block";
+            manualPassword.setAttribute("required", "required");
+        } else {
+            manualPassword.style.display = "none";
+            manualPassword.removeAttribute("required");
+        }
+    });
+});
+
+
+
 
 
 

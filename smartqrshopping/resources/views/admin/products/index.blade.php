@@ -56,7 +56,7 @@
                     <tr>
                         <th>STT</th>
                         <th>Tên sản phẩm</th>
-                        <th>Hình ảnh</th>
+                        <th class="avt-border">Hình ảnh</th>
                         <th>Giá</th>
                         <th>Thao tác</th>
                     </tr>
