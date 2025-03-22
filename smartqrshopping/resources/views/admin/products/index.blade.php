@@ -18,23 +18,22 @@
             <div class="top-bar">
                 <div class="top-bar-content">
                     <a href="{{ route('products.create') }}" class="add-customer-btn">Thêm mới</a>
-                    <div class="search-container">
-                        <form action="{{ route('categories.index') }}" method="GET">
-                            <div style="position: relative;">
-                                <input type="text" name="search" placeholder="Nhập loại sản phẩm cần tìm" value="{{ request()->query('search') }}">
-                                @if($search)
-                                    <a
-                                        href="{{ route('products.index') }}"
-                                        id="clearButton"
-                                        style="position: absolute; right: 20%; top: 50%; transform: translateY(-50%); text-decoration: none; color: #D5D5D5; font-size: 18px; cursor: pointer;">
-                                        ✖
-                                    </a>
-                                @endif
-                            </div>
+                </div>
+                <div class="search-container">
+                    <form action="{{ route('products.index') }}" method="GET">
+                        <div style="display: flex; align-items: center;">
+                            <input type="text" name="search" placeholder="Nhập khách hàng cần tìm" value="{{ request()->query('search') }}">
+                            @if($search)
+                                <a
+                                    href="{{ route('products.index') }}"
+                                    id="clearButton"
+                                    style="text-decoration: none; color: #D5D5D5; font-size: 18px; cursor: pointer;">
+                                    ✖
+                                </a>
+                            @endif
                             <button type="submit">Tìm kiếm</button>
-                        </form>
-                    </div>
-
+                        </div>
+                    </form>
                 </div>
             </div>
             {{-- Hiển thị thông báo tìm kiếm --}}

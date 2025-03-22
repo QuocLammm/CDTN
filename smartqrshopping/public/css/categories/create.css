@@ -1,0 +1,209 @@
+:root {
+    --color-light: rgba(132,139,200, 0.18);
+    --color-dark: #363949;
+}
+/* create_employee.css */
+.container {
+    display: flex;
+    flex-direction: row;
+    padding: 15px; /* Reduced padding */
+
+}
+
+main {
+    flex: 1;
+    padding: 25px;
+    background-color:var(--color-light); /* Mặc định là màu sáng */
+    border-radius: 8px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    max-height: 400px;
+    overflow-y: auto;
+    margin-top: 5rem;
+    transition: all 0.3s ease-in-out;
+}
+
+/* Khi bật dark mode */
+.dark-mode main {
+    background-color: #363949;
+    color: #f8f9fa; /* Đổi màu chữ để dễ đọc hơn */
+}
+
+.dark-mode main h1{
+    color: #f8f9fa;
+}
+
+h1 {
+    margin-bottom: 15px; /* Reduced margin */
+    font-size: 24px;
+    color: #333;
+}
+
+.row {
+    display: flex;
+    margin-bottom: 10px; /* Reduced margin */
+}
+
+.col {
+    flex: 1;
+    margin-right: 10px;
+}
+
+.col:last-child {
+    margin-right: 0;
+}
+
+label {
+    display: block;
+    margin-bottom: 5px;
+    font-weight: bold;
+    color: #555;
+}
+.required {
+    color: red; /* Red color for the asterisk */
+    margin-left: 5px; /* Space between label text and asterisk */
+}
+
+input[type="text"],
+input[type="date"],
+input[type="email"],
+input[type="tel"],
+select {
+    width: 75%;
+    padding: 8px; /* Reduced padding */
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    transition: border-color 0.3s;
+}
+
+#password{
+    width: 37%;
+    padding: 8px; /* Reduced padding */
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    transition: border-color 0.3s;
+}
+#manualPassword {
+    width: 35%;
+    padding: 9px; /* Reduced padding */
+    margin-top:0px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    transition: border-color 0.3s;
+}
+#roleId{
+    width: 30%;
+    padding: 8px; /* Reduced padding */
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    transition: border-color 0.3s;
+}
+
+input[type="text"]:focus,
+input[type="date"]:focus,
+input[type="email"]:focus,
+input[type="tel"]:focus,
+input[type="password"]:focus,
+select:focus {
+    border-color: #007bff;
+    outline: none;
+}
+
+.button-group {
+    display: flex;
+    justify-content: center; /* Căn nhóm nút về phía bên trái */
+    gap: 12px; /* Tạo khoảng cách giữa các nút */
+    margin-top: 2rem;
+}
+
+button, .button-group a {
+    padding: 10px 14px; /* Tăng kích thước nút */
+    background-color: #218838;
+    color: white;
+    font-weight: bold; /* Làm đậm chữ */
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: background-color 0.3s, transform 0.1s;
+    box-shadow: 0px 3px 6px rgba(0, 0, 0, 0.2); /* Đổ bóng để làm nổi bật */
+}
+
+button:hover, .button-group a:hover {
+    background-color: #1e7e34;
+    transform: scale(1.05); /* Hiệu ứng nhấn nút */
+}
+
+
+
+input[type="file"] {
+    border: none;
+    padding: 0;
+}
+
+/* create.css */
+.form-container {
+    display: flex;
+    justify-content: space-between; /* Aligns the form fields and image upload side by side */
+}
+
+.form-fields {
+    flex: 0 0 66.67%; /* 8/12 of the width */
+    padding-right: 20px; /* Space between fields and image upload */
+}
+
+/* create.css */
+.image-upload {
+    display: flex;
+    flex-direction: column;
+    align-items: center; /* Center the content */
+    margin-right: 8rem;
+    margin-left:2rem;
+}
+
+.file-upload-button {
+    padding: 8px 12px; /* Adjust padding for a smaller button */
+    background-color: #ff69b4; /* Pink background */
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 14px; /* Decrease font size */
+    text-align: center;
+    margin-top: 10px; /* Space above the button */
+    width: auto; /* Set width to auto for a smaller button */
+    display: inline-block; /* Ensure it's treated as a block */
+}
+
+.image-upload input[type="file"] {
+    margin-bottom: 10px; /* Add some space below the file input */
+    display: none; /* Hide the actual file input */
+}
+
+
+/*Password*/
+.password-container {
+    display: flex;
+    align-items: center;
+    gap: 10px; /* Khoảng cách giữa select và input */
+}
+
+textarea {
+    width: 75%; /* Giống với input[type="text"] */
+    padding: 8px; /* Giống với input */
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    transition: border-color 0.3s;
+    resize: vertical; /* Giữ khả năng thay đổi chiều cao */
+    height: 100px;
+}
+
+
+@media (max-width: 768px) {
+    .row {
+        flex-direction: column;
+    }
+
+    .col {
+        margin-right: 0;
+        margin-bottom: 10px;
+    }
+}

@@ -58,22 +58,22 @@
             <div class="top-bar">
                 <div class="top-bar-content">
                     <a href="{{ route('categories.create') }}" class="add-customer-btn">Thêm mới</a>
-                    <div class="search-container">
-                        <form action="{{ route('categories.index') }}" method="GET">
-                            <div style="position: relative;">
-                                <input type="text" name="search" placeholder="Nhập loại sản phẩm cần tìm" value="{{ request()->query('search') }}">
-                                @if($search)
-                                    <a
-                                        href="{{ route('categories.index') }}"
-                                        id="clearButton"
-                                        style="position: absolute; right: 20%; top: 50%; transform: translateY(-50%); text-decoration: none; color: #D5D5D5; font-size: 18px; cursor: pointer;">
-                                        ✖
-                                    </a>
-                                @endif
-                            </div>
+                </div>
+                <div class="search-container">
+                    <form action="{{ route('categories.index') }}" method="GET">
+                        <div style="display: flex; align-items: center;">
+                            <input type="text" name="search" placeholder="Nhập loại sản phẩm cần tìm" value="{{ request()->query('search') }}">
+                            @if($search)
+                                <a
+                                    href="{{ route('categories.index') }}"
+                                    id="clearButton"
+                                    style="text-decoration: none; color: #D5D5D5; font-size: 18px; cursor: pointer;">
+                                    ✖
+                                </a>
+                            @endif
                             <button type="submit">Tìm kiếm</button>
-                        </form>
-                    </div>
+                        </div>
+                    </form>
                 </div>
             </div>
             {{-- Hiển thị thông báo tìm kiếm --}}
@@ -143,23 +143,37 @@
     @include('layouts.right_section')
 </div>
 <script>
-    // Tự động ẩn thông báo sau 5 giây
-    setTimeout(function() {
-        var message = document.getElementById('search-message');
-        if (message) {
-            message.style.display = 'none';
-        }
-    }, 5000);
+    function showDeleteModal(event, formId) {
+        event.preventDefault();  // Prevent the default form submission
+        const form = document.getElementById(formId);
+
+        Swal.fire({
+            title: 'Bạn có chắc chắn muốn xóa?',
+            text: "Hành động này không thể hoàn tác!",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonText: 'Xóa',
+            cancelButtonText: 'Hủy',
+            reverseButtons: true
+        }).then((result) => {
+            if (result.isConfirmed) {
+                // Submit the form if the user confirms the deletion
+                form.submit();
+            }
+        });
+    }
 </script>
-<script>// Tự động ẩn thông báo tìm kiếm sau 5 giây
-    setTimeout(function() {
-        var searchNotification = document.getElementById('search-notification');
-        if (searchNotification) {
-            searchNotification.style.transition = 'opacity 0.5s ease-out';
-            searchNotification.style.opacity = '0';
-            setTimeout(() => searchNotification.style.display = 'none', 500); // Ẩn hoàn toàn sau hiệu ứng mờ dần
-        }
-    }, 3000);
+<script>
+    document.addEventListener('DOMContentLoaded', () => {
+        @if(session('success'))
+        Swal.fire({
+            icon: 'success',
+            title: 'Thành công!',
+            text: "{{ session('success') }}", // Sử dụng dấu ngoặc kép
+            confirmButtonText: 'OK'
+        });
+        @endif
+    });
 </script>
 <script src="/js/login/index.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
