@@ -25,12 +25,21 @@
                             <div id="nameError" style="color: red; display: none;"></div>
                         </div>
                         <div class="col">
-                            <label for="RoleId">Vai Trò<span class="required">*</span></label>
-                            <select id="RoleId" name="RoleId" required>
+                            <label for="RoleID">Vai Trò<span class="required">*</span></label>
+                            <select id="RoleID" name="RoleID" required>
                                 <option value="" disabled selected>Chọn vai trò</option>
                                 @foreach ($roles as $role)
-                                    <option value="{{ $role->RoleID }}">{{ $role->RoleName }}</option>
+                                    @if ($role->RoleID == 1 || $role->RoleID == 3)
+                                        <option value="{{ $role->RoleID }}">{{ $role->RoleName }}</option>
+                                    @endif
                                 @endforeach
+                            </select>
+                        </div>
+                        <div class="col">
+                            <label for="Gender">Giới Tính</label>
+                            <select id="Gender" name="Gender">
+                                <option value="male" {{ old('Gender') == 'male' ? 'selected' : '' }}>Nam</option>
+                                <option value="female" {{ old('Gender') == 'female' ? 'selected' : '' }}>Nữ</option>
                             </select>
                         </div>
                     </div>
@@ -70,7 +79,7 @@
                     <label for="avt">Ảnh đại diện</label>
                     <img id="avatarPreview" src="/images/staff/default-product.png" style="margin-bottom: 10px; max-width:100%; height:auto;">
                     <label for="avt" class="file-upload-button">Chọn Ảnh</label>
-                    <input type="file" id="avt" name="avt" style="display: none;">
+                    <input type="file" id="avt" name="avt" style="display: none;" accept="image/*">
                 </div>
             </div>
             <div class="button-group">
@@ -87,7 +96,39 @@
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 <script>
     document.addEventListener('DOMContentLoaded', () => {
-        // Hiển thị thông báo cập nhật thành công
+        // Hiển thị hình ảnh đại diện khi người dùng chọn
+        const avatarInput = document.getElementById('avt');
+        const avatarPreview = document.getElementById('avatarPreview');
+
+        avatarInput.addEventListener('change', function() {
+            const file = this.files[0];
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    avatarPreview.src = e.target.result; // Cập nhật hình ảnh xem trước
+                }
+                reader.readAsDataURL(file); // Đọc file dưới dạng URL
+            } else {
+                avatarPreview.src = '/images/staff/default-product.png'; // Đặt lại hình ảnh mặc định nếu không có file
+            }
+        });
+    });
+    document.addEventListener('DOMContentLoaded', () => {
+        const passwordSelect = document.getElementById('Password');
+        const manualPasswordInput = document.getElementById('manualPassword');
+
+        passwordSelect.addEventListener('change', function() {
+            if (this.value === 'manual') {
+                manualPasswordInput.style.display = 'block'; // Hiển thị ô nhập mật khẩu
+            } else {
+                manualPasswordInput.style.display = 'none'; // Ẩn ô nhập mật khẩu
+                manualPasswordInput.value = ''; // Xóa giá trị ô nhập mật khẩu
+            }
+        });
+    });
+</script>
+<script>
+    document.addEventListener('DOMContentLoaded', () => {
         @if (session('success'))
         Swal.fire({
             icon: 'success',

@@ -47,7 +47,7 @@ class CustomerController extends Controller
             'Password' => null, // Mật khẩu có thể thêm sau nếu cần
             'Phone' => $request->Phone,
             'Address' => $request->Address,
-            'RoleID' => $request->RoleID,
+            'RoleID' => 2,
             'Status' => 1, // Giả sử trạng thái mặc định là 1 (hoạt động)
             'CreatedAt' => now(),
             'UpdatedAt' => now(),

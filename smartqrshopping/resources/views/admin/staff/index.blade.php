@@ -13,6 +13,9 @@
 <div class="container">
     @include('layouts.sidebar')
     <main>
+        @if(session('success'))
+            <p>{{ session('success') }}</p>
+        @endif
         <div class="main-container">
             <h1>Danh sách nhân viên</h1>
             <div class="top-bar">
@@ -101,7 +104,6 @@
             <div class="pagination">
                 {{ $users->links('pagination::bootstrap-4') }}
             </div>
-
         </div>
     </main>
     @include('layouts.right_section')
@@ -128,6 +130,19 @@
         });
     }
 </script>
+<script>
+    document.addEventListener('DOMContentLoaded', () => {
+        @if(session('success'))
+        Swal.fire({
+            icon: 'success',
+            title: 'Thành công!',
+            text: "{{ session('success') }}", // Sử dụng dấu ngoặc kép
+            confirmButtonText: 'OK'
+        });
+        @endif
+    });
+</script>
+
 <script src="/js/login/order.js"></script>
 <script src="/js/login/index.js"></script>
 </body>

@@ -74,11 +74,18 @@
                                 @endforeach
                             </select>
                         </div>
+                        <div class="col">
+                            <label for="Gender">Giới Tính</label>
+                            <select id="gender" name="Gender">
+                                <option value="male" {{ $user->Gender == 'male' ? 'selected' : '' }}>Nam</option>
+                                <option value="female" {{ $user->Gender == 'female' ? 'selected' : '' }}>Nữ</option>
+                            </select>
+                        </div>
                     </div>
                     <div class="row">
                         <div class="col">
                             <label for="dateOfBirth">Ngày Sinh<span class="required">*</span></label>
-                            <input type="date" id="dateOfBirth" name="DateOfBirth" value="{{ old('DateOfBirth', $user->Date_of_Birth) }}" required>
+                            <input type="date" id="dateOfBirth" name="Date_of_Birth" value="{{ old('Date_of_Birth', $user->Date_of_Birth) }}" required>
                         </div>
                         <div class="col">
                             <label for="email">Email<span class="required">*</span></label>
@@ -101,7 +108,6 @@
                             <input type="password" id="password" name="password" value="{{ old('password', $user->Password) }}" placeholder="Mật khẩu" readonly>
                         </div>
                     </div>
-
                 </div>
                 <div class="image-upload">
                     <label for="avatar">Ảnh đại diện</label>
@@ -129,19 +135,16 @@
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 <script>
     document.addEventListener('DOMContentLoaded', () => {
-        // Hiển thị thông báo cập nhật thành công
         @if (session('success'))
         Swal.fire({
             icon: 'success',
-            title: 'Cập nhật thành công!',
+            title: 'Cập nhật thông tin thành công!',
             text: @json(session('success')),
             confirmButtonText: 'OK'
         });
         @endif
     });
 </script>
-
-
 <script src="/js/staff/create.js"></script>
 <script src="/js/login/order.js"></script>
 <script src="/js/login/index.js"></script>
