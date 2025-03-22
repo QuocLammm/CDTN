@@ -18,22 +18,22 @@
             <div class="top-bar">
                 <div class="top-bar-content">
                     <a href="{{ route('customer.create') }}" class="add-customer-btn">Thêm mới</a>
-                    <div class="search-container">
-                        <form action="{{ route('customer.index') }}" method="GET">
-                            <div style="position: relative;">
-                                <input type="text" name="search" placeholder="Nhập loại sản phẩm cần tìm" value="{{ request()->query('search') }}">
-                                @if($search)
-                                    <a
-                                        href="{{ route('customer.index') }}"
-                                        id="clearButton"
-                                        style="position: absolute; right: 20%; top: 50%; transform: translateY(-50%); text-decoration: none; color: #D5D5D5; font-size: 18px; cursor: pointer;">
-                                        ✖
-                                    </a>
-                                @endif
-                            </div>
+                </div>
+                <div class="search-container">
+                    <form action="{{ route('customer.index') }}" method="GET">
+                        <div style="display: flex; align-items: center;">
+                            <input type="text" name="search" placeholder="Nhập khách hàng cần tìm" value="{{ request()->query('search') }}">
+                            @if($search)
+                                <a
+                                    href="{{ route('customer.index') }}"
+                                    id="clearButton"
+                                    style="text-decoration: none; color: #D5D5D5; font-size: 18px; cursor: pointer;">
+                                    ✖
+                                </a>
+                            @endif
                             <button type="submit">Tìm kiếm</button>
-                        </form>
-                    </div>
+                        </div>
+                    </form>
                 </div>
             </div>
             {{-- Hiển thị thông báo tìm kiếm --}}
@@ -66,7 +66,7 @@
                             <td>{{ $customers->currentPage() * $customers->perPage() + $index + 1 - $customers->perPage() }}</td>
                             <td>{{ $customer->FullName }}</td>
                             <td>
-                                <img src="{{ asset('/images/staff/' . $customer->avt) }}" alt="{{ $customer->FullName }}" style="width: 100px; height: auto;">
+                                <img src="{{ asset('/images/customers/' . $customer->avt) }}" alt="{{ $customer->FullName }}" style="width: 100px; height: auto;">
                             </td>
                             <td>{{ $customer->Email }}</td>
                             <td>
@@ -115,6 +115,18 @@
             }
         });
     }
+</script>
+<script>
+    document.addEventListener('DOMContentLoaded', () => {
+        @if(session('success'))
+        Swal.fire({
+            icon: 'success',
+            title: 'Thành công!',
+            text: "{{ session('success') }}", // Sử dụng dấu ngoặc kép
+            confirmButtonText: 'OK'
+        });
+        @endif
+    });
 </script>
 <script src="/js/login/order.js"></script>
 <script src="/js/login/index.js"></script>

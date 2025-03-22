@@ -24,6 +24,13 @@
                             <input type="text" id="fullName" name="fullName" required>
                             <div id="nameError" style="color: red; display: none;"></div>
                         </div>
+                        <div class="col">
+                            <label for="Gender">Giới Tính</label>
+                            <select id="Gender" name="Gender">
+                                <option value="male" {{ old('Gender') == 'male' ? 'selected' : '' }}>Nam</option>
+                                <option value="female" {{ old('Gender') == 'female' ? 'selected' : '' }}>Nữ</option>
+                            </select>
+                        </div>
                     </div>
                     <div class="row">
                         <div class="col">
@@ -48,12 +55,18 @@
                     </div>
                     <div class="row">
                         <div class="col">
+                            <label for="UserName">Tài khoản<span class="required">*</span></label>
+                            <input type="text" id="username" name="UserName" required>
+                        </div>
+                        <div class="col">
                             <label for="password">Mật Khẩu<span class="required">*</span></label>
-                            <select id="password" name="passwordOption" required>
-                                <option value="auto">Tự động sinh</option>
-                                <option value="manual">Nhập thủ công</option>
-                            </select>
-                            <input type="password" id="manualPassword" name="manualPassword" placeholder="Nhập mật khẩu" style="display:none;" required>
+                            <div class="password-container">
+                                <select id="password" name="passwordOption" required>
+                                    <option value="auto">Tự động sinh</option>
+                                    <option value="manual">Nhập thủ công</option>
+                                </select>
+                                <input type="password" id="manualPassword" name="manualPassword" placeholder="Nhập mật khẩu" style="display:none;">
+                            </div>
                         </div>
                     </div>
                 </div>

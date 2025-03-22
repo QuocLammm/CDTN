@@ -34,19 +34,18 @@ class UserController extends Controller
         $users = Users::all();
         return view('admin.staff.create', compact('roles', 'users'));
     }
-
+    //Lưu thông tin
     public function store(Request $request)
     {
-//        dd($request->all());
         // Kiểm tra dữ liệu đầu vào
-//        $request->validate([
-//            'Email' => 'required|email|unique:users,Email',
-//            'RoleID' => 'required|integer|in:1,3',
-//            'PasswordOption' => 'required|string|in:auto,manual',
-//            'manualPassword' => 'nullable|string|min:6|max:255',
-//        ],[
-//            'Email.unique' => 'Email đã tồn tại', // Thông báo lỗi nếu email đã có trong cơ sở dữ liệu
-//        ]);
+        $request->validate([
+            'Email' => 'required|email|unique:users,Email',
+            'RoleID' => 'required|integer|in:1,3',
+            'PasswordOption' => 'required|string|in:auto,manual',
+            'manualPassword' => 'nullable|string|min:6|max:255',
+        ],[
+            'Email.unique' => 'Email đã tồn tại', // Thông báo lỗi nếu email đã có trong cơ sở dữ liệu
+        ]);
 
         // Xử lý mật khẩu
         $password = $request->PasswordOption === 'auto'
