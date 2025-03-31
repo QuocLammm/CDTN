@@ -42,7 +42,7 @@
                 processing: true,
                 serverSide: true,
                 ajax: {
-                    url: '{{ route("products.data") }}',
+                    url: '{{ route("products.data") }}', // Đường dẫn chính xác đến route
                     type: 'GET',
                     data: function(d) {
                         d.search = $('input[name="search"]').val(); // Thêm tham số tìm kiếm
@@ -60,6 +60,7 @@
                     { data: 'action', name: 'action', orderable: false, searchable: false }
                 ]
             });
+        });
 
             // Tìm kiếm
             $('#searchForm').on('submit', function(e) {
