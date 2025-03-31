@@ -136,7 +136,7 @@ class UserController extends Controller
         }
         $user->save();
 
-        return redirect()->route('staff.index')->with('success', 'Cập nhật thành công!');
+        return redirect()->route('staff.index')->with('success', 'Cập nhật thông tin nhân viên thành công!');
     }
 
     // Xóa khách hàng
@@ -147,20 +147,20 @@ class UserController extends Controller
         if (!$user) {
             // Nếu không tìm thấy và request không phải AJAX thì chuyển hướng về trang index với thông báo lỗi
             if (!request()->ajax()) {
-                return redirect()->route('staff.index')->with('error', 'Không tìm thấy khách hàng!');
+                return redirect()->route('staff.index')->with('error', 'Không tìm thấy nhân viên!');
             }
-            return response()->json(['message' => 'Không tìm thấy khách hàng!'], 404);
+            return response()->json(['message' => 'Không tìm thấy nhân viên!'], 404);
         }
 
         $user->delete();
 
         // Nếu request là AJAX, trả về JSON
         if (request()->ajax()) {
-            return response()->json(['message' => 'Khách hàng đã được xóa!']);
+            return response()->json(['message' => 'Nhân viên đã được xóa!']);
         }
 
         // Nếu không phải AJAX, chuyển hướng về trang staff.index với flash message thành công
-        return redirect()->route('staff.index')->with('success', 'Khách hàng đã được xóa thành công!');
+        return redirect()->route('staff.index')->with('success', 'Nhân viên đã được xóa thành công!');
     }
 
 

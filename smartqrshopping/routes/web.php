@@ -73,11 +73,17 @@ Route::prefix('products')->group(function () {
 //FAQ
 Route::prefix('faqs')->group(function () {
     Route::get('/index', [FaqController::class, 'index'])->name('faqs.index');
+
 });
 
 //Phân quyền
 Route::prefix('roles')->group(function () {
     Route::get('/index', [RoleController::class, 'index'])->name('roles.index');
+    Route::get('/create', [RoleController::class, 'create'])->name('roles.create');
+    Route::get('/edit/{id}', [RoleController::class, 'edit'])->name('roles.edit');
+    Route::post('/store', [RoleController::class, 'store'])->name('roles.store');
+    Route::put('/update/{id}', [RoleController::class, 'update'])->name('roles.update');
+    Route::delete('/destroy/{id}', [RoleController::class, 'destroy'])->name('roles.destroy');
 });
 
 //Thống kê

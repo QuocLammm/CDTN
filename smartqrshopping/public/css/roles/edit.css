@@ -1,0 +1,84 @@
+/* Tiêu đề */
+h1 {
+    text-align: center;
+    font-size: 24px;
+    color: #333;
+}
+
+/* Nhóm quyền */
+.permission-group {
+    border: 1px solid #ddd;
+    padding: 15px;
+    margin-bottom: 10px;
+    border-radius: 5px;
+    background: #f9f9f9;
+}
+
+/* Tiêu đề nhóm */
+.permission-group-title {
+    font-weight: bold;
+    font-size: 18px;
+    margin-bottom: 10px;
+    display: flex;
+    align-items: center;
+}
+
+/* Checkbox */
+.permission-group input[type="checkbox"],
+.permission-item input[type="checkbox"] {
+    margin-right: 10px;
+}
+
+/* Danh sách quyền con */
+.permission-list {
+    margin-left: 20px;
+    display: flex;
+    flex-direction: column;
+}
+
+/* Nút chọn tất cả và hủy tất cả */
+.select-all {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 10px;
+}
+
+.select-all .select-button {
+    background-color: #3498db;
+    color: white;
+    border: none;
+    padding: 8px 16px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 14px;
+    transition: background-color 0.3s;
+}
+
+.select-all .select-button:hover {
+    background-color: #2980b9;
+}
+
+/* Danh sách quyền con */
+.sub-permissions {
+    margin-left: 20px;
+    display: flex;
+    flex-direction: column;
+}
+
+/* Nút lưu */
+.btn-save {
+    display: block;
+    width: 100%;
+    padding: 10px;
+    background: #3498db;
+    color: white;
+    font-size: 16px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-top: 20px;
+}
+
+.btn-save:hover {
+    background: #2980b9;
+}

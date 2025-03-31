@@ -13,7 +13,7 @@ class Role extends Model
     protected $primaryKey = 'RoleID';
     public $timestamps = false;
 
-    protected $fillable = ['RoleName'];
+    protected $fillable = ['RoleName','Description'];
 
     public function users()
     {

@@ -18,7 +18,7 @@ class CustomerController extends Controller
 
         $customers = Users::where('RoleID', 2)
             ->where('FullName', 'LIKE', '%' . $search . '%')
-            ->paginate(5);  // Pagination for 5 customers per page
+            ->paginate(5);
         $totalResults = $customers->total(); // Đếm tổng số kết quả
 
         return view('admin.customer.index', compact('customers','search', 'searchPerformed', 'totalResults'));

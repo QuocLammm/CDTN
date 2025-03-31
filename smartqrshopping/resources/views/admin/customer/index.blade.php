@@ -1,18 +1,6 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Khách hàng</title>
-    <link rel="stylesheet" href="/css/login/login.css">
-    <link href="https://fonts.googleapis.com/css2?family=Material+Icons+Sharp" rel="stylesheet" />
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
-    <link href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css" rel="stylesheet">
-</head>
-<body>
-<div class="container">
-    @include('layouts.sidebar')
-    <main>
+@extends('layouts.supper_page')
+@section('title','Khách hàng')
+@section('content')
         <div class="main-container">
             <h1>Danh sách khách hàng</h1>
             <div class="top-bar">
@@ -36,7 +24,7 @@
                     </form>
                 </div>
             </div>
-            {{-- Hiển thị thông báo tìm kiếm --}}
+             <!--Hiển thị thông báo tìm kiếm-->
             @if ($searchPerformed && $search !== '')
                 @if ($totalResults > 0)
                     <div id="search-notification" class="alert-success" style="text-align: center; color: green; margin-top: 10px;">
@@ -86,49 +74,8 @@
                     </tbody>
                 </table>
             </div>
-            <div class="pagination">
-                {{ $customers->links('pagination::bootstrap-4') }}
-            </div>
-
+        <div class="pagination">
+            {{ $customers->links('pagination::bootstrap-4') }}
         </div>
-    </main>
-    @include('layouts.right_section')
-</div>
-<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-<script>
-    function showDeleteModal(event, formId) {
-        event.preventDefault();  // Prevent the default form submission
-        const form = document.getElementById(formId);
+@endsection
 
-        Swal.fire({
-            title: 'Bạn có chắc chắn muốn xóa?',
-            text: "Hành động này không thể hoàn tác!",
-            icon: 'warning',
-            showCancelButton: true,
-            confirmButtonText: 'Xóa',
-            cancelButtonText: 'Hủy',
-            reverseButtons: true
-        }).then((result) => {
-            if (result.isConfirmed) {
-                // Submit the form if the user confirms the deletion
-                form.submit();
-            }
-        });
-    }
-</script>
-<script>
-    document.addEventListener('DOMContentLoaded', () => {
-        @if(session('success'))
-        Swal.fire({
-            icon: 'success',
-            title: 'Thành công!',
-            text: "{{ session('success') }}", // Sử dụng dấu ngoặc kép
-            confirmButtonText: 'OK'
-        });
-        @endif
-    });
-</script>
-<script src="/js/login/order.js"></script>
-<script src="/js/login/index.js"></script>
-</body>
-</html>

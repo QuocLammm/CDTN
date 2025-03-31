@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
 class Permission extends Model
@@ -12,7 +13,7 @@ class Permission extends Model
     protected $primaryKey = 'PermissionID';
     public $timestamps = false;
 
-    protected $fillable = ['PermissionName'];
+    protected $fillable = ['PermissionName','Description'];
 
     public function roles()
     {
