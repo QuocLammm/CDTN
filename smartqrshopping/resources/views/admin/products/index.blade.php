@@ -68,11 +68,6 @@
                                     <i class="fas fa-trash-alt"></i>
                                 </button>
                             </form>
-                            <form action="{{ route('products.qr', $product->ProductID) }}" style="display:inline;">
-                                <button type="submit" class="qr-button">
-                                    <i class="fas fa-qrcode"></i>
-                                </button>
-                            </form>
                         </td>
                     </tr>
                 @endforeach

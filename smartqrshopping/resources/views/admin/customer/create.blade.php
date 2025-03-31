@@ -1,5 +1,8 @@
 @extends('layouts.supper_page')
 @section('title', 'Tạo mới khách hàng')
+@section('reserved_css')
+    <link rel="stylesheet" href="{{ asset('css/staff/create.css') }}">
+@endsection
 @section('content')
     <h1>Thêm Khách Hàng Mới</h1>
     <form action="{{ route('customer.store') }}" method="POST" enctype="multipart/form-data">
@@ -72,4 +75,7 @@
             </a>
         </div>
     </form>
+@endsection
+@section('reserved_js')
+    <script src="/js/staff/create.js"></script>
 @endsection

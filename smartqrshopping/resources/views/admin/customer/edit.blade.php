@@ -1,5 +1,8 @@
 @extends('layouts.supper_page')
 @section('title', 'Chỉnh sửa thông tin khách hàng')
+@section('reserved_css')
+    <link rel="stylesheet" href="{{ asset('css/staff/create.css') }}">
+@endsection
 @section('content')
     <h1>Chỉnh sửa thông tin</h1>
     <form action="{{ route('customer.update', $customers->UserID) }}" method="POST" enctype="multipart/form-data">

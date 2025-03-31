@@ -127,7 +127,7 @@ class CustomerController extends Controller
         }
         $customers->save();
 
-        return redirect()->route('customer.index')->with('success', 'Cập nhật thành công!');
+        return redirect()->route('customer.index')->with('success', 'Cập nhật thông tin khách hàng thành công!');
     }
 
     // Xóa khách hàng

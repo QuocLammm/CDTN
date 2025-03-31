@@ -22,7 +22,7 @@ document.addEventListener('DOMContentLoaded', () => {
         Swal.fire({
             icon: 'success',
             title: 'Thành công!',
-            text: successMessage, 
+            text: successMessage,
             confirmButtonText: 'OK'
     });
 });

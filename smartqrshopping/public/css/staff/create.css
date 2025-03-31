@@ -139,7 +139,6 @@ input[type="file"] {
     padding: 0;
 }
 
-/* create.css */
 .form-container {
     display: flex;
     justify-content: space-between; /* Aligns the form fields and image upload side by side */

@@ -1,12 +1,34 @@
-document.getElementById('password').addEventListener('change', function() {
-    const manualPassword = document.getElementById('manualPassword');
-    if (this.value === 'manual') {
-        manualPassword.style.display = 'block'; // Show the password input
-    } else {
-        manualPassword.style.display = 'none'; // Hide the password input
-        manualPassword.value = ''; // Clear the value
-    }
-});
+// document.addEventListener('DOMContentLoaded', () => {
+//     // Hiển thị hình ảnh đại diện khi người dùng chọn
+//     const avatarInput = document.getElementById('avt');
+//     const avatarPreview = document.getElementById('avatarPreview');
+//
+//     avatarInput.addEventListener('change', function() {
+//         const file = this.files[0];
+//         if (file) {
+//             const reader = new FileReader();
+//             reader.onload = function(e) {
+//                 avatarPreview.src = e.target.result; // Cập nhật hình ảnh xem trước
+//             }
+//             reader.readAsDataURL(file); // Đọc file dưới dạng URL
+//         } else {
+//             avatarPreview.src = '/images/staff/default-product.png'; // Đặt lại hình ảnh mặc định nếu không có file
+//         }
+//     });
+// });
+// document.addEventListener('DOMContentLoaded', () => {
+//     const passwordSelect = document.getElementById('Password');
+//     const manualPasswordInput = document.getElementById('manualPassword');
+//
+//     passwordSelect.addEventListener('change', function() {
+//         if (this.value === 'manual') {
+//             manualPasswordInput.style.display = 'block'; // Hiển thị ô nhập mật khẩu
+//         } else {
+//             manualPasswordInput.style.display = 'none'; // Ẩn ô nhập mật khẩu
+//             manualPasswordInput.value = ''; // Xóa giá trị ô nhập mật khẩu
+//         }
+//     });
+// });
 
 document.getElementById('avatar').addEventListener('change', function(event) {
     const file = event.target.files[0];

@@ -4,6 +4,7 @@ namespace App\Http\Controllers\admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\Product;
+use App\Models\ProductDetail;
 use App\Models\QrCodes;
 use Illuminate\Http\Request;
 use SimpleSoftwareIO\QrCode\Facades\QrCode;
@@ -48,10 +49,44 @@ class ProductController extends Controller
         return view('admin.products.create');
     }
 
-    //L
+    //Lưu trữ thông tin sản phẩm
+    public function store(){
+        return view('admin.products.store');
+    }
+
+    //Hiển thị trang chỉnh sửa chi tiết sản phẩm
     public function edit($productid){
-        $products = Product::findOrFail($productid);
-        return view('admin.products.edit', compact('products'));
+        $product = Product::findOrFail($productid);
+        $productDetails = ProductDetail::where('ProductID', $productid)->get();
+        return view('admin.products.edit', compact('product','productDetails'));
+    }
+
+    //Cập nhật chi tiết sản phẩm
+    public function update(Request $request, $productid) {
+//        $request->validate([
+//            'ProductName' => 'required|string|max:255',
+//            'description' => 'required|string',
+//            'price' => 'required|numeric',
+//            'quantity' => 'required|integer',
+//        ]);
+
+        $product = Product::findOrFail($productid);
+        $productDetails = ProductDetail::where('ProductID', $productid)->firstOrFail();
+
+        //Cập nhật các trường trong Product
+        $product->ProductName = $request->ProductName;
+        $product->Description = $request->Description;
+        $product->Price = $request->Price;
+        $product->Image = $request->Image;
+        $product->save();
+
+        //Cập nhâjt các trường chi tiết Product
+        $productDetails->Size = $request->Size;
+        $productDetails->Color = $request->Color;
+        $productDetails->Quantity = $request->Quantity;
+        $productDetails->save();
+
+        return redirect()->route('products.index')->with('success', 'Cập nhật sản phẩm thành công.');
     }
 
     public function destroy($productid){

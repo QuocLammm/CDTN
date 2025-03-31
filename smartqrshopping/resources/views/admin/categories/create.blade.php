@@ -1,5 +1,8 @@
 @extends('layouts.supper_page')
 @section('title', 'Thêm mới')
+@section('reserved_css')
+    <link rel="stylesheet" href="{{ asset('css/staff/create.css') }}">
+@endsection
 @section('content')
     <h1>Thêm Loại Sản Phẩm Mới</h1>
     <form action="{{ route('categories.store') }}" method="POST" enctype="multipart/form-data">
@@ -23,10 +26,12 @@
         </div>
         <div class="button-group">
             <button type="submit" class="btn-submit">Thêm Mới</button>
-            <a href={{route('categories.index')}} class="btn-back">
+            <a href={{ route('categories.index')}} class="btn-back">
                 Quay Lại
             </a>
         </div>
     </form>
 @endsection
-
+@section('reserved_js')
+    <script src="/js/staff/create.js"></script>
+@endsection
