@@ -1,5 +1,7 @@
 @extends('layouts.supper_page')
-@section('title' , 'Sản phẩm')
+
+@section('title', 'Sản phẩm')
+
 @section('content')
     <div class="main-container">
         <h1>Danh sách sản phẩm</h1>
@@ -8,37 +10,17 @@
                 <a href="{{ route('products.create') }}" class="add-customer-btn">Thêm mới</a>
             </div>
             <div class="search-container">
-                <form action="{{ route('products.index') }}" method="GET">
+                <form id="searchForm" method="GET">
                     <div style="display: flex; align-items: center;">
-                        <input type="text" name="search" placeholder="Nhập khách hàng cần tìm" value="{{ request()->query('search') }}">
-                        @if($search)
-                            <a
-                                href="{{ route('products.index') }}"
-                                id="clearButton"
-                                style="text-decoration: none; color: #D5D5D5; font-size: 18px; cursor: pointer;">
-                                ✖
-                            </a>
-                        @endif
+                        <input type="text" name="search" placeholder="Nhập sản phẩm cần tìm" value="{{ request()->query('search') }}">
                         <button type="submit">Tìm kiếm</button>
                     </div>
                 </form>
             </div>
         </div>
-        {{-- Hiển thị thông báo tìm kiếm --}}
-        @if ($searchPerformed && $search !== '')
-            @if ($totalResults > 0)
-                <div id="search-notification" class="alert-success" style="text-align: center; color: green; margin-top: 10px;">
-                    Tìm thấy {{ $totalResults }} sản phẩm có tên chứa từ khóa: "{{ $search }}"
-                </div>
-            @else
-                <div id="search-notification" class="alert-danger" style="text-align: center; color: red; margin-top: 10px;">
-                    Không tìm thấy sản phẩm có tên chứa từ khóa: "{{ $search }}"
-                </div>
-            @endif
-        @endif
 
         <div class="table-container">
-            <table class="table table-striped">
+            <table id="productsTable" class="table table-striped">
                 <thead>
                 <tr>
                     <th>STT</th>
@@ -48,35 +30,42 @@
                     <th>Thao tác</th>
                 </tr>
                 </thead>
-                <tbody>
-                @foreach($products as $index => $product)
-                    <tr>
-                        <td>{{ $products->currentPage() * $products->perPage() + $index + 1 - $products->perPage() }}</td>
-                        <td>{{ $product->ProductName }}</td>
-                        <td>
-                            <img src="{{ asset('/images/products/' . $product->Image) }}" alt="{{ $product->ProductName }}" style="width: 100px; height: auto;">
-                        </td>
-                        <td>{{ number_format($product->Price, 0, ',', '.') }} vnđ</td>
-                        <td>
-                            <form action="{{ route('products.edit', $product->ProductID) }}" style="display:inline;">
-                                <button type="submit" class="edit-button"><i class="fas fa-edit"></i></button>
-                            </form>
-                            <form action="{{ route('products.destroy', $product->ProductID) }}" method="POST" style="display:inline;" id="deleteForm{{ $product->ProductID }}">
-                                @csrf
-                                @method('DELETE')
-                                <button type="button" class="delete-button" onclick="showDeleteModal(event, 'deleteForm{{ $product->ProductID }}')">
-                                    <i class="fas fa-trash-alt"></i>
-                                </button>
-                            </form>
-                        </td>
-                    </tr>
-                @endforeach
-                </tbody>
             </table>
         </div>
-        <div class="pagination">
-            {{ $products->links('pagination::bootstrap-4') }}
-        </div>
     </div>
-@endsection
 
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdn.datatables.net/1.11.5/js/jquery.dataTables.min.js"></script>
+    <script>
+        $(document).ready(function() {
+            var table = $('#productsTable').DataTable({
+                processing: true,
+                serverSide: true,
+                ajax: {
+                    url: '{{ route("products.data") }}',
+                    type: 'GET',
+                    data: function(d) {
+                        d.search = $('input[name="search"]').val(); // Thêm tham số tìm kiếm
+                    }
+                },
+                columns: [
+                    { data: 'DT_RowIndex', name: 'DT_RowIndex', orderable: false, searchable: false },
+                    { data: 'ProductName', name: 'ProductName' },
+                    { data: 'Image', name: 'Image', render: function(data) {
+                            return '<img src="/images/products/' + data + '" alt="Product Image" style="width: 100px; height: auto;">';
+                        }},
+                    { data: 'Price', name: 'Price', render: function(data) {
+                            return new Intl.NumberFormat('vi-VN', { style: 'currency', currency: 'VND' }).format(data);
+                        }},
+                    { data: 'action', name: 'action', orderable: false, searchable: false }
+                ]
+            });
+
+            // Tìm kiếm
+            $('#searchForm').on('submit', function(e) {
+                e.preventDefault();
+                table.draw(); // Gọi lại DataTable để lấy dữ liệu với tham số tìm kiếm
+            });
+        });
+    </script>
+@endsection

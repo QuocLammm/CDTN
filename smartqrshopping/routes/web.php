@@ -68,6 +68,8 @@ Route::prefix('products')->group(function () {
     Route::post('/store', [ProductController::class, 'store'])->name('products.store'); // Đã sửa tên
     Route::put('/update/{id}', [ProductController::class, 'update'])->name('products.update'); // Đã sửa tên
     Route::delete('/destroy/{id}', [ProductController::class, 'destroy'])->name('products.destroy'); // Thêm route cho destroy
+    // Thêm route cho DataTables
+    Route::get('/data', [ProductController::class, 'getData'])->name('products.data');
 });
 
 //FAQ

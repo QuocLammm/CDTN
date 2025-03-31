@@ -8,20 +8,40 @@ use App\Models\ProductDetail;
 use App\Models\QrCodes;
 use Illuminate\Http\Request;
 use SimpleSoftwareIO\QrCode\Facades\QrCode;
+use Yajra\DataTables\DataTables;
 
 class ProductController extends Controller
 {
-    public function index(Request $request) {
-        $search = $request->input('search');
-        $searchPerformed = !empty($search);
+    public function index()
+    {
+        return view('admin.products.index');
+    }
 
-        $products = Product::where('ProductName', 'LIKE', '%' . $search . '%')
-            ->orWhere('Description', 'LIKE', '%' . $search . '%')
-            ->paginate(3); // Phân trang 3 sản phẩm 1 trang
+    public function getData(Request $request)
+    {
+        $query = Product::query();
 
-        $totalResults = $products->total(); // Đếm tổng số kết quả
+        // Nếu có tìm kiếm
+        if ($search = $request->get('search')['value']) {
+            $query->where('ProductName', 'LIKE', '%' . $search . '%')
+                ->orWhere('Description', 'LIKE', '%' . $search . '%');
+        }
 
-        return view('admin.products.index', compact('products', 'search', 'searchPerformed', 'totalResults'));
+        return DataTables::of($query)
+            ->addIndexColumn() // Thêm số thứ tự
+            ->addColumn('action', function($row) {
+                return '
+                <form action="' . route('products.destroy', $row->ProductID) . '" method="POST" style="display:inline;">
+                    ' . csrf_field() . '
+                    ' . method_field('DELETE') . '
+                    <button type="button" class="delete-button" onclick="showDeleteModal(event, this)">Xóa</button>
+                </form>
+                <form action="' . route('products.edit', $row->ProductID) . '" method="GET" style="display:inline;">
+                    <button type="submit" class="edit-button">Sửa</button>
+                </form>
+            ';
+            })
+            ->make(true);
     }
 
     //Tạo mã QR cho từng sản phẩm
