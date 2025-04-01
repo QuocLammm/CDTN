@@ -29,7 +29,7 @@ class CustomerController extends Controller
 //        // Kiểm tra dữ liệu đầu vào
 //        $request->validate([
 //            'FullName' => 'required|string|max:255',
-//            'Email' => 'required|email|unique:users,Email',
+//            'Email' => 'required|email|unique:homepages,Email',
 //            'Phone' => 'nullable|string|max:20',
 //            'Address' => 'nullable|string|max:255',
 //            'RoleID' => 'required|integer|in:2',

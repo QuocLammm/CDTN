@@ -10,7 +10,7 @@ class Users extends Authenticatable
 {
     use HasFactory, Notifiable;
 
-    protected $table = 'users';
+    protected $table = 'homepages';
     protected $primaryKey = 'UserID';
     public $timestamps = false;
 

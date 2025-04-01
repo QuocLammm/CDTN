@@ -45,10 +45,10 @@ class RoleController extends Controller
             ->pluck('PermissionID')
             ->toArray(); // Get the Permission IDs assigned to the role
 
-        // Group permissions by their type (e.g., 'users', 'products')
+        // Group permissions by their type (e.g., 'homepages', 'products')
         foreach ($permissions as $permission) {
             $parts = explode('_', $permission->PermissionName);
-            $groupName = ucfirst($parts[1] ?? 'Khác'); // Group by permission type, e.g., 'users', 'products'
+            $groupName = ucfirst($parts[1] ?? 'Khác'); // Group by permission type, e.g., 'homepages', 'products'
             $groupedPermissions[$groupName][] = $permission;
         }
 

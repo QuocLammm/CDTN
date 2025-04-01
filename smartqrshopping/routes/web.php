@@ -13,13 +13,13 @@ use \App\Http\Controllers\admin\OrderController;
 use \App\Http\Controllers\admin\SaleController;
 
 //Test - login
-Route::get('/', function () {
-    return view('welcome');
+Route::get('/login', function () {
+    return view('login.login');
 });
 
 //Homegpage -Users
 Route::get('/homepage', function () {
-    return view('users.homepage');
+    return view('homepages.homepage');
 });
 
 // Dashboard

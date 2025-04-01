@@ -34,7 +34,7 @@ class UserController extends Controller
     {
         // Kiểm tra dữ liệu đầu vào
         $request->validate([
-            'Email' => 'required|email|unique:users,Email',
+            'Email' => 'required|email|unique:homepages,Email',
             'RoleID' => 'required|integer|in:1,3',
             'PasswordOption' => 'required|string|in:auto,manual',
             'manualPassword' => 'nullable|string|min:6|max:255',
