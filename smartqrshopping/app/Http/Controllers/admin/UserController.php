@@ -7,11 +7,9 @@ use App\Models\Role;
 use App\Models\Users;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
-use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Str;
-use Yajra\DataTables\EloquentDataTable;
-use Illuminate\Support\Facades\Log;
+
 
 class UserController extends Controller
 {
@@ -158,14 +156,4 @@ class UserController extends Controller
         return redirect()->route('staff.index')->with('success', 'Nhân viên đã được xóa thành công!');
     }
 
-
-
-    //Kiểm tra mail là duy nhất
-    public function checkEmail(Request $request)
-    {
-        $email = $request->input('email');
-        $exists = Users::where('email', $email)->exists(); // Adjust this according to your User model
-
-        return response()->json(['exists' => $exists]);
-    }
 }

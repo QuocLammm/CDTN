@@ -45,7 +45,6 @@ Route::prefix('staff')->group(function () {
     Route::post('/store', [UserController::class, 'store'])->name('staff.store');
     Route::put('/update/{id}', [UserController::class, 'update'])->name('staff.update');
     Route::delete('/{id}', [UserController::class, 'destroy'])->name('staff.destroy');
-    Route::post('/checkmail', [UserController::class, 'checkEmail'])->name('staff.checkmail');
 });
 
 //Categories

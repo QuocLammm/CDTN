@@ -16,14 +16,11 @@
                 <i class='bx bxs-user'></i>
                 <label for="#">Username</label>
                 <input type="text" placeholder="Enter Your Username*">
-
-
             </div>
             <div class="input-box">
                 <i class='bx bxs-envelope' ></i>
                 <input type="text" placeholder="Enter Your Password*">
                 <label for="#">Password</label>
-
             </div>
             <div class="forgot-section">
                 <span><input type="checkbox" name="" id="checked">Remember Me</span>
@@ -46,8 +43,6 @@
                 <i class='bx bxs-user'></i>
                 <label for="#">Username</label>
                 <input type="text" placeholder="Enter Your Username*">
-
-
             </div>
             <div class="input-box">
                 <i class='bx bxs-envelope' ></i>

@@ -9,10 +9,10 @@
     <title>Homepage</title>
 </head>
 <body>
-@yield('header')
-@include('homepages.item')
-@yield('infomation')
-@yield('footer')
+    @yield('header')
+    @include('homepages.item')
+    @yield('infomation')
+    @yield('footer')
 </body>
 <script src="{{ asset('/js/homepages/style.js')}}"></script>
 </html>
