@@ -8,40 +8,14 @@ use App\Models\ProductDetail;
 use App\Models\QrCodes;
 use Illuminate\Http\Request;
 use SimpleSoftwareIO\QrCode\Facades\QrCode;
-use Yajra\DataTables\DataTables;
+use Yajra\DataTables\EloquentDataTable;
+use Illuminate\Support\Facades\Log;
 
 class ProductController extends Controller
 {
     public function index()
     {
         return view('admin.products.index');
-    }
-
-    public function getData(Request $request)
-    {
-        $query = Product::query();
-
-        // Nếu có tìm kiếm
-        if ($search = $request->get('search')['value']) {
-            $query->where('ProductName', 'LIKE', '%' . $search . '%')
-                ->orWhere('Description', 'LIKE', '%' . $search . '%');
-        }
-
-        return DataTables::of($query)
-            ->addIndexColumn() // Thêm số thứ tự
-            ->addColumn('action', function($row) {
-                return '
-                <form action="' . route('products.destroy', $row->ProductID) . '" method="POST" style="display:inline;">
-                    ' . csrf_field() . '
-                    ' . method_field('DELETE') . '
-                    <button type="button" class="delete-button" onclick="showDeleteModal(event, this)">Xóa</button>
-                </form>
-                <form action="' . route('products.edit', $row->ProductID) . '" method="GET" style="display:inline;">
-                    <button type="submit" class="edit-button">Sửa</button>
-                </form>
-            ';
-            })
-            ->make(true);
     }
 
     //Tạo mã QR cho từng sản phẩm
@@ -109,7 +83,40 @@ class ProductController extends Controller
         return redirect()->route('products.index')->with('success', 'Cập nhật sản phẩm thành công.');
     }
 
+    //Xóa thông tin sản phẩm
     public function destroy($productid){
 
+    }
+
+    // Lấy dữ liệu để sử dụng Datatables
+    public function getData(Request $request)
+    {
+        try {
+            $query = Product::query();
+
+            if ($request->has('search') && isset($request->get('search')['value'])) {
+                $search = $request->get('search')['value'];
+                $query->where('ProductName', 'LIKE', '%' . $search . '%');
+            }
+
+            return (new EloquentDataTable($query))
+                ->addIndexColumn()
+                ->addColumn('action', function($row) {
+                    return '
+                        <form action="' . route('products.edit', $row->ProductID) . '" method="GET" style="display:inline;">
+                            <button type="submit" class="edit-button">Sửa</button>
+                        </form>
+                        <form action="' . route('products.destroy', $row->ProductID) . '" method="POST" style="display:inline;">
+                            ' . csrf_field() . '
+                            ' . method_field('DELETE') . '
+                            <button type="button" class="delete-button" onclick="showDeleteModal(event, this)">Xóa</button>
+                        </form>
+                    ';
+                })
+                ->make(true);
+        } catch (\Exception $e) {
+            Log::error('Lỗi lấy dữ liệu DataTables: ' . $e->getMessage());
+            return response()->json(['error' => 'Đã xảy ra lỗi khi lấy dữ liệu'], 500);
+        }
     }
 }

@@ -68,9 +68,11 @@
                             <select id="roleId" name="roleId" required>
                                 <option value="" disabled>Chọn vai trò</option>
                                 @foreach ($roles as $role)
+                                    @if (in_array($role->RoleID, [1, 3])) <!-- Only include roles 1 and 3 -->
                                     <option value="{{ $role->RoleID }}" {{ $user->RoleID == $role->RoleID ? 'selected' : '' }}>
                                         {{ $role->RoleName }}
                                     </option>
+                                    @endif
                                 @endforeach
                             </select>
                         </div>

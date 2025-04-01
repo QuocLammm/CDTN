@@ -10,21 +10,21 @@ use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Str;
+use App\DataTableTrait;
 
 class UserController extends Controller
 {
+    use DataTableTrait;
     public function index(Request $request)
     {
-        $search = $request->input('search');
-        $searchPerformed = !empty($search);
+        return view('admin.staff.index');
+    }
 
-        $users = Users::whereIn('RoleID', [1, 3])
-            ->where('FullName', 'LIKE', '%' . $search . '%')
-            ->paginate(4);
-
-        $totalResults = $users->total();
-
-        return view('admin.staff.index', compact('users','search', 'searchPerformed', 'totalResults'));
+    //Lấy dữ liệu và xử lý hiển thị, sort, search,.. cho Datatable
+    public function getData(Request $request)
+    {
+        $query = Users::query()->whereIn('RoleID', [1, 3]);
+        return $this->getDataTableResponse($query, $request, 'FullName'); // Gọi Trait
     }
 
     //Hiển thị form tạo mới

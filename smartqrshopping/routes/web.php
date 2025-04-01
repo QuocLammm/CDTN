@@ -47,6 +47,8 @@ Route::prefix('staff')->group(function () {
     Route::put('/update/{id}', [UserController::class, 'update'])->name('staff.update');
     Route::delete('/{id}', [UserController::class, 'destroy'])->name('staff.destroy');
     Route::post('/checkmail', [UserController::class, 'checkEmail'])->name('staff.checkmail');
+    // Thêm route cho DataTables
+    Route::get('/data', [UserController::class, 'getData'])->name('staff.data');
 });
 
 //Categories
