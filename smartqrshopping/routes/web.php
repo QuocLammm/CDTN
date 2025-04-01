@@ -35,7 +35,6 @@ Route::prefix('customer')->group(function () {
     Route::post('/store', [CustomerController::class, 'store'])->name('customer.store');
     Route::put('/update/{id}', [CustomerController::class, 'update'])->name('customer.update');
     Route::delete('/{id}', [CustomerController::class, 'destroy'])->name('customer.destroy');
-
 });
 
 // Nhân viên
@@ -47,8 +46,6 @@ Route::prefix('staff')->group(function () {
     Route::put('/update/{id}', [UserController::class, 'update'])->name('staff.update');
     Route::delete('/{id}', [UserController::class, 'destroy'])->name('staff.destroy');
     Route::post('/checkmail', [UserController::class, 'checkEmail'])->name('staff.checkmail');
-    // Thêm route cho DataTables
-    Route::get('/data', [UserController::class, 'getData'])->name('staff.data');
 });
 
 //Categories
@@ -70,8 +67,6 @@ Route::prefix('products')->group(function () {
     Route::post('/store', [ProductController::class, 'store'])->name('products.store'); // Đã sửa tên
     Route::put('/update/{id}', [ProductController::class, 'update'])->name('products.update'); // Đã sửa tên
     Route::delete('/destroy/{id}', [ProductController::class, 'destroy'])->name('products.destroy'); // Thêm route cho destroy
-    // Thêm route cho DataTables
-    Route::get('/data', [ProductController::class, 'getData'])->name('products.data');
 });
 
 //FAQ

@@ -60,8 +60,8 @@
                 <label for="avatar">Ảnh đại diện</label>
                 <div class="avatar-container">
                     <img id="avatarPreview"
-                         src="{{ $customers->avt ? asset('/images/customer/' . $customers->avt) : '/images/customer/default-product.png' }}"
-                         style="margin-bottom: 10px; max-width:100%; height:352px;"
+                         src="{{ $customers->avt ? asset('/images/customers/' . $customers->avt) : '/images/customers/default-product.png' }}"
+                         style="margin-bottom: 10px; width:250px; height:250px;"
                          alt="Ảnh đại diện">
                 </div>
                 <label for="avatar" class="file-upload-button">Chọn Ảnh</label>

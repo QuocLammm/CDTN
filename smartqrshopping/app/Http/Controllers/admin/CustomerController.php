@@ -11,49 +11,10 @@ use Illuminate\Support\Str;
 
 class CustomerController extends Controller
 {
-    public function index(Request $request)
+    public function index()
     {
-        $search = $request->input('search');
-        $searchPerformed = !empty($search);
-
-        $customers = Users::where('RoleID', 2)
-            ->where('FullName', 'LIKE', '%' . $search . '%')
-            ->paginate(5);
-        $totalResults = $customers->total(); // Đếm tổng số kết quả
-
-        return view('admin.customer.index', compact('customers','search', 'searchPerformed', 'totalResults'));
-    }
-
-    //Lấy dữ liệu và xử lý hiển thị, sort, search,.. cho Datatable
-    public function getData(Request $request)
-    {
-        try {
-            $query = Users::query()->whereIn('RoleID',[1,3]);
-
-            if ($request->has('search') && isset($request->get('search')['value'])) {
-                $search = $request->get('search')['value'];
-                $query->where('FullName', 'LIKE', '%' . $search . '%');
-            }
-
-            return (new EloquentDataTable($query))
-                ->addIndexColumn()
-                ->addColumn('action', function($row) {
-                    return '
-                        <form action="' . route('staff.edit', $row->UserID) . '" method="GET" style="display:inline;">
-                            <button type="submit" class="edit-button">Sửa</button>
-                        </form>
-                        <form action="' . route('staff.destroy', $row->UserID) . '" method="POST" style="display:inline;">
-                            ' . csrf_field() . '
-                            ' . method_field('DELETE') . '
-                            <button type="button" class="delete-button" onclick="showDeleteModal(event, this)">Xóa</button>
-                        </form>
-                    ';
-                })
-                ->make(true);
-        } catch (\Exception $e) {
-            Log::error('Lỗi lấy dữ liệu DataTables: ' . $e->getMessage());
-            return response()->json(['error' => 'Đã xảy ra lỗi khi lấy dữ liệu'], 500);
-        }
+        $customers = Users::where('RoleID', 2)->get();
+        return view('admin.customer.index', compact('customers'));
     }
 
     //Hiển thị form tạo mới

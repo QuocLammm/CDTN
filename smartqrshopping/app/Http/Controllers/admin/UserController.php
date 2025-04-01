@@ -10,21 +10,16 @@ use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Str;
-use App\DataTableTrait;
+use Yajra\DataTables\EloquentDataTable;
+use Illuminate\Support\Facades\Log;
 
 class UserController extends Controller
 {
-    use DataTableTrait;
-    public function index(Request $request)
+    //Hiển thị ở trang
+    public function index()
     {
-        return view('admin.staff.index');
-    }
-
-    //Lấy dữ liệu và xử lý hiển thị, sort, search,.. cho Datatable
-    public function getData(Request $request)
-    {
-        $query = Users::query()->whereIn('RoleID', [1, 3]);
-        return $this->getDataTableResponse($query, $request, 'FullName'); // Gọi Trait
+        $users = Users::whereIn('RoleID', [1, 3])->get();
+        return view('admin.staff.index', compact('users'));
     }
 
     //Hiển thị form tạo mới
@@ -85,9 +80,9 @@ class UserController extends Controller
     // Hiển thị form chỉnh sửa
     public function edit($id)
     {
-        $user = Users::findOrFail($id);
+        $users = Users::findOrFail($id);
         $roles = Role::all();
-        return view('admin.staff.edit', compact('user', 'roles'));
+        return view('admin.staff.edit', compact('users', 'roles'));
     }
 
     // Cập nhật thông tin người dùng

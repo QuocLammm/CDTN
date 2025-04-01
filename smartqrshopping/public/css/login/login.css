@@ -405,8 +405,6 @@ main .recent-orders a{
     display: flex;
     justify-content: center;
     text-align: center;
-    width: 300px;
-    margin-left: 4rem;
     margin-top: 1rem;
     background-color: var(--color-white);
     padding: var(--card-padding);
@@ -437,8 +435,6 @@ main .recent-orders a{
 
 .right-section .reminders .header{
     display: flex;
-    width: 300px;
-    margin-left: 4rem;
     align-items: center;
     justify-content: space-between;
     margin-bottom: 0.8rem;
@@ -455,8 +451,6 @@ main .recent-orders a{
     background-color: var(--color-white);
     display: flex;
     align-items: center;
-    width: 300px;
-    margin-left: 4rem;
     gap : 1rem;
     margin-bottom: 0.7rem;
     padding: 1.4rem var(--card-padding);

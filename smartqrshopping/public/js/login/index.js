@@ -31,24 +31,24 @@ darkMode.addEventListener('click', () => {
 });
 
 // Giả sử Orders là một mảng đã được định nghĩa
-const tbody = document.querySelector('table tbody');
-if (tbody) {
-    Orders.forEach(order => {
-        const tr = document.createElement('tr');
-        const trContent = `
-            <td>${order.productName}</td>
-            <td>${order.productNumber}</td>
-            <td>${order.paymentStatus}</td>
-            <td class="${order.status === 'Declined' ? 'danger'
-            : order.status === 'Pending' ? 'warning' : 'primary'}">${order.status}</td>
-            <td class="primary">Details</td>
-        `;
-        tr.innerHTML = trContent;
-        tbody.appendChild(tr);
-    });
-} else {
-    console.error('Không tìm thấy tbody trong table.');
-}
+// const tbody = document.querySelector('table tbody');
+// if (tbody) {
+//     Orders.forEach(order => {
+//         const tr = document.createElement('tr');
+//         const trContent = `
+//             <td>${order.productName}</td>
+//             <td>${order.productNumber}</td>
+//             <td>${order.paymentStatus}</td>
+//             <td class="${order.status === 'Declined' ? 'danger'
+//             : order.status === 'Pending' ? 'warning' : 'primary'}">${order.status}</td>
+//             <td class="primary">Details</td>
+//         `;
+//         tr.innerHTML = trContent;
+//         tbody.appendChild(tr);
+//     });
+// } else {
+//     console.error('Không tìm thấy tbody trong table.');
+// }
 
 //loading
 // Hiển thị overlay khi click vào sidebar links

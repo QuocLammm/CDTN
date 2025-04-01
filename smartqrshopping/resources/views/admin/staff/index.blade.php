@@ -2,23 +2,15 @@
 @section('title' ,'Nhân viên')
 @section('content')
     <div class="main-container">
-        <h1>Danh sách sản phẩm</h1>
+        <h1>Danh sách nhân viên</h1>
         <div class="top-bar">
             <div class="top-bar-content">
                 <a href="{{ route('staff.create') }}" class="add-customer-btn">Thêm mới</a>
             </div>
-    {{--            <div class="search-container">--}}
-    {{--                <form id="searchForm" method="GET">--}}
-    {{--                    <div style="display: flex; align-items: center;">--}}
-    {{--                        <input type="text" name="search" placeholder="Nhập sản phẩm cần tìm" value="{{ request()->query('search') }}">--}}
-    {{--                        <button type="submit">Tìm kiếm</button>--}}
-    {{--                    </div>--}}
-    {{--                </form>--}}
-    {{--            </div>--}}
         </div>
 
         <div class="table-container">
-            <table id="staffsTable" class="table table-striped">
+            <table id="productsTable" class="table table-striped">
                 <thead>
                 <tr>
                     <th>STT</th>
@@ -28,6 +20,30 @@
                     <th>Thao tác</th>
                 </tr>
                 </thead>
+                <tbody>
+                @foreach($users as $key => $user)
+                    <tr>
+                        <td>{{ $key + 1 }}</td>
+                        <td>{{ $user->FullName }}</td>
+                        <td>
+                            <img src="/images/staff/{{ $user->avt }}" alt="Product Image" style="width: 100px; height: 100px;">
+                        </td>
+                        <td>{{ $user->Email}}</td>
+                        <td>
+                            <form action="{{ route('staff.edit', $user->UserID) }}" style="display:inline;">
+                                <button type="submit" class="edit-button"><i class="fas fa-edit"></i></button>
+                            </form>
+                            <form action="{{ route('staff.destroy', $user->UserID) }}" method="POST" style="display:inline;" id="deleteForm{{ $user->UserID }}">
+                                @csrf
+                                @method('DELETE')
+                                <button type="button" class="delete-button" onclick="showDeleteModal(event, 'deleteForm{{ $user->UserID }}')">
+                                    <i class="fas fa-trash-alt"></i>
+                                </button>
+                            </form>
+                        </td>
+                    </tr>
+                @endforeach
+                </tbody>
             </table>
         </div>
     </div>
@@ -36,27 +52,9 @@
 @section('reserved_js')
     <script>
         $(document).ready(function() {
-            var table = $('#staffsTable').DataTable({
-                processing: true,
-                serverSide: true,
-                ajax: {
-                    url: '{{ route("staff.data") }}', // Đường dẫn chính xác đến route
-                    type: 'GET',
-                    headers: {
-                        'X-CSRF-TOKEN' : '{{csrf_token()}}'
-                    },
-                },
-                pageLength: 4, // Hiển thị mặc định 5 dòng
-                lengthMenu: [4, 10, 25, 50, 100],
-                columns: [
-                    { data: 'DT_RowIndex', name: 'DT_RowIndex', orderable: false, searchable: false }, // Số thứ tự
-                    { data: 'FullName', name: 'FullName' },
-                    { data: 'avt', name: 'avt', render: function(data) {
-                            return '<img src="/images/staff/' + data + '" alt="Product Image" style="width: 100px; height: auto;">';
-                        }},
-                    { data: 'Email', name: 'Email'},
-                    { data: 'action', name: 'action', orderable: false, searchable: false }
-                ]
+            $('#productsTable').DataTable({
+                pageLength: 4,
+                lengthMenu: [4, 10, 25, 50, 100]
             });
         });
     </script>

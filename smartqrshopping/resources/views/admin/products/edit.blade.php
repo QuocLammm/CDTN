@@ -1,5 +1,8 @@
 @extends('layouts.supper_page')
 @section('title', 'Chỉnh sửa chi tiết sản phẩm')
+@section('reserved_css')
+    <link rel="stylesheet" href="{{ asset('css/staff/create.css') }}">
+@endsection
 @section('content')
     <div class="container">
         <h1>Chỉnh sửa chi tiết sản phẩm</h1>
@@ -24,17 +27,21 @@
 
             <h5>Chọn màu sắc:</h5>
             @foreach($productDetails as $productDetail)
+                <div class="mb-3">
+                    <label for="sizes" class="form-label">Kích cỡ</label>
+                    <input type="number" class="form-control" id="sizes" name="Sizes" value="{{ old('Sizes'== $productDetail->Sizes) }}" required>
+                </div>
                 <div class="form-check">
-                    <input class="form-check-input" type="radio" name="Color" id="color{{ $productDetail->ProductDetailID }}" value="{{ $productDetail->Color }}" {{ old('Color', $productDetail->Color) == $productDetail->Color ? 'checked' : '' }}>
-                    <label class="form-check-label" for="color{{ $productDetail->VariantID }}">
-                        {{ $productDetail->Color }} - Giá: {{ number_format($productDetail->Price) }} VNĐ (Số lượng: {{ $productDetail->Quantity }})
+                    <input class="form-check-input" type="radio" name="Color" id="color{{ $productDetail->ProductDetailID }}" value="{{ $productDetail->Color }}" {{ old('Color') == $productDetail->Color ? 'checked' : '' }}>
+                    <label class="form-check-label" for="color{{ $productDetail->ProductDetailID }}">
+                        {{ $productDetail->Color }} - Giá: {{ number_format($productDetail->Price) }} VNĐ (Số lượng: {{ $productDetail->Quantities }})
                     </label>
                 </div>
             @endforeach
 
             <div class="mb-3">
                 <label for="quantity" class="form-label">Số lượng</label>
-                <input type="number" class="form-control" id="quantity" name="Quantity" value="{{ old('Quantity', $productDetails->Quantity) }}" required>
+                <input type="number" class="form-control" id="quantity" name="Quantities" value="{{ old('Quantities') }}" required>
             </div>
 
             <button type="submit" class="btn btn-primary">Cập nhật sản phẩm</button>

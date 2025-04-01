@@ -29,16 +29,19 @@ document.addEventListener('DOMContentLoaded', () => {
 
 //Role
 //All checkbox
-document.getElementById('select_all_users').addEventListener('click', function() {
-    const checkboxes = document.querySelectorAll('.permission-group input[type="checkbox"]');
-    checkboxes.forEach(function(checkbox) {
-        checkbox.checked = true;
-    });
-});
-
-document.getElementById('deselect_all_users').addEventListener('click', function() {
-    const checkboxes = document.querySelectorAll('.permission-group input[type="checkbox"]');
-    checkboxes.forEach(function(checkbox) {
-        checkbox.checked = false;
-    });
-});
+// document.addEventListener('DOMContentLoaded', function() {
+//     document.getElementById('select_all_users').addEventListener('click', function() {
+//         const checkboxes = document.querySelectorAll('.permission-group input[type="checkbox"]');
+//         checkboxes.forEach(function(checkbox) {
+//             checkbox.checked = true;
+//         });
+//     });
+// });
+// document.addEventListener('DOMContentLoaded', function() {
+//     document.getElementById('deselect_all_users').addEventListener('click', function () {
+//         const checkboxes = document.querySelectorAll('.permission-group input[type="checkbox"]');
+//         checkboxes.forEach(function (checkbox) {
+//             checkbox.checked = false;
+//         });
+//     });
+// });

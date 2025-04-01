@@ -1,154 +1,79 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="csrf-token" content="{{ csrf_token() }}">
-    <title>Chỉnh sửa thông tin nhân viên</title>
-    <link rel="stylesheet" href="/css/login/login.css">
-    <link rel="stylesheet" href="/css/staff/create.css">
-    <link href="https://fonts.googleapis.com/css2?family=Material+Icons+Sharp" rel="stylesheet" />
-    <style>
-        /* Container của loading spinner */
-        .loading-overlay {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(0, 0, 0, 0.5);
-            z-index: 9999;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            display: none; /* Mặc định ẩn */
-        }
-
-        /* Spinner */
-        .spinner {
-            border: 8px solid #f3f3f3;
-            border-top: 8px solid #3498db;
-            border-radius: 50%;
-            width: 60px;
-            height: 60px;
-            animation: spin 1s linear infinite;
-        }
-
-        /* Animation quay */
-        @keyframes spin {
-            0% {
-                transform: rotate(0deg);
-            }
-            100% {
-                transform: rotate(360deg);
-            }
-        }
-    </style>
-</head>
-<body>
-<div class="loading-overlay">
-    <div class="spinner"></div>
-</div>
-<div class="container">
-    @include('layouts.sidebar')
-    <main>
-        <h1>Chỉnh sửa thông tin</h1>
-        <form action="{{ route('staff.update', $user->UserID) }}" method="POST" enctype="multipart/form-data">
-            @csrf
-            @method('PUT')
-            <div class="form-container">
-                <div class="form-fields">
-                    <div class="row">
-                        <div class="col">
-                            <label for="fullName">Họ và Tên<span class="required">*</span></label>
-                            <input type="text" id="fullName" name="FullName" value="{{ old('FullName', $user->FullName) }}" required>
-                        </div>
-                        <div class="col">
-                            <label for="roleId">Vai Trò<span class="required">*</span></label>
-                            <select id="roleId" name="roleId" required>
-                                <option value="" disabled>Chọn vai trò</option>
-                                @foreach ($roles as $role)
-                                    @if (in_array($role->RoleID, [1, 3])) <!-- Only include roles 1 and 3 -->
-                                    <option value="{{ $role->RoleID }}" {{ $user->RoleID == $role->RoleID ? 'selected' : '' }}>
-                                        {{ $role->RoleName }}
-                                    </option>
-                                    @endif
-                                @endforeach
-                            </select>
-                        </div>
-                        <div class="col">
-                            <label for="Gender">Giới Tính</label>
-                            <select id="gender" name="Gender">
-                                <option value="male" {{ $user->Gender == 'male' ? 'selected' : '' }}>Nam</option>
-                                <option value="female" {{ $user->Gender == 'female' ? 'selected' : '' }}>Nữ</option>
-                            </select>
-                        </div>
+@extends('layouts.supper_page')
+@section('title', 'Chỉnh sửa thông tin nhân viên')
+@section('reserved_css')
+    <link rel="stylesheet" href="{{ asset('css/staff/create.css') }}">
+@endsection
+@section('content')
+    <h1>Chỉnh sửa thông tin</h1>
+    <form action="{{ route('staff.update', $users->UserID) }}" method="POST" enctype="multipart/form-data">
+        @csrf
+        @method('PUT')
+        <div class="form-container">
+            <div class="form-fields">
+                <div class="row">
+                    <div class="col">
+                        <label for="fullName">Họ và Tên<span class="required">*</span></label>
+                        <input type="text" id="fullName" name="FullName"
+                               value="{{ old('FullName', $users->FullName) }}" required>
                     </div>
-                    <div class="row">
-                        <div class="col">
-                            <label for="dateOfBirth">Ngày Sinh<span class="required">*</span></label>
-                            <input type="date" id="dateOfBirth" name="Date_of_Birth" value="{{ old('Date_of_Birth', $user->Date_of_Birth) }}" required>
-                        </div>
-                        <div class="col">
-                            <label for="email">Email<span class="required">*</span></label>
-                            <input type="email" id="email" name="Email" value="{{ old('Email', $user->Email) }}" required>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col">
-                            <label for="phone">Số Điện Thoại:<span class="required">*</span></label>
-                            <input type="tel" id="phone" name="Phone" value="{{ old('Phone', $user->Phone) }}" required>
-                        </div>
-                        <div class="col">
-                            <label for="address">Địa Chỉ<span class="required">*</span></label>
-                            <input type="text" id="address" name="Address" value="{{ old('Address', $user->Address) }}" required>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col">
-                            <label for="password">Mật Khẩu</label>
-                            <input type="password" id="password" name="password" value="{{ old('password', $user->Password) }}" placeholder="Mật khẩu" readonly>
-                        </div>
+                    <div class="col">
+                        <label for="Gender">Giới Tính</label>
+                        <select id="gender" name="Gender">
+                            <option value="male" {{ $users->Gender == 'male' ? 'selected' : '' }}>Nam</option>
+                            <option value="female" {{ $users->Gender == 'female' ? 'selected' : '' }}>Nữ</option>
+                        </select>
                     </div>
                 </div>
-                <div class="image-upload">
-                    <label for="avatar">Ảnh đại diện</label>
-                    <div class="avatar-container">
-                        <img id="avatarPreview"
-                             src="{{ $user->avt ? asset('/images/staff/' . $user->avt) : '/images/staff/default-product.png' }}"
-                             style="margin-bottom: 10px; max-width:100%; height:352px;"
-                             alt="Ảnh đại diện">
+                <div class="row">
+                    <div class="col">
+                        <label for="dateOfBirth">Ngày Sinh<span class="required">*</span></label>
+                        <input type="date" id="dateOfBirth" name="Date_of_Birth"
+                               value="{{ old('Date_of_Birth', $users->Date_of_Birth) }}" required>
                     </div>
-                    <label for="avatar" class="file-upload-button">Chọn Ảnh</label>
-                    <input type="file" id="avatar" name="avatar" style="display: none;">
+                    <div class="col">
+                        <label for="email">Email<span class="required">*</span></label>
+                        <input type="email" id="email" name="Email" value="{{ old('Email', $users->Email) }}"
+                               required>
+                    </div>
                 </div>
-
-
+                <div class="row">
+                    <div class="col">
+                        <label for="phone">Số Điện Thoại:<span class="required">*</span></label>
+                        <input type="tel" id="phone" name="Phone" value="{{ old('Phone', $users->Phone) }}"
+                               required>
+                    </div>
+                    <div class="col">
+                        <label for="address">Địa Chỉ<span class="required">*</span></label>
+                        <input type="text" id="address" name="Address" value="{{ old('Address', $users->Address) }}"
+                               required>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col">
+                        <label for="Password">Mật Khẩu</label>
+                        <input type="password" id="password" name="Password"
+                               value="{{ old('Password', $users->Password) }}" placeholder="Mật khẩu" required>
+                    </div>
+                </div>
             </div>
-
-            <div class="button-group">
-                <button type="submit" class="btn-submit">Cập nhật</button>
-                <a href="{{ route('staff.index') }}" class="btn-back">Quay Lại</a>
+            <div class="image-upload">
+                <label for="avatar">Ảnh đại diện</label>
+                <div class="avatar-container">
+                    <img id="avatarPreview"
+                         src="{{ $users->avt ? asset('/images/staff/' . $users->avt) : '/images/staff/default-product.png' }}"
+                         style="margin-bottom: 10px; width:250px; height:250px;"
+                         alt="Ảnh đại diện">
+                </div>
+                <label for="avatar" class="file-upload-button">Chọn Ảnh</label>
+                <input type="file" id="avatar" name="avatar" style="display: none;">
             </div>
-        </form>
-    </main>
-    @include('layouts.right_section')
-</div>
-<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-<script>
-    document.addEventListener('DOMContentLoaded', () => {
-        @if (session('success'))
-        Swal.fire({
-            icon: 'success',
-            title: 'Cập nhật thông tin thành công!',
-            text: @json(session('success')),
-            confirmButtonText: 'OK'
-        });
-        @endif
-    });
-</script>
-<script src="/js/staff/create.js"></script>
-<script src="/js/login/order.js"></script>
-<script src="/js/login/index.js"></script>
-</body>
-</html>
+        </div>
+
+        <div class="button-group">
+            <button type="submit" class="btn-submit">Cập nhật</button>
+            <a href="{{ route('staff.index') }}" class="btn-back">Quay Lại</a>
+        </div>
+    </form>
+@endsection
+
+

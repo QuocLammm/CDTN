@@ -15,7 +15,8 @@ class ProductController extends Controller
 {
     public function index()
     {
-        return view('admin.products.index');
+        $products = Product::all(); // Lấy toàn bộ sản phẩm
+        return view('admin.products.index', compact('products'));
     }
 
     //Tạo mã QR cho từng sản phẩm
@@ -57,28 +58,31 @@ class ProductController extends Controller
 
     //Cập nhật chi tiết sản phẩm
     public function update(Request $request, $productid) {
-//        $request->validate([
-//            'ProductName' => 'required|string|max:255',
-//            'description' => 'required|string',
-//            'price' => 'required|numeric',
-//            'quantity' => 'required|integer',
-//        ]);
+        $request->validate([
+            'ProductName' => 'required|string|max:255',
+            'Description' => 'required|string',
+            'Price' => 'required|numeric',
+            'Sizes' => 'required|string',
+            'Quantities' => 'required|string',
+            'Color' => 'required|string',
+        ]);
 
         $product = Product::findOrFail($productid);
-        $productDetails = ProductDetail::where('ProductID', $productid)->firstOrFail();
+        $productDetail = ProductDetail::where('ProductID', $productid)
+            ->where('Color', $request->Color)
+            ->firstOrFail();
 
-        //Cập nhật các trường trong Product
+        // Update product fields
         $product->ProductName = $request->ProductName;
         $product->Description = $request->Description;
         $product->Price = $request->Price;
         $product->Image = $request->Image;
         $product->save();
 
-        //Cập nhâjt các trường chi tiết Product
-        $productDetails->Size = $request->Size;
-        $productDetails->Color = $request->Color;
-        $productDetails->Quantity = $request->Quantity;
-        $productDetails->save();
+        // Update product detail fields
+        $productDetail->Sizes = $request->Sizes;
+        $productDetail->Quantities = $request->Quantities;
+        $productDetail->save();
 
         return redirect()->route('products.index')->with('success', 'Cập nhật sản phẩm thành công.');
     }
@@ -88,35 +92,5 @@ class ProductController extends Controller
 
     }
 
-    // Lấy dữ liệu để sử dụng Datatables
-    public function getData(Request $request)
-    {
-        try {
-            $query = Product::query();
 
-            if ($request->has('search') && isset($request->get('search')['value'])) {
-                $search = $request->get('search')['value'];
-                $query->where('ProductName', 'LIKE', '%' . $search . '%');
-            }
-
-            return (new EloquentDataTable($query))
-                ->addIndexColumn()
-                ->addColumn('action', function($row) {
-                    return '
-                        <form action="' . route('products.edit', $row->ProductID) . '" method="GET" style="display:inline;">
-                            <button type="submit" class="edit-button">Sửa</button>
-                        </form>
-                        <form action="' . route('products.destroy', $row->ProductID) . '" method="POST" style="display:inline;">
-                            ' . csrf_field() . '
-                            ' . method_field('DELETE') . '
-                            <button type="button" class="delete-button" onclick="showDeleteModal(event, this)">Xóa</button>
-                        </form>
-                    ';
-                })
-                ->make(true);
-        } catch (\Exception $e) {
-            Log::error('Lỗi lấy dữ liệu DataTables: ' . $e->getMessage());
-            return response()->json(['error' => 'Đã xảy ra lỗi khi lấy dữ liệu'], 500);
-        }
-    }
 }

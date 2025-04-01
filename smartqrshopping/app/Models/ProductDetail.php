@@ -13,7 +13,7 @@ class ProductDetail extends Model
     protected $primaryKey = 'ProductDetailID';
     public $timestamps = false;
 
-    protected $fillable = ['ProductID', 'Size', 'Color', 'Quantity'];
+    protected $fillable = ['ProductID', 'Size', 'Color', 'Quantities'];
 
     public function product()
     {
