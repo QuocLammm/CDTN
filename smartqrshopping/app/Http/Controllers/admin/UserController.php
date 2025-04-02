@@ -5,6 +5,7 @@ namespace App\Http\Controllers\admin;
 use App\Http\Controllers\Controller;
 use App\Models\Role;
 use App\Models\Users;
+
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\File;
@@ -23,10 +24,11 @@ class UserController extends Controller
     //Hiển thị form tạo mới
     public function create()
     {
-        $roles = Role::all(); // Fetch all roles from the database
+        $roles = Role::all();
         $users = Users::all();
         return view('admin.staff.create', compact('roles', 'users'));
     }
+
     //Lưu thông tin
     public function store(Request $request)
     {

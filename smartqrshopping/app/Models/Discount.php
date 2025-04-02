@@ -1,5 +1,4 @@
 <?php
-
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -20,4 +19,3 @@ class Discount extends Model
         return $this->belongsTo(Product::class, 'ProductID');
     }
 }
-

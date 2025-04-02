@@ -31,4 +31,3 @@ class Users extends Authenticatable
         return $this->hasMany(Order::class, 'UserID');
     }
 }
-

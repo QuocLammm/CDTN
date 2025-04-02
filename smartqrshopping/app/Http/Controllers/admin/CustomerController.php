@@ -23,50 +23,49 @@ class CustomerController extends Controller
         return view('admin.customer.create');
     }
 
-    // Lưu thông tin của người dùng mới
     public function store(Request $request)
     {
-//        // Kiểm tra dữ liệu đầu vào
-//        $request->validate([
-//            'FullName' => 'required|string|max:255',
-//            'Email' => 'required|email|unique:homepages,Email',
-//            'Phone' => 'nullable|string|max:20',
-//            'Address' => 'nullable|string|max:255',
-//            'RoleID' => 'required|integer|in:2',
-//            'Date_of_Birth' => 'nullable|date',
-//        ]);
-        // Xử lý mật khẩu
-        $password = $request->PasswordOption === 'auto'
-            ? Str::random(8)
-            : $request->manualPassword;
+        // Kiểm tra dữ liệu đầu vào
+        $validatedData = $request->validate([
+            'FullName' => 'nullable|string|max:255',
+            'Email' => 'required|email|unique:users,Email',
+            'Gender' => 'nullable|string|in:male,female,other',
+            'RoleID' => 'required|integer|in:1,3',
+            'PasswordOption' => 'required|string|in:auto,manual',
+            'manualPassword' => 'nullable|string|min:6|max:255',
+            'Phone' => 'nullable|string|max:20',
+            'Address' => 'nullable|string|max:255',
+            'Date_of_Birth' => 'nullable|date',
+            'avt' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048' // Chỉ chấp nhận ảnh
+        ], [
+            'Email.unique' => 'Email đã tồn tại',
+        ]);
 
-        // Xử lý lưu ảnh đại diện
-        $profileImageName = null;
+        // Xử lý mật khẩu
+        $validatedData['Password'] = Hash::make(
+            $request->PasswordOption === 'auto' ? Str::random(8) : $request->manualPassword
+        );
+
+        // Xử lý ảnh đại diện (nếu có)
         if ($request->hasFile('avt')) {
             $file = $request->file('avt');
-            $profileImageName = 'customer_' . time() . '.' . $file->getClientOriginalExtension();
-            $file->move(public_path('/images/customer'), $profileImageName);
+            $filename = 'staff_' . time() . '.' . $file->getClientOriginalExtension();
+            $file->move(public_path('/images/staff'), $filename);
+            $validatedData['avt'] = $filename;
         }
 
-        //Tạo mới khách hàng
-        $customers = new Users();
-        $customers->FullName = $request->input('FullName');
-        $customers->Gender = $request->input('Gender');
-        $customers->Date_of_Birth = $request->input('Date_of_Birth');
-        $customers->avt = $profileImageName;
-        $customers->Email = $request->input('Email');
-        $customers->UserName = $request->input('UserName');
-        $customers->Password = $password;
-        $customers->Phone = $request->input('Phone');
-        $customers->Address = $request->input('Address');
-        $customers->RoleID = 2;
-        $customers->Status = 1;
-        $customers->CreatedAt = now();
-        $customers->UpdatedAt = now();
-        $customers->save();
+        // Thêm trạng thái mặc định
+        $validatedData['Status'] = 1;
 
-        return redirect()->route('customer.index')->with('success', 'Thêm khách hàng thành công!');
+        // Lưu vào database
+        try {
+            Users::create($validatedData);
+            return redirect()->route('staff.index')->with('success', 'Thêm nhân viên thành công!');
+        } catch (\Exception $e) {
+            return redirect()->back()->withErrors(['error' => $e->getMessage()]);
+        }
     }
+
 
     // Hiển thị form chỉnh sửa
     public function edit($id)
