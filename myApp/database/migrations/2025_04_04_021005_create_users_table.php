@@ -14,13 +14,13 @@ return new class extends Migration
         Schema::create('users', function (Blueprint $table) {
             $table->increments('UserID')->primary()->unsigned();
             $table->unsignedInteger('RoleID');
-            $stringColumns = ['FullName','Address','Phone','Password'];
+            $stringColumns = ['FullName','Address','Phone','Password','AccountName'];
             foreach ($stringColumns as $stringColumn) {
-                $table->string($stringColumn, 255);
+                $table->string($stringColumn, 255)->nullable();
             }
 
-            $table->dateTime('Date_of_Birth');
-            $table->string('avt',255);
+            $table->dateTime('Date_of_Birth')->nullable();
+            $table->string('Image',255)->nullable();
             $table->tinyInteger('Gender')->default(1);
             $table->string('Email')->unique();
             $table->tinyInteger('Status')->default(1);
