@@ -16,7 +16,6 @@ class PermissionSeeder extends Seeder
         // Đọc danh sách quyền và mô tả từ file cấu hình
         $permissionsConfig = config('permission');
 
-
         $permissionsArray = array_map(function($permission, $description) {
             return [
                 'PermissionName' => $permission,
@@ -24,7 +23,6 @@ class PermissionSeeder extends Seeder
             ];
         }, $permissionsConfig['Permission'], $permissionsConfig['Description']);
 
-        // Chèn vào cơ sở dữ liệu
         DB::table('permissions')->insert($permissionsArray);
     }
 }

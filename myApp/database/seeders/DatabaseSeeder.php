@@ -23,6 +23,7 @@ class DatabaseSeeder extends Seeder
             //Các seeder
             RoleSeeder::class,
             PermissionSeeder::class,
+            Role_PermissionSeeder::class,
         ]);
     }
 }
