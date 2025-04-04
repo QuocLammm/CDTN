@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\admin\ProductController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\UserProfileController;
 use Illuminate\Support\Facades\Auth;
@@ -28,42 +29,49 @@ Route::get('/profile', function () {
     return view('profile');
 })->name('show-profile');
 
+//Sản phẩm
+Route::resource('product', ProductController::class);
+
 Route::get('/profile-static', function () {
-    return view('profile-static');
+    return view('pages.profile-static');
 })->name('profile-static');
+
+Route::get('/{page}', function ($page) {
+    return view("pages.$page");
+})->where('page', 'user-management|tables|billing')->name('page');
 
 // User Management
 Route::get('/user-management', function () {
-    return view('user-management');
-})->name('page')->defaults('page', 'user-management');
+    return view('pages.user-management');
+})->name('user-management');
 
 // Tables
 Route::get('/tables', function () {
-    return view('tables');
-})->name('page')->defaults('page', 'tables');
+    return view('pages.tables');
+})->name('tables');
 
 // Billing
 Route::get('/billing', function () {
-    return view('billing');
-})->name('page')->defaults('page', 'billing');
+    return view('pages.billing');
+})->name('billing');
 
 // Virtual Reality
 Route::get('/virtual-reality', function () {
-    return view('virtual-reality');
+    return view('pages.virtual-reality');
 })->name('virtual-reality');
 
 // RTL
 Route::get('/rtl', function () {
-    return view('rtl');
+    return view('pages.rtl');
 })->name('rtl');
 
 // Sign In
 Route::get('/sign-in', function () {
-    return view('auth.sign-in');
+    return view('pages.sign-in');
 })->name('sign-in-static');
 
 // Sign Up
 Route::get('/sign-up', function () {
-    return view('auth.sign-up');
+    return view('pages.sign-up');
 })->name('sign-up-static');
 

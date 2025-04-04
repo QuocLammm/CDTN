@@ -1,6 +1,6 @@
 <div class="fixed-plugin">
     <a class="fixed-plugin-button text-dark position-fixed px-3 py-2">
-        <i class="fa fa-cog py-2"> </i>
+        <span class="material-symbols-sharp">settings</span>
     </a>
     <div class="card shadow-lg">
         <div class="card-header pb-0 pt-3 ">
@@ -65,7 +65,7 @@
             </div>
             <a class="btn bg-gradient-dark w-100" href="https://www.creative-tim.com/product/argon-dashboard-laravel" target="_blank">Free Download</a>
             <a class="btn btn-outline-dark w-100"
-                href="/docs/bootstrap/overview/argon-dashboard/index.html" target="_blank">View documentation</a>
+                href="./docs/bootstrap/overview/argon-dashboard/index.html" target="_blank">View documentation</a>
             <div class="w-100 text-center">
                 <a class="github-button" href="https://github.com/creativetimofficial/argon-dashboard-laravel"
                     data-icon="octicon-star" data-size="large" data-show-count="true"
