@@ -68,7 +68,7 @@ final class NamePrettifier
     }
 
     /**
-     * Prettifies the name of a test class.
+     * Prettifies the name of a pay class.
      *
      * @psalm-param class-string $className
      */
@@ -173,7 +173,7 @@ final class NamePrettifier
     }
 
     /**
-     * Prettifies the name of a test method.
+     * Prettifies the name of a pay method.
      */
     public function prettifyTestMethod(string $name): string
     {
@@ -193,7 +193,7 @@ final class NamePrettifier
 
         if (strpos($name, 'test_') === 0) {
             $name = substr($name, 5);
-        } elseif (strpos($name, 'test') === 0) {
+        } elseif (strpos($name, 'pay') === 0) {
             $name = substr($name, 4);
         }
 

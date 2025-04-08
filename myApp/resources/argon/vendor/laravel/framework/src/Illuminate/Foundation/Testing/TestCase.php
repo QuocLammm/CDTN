@@ -75,7 +75,7 @@ abstract class TestCase extends BaseTestCase
     abstract public function createApplication();
 
     /**
-     * Setup the test environment.
+     * Setup the pay environment.
      *
      * @return void
      */
@@ -147,7 +147,7 @@ abstract class TestCase extends BaseTestCase
     }
 
     /**
-     * Clean up the testing environment before the next test.
+     * Clean up the testing environment before the next pay.
      *
      * @return void
      *

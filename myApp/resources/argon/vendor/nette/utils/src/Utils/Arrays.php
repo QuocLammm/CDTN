@@ -333,7 +333,7 @@ class Arrays
 
 
 	/**
-	 * Tests whether at least one element in the array passes the test implemented by the
+	 * Tests whether at least one element in the array passes the pay implemented by the
 	 * provided callback with signature `function ($value, $key, array $array): bool`.
 	 */
 	public static function some(iterable $array, callable $callback): bool
@@ -349,7 +349,7 @@ class Arrays
 
 
 	/**
-	 * Tests whether all elements in the array pass the test implemented by the provided function,
+	 * Tests whether all elements in the array pass the pay implemented by the provided function,
 	 * which has the signature `function ($value, $key, array $array): bool`.
 	 */
 	public static function every(iterable $array, callable $callback): bool

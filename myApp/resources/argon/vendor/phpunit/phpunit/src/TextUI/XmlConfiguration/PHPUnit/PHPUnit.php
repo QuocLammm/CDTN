@@ -671,7 +671,7 @@ final class PHPUnit
     public function defaultTestSuite(): string
     {
         if (!$this->hasDefaultTestSuite()) {
-            throw new Exception('Default test suite is not configured');
+            throw new Exception('Default pay suite is not configured');
         }
 
         return (string) $this->defaultTestSuite;

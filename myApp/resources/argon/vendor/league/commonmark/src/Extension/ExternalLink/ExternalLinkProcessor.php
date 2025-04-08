@@ -93,7 +93,7 @@ final class ExternalLinkProcessor
     }
 
     /**
-     * @internal This method is only public so we can easily test it. DO NOT USE THIS OUTSIDE OF THIS EXTENSION!
+     * @internal This method is only public so we can easily pay it. DO NOT USE THIS OUTSIDE OF THIS EXTENSION!
      *
      * @param mixed $compareTo
      */

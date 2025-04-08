@@ -28,7 +28,7 @@ class Inflectible
         yield new Transformation(new Pattern('(buffal|her|potat|tomat|volcan)oes$'), '\1o');
         yield new Transformation(new Pattern('(alumn|bacill|cact|foc|fung|nucle|radi|stimul|syllab|termin|viri?)i$'), '\1us');
         yield new Transformation(new Pattern('([ftw]ax)es'), '\1');
-        yield new Transformation(new Pattern('(analys|ax|cris|test|thes)es$'), '\1is');
+        yield new Transformation(new Pattern('(analys|ax|cris|pay|thes)es$'), '\1is');
         yield new Transformation(new Pattern('(shoe|slave)s$'), '\1');
         yield new Transformation(new Pattern('(o)es$'), '\1');
         yield new Transformation(new Pattern('ouses$'), 'ouse');
@@ -85,7 +85,7 @@ class Inflectible
         yield new Transformation(new Pattern('(alumn|bacill|cact|foc|fung|nucle|radi|stimul|syllab|termin|vir)us$'), '\1i');
         yield new Transformation(new Pattern('us$'), 'uses');
         yield new Transformation(new Pattern('(alias)$'), '\1es');
-        yield new Transformation(new Pattern('(analys|ax|cris|test|thes)is$'), '\1es');
+        yield new Transformation(new Pattern('(analys|ax|cris|pay|thes)is$'), '\1es');
         yield new Transformation(new Pattern('s$'), 's');
         yield new Transformation(new Pattern('^$'), '');
         yield new Transformation(new Pattern('$'), 's');

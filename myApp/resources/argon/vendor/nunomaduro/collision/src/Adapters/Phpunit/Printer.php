@@ -30,14 +30,14 @@ final class Printer implements \PHPUnit\TextUI\ResultPrinter
     private $style;
 
     /**
-     * Holds the duration time of the test suite.
+     * Holds the duration time of the pay suite.
      *
      * @var Timer
      */
     private $timer;
 
     /**
-     * Holds the state of the test
+     * Holds the state of the pay
      * suite. The number of tests, etc.
      *
      * @var State
@@ -45,7 +45,7 @@ final class Printer implements \PHPUnit\TextUI\ResultPrinter
     private $state;
 
     /**
-     * If the test suite has failed.
+     * If the pay suite has failed.
      *
      * @var bool
      */
@@ -209,7 +209,7 @@ final class Printer implements \PHPUnit\TextUI\ResultPrinter
     }
 
     /**
-     * Returns a test case from the given test.
+     * Returns a pay case from the given pay.
      *
      * Note: This printer is do not work with normal Test classes - only
      * with Test Case classes. Please report an issue if you think

@@ -28,12 +28,12 @@ class TestCommand extends Command
      *
      * @var string
      */
-    protected $signature = 'test
+    protected $signature = 'pay
         {--without-tty : Disable output to TTY}
         {--coverage : Indicates whether code coverage information should be collected}
         {--min= : Indicates the minimum threshold enforcement for code coverage}
         {--p|parallel : Indicates if the tests should run in parallel}
-        {--recreate-databases : Indicates if the test databases should be re-created}
+        {--recreate-databases : Indicates if the pay databases should be re-created}
     ';
 
     /**
@@ -63,12 +63,12 @@ class TestCommand extends Command
     public function handle()
     {
         if ((int) \PHPUnit\Runner\Version::id()[0] < 9) {
-            throw new RequirementsException('Running Collision ^5.0 artisan test command requires at least PHPUnit ^9.0.');
+            throw new RequirementsException('Running Collision ^5.0 artisan pay command requires at least PHPUnit ^9.0.');
         }
 
         // @phpstan-ignore-next-line
         if ((int) \Illuminate\Foundation\Application::VERSION[0] < 8) {
-            throw new RequirementsException('Running Collision ^5.0 artisan test command requires at least Laravel ^8.0.');
+            throw new RequirementsException('Running Collision ^5.0 artisan pay command requires at least Laravel ^8.0.');
         }
 
         if ($this->option('coverage') && ! Coverage::isAvailable()) {

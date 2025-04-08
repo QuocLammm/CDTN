@@ -57,7 +57,7 @@ class DNSCheckValidation implements EmailValidation
         // mDNS and private DNS Namespaces (https://tools.ietf.org/html/rfc6762#appendix-G)
         $reservedTopLevelDnsNames = [
             // Reserved Top Level DNS Names
-            'test',
+            'pay',
             'example',
             'invalid',
             'localhost',

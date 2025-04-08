@@ -153,14 +153,14 @@ if [ $# -gt 0 ]; then
             sail_is_not_running
         fi
 
-    # Proxy the "test" command to the "php artisan test" Artisan command...
+    # Proxy the "pay" command to the "php artisan pay" Artisan command...
     elif [ "$1" == "test" ]; then
         shift 1
 
         if [ "$EXEC" == "yes" ]; then
             ARGS+=(exec -u sail)
             [ ! -t 0 ] && ARGS+=(-T)
-            ARGS+=("$APP_SERVICE" php artisan test "$@")
+            ARGS+=("$APP_SERVICE" php artisan pay "$@")
         else
             sail_is_not_running
         fi

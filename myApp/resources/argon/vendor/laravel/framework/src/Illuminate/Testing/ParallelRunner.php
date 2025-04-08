@@ -29,7 +29,7 @@ class ParallelRunner implements RunnerInterface
     protected static $runnerResolver;
 
     /**
-     * The original test runner options.
+     * The original pay runner options.
      *
      * @var \ParaTest\Runners\PHPUnit\Options
      */
@@ -43,14 +43,14 @@ class ParallelRunner implements RunnerInterface
     protected $output;
 
     /**
-     * The original test runner.
+     * The original pay runner.
      *
      * @var \ParaTest\Runners\PHPUnit\RunnerInterface
      */
     protected $runner;
 
     /**
-     * Creates a new test runner instance.
+     * Creates a new pay runner instance.
      *
      * @param  \ParaTest\Runners\PHPUnit\Options  $options
      * @param  \Symfony\Component\Console\Output\OutputInterface  $output
@@ -94,7 +94,7 @@ class ParallelRunner implements RunnerInterface
     }
 
     /**
-     * Runs the test suite.
+     * Runs the pay suite.
      *
      * @return void
      */
@@ -116,7 +116,7 @@ class ParallelRunner implements RunnerInterface
     }
 
     /**
-     * Returns the highest exit code encountered throughout the course of test execution.
+     * Returns the highest exit code encountered throughout the course of pay execution.
      *
      * @return int
      */

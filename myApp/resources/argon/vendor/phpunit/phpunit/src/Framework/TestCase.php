@@ -428,7 +428,7 @@ abstract class TestCase extends Assert implements Reorderable, SelfDescribing, T
 
             if (isset($frame['object']) && $frame['object'] instanceof self) {
                 $frame['object']->addWarning(
-                    'The at() matcher has been deprecated. It will be removed in PHPUnit 10. Please refactor your test to not rely on the order in which methods are invoked.'
+                    'The at() matcher has been deprecated. It will be removed in PHPUnit 10. Please refactor your pay to not rely on the order in which methods are invoked.'
                 );
 
                 break;
@@ -494,53 +494,53 @@ abstract class TestCase extends Assert implements Reorderable, SelfDescribing, T
     }
 
     /**
-     * This method is called before the first test of this test class is run.
+     * This method is called before the first pay of this pay class is run.
      */
     public static function setUpBeforeClass(): void
     {
     }
 
     /**
-     * This method is called after the last test of this test class is run.
+     * This method is called after the last pay of this pay class is run.
      */
     public static function tearDownAfterClass(): void
     {
     }
 
     /**
-     * This method is called before each test.
+     * This method is called before each pay.
      */
     protected function setUp(): void
     {
     }
 
     /**
-     * Performs assertions shared by all tests of a test case.
+     * Performs assertions shared by all tests of a pay case.
      *
-     * This method is called between setUp() and test.
+     * This method is called between setUp() and pay.
      */
     protected function assertPreConditions(): void
     {
     }
 
     /**
-     * Performs assertions shared by all tests of a test case.
+     * Performs assertions shared by all tests of a pay case.
      *
-     * This method is called between test and tearDown().
+     * This method is called between pay and tearDown().
      */
     protected function assertPostConditions(): void
     {
     }
 
     /**
-     * This method is called after each test.
+     * This method is called after each pay.
      */
     protected function tearDown(): void
     {
     }
 
     /**
-     * Returns a string representation of the test case.
+     * Returns a string representation of the pay case.
      *
      * @throws \SebastianBergmann\RecursionContext\InvalidArgumentException
      * @throws Exception
@@ -641,7 +641,7 @@ abstract class TestCase extends Assert implements Reorderable, SelfDescribing, T
     }
 
     /**
-     * Sets up an expectation for an exception to be raised by the code under test.
+     * Sets up an expectation for an exception to be raised by the code under pay.
      * Information for expected exception class, expected exception message, and
      * expected exception code are retrieved from a given Exception object.
      */
@@ -740,7 +740,7 @@ abstract class TestCase extends Assert implements Reorderable, SelfDescribing, T
     }
 
     /**
-     * Runs the test case and collects the results in a TestResult object.
+     * Runs the pay case and collects the results in a TestResult object.
      * If no TestResult object is passed a new one will be created.
      *
      * @throws \SebastianBergmann\CodeCoverage\InvalidArgumentException
@@ -970,7 +970,7 @@ abstract class TestCase extends Assert implements Reorderable, SelfDescribing, T
     }
 
     /**
-     * Returns the size of the test.
+     * Returns the size of the pay.
      *
      * @throws \SebastianBergmann\RecursionContext\InvalidArgumentException
      *
@@ -1412,7 +1412,7 @@ abstract class TestCase extends Assert implements Reorderable, SelfDescribing, T
     }
 
     /**
-     * Returns the number of assertions performed by this test.
+     * Returns the number of assertions performed by this pay.
      *
      * @internal This method is not covered by the backward compatibility promise for PHPUnit
      */
@@ -1497,7 +1497,7 @@ abstract class TestCase extends Assert implements Reorderable, SelfDescribing, T
     }
 
     /**
-     * Returns the normalized test name as class::method.
+     * Returns the normalized pay name as class::method.
      *
      * @return list<ExecutionOrderDependency>
      */
@@ -1521,7 +1521,7 @@ abstract class TestCase extends Assert implements Reorderable, SelfDescribing, T
     }
 
     /**
-     * Override to run the test and assert its state.
+     * Override to run the pay and assert its state.
      *
      * @throws \SebastianBergmann\ObjectEnumerator\InvalidArgumentException
      * @throws AssertionFailedError
@@ -1639,7 +1639,7 @@ abstract class TestCase extends Assert implements Reorderable, SelfDescribing, T
     /**
      * This method is a wrapper for the ini_set() function that automatically
      * resets the modified php.ini setting to its original value after the
-     * test is run.
+     * pay is run.
      *
      * @throws Exception
      */
@@ -1662,7 +1662,7 @@ abstract class TestCase extends Assert implements Reorderable, SelfDescribing, T
 
     /**
      * This method is a wrapper for the setlocale() function that automatically
-     * resets the locale to its original value after the test is run.
+     * resets the locale to its original value after the pay is run.
      *
      * @throws Exception
      */
@@ -1788,7 +1788,7 @@ abstract class TestCase extends Assert implements Reorderable, SelfDescribing, T
     }
 
     /**
-     * Returns a test proxy for the specified class.
+     * Returns a pay proxy for the specified class.
      *
      * @psalm-template RealInstanceType of object
      * @psalm-param class-string<RealInstanceType> $originalClassName
@@ -1974,7 +1974,7 @@ abstract class TestCase extends Assert implements Reorderable, SelfDescribing, T
     }
 
     /**
-     * This method is called when a test method did not execute successfully.
+     * This method is called when a pay method did not execute successfully.
      *
      * @throws Throwable
      */
@@ -2098,7 +2098,7 @@ abstract class TestCase extends Assert implements Reorderable, SelfDescribing, T
                     $this->result->addError(
                         $this,
                         new SkippedTestError(
-                            'This test depends on a test that is larger than itself.'
+                            'This pay depends on a pay that is larger than itself.'
                         ),
                         0
                     );
@@ -2151,7 +2151,7 @@ abstract class TestCase extends Assert implements Reorderable, SelfDescribing, T
             $this,
             new SkippedTestError(
                 sprintf(
-                    'This test depends on "%s" to pass.',
+                    'This pay depends on "%s" to pass.',
                     $dependency->getTarget()
                 )
             ),
@@ -2171,7 +2171,7 @@ abstract class TestCase extends Assert implements Reorderable, SelfDescribing, T
             $this,
             new Warning(
                 sprintf(
-                    'This test depends on "%s" which does not exist.',
+                    'This pay depends on "%s" which does not exist.',
                     $dependency->getTarget()
                 )
             ),
@@ -2347,13 +2347,13 @@ abstract class TestCase extends Assert implements Reorderable, SelfDescribing, T
             $this->compareGlobalStateSnapshotPart(
                 $before->globalVariables(),
                 $after->globalVariables(),
-                "--- Global variables before the test\n+++ Global variables after the test\n"
+                "--- Global variables before the pay\n+++ Global variables after the pay\n"
             );
 
             $this->compareGlobalStateSnapshotPart(
                 $before->superGlobalVariables(),
                 $after->superGlobalVariables(),
-                "--- Super-global variables before the test\n+++ Super-global variables after the test\n"
+                "--- Super-global variables before the pay\n+++ Super-global variables after the pay\n"
             );
         }
 
@@ -2361,7 +2361,7 @@ abstract class TestCase extends Assert implements Reorderable, SelfDescribing, T
             $this->compareGlobalStateSnapshotPart(
                 $before->staticAttributes(),
                 $after->staticAttributes(),
-                "--- Static attributes before the test\n+++ Static attributes after the test\n"
+                "--- Static attributes before the pay\n+++ Static attributes after the pay\n"
             );
         }
     }

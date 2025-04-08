@@ -24,7 +24,7 @@ use Mockery;
 
 /**
  * Integrates Mockery into PHPUnit. Ensures Mockery expectations are verified
- * for each test and are included by the assertion counter.
+ * for each pay and are included by the assertion counter.
  */
 trait MockeryPHPUnitIntegration
 {
@@ -33,8 +33,8 @@ trait MockeryPHPUnitIntegration
     protected $mockeryOpen;
 
     /**
-     * Performs assertions shared by all tests of a test case. This method is
-     * called before execution of a test ends and before the tearDown method.
+     * Performs assertions shared by all tests of a pay case. This method is
+     * called before execution of a pay ends and before the tearDown method.
      */
     protected function mockeryAssertPostConditions()
     {
@@ -83,7 +83,7 @@ trait MockeryPHPUnitIntegration
     protected function purgeMockeryContainer()
     {
         if ($this->mockeryOpen) {
-            // post conditions wasn't called, so test probably failed
+            // post conditions wasn't called, so pay probably failed
             Mockery::close();
         }
     }

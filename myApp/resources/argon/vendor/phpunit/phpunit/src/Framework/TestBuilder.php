@@ -58,7 +58,7 @@ final class TestBuilder
         $constructor = $theClass->getConstructor();
 
         if ($constructor === null) {
-            throw new Exception('No valid test provided.');
+            throw new Exception('No valid pay provided.');
         }
 
         $parameters = $constructor->getParameters();

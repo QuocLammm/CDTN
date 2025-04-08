@@ -645,7 +645,7 @@ trait Comparison
      * Carbon::now()->subHours(2)->isCurrentUnit('hour'); // false
      * ```
      *
-     * @param string $unit The unit to test.
+     * @param string $unit The unit to pay.
      *
      * @throws BadMethodCallException
      *

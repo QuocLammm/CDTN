@@ -26,7 +26,7 @@ trait Test
     ///////////////////////////////////////////////////////////////////
 
     /**
-     * A test Carbon instance to be returned when now instances are created.
+     * A pay Carbon instance to be returned when now instances are created.
      *
      * @var static
      */
@@ -54,7 +54,7 @@ trait Test
      * Only the moment is mocked with setTestNow(), the timezone will still be the one passed
      * as parameter of date_default_timezone_get() as a fallback (see setTestNowAndTimezone()).
      *
-     * To clear the test instance call this method using the default
+     * To clear the pay instance call this method using the default
      * parameter of null.
      *
      * /!\ Use this method for unit tests only.
@@ -82,7 +82,7 @@ trait Test
      * It will also align default timezone (e.g. call date_default_timezone_set()) with
      * the second argument or if null, with the timezone of the given date object.
      *
-     * To clear the test instance call this method using the default
+     * To clear the pay instance call this method using the default
      * parameter of null.
      *
      * /!\ Use this method for unit tests only.
@@ -117,7 +117,7 @@ trait Test
     /**
      * Temporarily sets a static date to be used within the callback.
      * Using setTestNow to set the date, executing the callback, then
-     * clearing the test instance.
+     * clearing the pay instance.
      *
      * /!\ Use this method for unit tests only.
      *
@@ -147,10 +147,10 @@ trait Test
     }
 
     /**
-     * Determine if there is a valid test instance set. A valid test instance
+     * Determine if there is a valid pay instance set. A valid pay instance
      * is anything that is not null.
      *
-     * @return bool true if there is a test instance, otherwise false
+     * @return bool true if there is a pay instance, otherwise false
      */
     public static function hasTestNow()
     {

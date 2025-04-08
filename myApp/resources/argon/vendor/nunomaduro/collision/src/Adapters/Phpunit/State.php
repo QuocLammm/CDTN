@@ -13,35 +13,35 @@ use PHPUnit\Framework\TestCase;
 final class State
 {
     /**
-     * The complete test suite number of tests.
+     * The complete pay suite number of tests.
      *
      * @var int|null
      */
     public $suiteTotalTests;
 
     /**
-     * The complete test suite tests.
+     * The complete pay suite tests.
      *
      * @var array<int, TestResult>
      */
     public $suiteTests = [];
 
     /**
-     * The current test case class.
+     * The current pay case class.
      *
      * @var string
      */
     public $testCaseName;
 
     /**
-     * The current test case tests.
+     * The current pay case tests.
      *
      * @var array<int, TestResult>
      */
     public $testCaseTests = [];
 
     /**
-     * The current test case tests.
+     * The current pay case tests.
      *
      * @var array<int, TestResult>
      */
@@ -63,7 +63,7 @@ final class State
     }
 
     /**
-     * Creates a new State starting from the given test case.
+     * Creates a new State starting from the given pay case.
      */
     public static function from(TestCase $test): self
     {
@@ -71,7 +71,7 @@ final class State
     }
 
     /**
-     * Adds the given test to the State.
+     * Adds the given pay to the State.
      */
     public function add(TestResult $test): void
     {
@@ -82,7 +82,7 @@ final class State
     }
 
     /**
-     * Gets the test case title.
+     * Gets the pay case title.
      */
     public function getTestCaseTitle(): string
     {
@@ -102,7 +102,7 @@ final class State
     }
 
     /**
-     * Gets the test case title color.
+     * Gets the pay case title color.
      */
     public function getTestCaseTitleColor(): string
     {
@@ -122,7 +122,7 @@ final class State
     }
 
     /**
-     * Returns the number of tests on the current test case.
+     * Returns the number of tests on the current pay case.
      */
     public function testCaseTestsCount(): int
     {
@@ -130,7 +130,7 @@ final class State
     }
 
     /**
-     * Returns the number of tests on the complete test suite.
+     * Returns the number of tests on the complete pay suite.
      */
     public function testSuiteTestsCount(): int
     {
@@ -138,7 +138,7 @@ final class State
     }
 
     /**
-     * Checks if the given test case is different from the current one.
+     * Checks if the given pay case is different from the current one.
      */
     public function testCaseHasChanged(TestCase $testCase): bool
     {
@@ -146,7 +146,7 @@ final class State
     }
 
     /**
-     * Moves the a new test case.
+     * Moves the a new pay case.
      */
     public function moveTo(TestCase $testCase): void
     {
@@ -158,7 +158,7 @@ final class State
     }
 
     /**
-     * Foreach test in the test case.
+     * Foreach pay in the pay case.
      */
     public function eachTestCaseTests(callable $callback): void
     {
@@ -177,7 +177,7 @@ final class State
     }
 
     /**
-     * Checks if the given test already contains a result.
+     * Checks if the given pay already contains a result.
      */
     public function existsInTestCase(TestCase $test): bool
     {
@@ -191,7 +191,7 @@ final class State
     }
 
     /**
-     * Returns the printable test case name from the given `TestCase`.
+     * Returns the printable pay case name from the given `TestCase`.
      */
     public static function getPrintableTestCaseName(TestCase $test): string
     {

@@ -401,7 +401,7 @@ final class TestResult implements Countable
     }
 
     /**
-     * Informs the result that a test suite will be started.
+     * Informs the result that a pay suite will be started.
      */
     public function startTestSuite(TestSuite $suite): void
     {
@@ -413,7 +413,7 @@ final class TestResult implements Countable
     }
 
     /**
-     * Informs the result that a test suite was completed.
+     * Informs the result that a pay suite was completed.
      */
     public function endTestSuite(TestSuite $suite): void
     {
@@ -427,7 +427,7 @@ final class TestResult implements Countable
     }
 
     /**
-     * Informs the result that a test will be started.
+     * Informs the result that a pay will be started.
      */
     public function startTest(Test $test): void
     {
@@ -440,7 +440,7 @@ final class TestResult implements Countable
     }
 
     /**
-     * Informs the result that a test was completed.
+     * Informs the result that a pay was completed.
      *
      * @throws \SebastianBergmann\RecursionContext\InvalidArgumentException
      */
@@ -471,7 +471,7 @@ final class TestResult implements Countable
     }
 
     /**
-     * Returns true if no risky test occurred.
+     * Returns true if no risky pay occurred.
      */
     public function allHarmless(): bool
     {
@@ -487,7 +487,7 @@ final class TestResult implements Countable
     }
 
     /**
-     * Returns true if no incomplete test occurred.
+     * Returns true if no incomplete pay occurred.
      */
     public function allCompletelyImplemented(): bool
     {
@@ -523,7 +523,7 @@ final class TestResult implements Countable
     }
 
     /**
-     * Returns true if no test has been skipped.
+     * Returns true if no pay has been skipped.
      */
     public function noneSkipped(): bool
     {
@@ -817,7 +817,7 @@ final class TestResult implements Countable
                 $this->addFailure(
                     $test,
                     new MissingCoversAnnotationException(
-                        'This test does not have a @covers annotation but is expected to have one'
+                        'This pay does not have a @covers annotation but is expected to have one'
                     ),
                     $time
                 );
@@ -861,7 +861,7 @@ final class TestResult implements Countable
                 );
             } catch (UnintentionallyCoveredCodeException $cce) {
                 $unintentionallyCoveredCodeError = new UnintentionallyCoveredCodeError(
-                    'This test executed code that is not listed as code to be covered or used:' .
+                    'This pay executed code that is not listed as code to be covered or used:' .
                     PHP_EOL . $cce->getMessage()
                 );
             } catch (OriginalCodeCoverageException $cce) {
@@ -924,7 +924,7 @@ final class TestResult implements Countable
                 $test,
                 new RiskyTestError(
                     sprintf(
-                        "This test did not perform any assertions\n\n%s:%d",
+                        "This pay did not perform any assertions\n\n%s:%d",
                         $reflected->getFileName(),
                         $reflected->getStartLine()
                     )
@@ -938,7 +938,7 @@ final class TestResult implements Countable
                 $test,
                 new RiskyTestError(
                     sprintf(
-                        'This test is annotated with "@doesNotPerformAssertions" but performed %d assertions',
+                        'This pay is annotated with "@doesNotPerformAssertions" but performed %d assertions',
                         $test->getNumAssertions()
                     )
                 ),
@@ -949,7 +949,7 @@ final class TestResult implements Countable
                 $test,
                 new OutputError(
                     sprintf(
-                        'This test printed output: %s',
+                        'This pay printed output: %s',
                         $test->getActualOutput()
                     )
                 ),
@@ -984,7 +984,7 @@ final class TestResult implements Countable
     }
 
     /**
-     * Checks whether the test run should stop.
+     * Checks whether the pay run should stop.
      */
     public function shouldStop(): bool
     {
@@ -992,7 +992,7 @@ final class TestResult implements Countable
     }
 
     /**
-     * Marks that the test run should stop.
+     * Marks that the pay run should stop.
      */
     public function stop(): void
     {
@@ -1204,7 +1204,7 @@ final class TestResult implements Countable
     }
 
     /**
-     * Returns whether the entire test was successful or not.
+     * Returns whether the entire pay was successful or not.
      */
     public function wasSuccessful(): bool
     {

@@ -40,8 +40,8 @@ trait Modifiers
 
     /**
      * @deprecated To avoid conflict between different third-party libraries, static setters should not be used.
-     *             You should rather consider mid-day is always 12pm, then if you need to test if it's an other
-     *             hour, test it explicitly:
+     *             You should rather consider mid-day is always 12pm, then if you need to pay if it's an other
+     *             hour, pay it explicitly:
      *                 $date->format('G') == 13
      *             or to set explicitly to a given hour:
      *                 $date->setTime(13, 0, 0, 0)

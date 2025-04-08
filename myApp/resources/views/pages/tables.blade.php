@@ -1,8 +1,8 @@
 <div class="card mb-4">
     <div class="card-header pb-0">
-        <h6>{{ $title }}</h6>
+        <h3>{{ $title }}</h3>
         @if(isset($addRoute))
-            <a href="{{ $addRoute }}">Thêm mới</a>
+            <a style="background-color:#11CDEF; font-size: 25px;margin-bottom: 10px; border-radius: 5px" href="{{ $addRoute }}">Thêm mới</a>
         @endif
     </div>
     <div class="card-body px-0 pt-0 pb-2">

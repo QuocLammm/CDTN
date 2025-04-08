@@ -70,7 +70,7 @@ final class TestFailure
     }
 
     /**
-     * Constructs a TestFailure with the given test and exception.
+     * Constructs a TestFailure with the given pay and exception.
      */
     public function __construct(Test $failedTest, Throwable $t)
     {
@@ -108,7 +108,7 @@ final class TestFailure
     }
 
     /**
-     * Returns the name of the failing test (including data set, if any).
+     * Returns the name of the failing pay (including data set, if any).
      */
     public function getTestName(): string
     {
@@ -116,9 +116,9 @@ final class TestFailure
     }
 
     /**
-     * Returns the failing test.
+     * Returns the failing pay.
      *
-     * Note: The test object is not set when the test is executed in process
+     * Note: The pay object is not set when the pay is executed in process
      * isolation.
      *
      * @see Exception

@@ -53,7 +53,7 @@ class TestResponse implements ArrayAccess
     protected $streamedContent;
 
     /**
-     * Create a new test response instance.
+     * Create a new pay response instance.
      *
      * @param  \Illuminate\Http\Response  $response
      * @return void

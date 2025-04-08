@@ -174,7 +174,7 @@ final class CodeCoverage
     }
 
     /**
-     * Returns the test data.
+     * Returns the pay data.
      */
     public function getTests(): array
     {
@@ -182,7 +182,7 @@ final class CodeCoverage
     }
 
     /**
-     * Sets the test data.
+     * Sets the pay data.
      */
     public function setTests(array $tests): void
     {

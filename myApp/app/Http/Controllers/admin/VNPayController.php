@@ -18,7 +18,7 @@ class VNPayController extends Controller
             $selectedProduct = collect($products)->firstWhere('ProductID', $request->ProductID);
         }
 
-        return view('admin.test.vnpay_demo', compact('products', 'selectedProduct'));
+        return view('admin.pay.vnpay_demo', compact('products', 'selectedProduct'));
     }
 
 
@@ -101,11 +101,11 @@ class VNPayController extends Controller
 
     public function paymentSuccess()
     {
-        return view('admin.test.success');
+        return view('admin.pay.success');
     }
 
     public function paymentFailure()
     {
-        return view('admin.test.failure');
+        return view('admin.pay.failure');
     }
 }

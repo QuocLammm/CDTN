@@ -10,7 +10,7 @@ trait DatabaseMigrations
     use CanConfigureMigrationCommands;
 
     /**
-     * Define hooks to migrate the database before and after each test.
+     * Define hooks to migrate the database before and after each pay.
      *
      * @return void
      */

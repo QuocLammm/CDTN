@@ -13,7 +13,7 @@ class TestMakeCommand extends GeneratorCommand
      *
      * @var string
      */
-    protected $name = 'make:test';
+    protected $name = 'make:pay';
 
     /**
      * The name of the console command.
@@ -22,14 +22,14 @@ class TestMakeCommand extends GeneratorCommand
      *
      * @var string|null
      */
-    protected static $defaultName = 'make:test';
+    protected static $defaultName = 'make:pay';
 
     /**
      * The console command description.
      *
      * @var string
      */
-    protected $description = 'Create a new test class';
+    protected $description = 'Create a new pay class';
 
     /**
      * The type of class being generated.
@@ -49,7 +49,7 @@ class TestMakeCommand extends GeneratorCommand
 
         return $this->option('pest')
             ? $this->resolveStubPath('/stubs/pest'.$suffix)
-            : $this->resolveStubPath('/stubs/test'.$suffix);
+            : $this->resolveStubPath('/stubs/pay'.$suffix);
     }
 
     /**
@@ -111,8 +111,8 @@ class TestMakeCommand extends GeneratorCommand
     protected function getOptions()
     {
         return [
-            ['unit', 'u', InputOption::VALUE_NONE, 'Create a unit test.'],
-            ['pest', 'p', InputOption::VALUE_NONE, 'Create a Pest test.'],
+            ['unit', 'u', InputOption::VALUE_NONE, 'Create a unit pay.'],
+            ['pest', 'p', InputOption::VALUE_NONE, 'Create a Pest pay.'],
         ];
     }
 }

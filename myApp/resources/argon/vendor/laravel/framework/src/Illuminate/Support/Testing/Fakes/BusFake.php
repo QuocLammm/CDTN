@@ -71,7 +71,7 @@ class BusFake implements QueueingDispatcher
     }
 
     /**
-     * Assert if a job was dispatched based on a truth-test callback.
+     * Assert if a job was dispatched based on a truth-pay callback.
      *
      * @param  string|\Closure  $command
      * @param  callable|int|null  $callback
@@ -115,7 +115,7 @@ class BusFake implements QueueingDispatcher
     }
 
     /**
-     * Determine if a job was dispatched based on a truth-test callback.
+     * Determine if a job was dispatched based on a truth-pay callback.
      *
      * @param  string|\Closure  $command
      * @param  callable|null  $callback
@@ -146,7 +146,7 @@ class BusFake implements QueueingDispatcher
     }
 
     /**
-     * Assert if a job was explicitly dispatched synchronously based on a truth-test callback.
+     * Assert if a job was explicitly dispatched synchronously based on a truth-pay callback.
      *
      * @param  string|\Closure  $command
      * @param  callable|int|null  $callback
@@ -186,7 +186,7 @@ class BusFake implements QueueingDispatcher
     }
 
     /**
-     * Determine if a job was dispatched based on a truth-test callback.
+     * Determine if a job was dispatched based on a truth-pay callback.
      *
      * @param  string|\Closure  $command
      * @param  callable|null  $callback
@@ -205,7 +205,7 @@ class BusFake implements QueueingDispatcher
     }
 
     /**
-     * Assert if a job was dispatched after the response was sent based on a truth-test callback.
+     * Assert if a job was dispatched after the response was sent based on a truth-pay callback.
      *
      * @param  string|\Closure  $command
      * @param  callable|int|null  $callback
@@ -245,7 +245,7 @@ class BusFake implements QueueingDispatcher
     }
 
     /**
-     * Determine if a job was dispatched based on a truth-test callback.
+     * Determine if a job was dispatched based on a truth-pay callback.
      *
      * @param  string|\Closure  $command
      * @param  callable|null  $callback
@@ -321,7 +321,7 @@ class BusFake implements QueueingDispatcher
     }
 
     /**
-     * Assert if a job was dispatched with an empty chain based on a truth-test callback.
+     * Assert if a job was dispatched with an empty chain based on a truth-pay callback.
      *
      * @param  string|\Closure  $command
      * @param  callable|null  $callback
@@ -342,7 +342,7 @@ class BusFake implements QueueingDispatcher
     }
 
     /**
-     * Assert if a job was dispatched with chained jobs based on a truth-test callback.
+     * Assert if a job was dispatched with chained jobs based on a truth-pay callback.
      *
      * @param  string  $command
      * @param  array  $expectedChain
@@ -364,7 +364,7 @@ class BusFake implements QueueingDispatcher
     }
 
     /**
-     * Assert if a job was dispatched with chained jobs based on a truth-test callback.
+     * Assert if a job was dispatched with chained jobs based on a truth-pay callback.
      *
      * @param  string  $command
      * @param  array  $expectedChain
@@ -400,7 +400,7 @@ class BusFake implements QueueingDispatcher
     }
 
     /**
-     * Assert if a batch was dispatched based on a truth-test callback.
+     * Assert if a batch was dispatched based on a truth-pay callback.
      *
      * @param  callable  $callback
      * @return void
@@ -427,7 +427,7 @@ class BusFake implements QueueingDispatcher
     }
 
     /**
-     * Get all of the jobs matching a truth-test callback.
+     * Get all of the jobs matching a truth-pay callback.
      *
      * @param  string  $command
      * @param  callable|null  $callback
@@ -449,7 +449,7 @@ class BusFake implements QueueingDispatcher
     }
 
     /**
-     * Get all of the jobs dispatched synchronously matching a truth-test callback.
+     * Get all of the jobs dispatched synchronously matching a truth-pay callback.
      *
      * @param  string  $command
      * @param  callable|null  $callback
@@ -471,7 +471,7 @@ class BusFake implements QueueingDispatcher
     }
 
     /**
-     * Get all of the jobs dispatched after the response was sent matching a truth-test callback.
+     * Get all of the jobs dispatched after the response was sent matching a truth-pay callback.
      *
      * @param  string  $command
      * @param  callable|null  $callback
@@ -493,7 +493,7 @@ class BusFake implements QueueingDispatcher
     }
 
     /**
-     * Get all of the pending batches matching a truth-test callback.
+     * Get all of the pending batches matching a truth-pay callback.
      *
      * @param  callable  $callback
      * @return \Illuminate\Support\Collection

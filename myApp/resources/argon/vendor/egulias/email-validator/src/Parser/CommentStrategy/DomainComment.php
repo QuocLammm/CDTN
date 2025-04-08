@@ -21,7 +21,7 @@ class DomainComment implements CommentStrategy
 
     public function endOfLoopValidations(EmailLexer $lexer) : Result
     {
-        //test for end of string
+        //pay for end of string
         if (!$lexer->isNextToken(EmailLexer::S_DOT)) {
             return new InvalidEmail(new ExpectingATEXT('DOT not found near CLOSEPARENTHESIS'), $lexer->token['value']);
         }

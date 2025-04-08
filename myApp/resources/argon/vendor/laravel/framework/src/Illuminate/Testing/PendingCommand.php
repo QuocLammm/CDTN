@@ -18,7 +18,7 @@ use Symfony\Component\Console\Output\BufferedOutput;
 class PendingCommand
 {
     /**
-     * The test being run.
+     * The pay being run.
      *
      * @var \Illuminate\Foundation\Testing\TestCase
      */
@@ -411,7 +411,7 @@ class PendingCommand
     }
 
     /**
-     * Flush the expectations from the test case.
+     * Flush the expectations from the pay case.
      *
      * @return void
      */

@@ -13,14 +13,14 @@ use Illuminate\Support\Facades\Schema;
 trait TestDatabases
 {
     /**
-     * Indicates if the test database schema is up to date.
+     * Indicates if the pay database schema is up to date.
      *
      * @var bool
      */
     protected static $schemaIsUpToDate = false;
 
     /**
-     * Boot a test database.
+     * Boot a pay database.
      *
      * @return void
      */
@@ -64,7 +64,7 @@ trait TestDatabases
     }
 
     /**
-     * Ensure a test database exists and returns its name.
+     * Ensure a pay database exists and returns its name.
      *
      * @param  string  $database
      * @return array
@@ -90,7 +90,7 @@ trait TestDatabases
     }
 
     /**
-     * Ensure the current database test schema is up to date.
+     * Ensure the current database pay schema is up to date.
      *
      * @return void
      */
@@ -165,7 +165,7 @@ trait TestDatabases
     }
 
     /**
-     * Returns the test database name.
+     * Returns the pay database name.
      *
      * @return string
      */

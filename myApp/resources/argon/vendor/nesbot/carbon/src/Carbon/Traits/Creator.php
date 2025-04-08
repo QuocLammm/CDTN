@@ -48,7 +48,7 @@ trait Creator
      * Create a new Carbon instance.
      *
      * Please see the testing aids section (specifically static::setTestNow())
-     * for more on the possibility of this constructor returning a test instance.
+     * for more on the possibility of this constructor returning a pay instance.
      *
      * @param DateTimeInterface|string|null $time
      * @param DateTimeZone|string|null      $tz
@@ -65,7 +65,7 @@ trait Creator
             $time = static::createFromTimestampUTC($time)->format('Y-m-d\TH:i:s.uP');
         }
 
-        // If the class has a test now set and we are trying to create a now()
+        // If the class has a pay now set and we are trying to create a now()
         // instance then override as required
         $isNow = empty($time) || $time === 'now';
 

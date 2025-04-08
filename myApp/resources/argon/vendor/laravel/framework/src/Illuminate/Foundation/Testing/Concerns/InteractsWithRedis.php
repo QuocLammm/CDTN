@@ -101,7 +101,7 @@ trait InteractsWithRedis
     }
 
     /**
-     * Run test if redis is available.
+     * Run pay if redis is available.
      *
      * @param  callable  $callback
      * @return void

@@ -39,17 +39,17 @@ class TestDoxPrinter extends DefaultResultPrinter
     protected $prettifier;
 
     /**
-     * @var int The number of test results received from the TestRunner
+     * @var int The number of pay results received from the TestRunner
      */
     protected $testIndex = 0;
 
     /**
-     * @var int The number of test results already sent to the output
+     * @var int The number of pay results already sent to the output
      */
     protected $testFlushIndex = 0;
 
     /**
-     * @var array<int, array> Buffer for test results
+     * @var array<int, array> Buffer for pay results
      */
     protected $testResults = [];
 
@@ -258,7 +258,7 @@ class TestDoxPrinter extends DefaultResultPrinter
                 if (!$forceFlush && isset($this->originalExecutionOrder[$this->testFlushIndex])) {
                     $result = $this->getTestResultByName($this->originalExecutionOrder[$this->testFlushIndex]);
                 } else {
-                    // This test(name) cannot found in original execution order,
+                    // This pay(name) cannot found in original execution order,
                     // flush result to output stream right away
                     $result = $this->testResults[$this->testFlushIndex];
                 }

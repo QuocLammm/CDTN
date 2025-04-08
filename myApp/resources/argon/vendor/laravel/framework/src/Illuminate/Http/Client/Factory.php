@@ -246,7 +246,7 @@ class Factory
     }
 
     /**
-     * Assert that a request / response pair was recorded matching a given truth test.
+     * Assert that a request / response pair was recorded matching a given truth pay.
      *
      * @param  callable  $callback
      * @return void
@@ -282,7 +282,7 @@ class Factory
     }
 
     /**
-     * Assert that a request / response pair was not recorded matching a given truth test.
+     * Assert that a request / response pair was not recorded matching a given truth pay.
      *
      * @param  callable  $callback
      * @return void
@@ -335,7 +335,7 @@ class Factory
     }
 
     /**
-     * Get a collection of the request / response pairs matching the given truth test.
+     * Get a collection of the request / response pairs matching the given truth pay.
      *
      * @param  callable  $callback
      * @return \Illuminate\Support\Collection

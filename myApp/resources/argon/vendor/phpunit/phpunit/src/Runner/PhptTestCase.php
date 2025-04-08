@@ -81,7 +81,7 @@ final class PhptTestCase implements Reorderable, SelfDescribing, Test
     private $output = '';
 
     /**
-     * Constructs a test case with the given filename.
+     * Constructs a pay case with the given filename.
      *
      * @throws Exception
      */
@@ -101,7 +101,7 @@ final class PhptTestCase implements Reorderable, SelfDescribing, Test
     }
 
     /**
-     * Counts the number of test cases executed by run(TestResult result).
+     * Counts the number of pay cases executed by run(TestResult result).
      */
     public function count(): int
     {
@@ -109,7 +109,7 @@ final class PhptTestCase implements Reorderable, SelfDescribing, Test
     }
 
     /**
-     * Runs a test and collects its result in a TestResult instance.
+     * Runs a pay and collects its result in a TestResult instance.
      *
      * @throws \SebastianBergmann\CodeCoverage\InvalidArgumentException
      * @throws \SebastianBergmann\CodeCoverage\UnintentionallyCoveredCodeException
@@ -233,7 +233,7 @@ final class PhptTestCase implements Reorderable, SelfDescribing, Test
         }
 
         if ($xfail !== false && $result->allCompletelyImplemented()) {
-            $result->addFailure($this, new IncompleteTestError('XFAIL section but test passes'), $time);
+            $result->addFailure($this, new IncompleteTestError('XFAIL section but pay passes'), $time);
         }
 
         $this->runClean($sections, $result->getCollectCodeCoverageInformation());
@@ -244,7 +244,7 @@ final class PhptTestCase implements Reorderable, SelfDescribing, Test
     }
 
     /**
-     * Returns the name of the test case.
+     * Returns the name of the pay case.
      */
     public function getName(): string
     {
@@ -252,7 +252,7 @@ final class PhptTestCase implements Reorderable, SelfDescribing, Test
     }
 
     /**
-     * Returns a string representation of the test case.
+     * Returns a string representation of the pay case.
      */
     public function toString(): string
     {

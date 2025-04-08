@@ -12,7 +12,7 @@ class ScheduleTestCommand extends Command
      *
      * @var string
      */
-    protected $signature = 'schedule:test {--name= : The name of the scheduled command to run}';
+    protected $signature = 'schedule:pay {--name= : The name of the scheduled command to run}';
 
     /**
      * The name of the console command.
@@ -21,7 +21,7 @@ class ScheduleTestCommand extends Command
      *
      * @var string|null
      */
-    protected static $defaultName = 'schedule:test';
+    protected static $defaultName = 'schedule:pay';
 
     /**
      * The console command description.

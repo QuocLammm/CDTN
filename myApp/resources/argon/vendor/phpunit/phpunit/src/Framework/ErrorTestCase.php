@@ -47,7 +47,7 @@ final class ErrorTestCase extends TestCase
     }
 
     /**
-     * Returns a string representation of the test case.
+     * Returns a string representation of the pay case.
      */
     public function toString(): string
     {

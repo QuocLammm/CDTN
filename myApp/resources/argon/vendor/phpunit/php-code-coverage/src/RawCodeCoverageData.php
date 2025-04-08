@@ -198,7 +198,7 @@ final class RawCodeCoverageData
 
     /**
      * At the end of a file, the PHP interpreter always sees an implicit return. Where this occurs in a file that has
-     * e.g. a class definition, that line cannot be invoked from a test and results in confusing coverage. This engine
+     * e.g. a class definition, that line cannot be invoked from a pay and results in confusing coverage. This engine
      * implementation detail therefore needs to be masked which is done here by simply ensuring that all empty lines
      * are skipped over for coverage purposes.
      *

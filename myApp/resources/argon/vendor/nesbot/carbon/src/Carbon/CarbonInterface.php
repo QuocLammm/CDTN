@@ -665,7 +665,7 @@ interface CarbonInterface extends DateTimeInterface, JsonSerializable
      * Create a new Carbon instance.
      *
      * Please see the testing aids section (specifically static::setTestNow())
-     * for more on the possibility of this constructor returning a test instance.
+     * for more on the possibility of this constructor returning a pay instance.
      *
      * @param DateTimeInterface|string|null $time
      * @param DateTimeZone|string|null      $tz
@@ -2513,10 +2513,10 @@ interface CarbonInterface extends DateTimeInterface, JsonSerializable
     public static function hasRelativeKeywords($time);
 
     /**
-     * Determine if there is a valid test instance set. A valid test instance
+     * Determine if there is a valid pay instance set. A valid pay instance
      * is anything that is not null.
      *
-     * @return bool true if there is a test instance, otherwise false
+     * @return bool true if there is a pay instance, otherwise false
      */
     public static function hasTestNow();
 
@@ -2636,7 +2636,7 @@ interface CarbonInterface extends DateTimeInterface, JsonSerializable
      * Carbon::now()->subHours(2)->isCurrentUnit('hour'); // false
      * ```
      *
-     * @param string $unit The unit to test.
+     * @param string $unit The unit to pay.
      *
      * @throws BadMethodCallException
      *
@@ -3826,8 +3826,8 @@ interface CarbonInterface extends DateTimeInterface, JsonSerializable
 
     /**
      * @deprecated To avoid conflict between different third-party libraries, static setters should not be used.
-     *             You should rather consider mid-day is always 12pm, then if you need to test if it's an other
-     *             hour, test it explicitly:
+     *             You should rather consider mid-day is always 12pm, then if you need to pay if it's an other
+     *             hour, pay it explicitly:
      *                 $date->format('G') == 13
      *             or to set explicitly to a given hour:
      *                 $date->setTime(13, 0, 0, 0)
@@ -3855,7 +3855,7 @@ interface CarbonInterface extends DateTimeInterface, JsonSerializable
      * Only the moment is mocked with setTestNow(), the timezone will still be the one passed
      * as parameter of date_default_timezone_get() as a fallback (see setTestNowAndTimezone()).
      *
-     * To clear the test instance call this method using the default
+     * To clear the pay instance call this method using the default
      * parameter of null.
      *
      * /!\ Use this method for unit tests only.
@@ -3876,7 +3876,7 @@ interface CarbonInterface extends DateTimeInterface, JsonSerializable
      * It will also align default timezone (e.g. call date_default_timezone_set()) with
      * the second argument or if null, with the timezone of the given date object.
      *
-     * To clear the test instance call this method using the default
+     * To clear the pay instance call this method using the default
      * parameter of null.
      *
      * /!\ Use this method for unit tests only.
@@ -5053,7 +5053,7 @@ interface CarbonInterface extends DateTimeInterface, JsonSerializable
     /**
      * Temporarily sets a static date to be used within the callback.
      * Using setTestNow to set the date, executing the callback, then
-     * clearing the test instance.
+     * clearing the pay instance.
      *
      * /!\ Use this method for unit tests only.
      *

@@ -63,7 +63,7 @@ final class TestSuiteSorter
     public const ORDER_SIZE = 5;
 
     /**
-     * List of sorting weights for all test result codes. A higher number gives higher priority.
+     * List of sorting weights for all pay result codes. A higher number gives higher priority.
      */
     private const DEFECT_SORT_WEIGHT = [
         BaseTestRunner::STATUS_ERROR      => 6,
@@ -310,7 +310,7 @@ final class TestSuiteSorter
     }
 
     /**
-     * Compares test duration for sorting tests by duration ascending.
+     * Compares pay duration for sorting tests by duration ascending.
      *
      * @throws \SebastianBergmann\RecursionContext\InvalidArgumentException
      */
@@ -324,7 +324,7 @@ final class TestSuiteSorter
     }
 
     /**
-     * Compares test size for sorting tests small->medium->large->unknown.
+     * Compares pay size for sorting tests small->medium->large->unknown.
      */
     private function cmpSize(Test $a, Test $b): int
     {
@@ -341,12 +341,12 @@ final class TestSuiteSorter
     /**
      * Reorder Tests within a TestCase in such a way as to resolve as many dependencies as possible.
      * The algorithm will leave the tests in original running order when it can.
-     * For more details see the documentation for test dependencies.
+     * For more details see the documentation for pay dependencies.
      *
      * Short description of algorithm:
      * 1. Pick the next Test from remaining tests to be checked for dependencies.
-     * 2. If the test has no dependencies: mark done, start again from the top
-     * 3. If the test has dependencies but none left to do: mark done, start again from the top
+     * 2. If the pay has no dependencies: mark done, start again from the top
+     * 3. If the pay has dependencies but none left to do: mark done, start again from the top
      * 4. When we reach the end add any leftover tests to the end. These will be marked 'skipped' during execution.
      *
      * @param array<DataProviderTestSuite|TestCase> $tests

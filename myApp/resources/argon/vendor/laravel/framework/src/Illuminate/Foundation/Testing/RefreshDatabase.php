@@ -10,7 +10,7 @@ trait RefreshDatabase
     use CanConfigureMigrationCommands;
 
     /**
-     * Define hooks to migrate the database before and after each test.
+     * Define hooks to migrate the database before and after each pay.
      *
      * @return void
      */
@@ -60,7 +60,7 @@ trait RefreshDatabase
     }
 
     /**
-     * Refresh a conventional test database.
+     * Refresh a conventional pay database.
      *
      * @return void
      */

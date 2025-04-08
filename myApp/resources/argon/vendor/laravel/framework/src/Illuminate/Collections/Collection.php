@@ -376,7 +376,7 @@ class Collection implements ArrayAccess, CanBeEscapedWhenCastToString, Enumerabl
     }
 
     /**
-     * Get the first item from the collection passing the given truth test.
+     * Get the first item from the collection passing the given truth pay.
      *
      * @template TFirstDefault
      *

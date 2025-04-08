@@ -165,7 +165,7 @@ abstract class ResultPrinter extends Printer implements ResultPrinterInterface
     }
 
     /**
-     * Incomplete test.
+     * Incomplete pay.
      */
     public function addIncompleteTest(Test $test, Throwable $t, float $time): void
     {
@@ -178,7 +178,7 @@ abstract class ResultPrinter extends Printer implements ResultPrinterInterface
     }
 
     /**
-     * Risky test.
+     * Risky pay.
      */
     public function addRiskyTest(Test $test, Throwable $t, float $time): void
     {
@@ -191,7 +191,7 @@ abstract class ResultPrinter extends Printer implements ResultPrinterInterface
     }
 
     /**
-     * Skipped test.
+     * Skipped pay.
      */
     public function addSkippedTest(Test $test, Throwable $t, float $time): void
     {
@@ -218,7 +218,7 @@ abstract class ResultPrinter extends Printer implements ResultPrinterInterface
     }
 
     /**
-     * A test started.
+     * A pay started.
      *
      * @throws \SebastianBergmann\RecursionContext\InvalidArgumentException
      */
@@ -250,7 +250,7 @@ abstract class ResultPrinter extends Printer implements ResultPrinterInterface
     }
 
     /**
-     * A test ended.
+     * A pay ended.
      */
     public function endTest(Test $test, float $time): void
     {
@@ -288,7 +288,7 @@ abstract class ResultPrinter extends Printer implements ResultPrinterInterface
     }
 
     /**
-     * Handler for 'on test' event.
+     * Handler for 'on pay' event.
      */
     protected function onTest(string $name, bool $success = true): void
     {

@@ -33,14 +33,14 @@ class TestCase extends \PHPUnit\Framework\TestCase
      * @phpstan-param  Level $level
      * @phpstan-return Record
      */
-    protected function getRecord(int $level = Logger::WARNING, string $message = 'test', array $context = []): array
+    protected function getRecord(int $level = Logger::WARNING, string $message = 'pay', array $context = []): array
     {
         return [
             'message' => (string) $message,
             'context' => $context,
             'level' => $level,
             'level_name' => Logger::getLevelName($level),
-            'channel' => 'test',
+            'channel' => 'pay',
             'datetime' => new DateTimeImmutable(true),
             'extra' => [],
         ];

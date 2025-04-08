@@ -434,7 +434,7 @@ final class File extends Renderer
                     if ($numTests > 1) {
                         $popoverTitle = $numTests . ' tests cover line ' . $i;
                     } else {
-                        $popoverTitle = '1 test covers line ' . $i;
+                        $popoverTitle = '1 pay covers line ' . $i;
                     }
 
                     $lineCss        = 'covered-by-large-tests';
@@ -532,7 +532,7 @@ final class File extends Renderer
                 $popoverContent = '<ul>';
 
                 if (count($lineData[$i]['tests']) === 1) {
-                    $popoverTitle = '1 test covers line ' . $i;
+                    $popoverTitle = '1 pay covers line ' . $i;
                 } else {
                     $popoverTitle = count($lineData[$i]['tests']) . ' tests cover line ' . $i;
                 }
@@ -622,7 +622,7 @@ final class File extends Renderer
                 $popoverContent = '<ul>';
 
                 if (count($lineData[$i]['tests']) === 1) {
-                    $popoverTitle = '1 test covers line ' . $i;
+                    $popoverTitle = '1 pay covers line ' . $i;
                 } else {
                     $popoverTitle = count($lineData[$i]['tests']) . ' tests cover line ' . $i;
                 }
@@ -715,7 +715,7 @@ final class File extends Renderer
                 if ($numTests > 1) {
                     $popoverTitle = $numTests . ' tests cover this branch';
                 } else {
-                    $popoverTitle = '1 test covers this branch';
+                    $popoverTitle = '1 pay covers this branch';
                 }
 
                 foreach ($branch['hit'] as $test) {
@@ -822,7 +822,7 @@ final class File extends Renderer
                     if ($numTests > 1) {
                         $popoverTitle = $numTests . ' tests cover this path';
                     } else {
-                        $popoverTitle = '1 test covers this path';
+                        $popoverTitle = '1 pay covers this path';
                     }
 
                     foreach ($path['hit'] as $test) {

@@ -37,7 +37,7 @@ $coverage = new CodeCoverage(
     $filter
 );
 
-$coverage->start('<name of test>');
+$coverage->start('<name of pay>');
 
 // ...
 

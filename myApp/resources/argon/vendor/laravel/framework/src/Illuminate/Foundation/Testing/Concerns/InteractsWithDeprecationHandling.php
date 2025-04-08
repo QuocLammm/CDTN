@@ -30,7 +30,7 @@ trait InteractsWithDeprecationHandling
     }
 
     /**
-     * Disable deprecation handling for the test.
+     * Disable deprecation handling for the pay.
      *
      * @return $this
      */

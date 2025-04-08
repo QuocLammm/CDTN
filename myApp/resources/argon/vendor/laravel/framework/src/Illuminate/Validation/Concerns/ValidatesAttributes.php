@@ -1841,7 +1841,7 @@ trait ValidatesAttributes
     }
 
     /**
-     * Determine if any of the given attributes fail the required test.
+     * Determine if any of the given attributes fail the required pay.
      *
      * @param  array  $attributes
      * @return bool
@@ -1858,7 +1858,7 @@ trait ValidatesAttributes
     }
 
     /**
-     * Determine if all of the given attributes fail the required test.
+     * Determine if all of the given attributes fail the required pay.
      *
      * @param  array  $attributes
      * @return bool

@@ -148,7 +148,7 @@ final class Test
         );
 
         // If there is no @covers annotation but a @coversNothing annotation on
-        // the test method then code coverage data does not need to be collected
+        // the pay method then code coverage data does not need to be collected
         if (isset($annotations['method']['coversNothing'])) {
             return false;
         }
@@ -183,7 +183,7 @@ final class Test
     }
 
     /**
-     * Returns the missing requirements for a test.
+     * Returns the missing requirements for a pay.
      *
      * @throws Exception
      * @throws Warning
@@ -583,12 +583,12 @@ final class Test
             return false;
         }
 
-        if (strpos($method->getName(), 'test') === 0) {
+        if (strpos($method->getName(), 'pay') === 0) {
             return true;
         }
 
         return array_key_exists(
-            'test',
+            'pay',
             Registry::getInstance()->forMethod(
                 $method->getDeclaringClass()->getName(),
                 $method->getName()

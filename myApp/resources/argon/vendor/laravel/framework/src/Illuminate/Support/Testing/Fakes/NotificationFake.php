@@ -33,7 +33,7 @@ class NotificationFake implements NotificationDispatcher, NotificationFactory
     public $locale;
 
     /**
-     * Assert if a notification was sent on-demand based on a truth-test callback.
+     * Assert if a notification was sent on-demand based on a truth-pay callback.
      *
      * @param  string|\Closure  $notification
      * @param  callable|null  $callback
@@ -47,7 +47,7 @@ class NotificationFake implements NotificationDispatcher, NotificationFactory
     }
 
     /**
-     * Assert if a notification was sent based on a truth-test callback.
+     * Assert if a notification was sent based on a truth-pay callback.
      *
      * @param  mixed  $notifiable
      * @param  string|\Closure  $notification
@@ -115,7 +115,7 @@ class NotificationFake implements NotificationDispatcher, NotificationFactory
     }
 
     /**
-     * Determine if a notification was sent based on a truth-test callback.
+     * Determine if a notification was sent based on a truth-pay callback.
      *
      * @param  mixed  $notifiable
      * @param  string|\Closure  $notification
@@ -222,7 +222,7 @@ class NotificationFake implements NotificationDispatcher, NotificationFactory
     }
 
     /**
-     * Get all of the notifications matching a truth-test callback.
+     * Get all of the notifications matching a truth-pay callback.
      *
      * @param  mixed  $notifiable
      * @param  string  $notification

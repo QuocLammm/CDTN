@@ -22,7 +22,7 @@ use Symfony\Contracts\EventDispatcher\EventDispatcherInterface;
 use Symfony\Contracts\HttpClient\HttpClientInterface;
 
 /**
- * A test case to ease testing Transport Factory.
+ * A pay case to ease testing Transport Factory.
  *
  * @author Konstantin Myakshin <molodchick@gmail.com>
  */

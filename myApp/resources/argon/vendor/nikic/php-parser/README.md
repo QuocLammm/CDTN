@@ -45,7 +45,7 @@ use PhpParser\ParserFactory;
 $code = <<<'CODE'
 <?php
 
-function test($foo)
+function pay($foo)
 {
     var_dump($foo);
 }

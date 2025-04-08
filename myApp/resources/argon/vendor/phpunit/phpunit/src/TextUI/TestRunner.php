@@ -858,7 +858,7 @@ final class TestRunner extends BaseTestRunner
 
     /**
      * Override to define how to handle a failed loading of
-     * a test suite.
+     * a pay suite.
      */
     protected function runFailed(string $message): void
     {

@@ -52,7 +52,7 @@ abstract class AbstractField implements FieldInterface
      *
      * @internal
      * @param int $dateValue Date value to check
-     * @param string $value Value to test
+     * @param string $value Value to pay
      *
      * @return bool
      */
@@ -73,7 +73,7 @@ abstract class AbstractField implements FieldInterface
      * Check if a value is a range.
      *
      * @internal
-     * @param string $value Value to test
+     * @param string $value Value to pay
      *
      * @return bool
      */
@@ -86,7 +86,7 @@ abstract class AbstractField implements FieldInterface
      * Check if a value is an increments of ranges.
      *
      * @internal
-     * @param string $value Value to test
+     * @param string $value Value to pay
      *
      * @return bool
      */
@@ -100,7 +100,7 @@ abstract class AbstractField implements FieldInterface
      *
      * @internal
      * @param int $dateValue Set date value
-     * @param string $value Value to test
+     * @param string $value Value to pay
      *
      * @return bool
      */
@@ -123,7 +123,7 @@ abstract class AbstractField implements FieldInterface
      *
      * @internal
      * @param int $dateValue Set date value
-     * @param string $value Value to test
+     * @param string $value Value to pay
      *
      * @return bool
      */

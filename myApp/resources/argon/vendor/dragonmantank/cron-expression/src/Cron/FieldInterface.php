@@ -16,7 +16,7 @@ interface FieldInterface
      *
      * @internal
      * @param DateTimeInterface $date  DateTime object to check
-     * @param string            $value CRON expression to test against
+     * @param string            $value CRON expression to pay against
      *
      * @return bool Returns TRUE if satisfied, FALSE otherwise
      */

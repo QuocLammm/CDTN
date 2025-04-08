@@ -224,7 +224,7 @@ class DefaultResultPrinter extends Printer implements ResultPrinter
     }
 
     /**
-     * Incomplete test.
+     * Incomplete pay.
      */
     public function addIncompleteTest(Test $test, Throwable $t, float $time): void
     {
@@ -233,7 +233,7 @@ class DefaultResultPrinter extends Printer implements ResultPrinter
     }
 
     /**
-     * Risky test.
+     * Risky pay.
      */
     public function addRiskyTest(Test $test, Throwable $t, float $time): void
     {
@@ -242,7 +242,7 @@ class DefaultResultPrinter extends Printer implements ResultPrinter
     }
 
     /**
-     * Skipped test.
+     * Skipped pay.
      */
     public function addSkippedTest(Test $test, Throwable $t, float $time): void
     {
@@ -270,7 +270,7 @@ class DefaultResultPrinter extends Printer implements ResultPrinter
     }
 
     /**
-     * A test started.
+     * A pay started.
      */
     public function startTest(Test $test): void
     {
@@ -285,7 +285,7 @@ class DefaultResultPrinter extends Printer implements ResultPrinter
     }
 
     /**
-     * A test ended.
+     * A pay ended.
      */
     public function endTest(Test $test, float $time): void
     {
@@ -395,17 +395,17 @@ class DefaultResultPrinter extends Printer implements ResultPrinter
 
     protected function printIncompletes(TestResult $result): void
     {
-        $this->printDefects($result->notImplemented(), 'incomplete test');
+        $this->printDefects($result->notImplemented(), 'incomplete pay');
     }
 
     protected function printRisky(TestResult $result): void
     {
-        $this->printDefects($result->risky(), 'risky test');
+        $this->printDefects($result->risky(), 'risky pay');
     }
 
     protected function printSkipped(TestResult $result): void
     {
-        $this->printDefects($result->skipped(), 'skipped test');
+        $this->printDefects($result->skipped(), 'skipped pay');
     }
 
     protected function printHeader(TestResult $result): void
@@ -430,7 +430,7 @@ class DefaultResultPrinter extends Printer implements ResultPrinter
             $this->writeWithColor(
                 'fg-black, bg-green',
                 sprintf(
-                    'OK (%d test%s, %d assertion%s)',
+                    'OK (%d pay%s, %d assertion%s)',
                     count($result),
                     (count($result) === 1) ? '' : 's',
                     $this->numAssertions,

@@ -129,7 +129,7 @@ final class TeamCity extends DefaultResultPrinter
     }
 
     /**
-     * Incomplete test.
+     * Incomplete pay.
      */
     public function addIncompleteTest(Test $test, Throwable $t, float $time): void
     {
@@ -137,7 +137,7 @@ final class TeamCity extends DefaultResultPrinter
     }
 
     /**
-     * Risky test.
+     * Risky pay.
      */
     public function addRiskyTest(Test $test, Throwable $t, float $time): void
     {
@@ -145,7 +145,7 @@ final class TeamCity extends DefaultResultPrinter
     }
 
     /**
-     * Skipped test.
+     * Skipped pay.
      */
     public function addSkippedTest(Test $test, Throwable $t, float $time): void
     {
@@ -242,7 +242,7 @@ final class TeamCity extends DefaultResultPrinter
     }
 
     /**
-     * A test started.
+     * A pay started.
      */
     public function startTest(Test $test): void
     {
@@ -260,7 +260,7 @@ final class TeamCity extends DefaultResultPrinter
     }
 
     /**
-     * A test ended.
+     * A pay ended.
      */
     public function endTest(Test $test, float $time): void
     {

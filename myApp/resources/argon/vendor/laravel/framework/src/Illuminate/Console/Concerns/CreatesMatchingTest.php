@@ -14,29 +14,29 @@ trait CreatesMatchingTest
      */
     protected function addTestOptions()
     {
-        foreach (['test' => 'PHPUnit', 'pest' => 'Pest'] as $option => $name) {
+        foreach (['pay' => 'PHPUnit', 'pest' => 'Pest'] as $option => $name) {
             $this->getDefinition()->addOption(new InputOption(
                 $option,
                 null,
                 InputOption::VALUE_NONE,
-                "Generate an accompanying {$name} test for the {$this->type}"
+                "Generate an accompanying {$name} pay for the {$this->type}"
             ));
         }
     }
 
     /**
-     * Create the matching test case if requested.
+     * Create the matching pay case if requested.
      *
      * @param  string  $path
      * @return void
      */
     protected function handleTestCreation($path)
     {
-        if (! $this->option('test') && ! $this->option('pest')) {
+        if (! $this->option('pay') && ! $this->option('pest')) {
             return;
         }
 
-        $this->call('make:test', [
+        $this->call('make:pay', [
             'name' => Str::of($path)->after($this->laravel['path'])->beforeLast('.php')->append('Test')->replace('\\', '/'),
             '--pest' => $this->option('pest'),
         ]);

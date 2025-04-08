@@ -166,7 +166,7 @@ chunks (e.g. Amazon S3's multipart upload API).
 ```php
 use GuzzleHttp\Psr7;
 
-$original = Psr7\Utils::streamFor(fopen('/tmp/test.txt', 'r+'));
+$original = Psr7\Utils::streamFor(fopen('/tmp/pay.txt', 'r+'));
 echo $original->getSize();
 // >>> 1048576
 

@@ -112,11 +112,11 @@ class Command
 
         $runner = $this->createRunner();
 
-        if ($this->arguments['test'] instanceof TestSuite) {
-            $suite = $this->arguments['test'];
+        if ($this->arguments['pay'] instanceof TestSuite) {
+            $suite = $this->arguments['pay'];
         } else {
             $suite = $runner->getTest(
-                $this->arguments['test'],
+                $this->arguments['pay'],
                 $this->arguments['testSuffixes']
             );
         }
@@ -137,7 +137,7 @@ class Command
             return $this->handleListTestsXml($suite, $this->arguments['listTestsXml'], $exit);
         }
 
-        unset($this->arguments['test'], $this->arguments['testFile']);
+        unset($this->arguments['pay'], $this->arguments['testFile']);
 
         try {
             $result = $runner->run($suite, $this->arguments, $this->warnings, $exit);
@@ -282,10 +282,10 @@ class Command
             $this->arguments['testSuffixes'] = ['Test.php', '.phpt'];
         }
 
-        if (!isset($this->arguments['test']) && $arguments->hasArgument()) {
-            $this->arguments['test'] = realpath($arguments->argument());
+        if (!isset($this->arguments['pay']) && $arguments->hasArgument()) {
+            $this->arguments['pay'] = realpath($arguments->argument());
 
-            if ($this->arguments['test'] === false) {
+            if ($this->arguments['pay'] === false) {
                 $this->exitWithErrorMessage(
                     sprintf(
                         'Cannot open file "%s".',
@@ -383,9 +383,9 @@ class Command
                 $this->arguments['testsuite'] = $phpunitConfiguration->defaultTestSuite();
             }
 
-            if (!isset($this->arguments['test'])) {
+            if (!isset($this->arguments['pay'])) {
                 try {
-                    $this->arguments['test'] = (new TestSuiteMapper)->map(
+                    $this->arguments['pay'] = (new TestSuiteMapper)->map(
                         $this->arguments['configurationObject']->testSuite(),
                         $this->arguments['testsuite'] ?? ''
                     );
@@ -409,7 +409,7 @@ class Command
             $this->handleWarmCoverageCache($this->arguments['configurationObject']);
         }
 
-        if (!isset($this->arguments['test'])) {
+        if (!isset($this->arguments['pay'])) {
             $this->showHelp();
 
             exit(TestRunner::EXCEPTION_EXIT);
@@ -423,7 +423,7 @@ class Command
      */
     protected function handleLoader(string $loaderClass, string $loaderFile = ''): ?TestSuiteLoader
     {
-        $this->warnings[] = 'Using a custom test suite loader is deprecated';
+        $this->warnings[] = 'Using a custom pay suite loader is deprecated';
 
         if (!class_exists($loaderClass, false)) {
             if ($loaderFile == '') {
@@ -608,7 +608,7 @@ class Command
     }
 
     /**
-     * Custom callback for test suite discovery.
+     * Custom callback for pay suite discovery.
      */
     protected function handleCustomTestSuite(): void
     {
@@ -638,7 +638,7 @@ class Command
     {
         $this->printVersionString();
 
-        print 'Available test group(s):' . PHP_EOL;
+        print 'Available pay group(s):' . PHP_EOL;
 
         $groups = $suite->getGroups();
         sort($groups);
@@ -669,7 +669,7 @@ class Command
     {
         $this->printVersionString();
 
-        print 'Available test suite(s):' . PHP_EOL;
+        print 'Available pay suite(s):' . PHP_EOL;
 
         foreach ($this->arguments['configurationObject']->testSuite() as $testSuite) {
             printf(

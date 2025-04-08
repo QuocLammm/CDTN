@@ -52,7 +52,7 @@ class QueueFake extends QueueManager implements Queue
     }
 
     /**
-     * Assert if a job was pushed based on a truth-test callback.
+     * Assert if a job was pushed based on a truth-pay callback.
      *
      * @param  string|\Closure  $job
      * @param  callable|int|null  $callback
@@ -92,7 +92,7 @@ class QueueFake extends QueueManager implements Queue
     }
 
     /**
-     * Assert if a job was pushed based on a truth-test callback.
+     * Assert if a job was pushed based on a truth-pay callback.
      *
      * @param  string  $queue
      * @param  string|\Closure  $job
@@ -115,7 +115,7 @@ class QueueFake extends QueueManager implements Queue
     }
 
     /**
-     * Assert if a job was pushed with chained jobs based on a truth-test callback.
+     * Assert if a job was pushed with chained jobs based on a truth-pay callback.
      *
      * @param  string  $job
      * @param  array  $expectedChain
@@ -140,7 +140,7 @@ class QueueFake extends QueueManager implements Queue
     }
 
     /**
-     * Assert if a job was pushed with an empty chain based on a truth-test callback.
+     * Assert if a job was pushed with an empty chain based on a truth-pay callback.
      *
      * @param  string  $job
      * @param  callable|null  $callback
@@ -157,7 +157,7 @@ class QueueFake extends QueueManager implements Queue
     }
 
     /**
-     * Assert if a job was pushed with chained jobs based on a truth-test callback.
+     * Assert if a job was pushed with chained jobs based on a truth-pay callback.
      *
      * @param  string  $job
      * @param  array  $expectedChain
@@ -179,7 +179,7 @@ class QueueFake extends QueueManager implements Queue
     }
 
     /**
-     * Assert if a job was pushed with chained jobs based on a truth-test callback.
+     * Assert if a job was pushed with chained jobs based on a truth-pay callback.
      *
      * @param  string  $job
      * @param  array  $expectedChain
@@ -215,7 +215,7 @@ class QueueFake extends QueueManager implements Queue
     }
 
     /**
-     * Determine if a job was pushed based on a truth-test callback.
+     * Determine if a job was pushed based on a truth-pay callback.
      *
      * @param  string|\Closure  $job
      * @param  callable|null  $callback
@@ -244,7 +244,7 @@ class QueueFake extends QueueManager implements Queue
     }
 
     /**
-     * Get all of the jobs matching a truth-test callback.
+     * Get all of the jobs matching a truth-pay callback.
      *
      * @param  string  $job
      * @param  callable|null  $callback

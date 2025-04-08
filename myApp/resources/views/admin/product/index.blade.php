@@ -1,5 +1,7 @@
 @extends('layouts.app')
+@push('css')
 
+@endpush
 @section('content')
     @include('layouts.navbars.auth.topnav', ['title' => 'Sản phẩm'])
     <div class="row mt-4 mx-4">
@@ -20,7 +22,7 @@
                 ';
 
                 $tbody = '';
-                if ($products->isEmpty()) {
+                if (empty($products) || count($products) === 0) {
                     $tbody .= '<tr><td colspan="5" class="text-center">Không có sản phẩm nào</td></tr>';
                 } else {
                     foreach ($products as $product) {
@@ -53,8 +55,8 @@
     <script>
         $(document).ready(function() {
             $('#productTable').DataTable({
-                pageLength: 4,
-                lengthMenu: [4, 10, 25, 50, 100],
+                pageLength: 5,
+                lengthMenu: [5, 10, 25, 50, 100],
                 language: {
                     search: "Tìm kiếm:",
                     lengthMenu: "Hiển thị _MENU_ mục",

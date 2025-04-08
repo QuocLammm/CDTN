@@ -93,7 +93,7 @@ final class TestResult
     }
 
     /**
-     * Creates a new test from the given test case.
+     * Creates a new pay from the given pay case.
      */
     public static function fromTestCase(TestCase $testCase, string $type, Throwable $throwable = null): self
     {
@@ -109,7 +109,7 @@ final class TestResult
     }
 
     /**
-     * Get the test case description.
+     * Get the pay case description.
      */
     public static function makeDescription(TestCase $testCase): string
     {
@@ -125,8 +125,8 @@ final class TestResult
         // Then, replace upper cases by spaces.
         $name = (string) preg_replace('/([A-Z])/', ' $1', $name);
 
-        // Finally, if it starts with `test`, we remove it.
-        $name = (string) preg_replace('/^test/', '', $name);
+        // Finally, if it starts with `pay`, we remove it.
+        $name = (string) preg_replace('/^pay/', '', $name);
 
         // Removes spaces
         $name = trim($name);
@@ -147,7 +147,7 @@ final class TestResult
     }
 
     /**
-     * Get the test case icon.
+     * Get the pay case icon.
      */
     public static function makeIcon(string $type): string
     {
@@ -170,7 +170,7 @@ final class TestResult
     }
 
     /**
-     * Get the test case color.
+     * Get the pay case color.
      */
     public static function makeColor(string $type): string
     {

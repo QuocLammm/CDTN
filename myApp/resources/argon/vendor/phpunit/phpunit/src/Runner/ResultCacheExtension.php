@@ -93,9 +93,9 @@ final class ResultCacheExtension implements AfterIncompleteTestHook, AfterLastTe
     }
 
     /**
-     * @param string $test A long description format of the current test
+     * @param string $test A long description format of the current pay
      *
-     * @return string The test name without TestSuiteClassName:: and @dataprovider details
+     * @return string The pay name without TestSuiteClassName:: and @dataprovider details
      */
     private function getTestName(string $test): string
     {

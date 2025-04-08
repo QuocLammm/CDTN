@@ -5,7 +5,7 @@ namespace Illuminate\Foundation\Testing;
 class RefreshDatabaseState
 {
     /**
-     * Indicates if the test database has been migrated.
+     * Indicates if the pay database has been migrated.
      *
      * @var bool
      */

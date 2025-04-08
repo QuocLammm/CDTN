@@ -273,7 +273,7 @@ interface Enumerable extends Arrayable, Countable, IteratorAggregate, Jsonable, 
     public function eachSpread(callable $callback);
 
     /**
-     * Determine if all items pass the given truth test.
+     * Determine if all items pass the given truth pay.
      *
      * @param  (callable(TValue, TKey): bool)|TValue|string  $key
      * @param  mixed  $operator
@@ -466,7 +466,7 @@ interface Enumerable extends Arrayable, Countable, IteratorAggregate, Jsonable, 
     public function whereInstanceOf($type);
 
     /**
-     * Get the first item from the enumerable passing the given truth test.
+     * Get the first item from the enumerable passing the given truth pay.
      *
      * @template TFirstDefault
      *
@@ -1097,7 +1097,7 @@ interface Enumerable extends Arrayable, Countable, IteratorAggregate, Jsonable, 
     public function pluck($value, $key = null);
 
     /**
-     * Create a collection of all elements that do not pass a given truth test.
+     * Create a collection of all elements that do not pass a given truth pay.
      *
      * @param  (callable(TValue, TKey): bool)|bool  $callback
      * @return static

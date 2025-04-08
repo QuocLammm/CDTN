@@ -32,7 +32,7 @@
                             @endforeach
                         </ul>
                     </li>
-                    @else
+                @else
                     <!-- Menu đơn -->
                     <li class="nav-item">
                         <a class="nav-link {{ Route::currentRouteName() == $menu['route'] ? 'active' : '' }}"

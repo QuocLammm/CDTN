@@ -128,7 +128,7 @@ trait Matching
             PHPUnit::assertEmpty(
                 $missing->toArray(),
                 sprintf(
-                    'Property [%s] does not contain a value that passes the truth test within the given closure.',
+                    'Property [%s] does not contain a value that passes the truth pay within the given closure.',
                     $key,
                 )
             );

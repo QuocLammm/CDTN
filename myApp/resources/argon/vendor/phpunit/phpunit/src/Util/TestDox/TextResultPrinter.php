@@ -29,7 +29,7 @@ final class TextResultPrinter extends ResultPrinter
     }
 
     /**
-     * Handler for 'on test' event.
+     * Handler for 'on pay' event.
      */
     protected function onTest(string $name, bool $success = true): void
     {

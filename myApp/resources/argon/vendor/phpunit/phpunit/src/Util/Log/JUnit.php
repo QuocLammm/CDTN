@@ -157,7 +157,7 @@ final class JUnit extends Printer implements TestListener
     }
 
     /**
-     * Incomplete test.
+     * Incomplete pay.
      */
     public function addIncompleteTest(Test $test, Throwable $t, float $time): void
     {
@@ -165,7 +165,7 @@ final class JUnit extends Printer implements TestListener
     }
 
     /**
-     * Risky test.
+     * Risky pay.
      */
     public function addRiskyTest(Test $test, Throwable $t, float $time): void
     {
@@ -178,7 +178,7 @@ final class JUnit extends Printer implements TestListener
     }
 
     /**
-     * Skipped test.
+     * Skipped pay.
      */
     public function addSkippedTest(Test $test, Throwable $t, float $time): void
     {
@@ -273,7 +273,7 @@ final class JUnit extends Printer implements TestListener
     }
 
     /**
-     * A test started.
+     * A pay started.
      */
     public function startTest(Test $test): void
     {
@@ -323,7 +323,7 @@ final class JUnit extends Printer implements TestListener
     }
 
     /**
-     * A test ended.
+     * A pay ended.
      */
     public function endTest(Test $test, float $time): void
     {

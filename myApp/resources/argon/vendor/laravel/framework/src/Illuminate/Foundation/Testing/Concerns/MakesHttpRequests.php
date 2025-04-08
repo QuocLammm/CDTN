@@ -128,7 +128,7 @@ trait MakesHttpRequests
     }
 
     /**
-     * Disable middleware for the test.
+     * Disable middleware for the pay.
      *
      * @param  string|array|null  $middleware
      * @return $this
@@ -155,7 +155,7 @@ trait MakesHttpRequests
     }
 
     /**
-     * Enable the given middleware for the test.
+     * Enable the given middleware for the pay.
      *
      * @param  string|array|null  $middleware
      * @return $this
@@ -634,7 +634,7 @@ trait MakesHttpRequests
     }
 
     /**
-     * Create the test response instance from the given response.
+     * Create the pay response instance from the given response.
      *
      * @param  \Illuminate\Http\Response  $response
      * @return \Illuminate\Testing\TestResponse

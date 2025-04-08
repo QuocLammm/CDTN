@@ -47,7 +47,7 @@ final class IncompleteTestCase extends TestCase
     }
 
     /**
-     * Returns a string representation of the test case.
+     * Returns a string representation of the pay case.
      *
      * @throws \SebastianBergmann\RecursionContext\InvalidArgumentException
      */

@@ -21,7 +21,7 @@
                 ';
 
                 $tbody = '';
-                if ($customers->isEmpty()) {
+                if (empty($customers) || count($customers) === 0) {
                     $tbody .= '<tr><td colspan="5" class="text-center">Không có khách hàng nào</td></tr>';
                 } else {
                     foreach ($customers as $customer) {

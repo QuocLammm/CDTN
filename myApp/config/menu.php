@@ -32,6 +32,11 @@ return [
         'is_parent' => true,
         'children' => [
             [
+                'title' => 'Cài đặt',
+                'route' => 'vnpay.payment.product',
+                'icon' => 'fa fa-cog text-dark',
+            ],
+            [
                 'title' => 'Nhân viên',
                 'route' => 'show-profile',
                 'icon' => 'ni ni-circle-08 text-dark',
@@ -49,7 +54,7 @@ return [
             [
                 'title' => 'Thanh toán',
                 'route' => 'vnpay.payment.product',
-                'icon' => 'ni ni-credit-card text-primary',
+                'icon' => 'ni ni-credit-card text-dark',
             ],
         ]
     ],

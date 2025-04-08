@@ -20,7 +20,7 @@ use Symfony\Component\Translation\Provider\ProviderInterface;
 use Symfony\Contracts\HttpClient\HttpClientInterface;
 
 /**
- * A test case to ease testing a translation provider.
+ * A pay case to ease testing a translation provider.
  *
  * @author Mathieu Santostefano <msantostefano@protonmail.com>
  *

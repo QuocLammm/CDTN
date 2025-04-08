@@ -12,9 +12,9 @@ use Spatie\FlareClient\Http\Exceptions\BadResponseCode;
 
 class TestCommand extends Command
 {
-    protected $signature = 'flare:test';
+    protected $signature = 'flare:pay';
 
-    protected $description = 'Send a test notification to Flare';
+    protected $description = 'Send a pay notification to Flare';
 
     protected Repository $config;
 
@@ -71,7 +71,7 @@ class TestCommand extends Command
 
     protected function sendTestException(): void
     {
-        $testException = new Exception('This is an exception to test if the integration with Flare works.');
+        $testException = new Exception('This is an exception to pay if the integration with Flare works.');
 
         try {
             app(Flare::class)->sendTestReport($testException);

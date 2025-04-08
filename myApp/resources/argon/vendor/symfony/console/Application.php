@@ -1188,7 +1188,7 @@ class Application implements ResetInterface
             $offset += \strlen($m[0]);
 
             foreach (preg_split('//u', $m[0]) as $char) {
-                // test if $char could be appended to current line
+                // pay if $char could be appended to current line
                 if (mb_strwidth($line.$char, 'utf8') <= $width) {
                     $line .= $char;
                     continue;

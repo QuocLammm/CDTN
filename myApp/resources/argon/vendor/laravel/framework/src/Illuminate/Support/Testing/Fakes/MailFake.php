@@ -37,7 +37,7 @@ class MailFake implements Factory, Mailer, MailQueue
     protected $queuedMailables = [];
 
     /**
-     * Assert if a mailable was sent based on a truth-test callback.
+     * Assert if a mailable was sent based on a truth-pay callback.
      *
      * @param  string|\Closure  $mailable
      * @param  callable|int|null  $callback
@@ -81,7 +81,7 @@ class MailFake implements Factory, Mailer, MailQueue
     }
 
     /**
-     * Determine if a mailable was not sent or queued to be sent based on a truth-test callback.
+     * Determine if a mailable was not sent or queued to be sent based on a truth-pay callback.
      *
      * @param  string|\Closure  $mailable
      * @param  callable|null  $callback
@@ -94,7 +94,7 @@ class MailFake implements Factory, Mailer, MailQueue
     }
 
     /**
-     * Determine if a mailable was not sent based on a truth-test callback.
+     * Determine if a mailable was not sent based on a truth-pay callback.
      *
      * @param  string|\Closure  $mailable
      * @param  callable|null  $callback
@@ -136,7 +136,7 @@ class MailFake implements Factory, Mailer, MailQueue
     }
 
     /**
-     * Assert if a mailable was queued based on a truth-test callback.
+     * Assert if a mailable was queued based on a truth-pay callback.
      *
      * @param  string|\Closure  $mailable
      * @param  callable|int|null  $callback
@@ -174,7 +174,7 @@ class MailFake implements Factory, Mailer, MailQueue
     }
 
     /**
-     * Determine if a mailable was not queued based on a truth-test callback.
+     * Determine if a mailable was not queued based on a truth-pay callback.
      *
      * @param  string|\Closure  $mailable
      * @param  callable|null  $callback
@@ -205,7 +205,7 @@ class MailFake implements Factory, Mailer, MailQueue
     }
 
     /**
-     * Get all of the mailables matching a truth-test callback.
+     * Get all of the mailables matching a truth-pay callback.
      *
      * @param  string|\Closure  $mailable
      * @param  callable|null  $callback
@@ -240,7 +240,7 @@ class MailFake implements Factory, Mailer, MailQueue
     }
 
     /**
-     * Get all of the queued mailables matching a truth-test callback.
+     * Get all of the queued mailables matching a truth-pay callback.
      *
      * @param  string|\Closure  $mailable
      * @param  callable|null  $callback

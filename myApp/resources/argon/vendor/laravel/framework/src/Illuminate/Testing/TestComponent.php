@@ -22,7 +22,7 @@ class TestComponent
     protected $rendered;
 
     /**
-     * Create a new test component instance.
+     * Create a new pay component instance.
      *
      * @param  \Illuminate\View\Component  $component
      * @param  \Illuminate\View\View  $view

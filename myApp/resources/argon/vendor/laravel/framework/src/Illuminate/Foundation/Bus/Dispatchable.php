@@ -18,7 +18,7 @@ trait Dispatchable
     }
 
     /**
-     * Dispatch the job with the given arguments if the given truth test passes.
+     * Dispatch the job with the given arguments if the given truth pay passes.
      *
      * @param  bool  $boolean
      * @param  mixed  ...$arguments
@@ -32,7 +32,7 @@ trait Dispatchable
     }
 
     /**
-     * Dispatch the job with the given arguments unless the given truth test passes.
+     * Dispatch the job with the given arguments unless the given truth pay passes.
      *
      * @param  bool  $boolean
      * @param  mixed  ...$arguments

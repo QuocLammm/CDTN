@@ -84,7 +84,7 @@ trait HidesAttributes
     }
 
     /**
-     * Make the given, typically hidden, attributes visible if the given truth test passes.
+     * Make the given, typically hidden, attributes visible if the given truth pay passes.
      *
      * @param  bool|\Closure  $condition
      * @param  array|string|null  $attributes
@@ -111,7 +111,7 @@ trait HidesAttributes
     }
 
     /**
-     * Make the given, typically visible, attributes hidden if the given truth test passes.
+     * Make the given, typically visible, attributes hidden if the given truth pay passes.
      *
      * @param  bool|\Closure  $condition
      * @param  array|string|null  $attributes

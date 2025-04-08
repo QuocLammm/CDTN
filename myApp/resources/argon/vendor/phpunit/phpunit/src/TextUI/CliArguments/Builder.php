@@ -51,7 +51,7 @@ final class Builder
         'coverage-xml=',
         'path-coverage',
         'debug',
-        'disallow-test-output',
+        'disallow-pay-output',
         'disallow-resource-usage',
         'disallow-todo-tests',
         'default-time-limit=',
@@ -99,7 +99,7 @@ final class Builder
         'stop-on-incomplete',
         'stop-on-risky',
         'stop-on-skipped',
-        'fail-on-empty-test-suite',
+        'fail-on-empty-pay-suite',
         'fail-on-incomplete',
         'fail-on-risky',
         'fail-on-skipped',
@@ -114,7 +114,7 @@ final class Builder
         'testdox-html=',
         'testdox-text=',
         'testdox-xml=',
-        'test-suffix=',
+        'pay-suffix=',
         'testsuite=',
         'verbose',
         'version',
@@ -398,7 +398,7 @@ final class Builder
 
                     break;
 
-                case '--test-suffix':
+                case '--pay-suffix':
                     $testSuffixes = explode(',', $option[1]);
 
                     break;
@@ -550,7 +550,7 @@ final class Builder
 
                     break;
 
-                case '--fail-on-empty-test-suite':
+                case '--fail-on-empty-pay-suite':
                     $failOnEmptyTestSuite = true;
 
                     break;
@@ -694,7 +694,7 @@ final class Builder
 
                     break;
 
-                case '--disallow-test-output':
+                case '--disallow-pay-output':
                     $disallowTestOutput = true;
 
                     break;

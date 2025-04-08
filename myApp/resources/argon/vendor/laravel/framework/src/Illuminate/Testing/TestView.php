@@ -26,7 +26,7 @@ class TestView
     protected $rendered;
 
     /**
-     * Create a new test view instance.
+     * Create a new pay view instance.
      *
      * @param  \Illuminate\View\View  $view
      * @return void

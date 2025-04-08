@@ -49,7 +49,7 @@ final class Style
      *
      * ```
      *    PASS  Unit\ExampleTest
-     *    ✓ basic test
+     *    ✓ basic pay
      * ```
      */
     public function writeCurrentTestCaseSummary(State $state): void
@@ -83,7 +83,7 @@ final class Style
      *
      * ```
      *    PASS  Unit\ExampleTest
-     *    ✓ basic test
+     *    ✓ basic pay
      * ```
      */
     public function writeErrorsSummary(State $state, bool $onFailure): void
@@ -243,7 +243,7 @@ final class Style
     }
 
     /**
-     * Returns the test contents.
+     * Returns the pay contents.
      */
     private function testLineFrom(string $fg, string $icon, string $description, string $warning = null): string
     {

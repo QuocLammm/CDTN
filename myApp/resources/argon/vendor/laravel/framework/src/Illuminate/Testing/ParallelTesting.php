@@ -36,14 +36,14 @@ class ParallelTesting
     protected $setUpProcessCallbacks = [];
 
     /**
-     * All of the registered "setUp" test case callbacks.
+     * All of the registered "setUp" pay case callbacks.
      *
      * @var array
      */
     protected $setUpTestCaseCallbacks = [];
 
     /**
-     * All of the registered "setUp" test database callbacks.
+     * All of the registered "setUp" pay database callbacks.
      *
      * @var array
      */
@@ -57,7 +57,7 @@ class ParallelTesting
     protected $tearDownProcessCallbacks = [];
 
     /**
-     * All of the registered "tearDown" test case callbacks.
+     * All of the registered "tearDown" pay case callbacks.
      *
      * @var array
      */
@@ -108,7 +108,7 @@ class ParallelTesting
     }
 
     /**
-     * Register a "setUp" test case callback.
+     * Register a "setUp" pay case callback.
      *
      * @param  callable  $callback
      * @return void
@@ -119,7 +119,7 @@ class ParallelTesting
     }
 
     /**
-     * Register a "setUp" test database callback.
+     * Register a "setUp" pay database callback.
      *
      * @param  callable  $callback
      * @return void
@@ -141,7 +141,7 @@ class ParallelTesting
     }
 
     /**
-     * Register a "tearDown" test case callback.
+     * Register a "tearDown" pay case callback.
      *
      * @param  callable  $callback
      * @return void
@@ -168,7 +168,7 @@ class ParallelTesting
     }
 
     /**
-     * Call all of the "setUp" test case callbacks.
+     * Call all of the "setUp" pay case callbacks.
      *
      * @param  \Illuminate\Foundation\Testing\TestCase  $testCase
      * @return void
@@ -186,7 +186,7 @@ class ParallelTesting
     }
 
     /**
-     * Call all of the "setUp" test database callbacks.
+     * Call all of the "setUp" pay database callbacks.
      *
      * @param  string  $database
      * @return void
@@ -220,7 +220,7 @@ class ParallelTesting
     }
 
     /**
-     * Call all of the "tearDown" test case callbacks.
+     * Call all of the "tearDown" pay case callbacks.
      *
      * @param  \Illuminate\Foundation\Testing\TestCase  $testCase
      * @return void
@@ -255,7 +255,7 @@ class ParallelTesting
     }
 
     /**
-     * Gets a unique test token.
+     * Gets a unique pay token.
      *
      * @return string|false
      */

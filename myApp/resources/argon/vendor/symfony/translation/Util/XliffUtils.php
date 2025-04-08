@@ -88,7 +88,7 @@ class XliffUtils
         static $dom, $schema;
         if (null === $dom) {
             $dom = new \DOMDocument();
-            $dom->loadXML('<?xml version="1.0"?><test/>');
+            $dom->loadXML('<?xml version="1.0"?><pay/>');
 
             $tmpfile = tempnam(sys_get_temp_dir(), 'symfony');
             register_shutdown_function(static function () use ($tmpfile) {
@@ -100,7 +100,7 @@ class XliffUtils
 </xsd:schema>';
             file_put_contents($tmpfile, '<?xml version="1.0" encoding="utf-8"?>
 <xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema">
-  <xsd:element name="test" type="testType" />
+  <xsd:element name="pay" type="testType" />
   <xsd:complexType name="testType"/>
 </xsd:schema>');
         }

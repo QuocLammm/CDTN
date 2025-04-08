@@ -69,28 +69,28 @@ class TestSuite implements IteratorAggregate, Reorderable, SelfDescribing, Test
     protected $runTestInSeparateProcess = false;
 
     /**
-     * The name of the test suite.
+     * The name of the pay suite.
      *
      * @var string
      */
     protected $name = '';
 
     /**
-     * The test groups of the test suite.
+     * The pay groups of the pay suite.
      *
      * @psalm-var array<string,list<Test>>
      */
     protected $groups = [];
 
     /**
-     * The tests in the test suite.
+     * The tests in the pay suite.
      *
      * @var Test[]
      */
     protected $tests = [];
 
     /**
-     * The number of tests in the test suite.
+     * The number of tests in the pay suite.
      *
      * @var int
      */
@@ -250,7 +250,7 @@ class TestSuite implements IteratorAggregate, Reorderable, SelfDescribing, Test
     }
 
     /**
-     * Returns a string representation of the test suite.
+     * Returns a string representation of the pay suite.
      */
     public function toString(): string
     {
@@ -258,7 +258,7 @@ class TestSuite implements IteratorAggregate, Reorderable, SelfDescribing, Test
     }
 
     /**
-     * Adds a test to the suite.
+     * Adds a pay to the suite.
      *
      * @param array $groups
      */
@@ -380,7 +380,7 @@ class TestSuite implements IteratorAggregate, Reorderable, SelfDescribing, Test
      *
      * If the named file cannot be read or there are no new tests that can be
      * added, a <code>PHPUnit\Framework\WarningTestCase</code> will be created instead,
-     * leaving the current test run untouched.
+     * leaving the current pay run untouched.
      *
      * @throws Exception
      */
@@ -397,23 +397,23 @@ class TestSuite implements IteratorAggregate, Reorderable, SelfDescribing, Test
         $numTests = count($this->tests);
 
         // The given file may contain further stub classes in addition to the
-        // test class itself. Figure out the actual test class.
+        // pay class itself. Figure out the actual pay class.
         $filename   = FileLoader::checkAndLoad($filename);
         $newClasses = array_slice(get_declared_classes(), $this->declaredClassesPointer);
 
-        // The diff is empty in case a parent class (with test methods) is added
+        // The diff is empty in case a parent class (with pay methods) is added
         // AFTER a child class that inherited from it. To account for that case,
         // accumulate all discovered classes, so the parent class may be found in
         // a later invocation.
         if (!empty($newClasses)) {
-            // On the assumption that test classes are defined first in files,
+            // On the assumption that pay classes are defined first in files,
             // process discovered classes in approximate LIFO order, so as to
             // avoid unnecessary reflection.
             $this->foundClasses           = array_merge($newClasses, $this->foundClasses);
             $this->declaredClassesPointer = count(get_declared_classes());
         }
 
-        // The test class's name must match the filename, either in full, or as
+        // The pay class's name must match the filename, either in full, or as
         // a PEAR/PSR-0 prefixed short name ('NameSpace_ShortName'), or as a
         // PSR-1 local short name ('NameSpace\ShortName'). The comparison must be
         // anchored to prevent false-positive matches (e.g., 'OtherShortName').
@@ -509,7 +509,7 @@ class TestSuite implements IteratorAggregate, Reorderable, SelfDescribing, Test
         if (count($this->tests) > ++$numTests) {
             $this->addWarning(
                 sprintf(
-                    "Multiple test case classes per file is deprecated\n               in %s",
+                    "Multiple pay case classes per file is deprecated\n               in %s",
                     $filename
                 )
             );
@@ -519,7 +519,7 @@ class TestSuite implements IteratorAggregate, Reorderable, SelfDescribing, Test
     }
 
     /**
-     * Wrapper for addTestFile() that adds multiple test files.
+     * Wrapper for addTestFile() that adds multiple pay files.
      *
      * @throws Exception
      */
@@ -531,7 +531,7 @@ class TestSuite implements IteratorAggregate, Reorderable, SelfDescribing, Test
     }
 
     /**
-     * Counts the number of test cases that will be run by this test.
+     * Counts the number of pay cases that will be run by this pay.
      *
      * @todo refactor usage of numTests in DefaultResultPrinter
      */
@@ -555,7 +555,7 @@ class TestSuite implements IteratorAggregate, Reorderable, SelfDescribing, Test
     }
 
     /**
-     * Returns the test groups of the suite.
+     * Returns the pay groups of the suite.
      *
      * @psalm-return list<string>
      */
@@ -576,7 +576,7 @@ class TestSuite implements IteratorAggregate, Reorderable, SelfDescribing, Test
     }
 
     /**
-     * Set tests groups of the test case.
+     * Set tests groups of the pay case.
      */
     public function setGroupDetails(array $groups): void
     {
@@ -723,7 +723,7 @@ class TestSuite implements IteratorAggregate, Reorderable, SelfDescribing, Test
     }
 
     /**
-     * Set tests of the test suite.
+     * Set tests of the pay suite.
      *
      * @param Test[] $tests
      */
@@ -733,7 +733,7 @@ class TestSuite implements IteratorAggregate, Reorderable, SelfDescribing, Test
     }
 
     /**
-     * Mark the test suite as skipped.
+     * Mark the pay suite as skipped.
      *
      * @param string $message
      *
@@ -777,7 +777,7 @@ class TestSuite implements IteratorAggregate, Reorderable, SelfDescribing, Test
     }
 
     /**
-     * Returns an iterator for this test suite.
+     * Returns an iterator for this pay suite.
      */
     public function getIterator(): Iterator
     {

@@ -284,7 +284,7 @@ trait EnumeratesValues
     }
 
     /**
-     * Determine if all items pass the given truth test.
+     * Determine if all items pass the given truth pay.
      *
      * @param  (callable(TValue, TKey): bool)|TValue|string  $key
      * @param  mixed  $operator
@@ -788,7 +788,7 @@ trait EnumeratesValues
     }
 
     /**
-     * Create a collection of all elements that do not pass a given truth test.
+     * Create a collection of all elements that do not pass a given truth pay.
      *
      * @param  (callable(TValue, TKey): bool)|bool  $callback
      * @return static

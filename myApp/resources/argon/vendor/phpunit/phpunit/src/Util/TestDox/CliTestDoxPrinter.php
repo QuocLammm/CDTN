@@ -194,7 +194,7 @@ class CliTestDoxPrinter extends TestDoxPrinter
             $this->write($this->colorizeTextBox('underlined', $result['className']) . PHP_EOL);
         }
 
-        // test result line
+        // pay result line
         if ($this->colors && $result['className'] === PhptTestCase::class) {
             $testName = Color::colorizePath($result['testName'], $prevResult['testName'], true);
         } else {

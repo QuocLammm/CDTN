@@ -419,7 +419,7 @@ class LazyCollection implements CanBeEscapedWhenCastToString, Enumerable
     }
 
     /**
-     * Get the first item from the enumerable passing the given truth test.
+     * Get the first item from the enumerable passing the given truth pay.
      *
      * @template TFirstDefault
      *
