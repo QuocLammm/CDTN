@@ -2,8 +2,14 @@
     <div class="card-header pb-0">
         <h3>{{ $title }}</h3>
         @if(isset($addRoute))
-            <a style="background-color:#11CDEF; font-size: 25px;margin-bottom: 10px; border-radius: 5px" href="{{ $addRoute }}">Thêm mới</a>
+            <a href="{{ $addRoute }}"
+               class="btn btn-primary d-inline-flex align-items-center"
+               style="background-color: #11CDEF; font-size: 14px; padding: 10px 20px; border-radius: 8px;
+              box-shadow: 0 4px 8px rgba(0,0,0,0.1); text-decoration: none;">
+                <i class="fas fa-plus me-2"></i> Thêm mới
+            </a>
         @endif
+
     </div>
     <div class="card-body px-0 pt-0 pb-2">
         <div class="table-responsive p-0">

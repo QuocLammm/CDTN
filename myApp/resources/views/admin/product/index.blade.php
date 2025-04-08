@@ -30,15 +30,18 @@
                             <tr>
                                 <td>' . $product->ProductName . '</td>
                                 <td class="text-center">
-                                    <img src="' . asset('img/products/' . $product->Image) . '" style="width: 50px; height: 50px; object-fit: cover;" class="rounded">
+                                    <img src="' . asset($product->Image) . '" style="width: 50px; height: 50px; object-fit: cover;" class="rounded">
                                 </td>
                                 <td>' . $product->Description . '</td>
                                 <td>' . number_format($product->Price) . ' VND</td>
                                 <td class="text-center">
                                     <a href="' . route('show-product.edit', $product->ProductID) . '" class="text-warning me-2">Edit</a>
-                                    <form action="' . route('show-product.destroy', $product->ProductID) . '" method="POST" style="display:inline;">
-                                        ' . csrf_field() . method_field('DELETE') . '
-                                        <button type="submit" onclick="return confirm(\'Xóa sản phẩm này?\')" class="btn btn-link text-danger p-0 m-0 align-baseline">Delete</button>
+                                    <form action="' . route('show-product.destroy', $product->ProductID) . '" method="POST" class="d-inline delete-form">
+                                        <input type="hidden" name="_token" value="' . csrf_token() . '">
+                                        <input type="hidden" name="_method" value="DELETE">
+                                        <button type="button" class="btn btn-link text-danger p-0 m-0 align-baseline btn-delete">
+                                            Delete
+                                        </button>
                                     </form>
                                 </td>
                             </tr>
@@ -73,4 +76,33 @@
             });
         });
     </script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const deleteButtons = document.querySelectorAll('.btn-delete');
+
+            deleteButtons.forEach(function (button) {
+                button.addEventListener('click', function (e) {
+                    e.preventDefault();
+                    const form = this.closest('form');
+
+                    Swal.fire({
+                        title: 'Bạn có chắc muốn xóa?',
+                        text: "Hành động này không thể hoàn tác!",
+                        icon: 'warning',
+                        showCancelButton: true,
+                        confirmButtonColor: '#d33',
+                        cancelButtonColor: '#6c757d',
+                        confirmButtonText: 'Xóa',
+                        cancelButtonText: 'Hủy'
+                    }).then((result) => {
+                        if (result.isConfirmed) {
+                            form.submit();
+                        }
+                    });
+                });
+            });
+        });
+    </script>
+
 @endpush

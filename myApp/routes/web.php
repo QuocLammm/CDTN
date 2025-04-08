@@ -35,6 +35,8 @@ Route::get('/profile-static', function () {
     return view('pages.profile-static');
 })->name('profile-static');
 
+//Nhân viên
+Route::resource('/staff', UserProfileController::class)->names('show-staff');
 //Customer
 Route::resource('/customer',CustomerController::class)->names('show-customer');
 

@@ -22,23 +22,27 @@ class ProductRequest extends FormRequest
     public function rules(): array
     {
         return [
+            'SupplierID' => 'required|exists:suppliers,SupplierID',
+            'CategoryID' => 'required|exists:categories,CategoryID',
             'ProductName' => 'required|max:255',
             'Image' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
-            'Description' => 'required|text|min:10',
+            'Description' => 'required|string|min:10',
             'Price' => 'required|numeric|min:0',
         ];
     }
     public function messages(): array{
         return [
-            'ProductName.required' => 'Tên sản phẩm không được để trống',
-            'Image.required' => 'Vui lòng chọn hình',
-            'Image.mimes' => 'Vui lòng chọn đúng tệp hình',
-            'Image.max' => 'Vui lòng chọn hình có kích thước nhỏ hơn',
-            'Description.required' =>'Vui lòng nhập mô tả',
-            'Description.min' => 'Mô tả ít nhất 10 từ',
-            'Price.required' => 'Vui lòng nhập giá bán',
-            'Price.numeric'=>'Vui lòng nhập số',
-            'Price.min' => 'Vui lòng nhập số lượng lớn hơn min:',
+            'SupplierID.required' => 'Vui lòng chọn loại sản phẩm!',
+            'CategoryID.required' => 'Vui lòng chọn nhà cung cấp!',
+            'ProductName.required' => 'Tên sản phẩm không được để trống!',
+            'Image.required' => 'Vui lòng chọn hình!',
+            'Image.mimes' => 'Vui lòng chọn đúng tệp hình!',
+            'Image.max' => 'Vui lòng chọn hình có kích thước nhỏ hơn!',
+            'Description.required' =>'Vui lòng nhập mô tả!',
+            'Description.min' => 'Mô tả ít nhất 10 từ!',
+            'Price.required' => 'Vui lòng nhập giá bán!',
+            'Price.numeric'=>'Vui lòng nhập số!',
+            'Price.min' => 'Vui lòng nhập số lượng lớn hơn min:!',
         ];
     }
 }
