@@ -153,7 +153,7 @@ class GeneratedExtensionToMimeTypeMap implements ExtensionToMimeTypeMap
         'cmc' => 'application/vnd.cosmocaller',
         'cmdf' => 'chemical/x-cmdf',
         'cml' => 'chemical/x-cml',
-        'cmp' => 'application/vnd.yellowriver-custom-menu',
+        'cmp' => 'application/vnd.yellowriver-custom-menu.php',
         'cmx' => 'image/x-cmx',
         'cod' => 'application/vnd.rim.cod',
         'coffee' => 'text/coffeescript',

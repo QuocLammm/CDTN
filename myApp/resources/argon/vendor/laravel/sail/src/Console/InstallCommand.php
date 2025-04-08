@@ -48,7 +48,7 @@ class InstallCommand extends Command
     }
 
     /**
-     * Gather the desired Sail services using a Symfony menu.
+     * Gather the desired Sail services using a Symfony menu.php.
      *
      * @return array
      */

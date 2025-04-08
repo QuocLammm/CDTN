@@ -1,10 +1,12 @@
 <?php
 
+use App\Http\Controllers\admin\CustomerController;
 use App\Http\Controllers\admin\ProductController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\UserProfileController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\admin\VNPayController;
 
 //--Login--
 Route::get('/login', function () {
@@ -26,52 +28,32 @@ Route::get('/home', function () {
 
 // Profile
 Route::get('/profile', function () {
-    return view('profile');
+    return view('pages.profile-static');
 })->name('show-profile');
-
-//Sản phẩm
-Route::resource('product', ProductController::class);
 
 Route::get('/profile-static', function () {
     return view('pages.profile-static');
 })->name('profile-static');
 
-Route::get('/{page}', function ($page) {
-    return view("pages.$page");
-})->where('page', 'user-management|tables|billing')->name('page');
+//Customer
+Route::resource('/customer',CustomerController::class)->names('show-customer');
 
-// User Management
-Route::get('/user-management', function () {
-    return view('pages.user-management');
-})->name('user-management');
+//Sản phẩm
+Route::resource('/product', ProductController::class)->names('show-product');
 
-// Tables
-Route::get('/tables', function () {
-    return view('pages.tables');
-})->name('tables');
 
-// Billing
-Route::get('/billing', function () {
-    return view('pages.billing');
-})->name('billing');
 
-// Virtual Reality
-Route::get('/virtual-reality', function () {
-    return view('pages.virtual-reality');
-})->name('virtual-reality');
+// Route cho việc hiển thị các sản phẩm và thực hiện thanh toán (GET)
+Route::get('/vnpay', [VNPayController::class, 'showPaymentPage'])->name('vnpay.payment.product');
 
-// RTL
-Route::get('/rtl', function () {
-    return view('pages.rtl');
-})->name('rtl');
+// Route cho việc tạo thanh toán (POST)
+Route::post('/vnpay', [VNPayController::class, 'createPayment'])->name('vnpay.createPayment');
+// Route trả về sau khi thanh toán thành công hoặc thất bại
+Route::get('/vnpay/return', [VNPayController::class, 'returnPayment'])->name('vnpay.return');
 
-// Sign In
-Route::get('/sign-in', function () {
-    return view('pages.sign-in');
-})->name('sign-in-static');
+// Các route thành công và thất bại
+Route::get('/vnpay/success', [VNPayController::class, 'paymentSuccess'])->name('vnpay.success');
+Route::get('/vnpay/failure', [VNPayController::class, 'paymentFailure'])->name('vnpay.failure');
 
-// Sign Up
-Route::get('/sign-up', function () {
-    return view('pages.sign-up');
-})->name('sign-up-static');
+
 

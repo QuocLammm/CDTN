@@ -23,12 +23,12 @@
   function dropdownEvent(event) {
     let currentEventTarget = event.currentTarget;
     let dropdownMenu = currentEventTarget.getElementsByClassName("ct-docs-navbar-dropdown-menu")[0];
-    if(dropdownMenu.classList.contains("ct-docs-navbar-dropdown-menu-show")) {
+    if(dropdownMenu.classList.contains("ct-docs-navbar-dropdown-menu.php-show")) {
       dropdownMenu.style.display = null;
-      dropdownMenu.classList.remove("ct-docs-navbar-dropdown-menu-show");
+      dropdownMenu.classList.remove("ct-docs-navbar-dropdown-menu.php-show");
     } else {
       dropdownMenu.style.display = "block";
-      dropdownMenu.classList.add("ct-docs-navbar-dropdown-menu-show");
+      dropdownMenu.classList.add("ct-docs-navbar-dropdown-menu.php-show");
     }
   }
 })();

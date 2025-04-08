@@ -19,7 +19,7 @@ class Inflectible
         yield new Transformation(new Pattern('(s)tatuses$'), '\1\2tatus');
         yield new Transformation(new Pattern('(s)tatus$'), '\1\2tatus');
         yield new Transformation(new Pattern('(c)ampus$'), '\1\2ampus');
-        yield new Transformation(new Pattern('^(.*)(menu)s$'), '\1\2');
+        yield new Transformation(new Pattern('^(.*)(menu.php)s$'), '\1\2');
         yield new Transformation(new Pattern('(quiz)zes$'), '\\1');
         yield new Transformation(new Pattern('(matr)ices$'), '\1ix');
         yield new Transformation(new Pattern('(vert|ind)ices$'), '\1ex');

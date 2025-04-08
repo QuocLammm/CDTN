@@ -23,6 +23,9 @@
     <link href="{{ asset('/assets/css/nucleo-svg.css')}}" rel="stylesheet" />
     <!-- CSS Files -->
     <link id="pagestyle" href="{{ asset('/assets/css/argon-dashboard.css')}}" rel="stylesheet" />
+    <!-- DataTables CSS -->
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.13.6/css/jquery.dataTables.min.css">
+
 </head>
 
 <body class="{{ $class ?? '' }}">
@@ -36,6 +39,7 @@
         </main>
     @include('components.fixed-plugin')
 {{--    @auth--}}
+{{--        @if(in_array(request()->route()->getName(),[])) @endif--}}
 {{--        @if (in_array(request()->route()->getName(), ['sign-in-static', 'sign-up-static', 'login', 'register', 'recover-password', 'rtl', 'virtual-reality']))--}}
 {{--            @yield('content')--}}
 {{--        @else--}}
@@ -72,6 +76,10 @@
     <script async defer src="https://buttons.github.io/buttons.js"></script>
     <!-- Control Center for Soft Dashboard: parallax effects, scripts for the example pages etc -->
     <script src="{{asset('/assets/js/argon-dashboard.js')}}"></script>
+    <!-- jQuery + DataTables JS -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
+
     @stack('js');
 </body>
 

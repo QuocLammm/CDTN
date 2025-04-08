@@ -9,7 +9,8 @@ use App\Models\Product;
 class ProductController extends Controller
 {
     public function index() {
-        return view('admin.product.index', ['products' => Product::all()]);
+        $products = Product::all();
+        return view('admin.product.index', compact('products'));
     }
 
     public function create() {
@@ -18,7 +19,7 @@ class ProductController extends Controller
 
     public function store(Request $request) {
         Product::create($request->validate(['ProductName' => 'required', 'Price' => 'required|numeric']));
-        return redirect()->route('admin.product.index')->with('success', 'Sản phẩm đã thêm!');
+        return redirect()->route('show-product.index')->with('success', 'Sản phẩm đã thêm!');
     }
 
     public function edit(Product $product) {
@@ -27,11 +28,11 @@ class ProductController extends Controller
 
     public function update(Request $request, Product $product) {
         $product->update($request->validate(['ProductName' => 'required', 'Price' => 'required|numeric']));
-        return redirect()->route('admin.product.index')->with('success', 'Sản phẩm đã cập nhật!');
+        return redirect()->route('show-product.index')->with('success', 'Sản phẩm đã cập nhật!');
     }
 
     public function destroy(Product $product) {
         $product->delete();
-        return redirect()->route('admin.product.index')->with('success', 'Sản phẩm đã xóa!');
+        return redirect()->route('show-product.index')->with('success', 'Sản phẩm đã xóa!');
     }
 }
