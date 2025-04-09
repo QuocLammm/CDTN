@@ -33,13 +33,13 @@
                                     <img src="' . asset($product->Image) . '" style="width: 50px; height: 50px; object-fit: cover;" class="rounded">
                                 </td>
                                 <td>' . $product->Description . '</td>
-                                <td>' . number_format($product->Price) . ' VND</td>
+                                <td>' . number_format($product->Price) . ' VNĐ</td>
                                 <td class="text-center">
-                                    <a href="' . route('show-product.edit', $product->ProductID) . '" class="text-warning me-2">Edit</a>
+                                    <a href="' . route('show-product.edit', $product->ProductID) . '" class="btn btn-sm btn-outline-success me-2">Edit</a>
                                     <form action="' . route('show-product.destroy', $product->ProductID) . '" method="POST" class="d-inline delete-form">
                                         <input type="hidden" name="_token" value="' . csrf_token() . '">
                                         <input type="hidden" name="_method" value="DELETE">
-                                        <button type="button" class="btn btn-link text-danger p-0 m-0 align-baseline btn-delete">
+                                        <button type="button" class="btn btn-sm btn-outline-danger btn-delete">
                                             Delete
                                         </button>
                                     </form>

@@ -31,11 +31,11 @@
                                 <td>' . \Carbon\Carbon::parse($customer->Date_of_Birth)->format('d/m/Y') . '</td>
                                 <td> '. $customer -> Email .'</td>
                                 <td class="text-center">
-                                    <a href="' . route('show-customer.edit', $customer->UserID) . '" class="text-warning me-2">Edit</a>
+                                    <a href="' . route('show-customer.edit', $customer->UserID) . '" class="btn btn-sm btn-outline-success me-2">Edit</a>
                                     <form action="' . route('show-customer.destroy', $customer->UserID) . '" method="POST" class="d-inline delete-form">
                                         <input type="hidden" name="_token" value="' . csrf_token() . '">
                                         <input type="hidden" name="_method" value="DELETE">
-                                        <button type="button" class="btn btn-link text-danger p-0 m-0 align-baseline btn-delete">
+                                        <button type="button" class="btn btn-sm btn-outline-danger btn-delete">
                                             Delete
                                         </button>
                                     </form>
