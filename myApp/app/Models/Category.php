@@ -11,7 +11,7 @@ class Category extends Model
 
     protected $table = 'categories';
     protected $primaryKey = 'CategoryID';
-    public $timestamps = false;
+    public $timestamps = true;
     protected $fillable = [
         'CategoryName',
         'Description',

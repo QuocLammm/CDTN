@@ -1,7 +1,11 @@
 <?php
 
+use App\Http\Controllers\admin\CategoryController;
 use App\Http\Controllers\admin\CustomerController;
+use App\Http\Controllers\admin\OrderController;
 use App\Http\Controllers\admin\ProductController;
+use App\Http\Controllers\admin\SaleController;
+use App\Http\Controllers\admin\UserController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\UserProfileController;
 use Illuminate\Support\Facades\Auth;
@@ -36,14 +40,21 @@ Route::get('/profile-static', function () {
 })->name('profile-static');
 
 //Nhân viên
-Route::resource('/staff', UserProfileController::class)->names('show-staff');
+Route::resource('/staff', UserController::class)->names('show-staff');
 //Customer
 Route::resource('/customer',CustomerController::class)->names('show-customer');
 
 //Sản phẩm
 Route::resource('/product', ProductController::class)->names('show-product');
 
+//Loại sản phẩm
+Route::resource('/category',CategoryController::class)->names('show-category');
 
+//Đơn hàng
+Route::resource('/order', OrderController::class)->names('show-order');
+
+//Khuyến mãi
+Route::resource('/sale', SaleController::class)->names('show-sale');
 
 // Route cho việc hiển thị các sản phẩm và thực hiện thanh toán (GET)
 Route::get('/vnpay', [VNPayController::class, 'showPaymentPage'])->name('vnpay.payment.product');
