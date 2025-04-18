@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('content')
-    @include('layouts.navbars.auth.topnav', ['title' => 'Khách hàng'])
+    @include('layouts.navbars.auth.topnav', ['title' => 'Nhân viên'])
     <div class="row mt-4 mx-4">
         <div class="col-12">
             @php
@@ -10,7 +10,7 @@
                 $tableId = 'staffTable';
                 $thead = '
                     <tr>
-                        <th>Tên khách hàng</th>
+                        <th>Tên nhân viên</th>
                         <th class="text-center">Hình ảnh</th>
                         <th>Ngày Sinh</th>
                         <th>Email</th>

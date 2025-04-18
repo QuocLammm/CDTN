@@ -28,7 +28,7 @@ class CustomerController extends Controller
             Str::random(1), // lowercase
             strtoupper(Str::random(1)), // uppercase
             rand(0, 9), // number
-            collect(['@', '#', '$', '%', '&', '*', '!'])->random() // special char
+            collect(['@', '#', '$', '%', '&', '*', '!'])->random()
         ])
             ->merge(str_split(Str::random(4)))
             ->shuffle()
@@ -41,10 +41,16 @@ class CustomerController extends Controller
     public function store(CustomerRequest $request) {
         $data = $request->all();
         $data['RoleID'] = 2;
+        $data['Gender'] = $data['Gender'] === 'Female' ? 1 : 0;
         $data['Password'] = bcrypt($data['Password']);
 
-        // Xử lý ảnh nếu có
-        if ($request->hasFile('Image')) {
+        // Xử lý ảnh
+        if ($request->hasFile('Image') && $request->file('Image')->isValid()) {
+            // Tạo thư mục nếu chưa tồn tại
+            if (!file_exists(public_path('/img/customers/'))) {
+                mkdir(public_path('/img/customers/'), 0755, true);
+            }
+
             $file = $request->file('Image');
             $fileName = 'user_' . Str::random(10) . '.' . $file->getClientOriginalExtension();
             $file->move(public_path('/img/customers/'), $fileName);
@@ -52,18 +58,44 @@ class CustomerController extends Controller
         }
 
         User::create($data);
-
-        return redirect()->route('admin.customer.index')->with('success', 'Thêm khách hàng thành công!');
+        return redirect()->route('show-customer.index')->with('success', 'Thêm khách hàng thành công!');
     }
 
 
-    public function edit(User $customer) {
-        return view('admin.customer.edit', compact('customer'));
+    public function edit($id) {
+        $customer = User::findOrFail($id);
+        $roles = Role::whereIn('RoleID', [1, 3])
+            ->pluck('RoleName', 'RoleID')
+            ->toArray();
+        $customers = [
+            0 => 'Nam',
+            1=> 'Nữ',
+        ];
+
+        return view('admin.staff.edit', compact('customer', 'roles', 'customers'));
     }
 
-    public function update(CustomerRequest $request, User $customer) {
-        $customer->update();
-        return redirect()->route('show-customer.index')->with('success', 'Thông tin khách hàng đã cập nhật!');
+    public function update(Request $request, $id) {
+        $data = $request->all();
+        $data['Gender'] = $data['Gender'] == 1 ? 1 : 0;
+
+        // Xử lý password
+        if (!empty($data['Password'])) {
+            $data['Password'] = bcrypt($data['Password']);
+        } else {
+            unset($data['Password']);
+        }
+
+        // Xử lý ảnh
+        if ($request->hasFile('Image') && $request->file('Image')->isValid()) {
+            $file = $request->file('Image');
+            $fileName = 'user_' . Str::random(10) . '.' . $file->getClientOriginalExtension();
+            $file->move(public_path('/img/customers/'), $fileName);
+            $data['Image'] = '/img/customers/' . $fileName;
+        }
+        $customer = User::findOrFail($id);
+        $customer->update($data);
+        return redirect()->route('show-staff.index')->with('success', 'Cập nhật nhân viên thành công!');
     }
 
     public function destroy(User $customer) {

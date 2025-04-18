@@ -5,7 +5,7 @@
         <br>
         <h3>Thêm mới khách hàng</h3>
         <form action="{{ route('show-customer.store') }}" method="POST" enctype="multipart/form-data">
-            @csrf
+        @csrf
             <div class="row">
                 <x-form.group col="8">
                     <div class="row">
@@ -50,7 +50,7 @@
                     <img id="imagePreview" src="#" alt="Ảnh xem trước" style="max-width: 100%; margin-top: 10px; display: none;">
                 </div>
             </div>
-            <button type="submit" class="btn btn-primary">Thêm sản phẩm</button>
+            <button type="submit" class="btn btn-primary">Thêm khách hàng</button>
             <a href="{{ route('show-customer.index') }}" class="btn btn-secondary">Quay lại</a>
         </form>
     </div>

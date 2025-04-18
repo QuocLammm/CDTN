@@ -14,12 +14,12 @@ class CategoryController extends Controller
     }
 
     public function create(){
-        return view('admin.category.create');
+        $categories = Category::all();
+        return view('admin.category.create', compact('categories'));
     }
 
-    public function store(CategoryRequest $request){
-        $data = $request->all();
-        Category::create($data);
+    public function store(){
+        Category::create();
         return redirect()->route('show-category.index')->with('success', 'Loại sản phẩm đã thêm!');
     }
 
@@ -27,9 +27,8 @@ class CategoryController extends Controller
         return view('admin.category.edit', compact('category'));
     }
 
-    public function update(CategoryRequest $request, Category $category){
-        $data = $request->all();
-        $category->update($data);
+    public function update(Category $category){
+        $category->update();
         return redirect()->route('show-category.index')->with('success','Cập nhật loại sản phẩm thành công!');
     }
 

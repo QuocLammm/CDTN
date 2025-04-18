@@ -3,7 +3,7 @@
 
 @endpush
 @section('content')
-    @include('layouts.navbars.auth.topnav', ['title' => 'Sản phẩm'])
+    @include('layouts.navbars.auth.topnav', ['title' => 'Loại sản phẩm'])
     <div class="row mt-4 mx-4">
         <div class="col-12">
             @php

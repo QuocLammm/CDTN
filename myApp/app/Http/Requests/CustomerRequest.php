@@ -23,7 +23,7 @@ class CustomerRequest extends FormRequest
     {
         return [
             'RoleID' =>'required|integer|in:2',
-            'FullName'=>'required|string|regex:/^[a-zA-Z]{3,20}$/',
+            'FullName' => 'required|string|regex:/^[\p{L}\s]{3,255}$/u',
             'Address'=>'required|string|max:255',
             'Phone' => [
                 'required',
@@ -42,9 +42,8 @@ class CustomerRequest extends FormRequest
                 'regex:/^[a-zA-Z0-9]+$/'
             ],
             'Date_of_Birth' => 'required|date|date_format:Y-m-d',
-            'Image'=>'required|images|mimes:jpeg,png,jpg,gif,svg|max:2048',
             'Gender'=>'required|in:Male,Female',
-            'Email'=> 'required|email|unique',
+            'Email'=> 'required|email|unique:users,Email',
         ];
     }
 
@@ -52,8 +51,8 @@ class CustomerRequest extends FormRequest
         return [
             'RoleID.required' => 'Vui lòng chọn quyền hạng!',
             'RoleID.in' => 'Quyền hạng bạn chọn không phù hợp!',
-            'FullName.required' =>'Vui lòng nhập họ và tên!',
-            'FullName.regex' => 'Tên chỉ chứa chữ thường và chữ hoa có dấu, tên tối thiểu 3 đến 20 ký tự!',
+            'FullName.required' => 'Vui lòng nhập họ và tên!',
+            'FullName.regex' => 'Tên chỉ chứa chữ cái có dấu, và khoảng trắng, độ dài từ 3 đến 255 ký tự!',
             'Address.required' => 'Vui lòng nhập địa chỉ!',
             'Phone.required' => 'Vui lòng nhập số điện thoại!',
             'Phone.numeric' => 'Số điện thoại chỉ là số!',
@@ -66,8 +65,6 @@ class CustomerRequest extends FormRequest
             'Date_of_Birth.required' => 'Vui lòng nhập ngày sinh.',
             'Date_of_Birth.date' => 'Ngày sinh không hợp lệ.',
             'Date_of_Birth.date_format' => 'Ngày sinh phải có định dạng yyyy-mm-dd (VD: 2000-01-01).',
-            'Image.required'=>'Vui lòng chọn ảnh',
-            'Image.mimes' => 'Vui lòng chọn loại tệp phù hợp!',
             'Gender.required'=>'Vui lòng chọn giới tính!',
             'Gender.in' => 'Vui lòng chọn Nam hoặc Nữ',
             'Email.required'=>'Vui lòng nhập email!',

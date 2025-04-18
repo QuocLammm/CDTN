@@ -23,7 +23,8 @@ class UserRequest extends FormRequest
     {
         return [
             'RoleID' =>'required|integer|in:1,3',
-            'FullName'=>'required|string|regex:/^[a-zA-Z]{3,20}$/',
+            'FullName' => 'required|string|regex:/^[\p{L}\s]{3,255}$/u',
+
             'Address'=>'required|string|max:255',
             'Phone' => [
                 'required',
@@ -42,9 +43,8 @@ class UserRequest extends FormRequest
                 'regex:/^[a-zA-Z0-9]+$/'
             ],
             'Date_of_Birth' => 'required|date|date_format:Y-m-d',
-            'Image'=>'required|images|mimes:jpeg,png,jpg,gif,svg|max:2048',
             'Gender'=>'required|in:Male,Female',
-            'Email'=> 'required|email|unique',
+            'Email'=> 'required|email|unique:users,Email',
         ];
     }
 
@@ -66,8 +66,6 @@ class UserRequest extends FormRequest
             'Date_of_Birth.required' => 'Vui lòng nhập ngày sinh.',
             'Date_of_Birth.date' => 'Ngày sinh không hợp lệ.',
             'Date_of_Birth.date_format' => 'Ngày sinh phải có định dạng yyyy-mm-dd (VD: 2000-01-01).',
-            'Image.required'=>'Vui lòng chọn ảnh',
-            'Image.mimes' => 'Vui lòng chọn loại tệp phù hợp!',
             'Gender.required'=>'Vui lòng chọn giới tính!',
             'Gender.in' => 'Vui lòng chọn Nam hoặc Nữ',
             'Email.required'=>'Vui lòng nhập email!',

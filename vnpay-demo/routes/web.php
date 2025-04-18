@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\ContactController;
+use App\Http\Controllers\TyGiaController;
 use App\Http\Controllers\VNPayController;
 use Illuminate\Support\Facades\Blade;
 use Illuminate\Support\Facades\Route;
@@ -24,3 +25,6 @@ Route::get('/vnpay/failure', [VNPayController::class, 'paymentFailure'])->name('
 
 Route::get('/contact', [ContactController::class, 'create'])->name('contact.form');
 Route::post('/contact',[ContactController::class,'store'])->name('contact.submit');
+
+
+Route::get('/ty-gia', [TyGiaController::class, 'index']);
