@@ -1,0 +1,549 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,300;0,400;0,500;1,500&display=swap');
+:root{
+    --color-primary: #1d4ed8;
+    --color-danger: #FF0060;
+    --color-success: #189C85;
+    --color-warning: #F7D060;
+    --color-white: #fff;
+    --color-info-dark: #7d8da1;
+    --color-dark: #363949;
+    --color-light: rgba(132,139,200, 0.18);
+    --color-dark-variant: #677483;
+    --color-background: #f6f6f9;
+
+    --card-border-radius: 2rem;
+    --border-radius-1: 0.4rem;
+    --border-radius-2: 1.2rem;
+
+    --card-padding: 1.8rem;
+    --padding-1: 1.2rem;
+
+    --box-shadow: 0 2rem 3rem var(var(--color-light));
+}
+*{
+    padding:0;
+    margin: 0;
+    outline: none;
+    border: none;
+    box-sizing: border-box;
+}
+html {
+    scroll-behavior: smooth;
+}
+
+img{
+    width: 100%;
+    display: flex;
+}
+a{
+    text-decoration: none;
+}
+
+body{
+    font-family: 'Poppins', sans-serif;
+    background-color: #fff;
+}
+nav {
+    position: fixed; /* Giữ cho nav luôn ở trên cùng */
+    top: 0;
+    left: 0;
+    width: 100%;
+    z-index: 1000; /* Đảm bảo nav nằm trên các phần tử khác */
+    display: flex;
+    align-items: center; /* Căn giữa theo chiều dọc */
+    justify-content: space-between; /* Phân bổ không gian giữa logo, nav-links và button */
+    padding: 1rem; /* Khoảng cách bên trong */
+    background-color: transparent; /* Background mặc định là trong suốt */
+    transition: background-color 0.3s ease, border-bottom 0.3s ease; /* Hiệu ứng chuyển màu nền và border */
+    border-bottom: none; /* Không có border khi ở trạng thái trong suốt */
+}
+
+nav.scrolled {
+    background-color: white; /* Màu nền khi cuộn xuống */
+    border-bottom: 2px solid #ccc; /* Đường viền dưới khi cuộn xuống */
+}
+
+#logo-text {
+    position: absolute; /* Định vị thẻ p */
+    left: 80px; /* Đặt bên trái */
+    background-color: rgba(255, 255, 255, 0.8); /* Màu nền trong suốt */
+    border-radius: 5px; /* Bo góc */
+    z-index: 10; /* Đảm bảo thẻ p nằm trên các phần tử khác */
+    display: none; /* Ẩn thẻ p ban đầu */
+}
+/* Thêm lớp để hiển thị */
+.show {
+    opacity: 1; /* Hiện */
+}
+
+/* Thêm lớp để ẩn */
+.hide {
+    opacity: 0; /* Ẩn */
+}
+
+.nav-logo img {
+    max-width: 80px; /* Limit the width of the logo */
+    height: auto; /* Maintain aspect ratio */
+}
+
+.nav-links {
+    list-style: none;
+    display: flex;
+    align-items: center;
+    gap: 3rem;
+    justify-content: center; /* Căn giữa các liên kết nav */
+    flex-grow: 1; /* Đẩy các phần tử còn lại sang hai bên */
+}
+
+.nav-links .link a {
+    font-size: 1.2rem; /* Tăng kích thước chữ */
+    font-weight: bold; /* Đặt chữ in đậm */
+    color: inherit; /* Giữ màu chữ theo màu của nav */
+    text-decoration: none; /* Bỏ gạch chân */
+    transition: color 0.3s ease; /* Hiệu ứng chuyển màu chữ khi hover */
+}
+
+.nav-links .link a:hover {
+    color: #007bff; /* Thay đổi màu chữ khi hover (có thể điều chỉnh) */
+}
+
+.search-container {
+    position: relative; /* Để định vị biểu tượng tìm kiếm */
+    display: flex; /* Sử dụng flexbox để căn chỉnh */
+    align-items: center; /* Căn giữa theo chiều dọc */
+}
+
+.search-input {
+    padding: 8px 40px; /* Khoảng đệm cho ô tìm kiếm, thêm khoảng trống bên trái */
+    border: 1px solid #ccc; /* Đường viền */
+    border-radius: 20px; /* Đường viền tròn */
+    width: 100%; /* Chiếm toàn bộ chiều rộng */
+    box-sizing: border-box; /* Để padding không làm tăng kích thước */
+}
+
+.search-icon a{
+    position: absolute; /* Để biểu tượng tìm kiếm nằm phía sau văn bản */
+    left: 10px; /* Khoảng cách từ bên trái */
+    top: 50%; /* Đặt giữa theo chiều dọc */
+    transform: translateY(-50%); /* Căn giữa theo chiều dọc */
+    color: #999; /* Màu sắc của biểu tượng */
+    pointer-events: none; /* Không cho phép click vào biểu tượng */
+}
+
+/*.icon-container {*/
+/*    display: flex; !* Align icons in a row *!*/
+/*    align-items: center; !* Center them vertically *!*/
+/*    gap: 15px; !* Space between icons *!*/
+/*    position: relative; !* Để các phần tử con tuyệt đối có thể định vị chính xác *!*/
+/*}*/
+.icon-container {
+    display: flex; /* Align icons in a row */
+    align-items: center; /* Center them vertically */
+    gap: 20px; /* Tăng khoảng cách giữa các biểu tượng */
+}
+
+.icon {
+    width: 30px; /* Set width for icons */
+    height: 30px; /* Set height for icons */
+    display: flex; /* Center the image */
+    justify-content: center; /* Center horizontally */
+    align-items: center; /* Center vertically */
+    position: relative; /* Để định vị số lượng thông báo */
+}
+
+.notification-count {
+    position: absolute;
+    top: -5px; /* Điều chỉnh vị trí theo yêu cầu */
+    right: -10px; /* Điều chỉnh vị trí theo yêu cầu */
+    background-color: red; /* Màu nền cho số lượng thông báo */
+    color: white; /* Màu chữ */
+    border-radius: 50%; /* Đường viền tròn */
+    padding: 2px 5px; /* Khoảng đệm cho số lượng */
+    font-size: 12px; /* Kích thước chữ */
+    min-width: 20px; /* Đảm bảo có độ rộng tối thiểu */
+    text-align: center; /* Canh giữa chữ trong số lượng */
+}
+.account-icon {
+    width: 40px; /* Kích thước cho icon */
+    height: 40px; /* Kích thước cho icon */
+    display: flex; /* Center the image */
+    justify-content: center; /* Center horizontally */
+    align-items: center; /* Center vertically */
+}
+
+.avatar {
+    width: 100%; /* Để ảnh chiếm toàn bộ kích thước của container */
+    height: 100%; /* Để ảnh chiếm toàn bộ kích thước của container */
+    border-radius: 50%; /* Đường viền tròn */
+    object-fit: cover; /* Giữ tỷ lệ khung hình cho ảnh */
+}
+
+#user-info {
+    display: flex;
+    align-items: center;
+}
+
+.icon img {
+    width: 100%; /* Make images responsive */
+    height: auto; /* Maintain aspect ratio */
+}
+
+.link a{
+    position: relative;
+    padding-bottom: 0.75rem;
+    color: #18181B;
+}
+.link a::after{
+    content: "";
+    position: absolute;
+    height: 2px;
+    width: 0;
+    bottom: 0;
+    left: 0;
+    background-color: var(--color-primary);
+    transition: all 0.3s ease;
+}
+
+.link a:hover::after{
+    width: 70%;
+}
+.btn{
+    padding: 1rem 1rem;
+    font-size: 1rem;
+    color: var(--color-background);
+    background-color: var(--color-primary);
+    border-radius: 5px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+.btn:hover{
+    background-color: #134ed3;
+}
+
+/* Global container */
+.container {
+    max-width: 1200px;
+    margin: auto;
+}
+/* Nav */
+.sticky-nav {
+    background-color: white;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1); /* đổ bóng nhẹ */
+    border-bottom: 1px solid #ddd; /* viền dưới */
+    transition: all 0.3s ease-in-out;
+}
+
+
+/* Banner Styles */
+.banner {
+    width: 100%;
+    height: 100vh; /* Full viewport height */
+    overflow: hidden;
+    position: relative;
+    z-index: 1; /* Set z-index lower than nav */
+}
+
+.slider {
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    position: relative;
+}
+
+.slides {
+    display: flex;
+    width: 300%; /* 3 images */
+    transition: transform 0.5s ease-in-out;
+}
+
+.slides img {
+    width: 100vw; /* Full width of the viewport */
+    height: 100vh; /* Full height of the viewport */
+    object-fit: cover;
+}
+
+/* Navigation buttons */
+.banner button {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    background: rgba(0, 0, 0, 0.5);
+    color: white;
+    border: none;
+    padding: 10px 15px;
+    cursor: pointer;
+    font-size: 24px;
+    border-radius: 5px;
+}
+
+.prev { left: 10px; }
+.next { right: 10px; }
+
+.banner button:hover {
+    background: rgba(0, 0, 0, 0.8);
+}
+
+/*Card San Pham */
+section .header{
+    margin-top: 0rem;
+    color: #000000;
+    text-align: center;
+    font-size: 2.25rem;
+    font-weight: 600;
+}
+.features {
+    margin-top: 2rem;
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 2rem;
+}
+
+.features .card {
+    background-color: white;
+    padding: 1rem;
+    border: 2px solid transparent;
+    border-radius: 15px;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+    height: 100%; /* Đảm bảo chiều cao thẻ bằng nhau */
+}
+
+.features .card:hover {
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2); /* Tăng cường đổ bóng khi hover */
+    transform: translateY(-5px); /* Nhấc card lên một chút khi hover */
+}
+
+.product-image {
+    width: 100%; /* Chiều rộng hình ảnh */
+    height: auto; /* Giữ tỷ lệ khung hình */
+    border-radius: var(--border-radius-1); /* Bo góc cho hình ảnh */
+    margin-bottom: 1rem; /* Khoảng cách giữa hình ảnh và tiêu đề */
+}
+
+.card a {
+    text-decoration: none;
+    color: #000000;
+    text-align: center;
+    display: block; /* Để thẻ a chiếm toàn bộ chiều rộng của thẻ card */
+    margin-top: 1rem; /* Khoảng cách giữa nội dung khác và chữ Buy */
+    padding: 10px 0; /* Thêm khoảng đệm để tạo không gian cho chữ Buy */
+    border: 2px solid transparent; /* Để có thể thêm hiệu ứng hover nếu cần */
+    border-radius: 5px; /* Bo góc cho nút Buy */
+    transition: background-color 0.3s, color 0.3s, transform 0.3s, border-color 0.3s; /* Thêm hiệu ứng chuyển màu và phóng to khi hover */
+}
+
+.buy-button {
+    text-decoration: none;
+    color: #000000;
+    text-align: center;
+    display: block; /* Để thẻ a chiếm toàn bộ chiều rộng của thẻ card */
+    margin-top: 1rem; /* Khoảng cách giữa nội dung khác và chữ Buy */
+    padding: 10px 0; /* Thêm khoảng đệm để tạo không gian cho chữ Buy */
+    border: 2px solid transparent; /* Để có thể thêm hiệu ứng hover nếu cần */
+    border-radius: 5px; /* Bo góc cho nút Buy */
+    transition: background-color 0.3s, color 0.3s, transform 0.3s, border-color 0.3s; /* Thêm hiệu ứng chuyển màu và phóng to khi hover */
+}
+
+.buy-button:hover {
+    background-color: #f0f0f0; /* Thay đổi màu nền khi hover */
+    color: #000000; /* Đổi màu chữ khi hover */
+    transform: scale(1.1); /* Phóng to chữ Buy khi hover */
+    border-color: #000000; /* Đổi màu border khi hover */
+}
+
+.card p{
+    text-align: center;
+}
+
+.color-options {
+    display: flex; /* Sử dụng flex để căn giữa các nút màu */
+    justify-content: center; /* Căn giữa các nút màu */
+    margin: 1rem 0; /* Khoảng cách trên và dưới */
+}
+
+.color-button {
+    width: 30px; /* Kích thước nút màu */
+    height: 30px; /* Kích thước nút màu */
+    border-radius: 50%; /* Bo góc thành hình tròn */
+    border: none; /* Không đường viền */
+    cursor: pointer; /* Con trỏ khi hover */
+    margin: 0 5px; /* Khoảng cách giữa các nút màu */
+    transition: transform 0.3s; /* Hiệu ứng khi hover */
+}
+
+.color-button:hover {
+    transform: scale(1.2); /* Phóng to nút màu khi hover */
+}
+
+.features .view-all {
+    grid-column: span 5; /* Make it span across all columns */
+    text-align: center;
+    text-decoration: none; /* Remove the default underline */
+    color: #000000; /* Change color as needed */
+    margin: 20px 0; /* Space above and below */
+    font-weight: 600; /* Make it bold for emphasis */
+    position: relative; /* Allow positioning of the pseudo-element */
+}
+
+.features .view-all::after {
+    content: '';
+    position: absolute; /* Position relative to the link */
+    left: 0;
+    right: 0;
+    bottom: -2px; /* Adjust this to move the line up or down */
+    height: 1px; /* Line thickness */
+    background-color: gray; /* Change color as needed */
+}
+/**/
+.social-icons {
+    position: fixed; /* Fixed position */
+    right: 20px; /* Distance from the right */
+    bottom: 60px; /* Distance from the bottom */
+    display: flex;
+    flex-direction: column; /* Stack icons vertically */
+    gap: 10px; /* Space between icons */
+}
+
+.social-icon {
+    width: 50px; /* Base size of the icons */
+    height: 50px; /* Base size of the icons */
+    border-radius: 50%; /* Circular shape */
+    overflow: hidden; /* Ensure content stays within the circle */
+    display: flex; /* Center the image */
+    justify-content: center; /* Center horizontally */
+    align-items: center; /* Center vertically */
+    animation: shake 0.5s infinite alternate, pulse 1s infinite; /* Vibration and pulsating effect */
+}
+
+.facebook img {
+    width: 100%; /* Make image responsive */
+    height: auto; /* Maintain aspect ratio */
+}
+
+@keyframes shake {
+    0% { transform: translate(0); }
+    100% { transform: translate(-5px, 0); }
+}
+
+@keyframes pulse {
+    0% {
+        transform: scale(1);
+        opacity: 1;
+    }
+    50% {
+        transform: scale(1.2); /* Scale up */
+        opacity: 0.8; /* Slightly fade */
+    }
+    100% {
+        transform: scale(1);
+        opacity: 1;
+    }
+}
+
+/* Store Information Section */
+.header1 {
+    text-align: center; /* Căn giữa tiêu đề */
+    color: #000000;
+    font-size: 2.25rem;
+    font-weight: 600;
+}
+
+.store-info {
+    display: flex;
+    justify-content: center; /* Canh giữa */
+    align-items: center;
+    gap: 20px; /* Thu hẹp khoảng cách */
+    margin: 0 2rem;
+    padding: 2rem;
+}
+
+.store-info-left,
+.store-info-right {
+    flex: 1;
+    text-align: center;
+    display: flex;
+    flex-direction: column; /* Ảnh xếp dọc */
+    gap: 10px; /* Thu hẹp khoảng cách giữa ảnh */
+}
+
+.store-info-left h2,
+.store-info-right h2 {
+    margin-bottom: 1rem;
+    color: var(--color-primary);
+}
+
+.store-images {
+    display: flex; /* Thay đổi để xếp ảnh ngang */
+    justify-content: center; /* Căn giữa ảnh */
+    gap: 10px; /* Khoảng cách giữa các ảnh */
+}
+
+.store-image {
+    width: 70%; /* Giảm kích thước ảnh */
+    max-width: 300px;
+    height: auto;
+    display: block;
+    border-radius: var(--border-radius-1);
+}
+
+/* Footer */
+.footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start; /* Căn top thay vì căng giữa */
+    flex-wrap: wrap; /* Giúp xuống dòng khi không đủ chỗ */
+    background-color: #000000; /* Màu nền của footer */
+    color: #fff; /* Màu chữ */
+    padding: 40px; /* Thêm padding cho footer */
+}
+
+.footer a {
+    text-decoration: none; /* Bỏ gạch chân */
+    color: #f6f6f9; /* Màu chữ liên kết */
+}
+
+.footer-column {
+    flex: 1;
+    min-width: 200px; /* Chiều rộng tối thiểu của cột */
+    margin-bottom: 20px; /* Khoảng cách dưới mỗi cột */
+}
+
+.footer-column ul {
+    list-style: none; /* Bỏ dấu tròn */
+    padding: 0; /* Bỏ khoảng cách bên trong */
+    margin: 0; /* Bỏ khoảng cách bên ngoài */
+}
+
+.footer-column li{
+    margin-bottom: 20px;
+}
+
+.footer-social-wrap {
+    display: flex;
+    flex-direction: column; /* Xếp theo chiều dọc */
+    align-items: flex-start; /* Căn trái thay vì phải */
+}
+
+.footer-social {
+    display: flex;
+    gap: 15px; /* Khoảng cách giữa các biểu tượng xã hội */
+}
+
+.feedback-btn {
+    width: fit-content; /* Chỉ chiếm kích thước theo nội dung */
+    background-color: #f6f6f9; /* Màu nền của nút phản hồi */
+    color: #000; /* Màu chữ của nút phản hồi */
+    padding: 10px 15px; /* Padding cho nút phản hồi */
+    border: none; /* Bỏ viền */
+    border-radius: 5px; /* Bo tròn góc */
+    cursor: pointer; /* Chỉ thị con trỏ khi hover */
+}
+
+.feedback-btn:hover {
+    background-color: #e0e0e0; /* Màu nền khi hover */
+}
+
+.highlight {
+    text-decoration: underline; /* Gạch chân cho văn bản */
+    font-weight: bold; /* Làm chữ đậm hơn (tuỳ chọn) */
+}

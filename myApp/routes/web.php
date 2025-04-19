@@ -14,7 +14,16 @@ use App\Http\Controllers\admin\VNPayController;
 
 //--Login--
 Route::get('/login', function () {
+    return view('pages.sign-in-static');
+});
+
+Route::get('/singup', function () {
     return view('pages.sign-up-static');
+});
+
+//Homepage
+Route::get('/homepages', function () {
+    return view('homepages.homepage');
 });
 
 // Định nghĩa route logout
