@@ -52,8 +52,13 @@ return [
             ],
             [
                 'title' => 'Cài đặt',
-                'route' => 'vnpay.payment.product',
+                'route' => 'settings',
                 'icon' => 'fa fa-cog text-dark',
+            ],
+            [
+                'title' => 'Thanh toán',
+                'route' => 'vnpay.payment.product',
+                'icon' => 'ni ni-credit-card text-dark',
             ],
             [
                 'title' => 'Khách hàng',
@@ -65,11 +70,7 @@ return [
                 'route' => 'show-product.index',
                 'icon' => 'ni ni-basket text-dark',
             ],
-            [
-                'title' => 'Thanh toán',
-                'route' => 'vnpay.payment.product',
-                'icon' => 'ni ni-credit-card text-dark',
-            ],
+
         ]
     ],
 //    [

@@ -1,0 +1,118 @@
+/* Grid layout cho các sản phẩm */
+.product-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr); /* 2 cột trên mobile */
+    gap: 1rem;
+}
+
+@media (min-width: 640px) {
+    .product-grid {
+        grid-template-columns: repeat(3, 1fr); /* 3 cột trên màn hình nhỏ */
+    }
+}
+
+@media (min-width: 768px) {
+    .product-grid {
+        grid-template-columns: repeat(4, 1fr); /* 4 cột trên màn hình trung bình */
+    }
+}
+
+@media (min-width: 1024px) {
+    .product-grid {
+        grid-template-columns: repeat(5, 1fr); /* 5 cột trên màn hình lớn */
+    }
+}
+
+/* Card sản phẩm */
+.product-card img {
+    height: 10rem; /* Điều chỉnh chiều cao ảnh */
+    object-fit: cover;
+}
+
+.product-card {
+    background-color: white;
+    border-radius: 1rem;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+    transition: transform 0.3s ease;
+}
+
+.product-card:hover {
+    transform: scale(1.05);
+}
+
+/* Nút chọn sản phẩm */
+.product-card .choose-button {
+    display: inline-block;
+    width: 100%;
+    text-align: center;
+    background-color: #3b82f6;
+    color: white;
+    padding: 0.75rem 1.5rem;
+    border-radius: 1.5rem;
+    font-weight: 500;
+    transition: background-color 0.3s ease;
+}
+
+.product-card .choose-button:hover {
+    background-color: #2563eb;
+}
+/* Grid layout cho các sản phẩm */
+.product-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr); /* 2 cột trên mobile */
+    gap: 1rem;
+}
+
+@media (min-width: 640px) {
+    .product-grid {
+        grid-template-columns: repeat(3, 1fr); /* 3 cột trên màn hình nhỏ */
+    }
+}
+
+@media (min-width: 768px) {
+    .product-grid {
+        grid-template-columns: repeat(4, 1fr); /* 4 cột trên màn hình trung bình */
+    }
+}
+
+@media (min-width: 1024px) {
+    .product-grid {
+        grid-template-columns: repeat(5, 1fr); /* 5 cột trên màn hình lớn */
+    }
+}
+
+/* Card sản phẩm */
+.product-card img {
+    height: 10rem; /* Điều chỉnh chiều cao ảnh */
+    object-fit: cover;
+}
+
+.product-card {
+    background-color: white;
+    border-radius: 1rem;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+    transition: transform 0.3s ease;
+}
+
+.product-card:hover {
+    transform: scale(1.05);
+}
+
+/* Nút chọn sản phẩm */
+.product-card .choose-button {
+    display: inline-block;
+    width: 100%;
+    text-align: center;
+    background-color: #3b82f6;
+    color: white;
+    padding: 0.75rem 1.5rem;
+    border-radius: 1.5rem;
+    font-weight: 500;
+    transition: background-color 0.3s ease;
+}
+
+.product-card .choose-button:hover {
+    background-color: #2563eb;
+}

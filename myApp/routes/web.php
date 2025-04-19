@@ -77,5 +77,8 @@ Route::get('/vnpay/return', [VNPayController::class, 'returnPayment'])->name('vn
 Route::get('/vnpay/success', [VNPayController::class, 'paymentSuccess'])->name('vnpay.success');
 Route::get('/vnpay/failure', [VNPayController::class, 'paymentFailure'])->name('vnpay.failure');
 
-
+//Settings
+Route::get('/settings', function () {
+    return view('pages.settings');
+})->name('settings');
 
