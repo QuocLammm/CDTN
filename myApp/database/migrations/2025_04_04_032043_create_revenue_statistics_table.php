@@ -12,12 +12,12 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('revenue_statistics', function (Blueprint $table) {
-            $table->bigIncrements('RevenueID')->unsigned()->primary();
-            $table->decimal('TotalRevenue', 10, 2);
-            $table->string('Period', 50);
+            $table->bigIncrements('revenue_id')->unsigned()->primary();
+            $table->decimal('total_revenue', 10, 2);
+            $table->string('period', 50);
             $table->timestamps();
-
         });
+
     }
 
     /**

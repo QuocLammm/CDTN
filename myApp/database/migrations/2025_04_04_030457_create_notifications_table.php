@@ -12,14 +12,15 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('notifications', function (Blueprint $table) {
-            $table->increments('NotificationID')->unsigned()->primary();
-            $table->unsignedInteger('UserID');
-            $table->text('Content');
-            $table->tinyInteger('Status')->default(0);
+            $table->increments('notification_id')->unsigned()->primary();
+            $table->unsignedInteger('user_id');
+            $table->text('content');
+            $table->tinyInteger('status')->default(0);
             $table->timestamps();
 
-            $table->foreign('UserID')->references('UserID')->on('users');
+            $table->foreign('user_id')->references('user_id')->on('users');
         });
+
     }
 
     /**
@@ -28,7 +29,7 @@ return new class extends Migration
     public function down(): void
     {
         Schema::table('notifications', function (Blueprint $table) {
-            $table->dropForeign('UserID');
+            $table->dropForeign('user_id');
         });
         Schema::dropIfExists('notifications');
     }

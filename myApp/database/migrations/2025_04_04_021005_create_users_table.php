@@ -12,24 +12,26 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('users', function (Blueprint $table) {
-            $table->increments('UserID')->primary()->unsigned();
-            $table->unsignedInteger('RoleID');
-            $stringColumns = ['FullName','Address','Phone','Password','AccountName'];
+            $table->increments('user_id')->primary()->unsigned();
+            $table->unsignedInteger('role_id');
+
+            $stringColumns = ['full_name', 'address', 'phone', 'password'];
             foreach ($stringColumns as $stringColumn) {
                 $table->string($stringColumn, 255)->nullable();
             }
 
-            $table->dateTime('Date_of_Birth')->nullable();
-            $table->string('Image',255)->nullable();
-            $table->tinyInteger('Gender')->default(1);
-            $table->string('Email')->unique();
-            $table->tinyInteger('Status')->default(1);
+            $table->dateTime('date_of_birth')->nullable();
+            $table->string('image', 255)->nullable();
+            $table->tinyInteger('gender')->default(1);
+            $table->string('email')->unique();
+            $table->tinyInteger('status')->default(1);
             $table->rememberToken();
             $table->timestamps();
 
-            //Khóa ngoại
-            $table->foreign('RoleID')->references('RoleID')->on('roles');
+            // Khóa ngoại
+            $table->foreign('role_id')->references('role_id')->on('roles');
         });
+
 
         Schema::create('password_reset_tokens', function (Blueprint $table) {
             $table->string('email')->primary();
@@ -52,10 +54,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::table('users', function (Blueprint $table) {
-            $table->dropForeign(['RoleID']); // Xóa khóa ngoại
-        });
-
         Schema::dropIfExists('users');
         Schema::dropIfExists('password_reset_tokens');
         Schema::dropIfExists('sessions');

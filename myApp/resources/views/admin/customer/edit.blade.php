@@ -3,53 +3,55 @@
     <div class="container">
         <br>
         <h3>Cập nhật thông tin khách hàng</h3>
-        <form action="{{ route('show-customer.update', $customer->UserID) }}" method="POST" enctype="multipart/form-data">
+        <form action="{{ route('show-customer.update', $customer->user_id) }}" method="POST" enctype="multipart/form-data">
             @csrf
             @method('PUT')
             <div class="row">
                 <x-form.group col="8">
                     <div class="row">
                         <x-form.group col="6">
-                            <x-form.input name="FullName" label="Tên nhân viên" type="text" placeholder="Nhập tên nhân viên" :value="$customer->FullName" />
+                            <x-form.input name="full_name" label="Tên nhân viên" type="text" placeholder="Nhập tên nhân viên" :value="$customer->full_name" />
                         </x-form.group>
                         <x-form.group col="6">
-                            <x-form.input name="Email" label="Email" type="text" placeholder="Nhập email nhân viên" :value="$customer->Email" />
+                            <x-form.input name="email" label="Email" type="text" placeholder="Nhập email nhân viên" :value="$customer->email" />
                         </x-form.group>
                     </div>
                     <div class="row">
                         <div class="col-md-4">
-                            <x-form.select name="RoleID" label="Vai trò" :options="$roles" :selected="$customer->RoleID" />
+                            <x-form.select
+                                name="role_id"
+                                label="Vai trò"
+                                :options="$roles"
+                                :selected="$customer->role_id" />
+                        </div>
+
+                        <div class="col-md-4">
+                            <x-form.select name="gender" label="Giới tính" :options="$customers" :selected="$customer->gender" />
                         </div>
                         <div class="col-md-4">
-                            <x-form.select name="Gender" label="Giới tính" :options="$customers" :selected="$customer->Gender" />
-                        </div>
-                        <div class="col-md-4">
-                            <x-form.input name="Date_of_Birth" label="Ngày sinh" type="date" :value="old('Date_of_Birth', \Carbon\Carbon::parse($customer->Date_of_Birth)->format('Y-m-d'))"
+                            <x-form.input name="date_of_birth" label="Ngày sinh" type="date" :value="old('date_of_birth', \Carbon\Carbon::parse($customer->date_of_birth)->format('Y-m-d'))"
                             />
 
                         </div>
                     </div>
                     <div class="row">
                         <div class="col-md-6">
-                            <x-form.input name="Phone" label="Số điện thoại" type="text" placeholder="Nhập số điện thoại" :value="$customer->Phone" />
-                        </div>
-                        <div class="col-md-6">
-                            <x-form.input name="AccountName" label="Tài khoản nhân viên" type="text" placeholder="Nhập tài khoản" :value="$customer->AccountName" />
+                            <x-form.input name="phone" label="Số điện thoại" type="text" placeholder="Nhập số điện thoại" :value="$customer->phone" />
                         </div>
                     </div>
                     <div class="row">
                         <div class="col-md-6">
-                            <x-form.input name="Address" label="Địa chỉ" type="text" placeholder="Nhập địa chỉ" :value="$customer->Address" />
+                            <x-form.input name="address" label="Địa chỉ" type="text" placeholder="Nhập địa chỉ" :value="$customer->address" />
                         </div>
                         <div class="col-md-6">
-                            <x-form.input name="Password" label="Mật khẩu" type="password" placeholder="Để trống nếu không đổi" />
+                            <x-form.input name="password" label="Mật khẩu" type="password" placeholder="Để trống nếu không đổi" />
                         </div>
                     </div>
                 </x-form.group>
                 <div class="col-md-4">
-                    <x-form.input name="Image" label="Hình ảnh" type="file" onchange="previewImage(event)" />
+                    <x-form.input name="image" label="Hình ảnh" type="file" onchange="previewImage(event)" />
                     <img id="imagePreview"
-                         src="{{ $customer->Image ? asset($customer->Image) : '#' }}"
+                         src="{{ $customer->image ? asset($customer->image) : '#' }}"
                          alt="Ảnh xem trước"
                          style="max-width: 100%; margin-top: 10px; {{ $customer->Image ? '' : 'display: none;' }}">
                 </div>
@@ -75,7 +77,7 @@
             }
         }
 
-        document.querySelector('input[name="Image"]').addEventListener('change', function (event) {
+        document.querySelector('input[name="image"]').addEventListener('change', function (event) {
             if (!event.target.files.length) {
                 const preview = document.getElementById('imagePreview');
                 preview.src = '#';

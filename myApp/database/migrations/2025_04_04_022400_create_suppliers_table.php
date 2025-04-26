@@ -12,13 +12,14 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('suppliers', function (Blueprint $table) {
-            $table->increments('SupplierID')->primary()->unsigned();
-            $tablenamecolums = ['SupplierName', 'Phone','ContactName', 'Address', 'Email'];
-            foreach ($tablenamecolums as $column) {
+            $table->increments('supplier_id')->primary()->unsigned();
+            $table_columns = ['supplier_name', 'phone', 'contact_name', 'address', 'email'];
+            foreach ($table_columns as $column) {
                 $table->string($column, 255);
             }
             $table->timestamps();
         });
+
     }
 
     /**

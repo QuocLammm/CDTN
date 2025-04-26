@@ -7,15 +7,15 @@ use Illuminate\Database\Eloquent\Model;
 class Order extends Model
 {
         protected $table = 'orders';
-        protected $primaryKey = 'OrderID';
+        protected $primaryKey = 'order_id';
         public $timestamps = true;
         protected $fillable = [
-            'UserID',
-            'TotalAmount',
-            'Status',
+            'user_id',
+            'total_amount',
+            'status',
         ];
 
         public function user(){
-            return $this->belongsTo('UserID', 'UserID');
+            return $this->belongsTo('user_id', 'user_id');
         }
 }

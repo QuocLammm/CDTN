@@ -4,6 +4,7 @@ return [
         'title' => 'Trang quản trị',
         'route' => 'home',
         'icon' => 'ni ni-tv-2 text-primary',
+        'permission' => 'dashboard',
     ],
     [
         'title' => 'Chức năng',
@@ -13,31 +14,43 @@ return [
                 'title' => 'Nhân viên',
                 'route' => 'show-staff.index',
                 'icon' => 'ni ni-circle-08 text-dark',
+                'permission' => 'user.view',
             ],
             [
                 'title' => 'Khách hàng',
                 'route' => 'show-customer.index',
                 'icon' => '	ni ni-single-copy-04 text-dark',
+                'permission' => 'customer.view',
+            ],
+            [
+                'title' => 'Phân quyền',
+                'route' => 'show-permission.index',
+                'icon' => 'fa-solid fa-shield',
+                'permission' => 'permission.view',
             ],
             [
                 'title' => 'Sản phẩm',
                 'route' => 'show-product.index',
                 'icon' => 'ni ni-basket text-dark',
+                'permission' => 'product.view',
             ],
             [
                 'title' => 'Loại sản phẩm',
                 'route' => 'show-category.index',
                 'icon' => 'ni ni-app text-dark',
+                'permission' => 'category.view',
             ],
             [
                 'title' => 'Đơn hàng',
                 'route' => 'show-order.index',
                 'icon' => 'ni ni-cart text-dark',
+                'permission' => 'order.view',
             ],
             [
                 'title' => 'Khuyến mãi',
                 'route' => 'show-sale.index',
                 'icon' => 'ni ni-tag text-dark',
+                'permission' => 'sale.view',
             ],
         ]
     ],
@@ -45,37 +58,35 @@ return [
         'title' => 'Tài khoản',
         'is_parent' => true,
         'children' => [
-            [
-                'title' => 'Trang cá nhân',
-                'route' => 'show-profile',
-                'icon' => 'ni ni-circle-08 text-dark',
-            ],
-            [
-                'title' => 'Cài đặt',
-                'route' => 'settings',
-                'icon' => 'fa fa-cog text-dark',
-            ],
-            [
-                'title' => 'Thanh toán',
-                'route' => 'vnpay.payment.product',
-                'icon' => 'ni ni-credit-card text-dark',
-            ],
-            [
-                'title' => 'Khách hàng',
-                'route' => 'show-customer.index',
-                'icon' => 'ni ni-bullet-list-67 text-dark',
-            ],
-            [
-                'title' => 'Sản phẩm',
-                'route' => 'show-product.index',
-                'icon' => 'ni ni-basket text-dark',
-            ],
+//            [
+//                'title' => 'Trang cá nhân',
+//                'route' => 'show-profile',
+//                'icon' => 'ni ni-circle-08 text-dark',
+//                'permission' => 'user.profile',
+//            ],
+//            [
+//                'title' => 'Cài đặt',
+//                'route' => 'settings',
+//                'icon' => 'fa fa-cog text-dark',
+//                'permission' => 'user.setting', // <- thêm dòng này
+//            ],
+//            [
+//                'title' => 'Thanh toán',
+//                'route' => 'vnpay.payment.product',
+//                'icon' => 'ni ni-credit-card text-dark',
+//            ],
+//            [
+//                'title' => 'Khách hàng',
+//                'route' => 'show-customer.index',
+//                'icon' => 'ni ni-bullet-list-67 text-dark',
+//            ],
+//            [
+//                'title' => 'Sản phẩm',
+//                'route' => 'show-product.index',
+//                'icon' => 'ni ni-basket text-dark',
+//            ],
 
         ]
     ],
-//    [
-//        'title' => 'Thanh Toán',
-//        'route' => 'vnpay.payment.product',
-//        'icon' => 'ni ni-credit-card text-primary',
-//    ],
+
 ];

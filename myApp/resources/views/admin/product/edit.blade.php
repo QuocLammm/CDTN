@@ -34,7 +34,29 @@
                         label="Mô tả"
                         placeholder="Nhập mô tả"
                         rows="4">{{ old('Description', $product->Description) }}</x-form.textarea>
+                    {{-- Size --}}
+                    <x-form.input
+                        name="ProductDetail[Size]"
+                        label="Size"
+                        type="text"
+                        :value="old('ProductDetail.Size', $product->productDetail->Size ?? '')"
+                        placeholder="Nhập size" />
 
+                    {{-- Color --}}
+                    <x-form.input
+                        name="ProductDetail[Color]"
+                        label="Màu sắc"
+                        type="text"
+                        :value="old('ProductDetail.Color', $product->productDetail->Color ?? '')"
+                        placeholder="Nhập màu sắc" />
+
+                    {{-- Quantity --}}
+                    <x-form.input
+                        name="ProductDetail[Quantity]"
+                        label="Số lượng"
+                        type="number"
+                        :value="old('ProductDetail.Quantity', $product->productDetail->Quantity ?? '')"
+                        placeholder="Nhập số lượng" />
                     <button type="submit" class="btn btn-success">Cập nhật sản phẩm</button>
                     <a href="{{ route('show-product.index') }}" class="btn btn-secondary">Quay lại</a>
                 </div>

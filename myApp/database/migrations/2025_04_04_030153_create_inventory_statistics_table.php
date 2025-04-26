@@ -12,13 +12,14 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('inventory_statistics', function (Blueprint $table) {
-            $table->bigIncrements('Inventory_StatID')->unsigned()->primary();
-            $table->unsignedInteger("ProductID");
-            $table->integer("Quantity");
+            $table->bigIncrements('inventory_stat_id')->unsigned()->primary();
+            $table->unsignedInteger('product_id');
+            $table->integer('quantity');
             $table->timestamps();
 
-            $table->foreign('ProductID')->references('ProductID')->on('products');
+            $table->foreign('product_id')->references('product_id')->on('products');
         });
+
     }
 
     /**
@@ -27,7 +28,7 @@ return new class extends Migration
     public function down(): void
     {
         Schema::table('inventory_statistics', function (Blueprint $table) {
-            $table->dropForeign('ProductID');
+            $table->dropForeign('product_id');
         });
         Schema::dropIfExists('inventory_statistics');
     }

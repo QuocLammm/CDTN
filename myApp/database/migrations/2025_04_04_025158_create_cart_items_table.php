@@ -14,14 +14,15 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('cart_items', function (Blueprint $table) {
-            $table->unsignedInteger('CartItemID')->primary();
-            $table->unsignedInteger('CartID');
-            $table->unsignedInteger('ProductDetailID');
-            $table->integer('Quantity');
+            $table->unsignedInteger('cart_item_id')->primary();
+            $table->unsignedInteger('cart_id');
+            $table->unsignedInteger('product_detail_id');
+            $table->integer('quantity');
 
-            $table->foreign('CartID')->references('CartID')->on('carts');
-            $table->foreign('ProductDetailID')->references('ProductDetailID')->on('product_details');
+            $table->foreign('cart_id')->references('cart_id')->on('carts');
+            $table->foreign('product_detail_id')->references('product_detail_id')->on('product_details');
         });
+
     }
 
     /**
@@ -30,7 +31,7 @@ return new class extends Migration
     public function down(): void
     {
         Schema::table('cart_items', function (Blueprint $table) {
-            $table->dropForeign(['CartID','ProductDetailID']);
+            $table->dropForeign(['cart_id','product_detail_id']);
         });
         Schema::dropIfExists('cart_items');
     }

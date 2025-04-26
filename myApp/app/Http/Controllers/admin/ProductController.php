@@ -50,6 +50,7 @@ class ProductController extends Controller
     public function edit(Product $product) {
         $suppliers = Supplier::pluck('SupplierName', 'SupplierID');
         $categories = Category::pluck('CategoryName', 'CategoryID');
+        $product->load('productDetail');
         return view('admin.product.edit', compact('product', 'suppliers', 'categories'));
     }
 
@@ -75,6 +76,11 @@ class ProductController extends Controller
         }
 
         $product->update($data);
+        if ($product->productDetail) {
+            $product->productDetail->update($request->input('ProductDetail'));
+        } else {
+            $product->productDetail()->create($request->input('ProductDetail'));
+        }
         return redirect()->route('show-product.index')->with('success', 'Sản phẩm đã cập nhật!');
     }
 

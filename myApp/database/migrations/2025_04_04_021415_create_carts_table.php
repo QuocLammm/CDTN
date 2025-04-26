@@ -12,13 +12,14 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('carts', function (Blueprint $table) {
-            $table->increments('CartID')->unsigned();
-            $table->unsignedInteger('UserID');
+            $table->increments('cart_id')->unsigned();
+            $table->unsignedInteger('user_id');
             $table->timestamps();
 
-            //Foreign Key
-            $table->foreign('UserID')->references('UserID')->on('users');
+            // Foreign Key
+            $table->foreign('user_id')->references('user_id')->on('users');
         });
+
     }
 
     /**
@@ -27,7 +28,7 @@ return new class extends Migration
     public function down(): void
     {
         Schema::table('carts', function (Blueprint $table) {
-            $table->dropForeign('UserID');
+            $table->dropForeign('user_id');
         });
         Schema::dropIfExists('carts');
     }

@@ -12,15 +12,15 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('order_items', function (Blueprint $table) {
-            $table->increments('OrderItemID')->unsigned()->primary();
-            $table->unsignedInteger('OrderID');
-            $table->unsignedInteger('ProductDetailID');
-            $table->integer('Quantity');
-            $table->decimal('Price', 10, 2);
+            $table->increments('order_item_id')->unsigned()->primary();
+            $table->unsignedInteger('order_id');
+            $table->unsignedInteger('product_detail_id');
+            $table->integer('quantity');
+            $table->decimal('price', 10, 2);
 
-
-            $table->foreign('OrderID')->references('OrderID')->on('orders');
+            $table->foreign('order_id')->references('order_id')->on('orders');
         });
+
     }
 
     /**
@@ -29,7 +29,7 @@ return new class extends Migration
     public function down(): void
     {
         Schema::table('order_items', function (Blueprint $table) {
-            $table->dropForeign('OrderID');
+            $table->dropForeign('order_id');
         });
         Schema::dropIfExists('order_items');
     }

@@ -14,19 +14,19 @@ class RoleSeeder extends Seeder
     public function run(): void
     {
         DB::table('roles')->insert([
-            'RoleID'=> 1,
-            'RoleName'=> 'Admin',
-            'Description'=> 'Quản trị viên'
+            'role_id'=> 1,
+            'role_name'=> 'Admin',
+            'description'=> 'Quản trị viên'
         ]);
         DB::table('roles')->insert([
-            'RoleID'=> 2,
-            'RoleName'=> 'Customer',
-            'Description' => 'Khách hàng'
+            'role_id'=> 2,
+            'role_name'=> 'Customer',
+            'description'=> 'Khách hàng'
         ]);
         DB::table('roles')->insert([
-            'RoleID'=> 3,
-            'RoleName'=> 'Staff',
-            'Description' => 'Nhân viên'
+            'role_id'=> 3,
+            'role_name'=> 'Staff',
+            'description'=> 'Nhân viên'
         ]);
     }
 }

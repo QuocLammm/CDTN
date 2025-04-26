@@ -12,19 +12,19 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('sales', function (Blueprint $table) {
-            $table->bigIncrements('SaleID')->unsigned()->primary();
-            $table->unsignedInteger('OrderID');
-            $table->unsignedInteger('ProductID');
-            $table->unsignedInteger('UserID');
-            $table->integer('Quantity');
-            $table->decimal('Sale_Price', 10, 2);
-            $table->datetime('Sale_Date');
+            $table->bigIncrements('sale_id')->unsigned()->primary();
+            $table->unsignedInteger('order_id');
+            $table->unsignedInteger('product_id');
+            $table->unsignedInteger('user_id');
+            $table->integer('quantity');
+            $table->decimal('sale_price', 10, 2);
+            $table->datetime('sale_date');
 
-
-            $table->foreign('OrderID')->references('OrderID')->on('orders');
-            $table->foreign('ProductID')->references('ProductID')->on('products');
-            $table->foreign('UserID')->references('UserID')->on('users');
+            $table->foreign('order_id')->references('order_id')->on('orders');
+            $table->foreign('product_id')->references('product_id')->on('products');
+            $table->foreign('user_id')->references('user_id')->on('users');
         });
+
     }
 
     /**
@@ -33,7 +33,7 @@ return new class extends Migration
     public function down(): void
     {
         Schema::table('sales', function (Blueprint $table) {
-            $table->dropForeign(['OrderID','ProductID','UserID']);
+            $table->dropForeign(['order_id','product_id','user_id']);
         });
         Schema::dropIfExists('sales');
     }

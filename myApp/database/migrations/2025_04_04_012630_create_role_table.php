@@ -12,9 +12,9 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('roles', function (Blueprint $table) {
-            $table->increments('RoleID')->unsigned();
-            $table->string('RoleName', 255);
-            $table->text('Description');
+            $table->increments('role_id')->unsigned();
+            $table->string('role_name', 255);
+            $table->text('description');
             $table->timestamps();
         });
     }

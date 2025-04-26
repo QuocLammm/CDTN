@@ -10,43 +10,40 @@
                 <x-form.group col="8">
                     <div class="row">
                         <x-form.group col="6">
-                            <x-form.input name="FullName" label="Tên khách hàng" type="text" placeholder="Nhập tên khách hàng" />
+                            <x-form.input name="full_name" label="Tên khách hàng" type="text" placeholder="Nhập tên khách hàng" />
                         </x-form.group>
                         <x-form.group col="6">
-                            <x-form.input name="Email" label="Email" type="text" placeholder="Nhập email khách hàng" />
+                            <x-form.input name="email" label="Email" type="text" placeholder="Nhập email khách hàng" />
                         </x-form.group>
                     </div>
                     <div class="row">
                         <div class="col-md-4">
                             <x-form.input label="Vai trò" type="text" name="RoleText" :value="'Khách hàng'" readonly />
-                            <input type="hidden" name="RoleID" value="2">
+                            <input type="hidden" name="role_id" value="2">
                         </div>
                         <div class="col-md-4">
-                            <x-form.select name="Gender" label="Giới tính" :options="$customers" />
+                            <x-form.select name="gender" label="Giới tính" :options="$customers" />
                         </div>
                         <div class="col-md-4">
-                            <x-form.input name="Date_of_Birth" label="Ngày sinh" type="date" />
+                            <x-form.input name="date_of_birth" label="Ngày sinh" type="date" />
                         </div>
                     </div>
                     <div class="row">
                         <div class="col-md-6">
-                            <x-form.input name="Phone" label="Số điện thoại" type="text" placeholder="Nhập số điện thoại khách hàng" />
-                        </div>
-                        <div class="col-md-6">
-                            <x-form.input name="AccountName" label="Tài khoản khách hàng" type="text" placeholder="Nhập tài khoản " />
+                            <x-form.input name="phone" label="Số điện thoại" type="text" placeholder="Nhập số điện thoại khách hàng" />
                         </div>
                     </div>
                     <div class="row">
                         <div class="col-md-6">
-                            <x-form.input name="Address" label="Địa chỉ" type="text" placeholder="Nhập địa chỉ khách hàng" />
+                            <x-form.input name="address" label="Địa chỉ" type="text" placeholder="Nhập địa chỉ khách hàng" />
                         </div>
                         <div class="col-md-6">
-                            <x-form.input name="Password" label="Mật khẩu" type="text" :value="$password" placeholder="Nhập mật khẩu khách hàng" />
+                            <x-form.input name="password" label="Mật khẩu" type="text" :value="$password" placeholder="Nhập mật khẩu khách hàng" />
                         </div>
                     </div>
                 </x-form.group>
                 <div class="col-md-4">
-                    <x-form.input name="Image" label="Hình ảnh" type="file" onchange="previewImage(event)" />
+                    <x-form.input name="image" label="Hình ảnh" type="file" onchange="previewImage(event)" />
                     <img id="imagePreview" src="#" alt="Ảnh xem trước" style="max-width: 100%; margin-top: 10px; display: none;">
                 </div>
             </div>
@@ -87,7 +84,7 @@
         }
 
         // Optional: reset preview if user clicks remove file
-        document.querySelector('input[name="Image"]').addEventListener('change', function (event) {
+        document.querySelector('input[name="image"]').addEventListener('change', function (event) {
             if (!event.target.files.length) {
                 const preview = document.getElementById('imagePreview');
                 preview.src = '#';

@@ -12,17 +12,18 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('discounts', function (Blueprint $table) {
-            $table->increments('DiscountID')->unsigned()->primary();
-            $table->unsignedInteger('ProductID');
-            $table->string('DiscountCode', 50);
-            $table->text('Description');
-            $table->decimal('DiscountAmount', 10, 2);
-            $table->date('StartDate');
-            $table->date('EndDate');
-            $table->tinyInteger('Status')->default(1);
+            $table->increments('discount_id')->unsigned()->primary();
+            $table->unsignedInteger('product_id');
+            $table->string('discount_code', 50);
+            $table->text('description');
+            $table->decimal('discount_amount', 10, 2);
+            $table->date('start_date');
+            $table->date('end_date');
+            $table->tinyInteger('status')->default(1);
 
-            $table->foreign('ProductID')->references('ProductID')->on('products');
+            $table->foreign('product_id')->references('product_id')->on('products');
         });
+
     }
 
     /**
@@ -31,7 +32,7 @@ return new class extends Migration
     public function down(): void
     {
         Schema::table('discounts', function (Blueprint $table) {
-            $table->dropForeign('ProductID');
+            $table->dropForeign('product_id');
         });
         Schema::dropIfExists('discounts');
     }

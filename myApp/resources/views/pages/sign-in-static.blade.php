@@ -2,87 +2,105 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>{{ config('app.name') }}</title>
-    <link rel="stylesheet" href="{{asset('assets/css/login/style.css')}}">
-    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+    <title>Sign in || Sign up from</title>
+    <!-- font awesome icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css" integrity="sha512-KfkfwYDsLkIlwQp6LFnl8zNdLGxu9YAA1QvwINks4PhcElQSvqcyVLLD9aMhXd13uQjoXtEKNosOWaZqXgel0g==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <!-- css stylesheet -->
+    <link rel="stylesheet" href="{{asset('/assets/css/login/style.css')}}">
 </head>
 <body>
-<div class="container">
-    <div class="Form login-form">
-        <h2>Login</h2>
+
+<div class="container" id="container">
+    <div class="form-container sign-up-container">
         <form action="#">
-            <div class="input-box">
-                <i class='bx bxs-user'></i>
-                <label for="#">Username</label>
-                <input type="text" placeholder="Enter Your Username*">
+            <h1>Create Account</h1>
+            <div class="social-container">
+                <a href="#" class="social"><i class="fab fa-facebook-f"></i></a>
+                <a href="#" class="social"><i class="fab fa-google-plus-g"></i></a>
+                <a href="#" class="social"><i class="fab fa-linkedin-in"></i></a>
             </div>
-            <div class="input-box">
-                <i class='bx bxs-envelope' ></i>
-                <input type="text" placeholder="Enter Your Password*">
-                <label for="#">Password</label>
+            <span>or use your email for registration</span>
+            <div class="infield">
+                <input type="email" placeholder="Email" name="email"/>
+                <label></label>
             </div>
-            <div class="forgot-section">
-                <span><input type="checkbox" name="" id="checked">Remember Me</span>
-                <span><a href="#">Forgot Password ?</a></span>
+            <div class="infield">
+                <input type="password" placeholder="Password" />
+                <label></label>
             </div>
-            <button class="btn">Login</button>
+            <button>Sign Up</button>
         </form>
-        <p>Or Sign up using</p>
-        <div class="social-media">
-            <i class='bx bxl-facebook'></i>
-            <i class='bx bxl-google'></i>
-            <i class='bx bxl-twitter'></i>
-        </div>
-        <p class="RegisteBtn RegiBtn"><a href="#">Register Now</a></p>
     </div>
-    <div class="Form Register-form">
-        <h2>Register</h2>
+    <div class="form-container sign-in-container">
         <form action="#">
-            <div class="input-box">
-                <i class='bx bxs-user'></i>
-                <label for="#">Username</label>
-                <input type="text" placeholder="Enter Your Username*">
+            <h1>Sign in</h1>
+            <div class="social-container">
+                <a href="#" class="social"><i class="fab fa-facebook-f"></i></a>
+                <a href="#" class="social"><i class="fab fa-google-plus-g"></i></a>
+                <a href="#" class="social"><i class="fab fa-linkedin-in"></i></a>
             </div>
-            <div class="input-box">
-                <i class='bx bxs-envelope' ></i>
-                <input type="text" placeholder="Enter Your Password*">
-                <label for="#">Password</label>
+            <span>or use your account</span>
+            <div class="infield">
+                <input type="email" placeholder="Email" name="email"/>
+                <label></label>
             </div>
-            <div class="input-box">
-                <i class='bx bxs-envelope' ></i>
-                <input type="text" placeholder="Enter Your Password*">
-                <label for="#">Confirm Password</label>
+            <div class="infield">
+                <input type="password" placeholder="Password" />
+                <label></label>
             </div>
-            <div class="forgot-section">
-                <span><input type="checkbox" name="" id="checked">Remember Me</span>
-                <span><a href="#">Forgot Password ?</a></span>
+            <div>
+                <a href="#" class="forgot">Forgot your password?</a>
             </div>
-            <button class="btn" class="loginBtn">Register</button>
+            <button>Sign In</button>
         </form>
-        <p>Or Sign up using</p>
-        <div class="social-media">
-            <i class='bx bxl-facebook'></i>
-            <i class='bx bxl-google'></i>
-            <i class='bx bxl-twitter'></i>
+    </div>
+    <div class="overlay-container" id="overlayCon">
+        <div class="overlay">
+            <!-- Bên trái: từ Sign Up quay lại Sign In -->
+            <div class="overlay-panel overlay-left">
+                <h1>Welcome Back!</h1>
+                <p>To keep connected with us please login with your personal info</p>
+                <button id="signIn">Sign In</button> <!-- Thêm id -->
+            </div>
+
+            <!-- Bên phải: từ Sign In sang Sign Up -->
+            <div class="overlay-panel overlay-right">
+                <h1>Hello, Friend!</h1>
+                <p>Enter your personal details and start journey with us</p>
+                <button id="signUp">Sign Up</button> <!-- Thêm id -->
+            </div>
+
         </div>
-        <p class="LoginBtn"><a href="#">Login Now</a></p>
+        <button id="overlayBtn"></button>
     </div>
 </div>
+
+<!-- js code -->
 <script>
-    const container=document.querySelector(".container") ;
-    const loginForm=document.querySelector('.login-form')
-    const RegisterForm=document.querySelector('.Register-form');
-    const RegiBtn=document.querySelector('.RegiBtn');
-    const LoginBtn=document.querySelector('.LoginBtn');
-    RegiBtn.addEventListener('click',()=>{
-        RegisterForm.classList.add('active');
-        loginForm.classList.add('active')
-    })
-    LoginBtn.addEventListener('click',()=>{
-        RegisterForm.classList.remove('active');
-        loginForm.classList.remove('active')
-    })
+    const signUpBtn = document.getElementById('signUp');
+    signUpBtn.addEventListener('click', () => {
+        const container = document.querySelector('.container');
+        container.classList.add("right-panel-active");
+        // Delay reset opacity after transition to ensure smooth transition
+        setTimeout(() => {
+            container.querySelector('.sign-in-container').style.opacity = 0;
+        }, 600);
+    });
+
+    const signInBtn = document.getElementById('signIn');
+    signInBtn.addEventListener('click', () => {
+        const container = document.querySelector('.container');
+        container.classList.remove("right-panel-active");
+        // Delay reset opacity after transition to ensure smooth transition
+        setTimeout(() => {
+            container.querySelector('.sign-in-container').style.opacity = 1;
+        }, 600);
+    });
+
+
 </script>
+
 </body>
 </html>

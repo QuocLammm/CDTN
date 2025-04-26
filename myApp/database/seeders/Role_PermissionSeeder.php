@@ -14,13 +14,13 @@ class Role_PermissionSeeder extends Seeder
     public function run(): void
     {
         // Lấy tất cả các quyền
-        $permissions = DB::table('permissions')->pluck('PermissionID');
+        $permissions = DB::table('permissions')->pluck('permission_id');
 
         $rolePermissions = [];
         foreach ($permissions as $permissionId) {
             $rolePermissions[] = [
-                'RoleID' => 1,
-                'PermissionID' => $permissionId,
+                'role_id' => 1,
+                'permission_id' => $permissionId,
             ];
         }
 

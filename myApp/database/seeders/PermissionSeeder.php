@@ -18,8 +18,8 @@ class PermissionSeeder extends Seeder
 
         $permissionsArray = array_map(function($permission, $description) {
             return [
-                'PermissionName' => $permission,
-                'Description' => $description,
+                'permission_name' => $permission,
+                'description' => $description,
             ];
         }, $permissionsConfig['Permission'], $permissionsConfig['Description']);
 

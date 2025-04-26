@@ -22,55 +22,58 @@ class UserRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'RoleID' =>'required|integer|in:1,3',
-            'FullName' => 'required|string|regex:/^[\p{L}\s]{3,255}$/u',
+            'role_id' =>'required|integer|in:1,3',
+            'full_name' => 'required|string|regex:/^[\p{L}\s]{3,255}$/u',
 
-            'Address'=>'required|string|max:255',
-            'Phone' => [
+            'address'=>'required|string|max:255',
+            'phone' => [
                 'required',
                 'numeric',
                 'digits_between:10,11'
             ],
-            'Password' => [
+            'password' => [
                 'required',
                 'min:8',
                 'regex:/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{8,}$/'
             ],
-            'AccountName' => [
-                'required',
-                'string',
-                'max:255',
-                'regex:/^[a-zA-Z0-9]+$/'
-            ],
-            'Date_of_Birth' => 'required|date|date_format:Y-m-d',
-            'Gender'=>'required|in:Male,Female',
-            'Email'=> 'required|email|unique:users,Email',
+
+            'date_of_birth' => 'required|date|date_format:Y-m-d',
+            'gender'=>'required|in:Male,Female',
+            'email'=> 'required|email|unique:users,Email',
         ];
     }
 
-    public function messages(): array{
+    public function messages(): array
+    {
         return [
-            'RoleID.required' => 'Vui lòng chọn quyền hạng!',
-            'RoleID.in' => 'Quyền hạng bạn chọn không phù hợp!',
-            'FullName.required' =>'Vui lòng nhập họ và tên!',
-            'FullName.regex' => 'Tên chỉ chứa chữ thường và chữ hoa có dấu, tên tối thiểu 3 đến 20 ký tự!',
-            'Address.required' => 'Vui lòng nhập địa chỉ!',
-            'Phone.required' => 'Vui lòng nhập số điện thoại!',
-            'Phone.numeric' => 'Số điện thoại chỉ là số!',
-            'Phone.digits_between' =>'Số điện thoại phải từ 10 đến 12 số!',
-            'Password.required' => 'Vui lòng nhập mật khẩu',
-            'Password.min' => 'Mật khẩu tối thiểu min: ký tự',
-            'Password.regex' => 'Mật khẩu phải có ít nhất 1 chữ hoa, 1 chữ thường, 1 số và 1 ký tự đặc biệt.',
-            'AccountName.required' => 'Vui lòng nhập tên đăng nhập!',
-            'AccountName.regex'=>'Tên đăng nhập chỉ chứa chữ, số và kí tự đặc biệt (không chứa khoảng trắng)',
-            'Date_of_Birth.required' => 'Vui lòng nhập ngày sinh.',
-            'Date_of_Birth.date' => 'Ngày sinh không hợp lệ.',
-            'Date_of_Birth.date_format' => 'Ngày sinh phải có định dạng yyyy-mm-dd (VD: 2000-01-01).',
-            'Gender.required'=>'Vui lòng chọn giới tính!',
-            'Gender.in' => 'Vui lòng chọn Nam hoặc Nữ',
-            'Email.required'=>'Vui lòng nhập email!',
-            'Email.email'=>'Email không đúng định dạng!',
-            'Email.unique' => 'Email đã tồn tại!'
+            'role_id.required' => 'Vui lòng chọn quyền hạng!',
+            'role_id.in' => 'Quyền hạng bạn chọn không phù hợp!',
+
+            'full_name.required' => 'Vui lòng nhập họ và tên!',
+            'full_name.regex' => 'Tên chỉ chứa chữ thường và chữ hoa có dấu, tối thiểu 3 đến 255 ký tự!',
+
+            'address.required' => 'Vui lòng nhập địa chỉ!',
+            'address.max' => 'Địa chỉ tối đa 255 ký tự!',
+
+            'phone.required' => 'Vui lòng nhập số điện thoại!',
+            'phone.numeric' => 'Số điện thoại chỉ được chứa số!',
+            'phone.digits_between' => 'Số điện thoại phải từ 10 đến 11 số!',
+
+            'password.required' => 'Vui lòng nhập mật khẩu!',
+            'password.min' => 'Mật khẩu tối thiểu 8 ký tự!',
+            'password.regex' => 'Mật khẩu phải có ít nhất 1 chữ hoa, 1 chữ thường, 1 số và 1 ký tự đặc biệt.',
+
+            'date_of_birth.required' => 'Vui lòng nhập ngày sinh!',
+            'date_of_birth.date' => 'Ngày sinh không hợp lệ!',
+            'date_of_birth.date_format' => 'Ngày sinh phải có định dạng yyyy-mm-dd (VD: 2000-01-01).',
+
+            'gender.required' => 'Vui lòng chọn giới tính!',
+            'gender.in' => 'Vui lòng chọn Male hoặc Female!',
+
+            'email.required' => 'Vui lòng nhập email!',
+            'email.email' => 'Email không đúng định dạng!',
+            'email.unique' => 'Email đã tồn tại!',
         ];
     }
+
 }

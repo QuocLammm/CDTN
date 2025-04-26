@@ -4,21 +4,23 @@ namespace App\Http\Controllers\admin;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\CustomerRequest;
+use App\Models\Permission;
 use App\Models\Role;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Str;
 
 class CustomerController extends Controller
 {
     public function index() {
-        $customers = User::all()->where('RoleID', 2); // Lấy danh sách là khách hàng
+        $customers = User::all()->where('role_id', 2); // Lấy danh sách là khách hàng
         return view('admin.customer.index', compact('customers'));
     }
 
     public function create()
     {
-        $roles = Role::pluck('RoleName', 'RoleID');
+        $roles = Role::pluck('role_name', 'role_id');
         $customers = [
             'Male' => 'Nam',
             'Female' => 'Nữ',
@@ -40,21 +42,22 @@ class CustomerController extends Controller
 
     public function store(CustomerRequest $request) {
         $data = $request->all();
-        $data['RoleID'] = 2;
-        $data['Gender'] = $data['Gender'] === 'Female' ? 1 : 0;
-        $data['Password'] = bcrypt($data['Password']);
+        $data['role_id'] = 2;
+        $data['password'] = bcrypt($data['password']);
+        $data['gender'] = $data['gender'] === 'Female' ? 1 : 0;
+
 
         // Xử lý ảnh
-        if ($request->hasFile('Image') && $request->file('Image')->isValid()) {
+        if ($request->hasFile('image') && $request->file('image')->isValid()) {
             // Tạo thư mục nếu chưa tồn tại
             if (!file_exists(public_path('/img/customers/'))) {
                 mkdir(public_path('/img/customers/'), 0755, true);
             }
 
-            $file = $request->file('Image');
+            $file = $request->file('image');
             $fileName = 'user_' . Str::random(10) . '.' . $file->getClientOriginalExtension();
             $file->move(public_path('/img/customers/'), $fileName);
-            $data['Image'] = '/img/customers/' . $fileName;
+            $data['image'] = '/img/customers/' . $fileName;
         }
 
         User::create($data);
@@ -64,34 +67,34 @@ class CustomerController extends Controller
 
     public function edit($id) {
         $customer = User::findOrFail($id);
-        $roles = Role::whereIn('RoleID', [1, 3])
-            ->pluck('RoleName', 'RoleID')
+        $roles = Role::whereIn('role_id', [1, 3])
+            ->pluck('role_name', 'role_id')
             ->toArray();
         $customers = [
             0 => 'Nam',
             1=> 'Nữ',
         ];
 
-        return view('admin.staff.edit', compact('customer', 'roles', 'customers'));
+        return view('admin.customer.edit', compact('customer', 'roles', 'customers'));
     }
 
     public function update(Request $request, $id) {
         $data = $request->all();
-        $data['Gender'] = $data['Gender'] == 1 ? 1 : 0;
+        $data['gender'] = $data['gender'] == 1 ? 1 : 0;
 
         // Xử lý password
-        if (!empty($data['Password'])) {
-            $data['Password'] = bcrypt($data['Password']);
+        if (!empty($data['password'])) {
+            $data['password'] = bcrypt($data['password']);
         } else {
-            unset($data['Password']);
+            unset($data['password']);
         }
 
         // Xử lý ảnh
-        if ($request->hasFile('Image') && $request->file('Image')->isValid()) {
-            $file = $request->file('Image');
+        if ($request->hasFile('image') && $request->file('image')->isValid()) {
+            $file = $request->file('image');
             $fileName = 'user_' . Str::random(10) . '.' . $file->getClientOriginalExtension();
             $file->move(public_path('/img/customers/'), $fileName);
-            $data['Image'] = '/img/customers/' . $fileName;
+            $data['image'] = '/img/customers/' . $fileName;
         }
         $customer = User::findOrFail($id);
         $customer->update($data);
@@ -101,5 +104,45 @@ class CustomerController extends Controller
     public function destroy(User $customer) {
         $customer->delete();
         return redirect()->route('show-customer.index')->with('success', 'Khách hàng đã được xóa!');
+    }
+
+
+    // Hiển thị form phân quyền
+    public function permissions(User $user)
+    {
+        $permissions = Permission::all(); // Lấy tất cả quyền
+        $userPermissions = $user->permissions->pluck('permission_id')->toArray(); // Quyền mà user đang có
+        $groupedPermissions = [];
+        foreach ($permissions as $permission) {
+            $parts = explode('.', $permission->permission_name); // VD: user.view
+            $group = ucfirst($parts[0]); // 'User'
+            $groupedPermissions[$group][] = $permission;
+        }
+
+
+        return view('admin.customer.permissions', compact('user', 'permissions', 'userPermissions','groupedPermissions'));
+    }
+
+    // Cập nhật quyền
+    public function updatePermissions(Request $request, User $user)
+    {
+        // Chỉ validate permissions thôi
+        $request->validate([
+            'permissions' => 'array'
+        ]);
+
+        if ($request->has('permissions') && is_array($request->permissions)) {
+            try {
+                // Cập nhật lại permissions
+                $user->permissions()->sync($request->permissions); // sync nhanh hơn detach + attach
+            } catch (\Exception $e) {
+                return back()->with('error', 'Có lỗi xảy ra: ' . $e->getMessage());
+            }
+        } else {
+            // Nếu không có permissions gửi lên thì xóa hết
+            $user->permissions()->detach();
+        }
+
+        return redirect()->route('show-customer.index')->with('success', 'Cập nhật quyền thành công!');
     }
 }

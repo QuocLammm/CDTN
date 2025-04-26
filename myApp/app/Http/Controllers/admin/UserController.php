@@ -4,22 +4,24 @@ namespace App\Http\Controllers\admin;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\UserRequest;
+use App\Models\Permission;
 use App\Models\Role;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Str;
 
 
 class UserController extends Controller
 {
     public function index(){
-        $users = User::whereIn('RoleID', [1,3])->get();
+        $users = User::whereIn('role_id', [1,3])->get();
         return view('admin.staff.index', compact('users'));
     }
 
     public function create(){
-        $roles = Role::whereIn('RoleID', [1, 3])
-            ->pluck('RoleName', 'RoleID')
+        $roles = Role::whereIn('role_id', [1, 3])
+            ->pluck('role_name', 'role_id')
             ->toArray();
         $users = [
             'Male' => 'Nam',
@@ -42,12 +44,12 @@ class UserController extends Controller
     public function store(UserRequest $request){
 
         $data = $request->all();
-        $data['RoleID'] = $request->input('RoleID');
-        $data['Password'] = bcrypt($data['Password']);
-        $data['Gender'] = $data['Gender'] === 'Female' ? 1 : 0;
+        $data['role_id'] = $request->input('role_id');
+        $data['password'] = bcrypt($data['password']);
+        $data['gender'] = $data['gender'] === 'Female' ? 1 : 0;
 
-        if ($request->hasFile('Image') && $request->file('Image')->isValid()) {
-            $file = $request->file('Image');
+        if ($request->hasFile('image') && $request->file('image')->isValid()) {
+            $file = $request->file('image');
             $fileName = 'staff_' . Str::random(10) . '.' . $file->getClientOriginalExtension();
 
             // Try to move the file and check if it's successful
@@ -56,7 +58,7 @@ class UserController extends Controller
 
             // Check if the file exists after moving
             if (file_exists($destinationPath . $fileName)) {
-                $data['Image'] = '/img/staff/' . $fileName;
+                $data['image'] = '/img/staff/' . $fileName;
             } else {
                 return back()->withErrors('Không thể lưu ảnh. Vui lòng thử lại.');
             }
@@ -71,8 +73,8 @@ class UserController extends Controller
 
     public function edit($id){
         $user = User::findOrFail($id);
-        $roles = Role::whereIn('RoleID', [1, 3])
-            ->pluck('RoleName', 'RoleID')
+        $roles = Role::whereIn('role_id', [1, 3])
+            ->pluck('role_name', 'role_id')
             ->toArray();
         $users = [
             0 => 'Nam',
@@ -84,21 +86,21 @@ class UserController extends Controller
 
     public function update(Request $request, $id){
         $data = $request->all();
-        $data['Gender'] = $data['Gender'] == 1 ? 1 : 0;
+        $data['gender'] = $data['gender'] == 1 ? 1 : 0;
 
         // Xử lý password
-        if (!empty($data['Password'])) {
-            $data['Password'] = bcrypt($data['Password']);
+        if (!empty($data['password'])) {
+            $data['password'] = bcrypt($data['password']);
         } else {
-            unset($data['Password']);
+            unset($data['password']);
         }
 
         // Xử lý ảnh
-        if ($request->hasFile('Image') && $request->file('Image')->isValid()) {
-            $file = $request->file('Image');
+        if ($request->hasFile('image') && $request->file('image')->isValid()) {
+            $file = $request->file('image');
             $fileName = 'user_' . Str::random(10) . '.' . $file->getClientOriginalExtension();
             $file->move(public_path('/img/customers/'), $fileName);
-            $data['Image'] = '/img/customers/' . $fileName;
+            $data['image'] = '/img/customers/' . $fileName;
         }
         $user = User::findOrFail($id);
         $user->update($data);
@@ -110,4 +112,44 @@ class UserController extends Controller
         $user->delete();
         return redirect()->route('show-staff.index')->with('success', 'Xóa nhân viên thành công!');
     }
+
+    // Hiển thị form phân quyền
+    public function permissions(User $user)
+    {
+        $permissions = Permission::all(); // Lấy tất cả quyền
+        $userPermissions = $user->permissions->pluck('permission_id')->toArray(); // Quyền mà user đang có
+        $groupedPermissions = [];
+        foreach ($permissions as $permission) {
+            $parts = explode('.', $permission->permission_name); // VD: user.view
+            $group = ucfirst($parts[0]); // 'User'
+            $groupedPermissions[$group][] = $permission;
+        }
+
+
+        return view('admin.staff.permissions', compact('user', 'permissions', 'userPermissions','groupedPermissions'));
+    }
+
+    // Cập nhật quyền
+    public function updatePermissions(Request $request, User $user)
+    {
+        $request->validate([
+            'permissions' => 'array'
+        ]);
+
+        if ($request->has('permissions') && is_array($request->permissions)) {
+            try {
+                // Cập nhật lại permissions
+                $user->permissions()->sync($request->permissions);
+            } catch (\Exception $e) {
+                return back()->with('error', 'Có lỗi xảy ra: ' . $e->getMessage());
+            }
+        } else {
+            // Nếu không có permissions gửi lên thì xóa hết
+            $user->permissions()->detach();
+        }
+
+        return redirect()->route('show-staff.index')->with('success', 'Cập nhật quyền thành công!');
+    }
+
+
 }

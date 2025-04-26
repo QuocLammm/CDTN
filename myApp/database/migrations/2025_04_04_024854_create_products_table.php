@@ -12,21 +12,24 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('products', function (Blueprint $table) {
-            $table->increments('ProductID')->primary()->unsigned();
-            $table->unsignedInteger('CategoryID');
-            $table->unsignedInteger('SupplierID');
-            $tablecolumns = ['ProductName', 'Image'];
-            foreach ($tablecolumns as $column) {
+            $table->increments('product_id')->primary()->unsigned();
+            $table->unsignedInteger('category_id');
+            $table->unsignedInteger('supplier_id');
+
+            $table_columns = ['product_name', 'image'];
+            foreach ($table_columns as $column) {
                 $table->string($column, 255);
             }
-            $table->text('Description');
-            $table->decimal('Price', 10, 2);
-            $table->tinyInteger('Status')->default(1);
+
+            $table->text('description');
+            $table->decimal('price', 10, 2);
+            $table->tinyInteger('status')->default(1);
             $table->timestamps();
 
-            $table->foreign('CategoryID')->references('CategoryID')->on('categories');
-            $table->foreign('SupplierID')->references('SupplierID')->on('suppliers');
+            $table->foreign('category_id')->references('category_id')->on('categories');
+            $table->foreign('supplier_id')->references('supplier_id')->on('suppliers');
         });
+
     }
 
     /**
@@ -35,7 +38,7 @@ return new class extends Migration
     public function down(): void
     {
         Schema::table('products', function (Blueprint $table) {
-            $table->dropForeign(['CategoryID','SupplierID']);
+            $table->dropForeign(['category_id','supplier_id']);
         });
         Schema::dropIfExists('products');
     }
