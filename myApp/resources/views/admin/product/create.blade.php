@@ -7,6 +7,18 @@
         {{-- Form thêm sản phẩm --}}
         <form action="{{ route('show-product.store') }}" method="POST" enctype="multipart/form-data">
             @csrf
+
+            <!-- Kiểm tra lỗi -->
+            @if ($errors->any())
+                <div class="alert alert-danger">
+                    <strong>Đã xảy ra lỗi!</strong>
+                    <ul>
+                        @foreach ($errors->all() as $error)
+                            <li>{{ $error }}</li>
+                        @endforeach
+                    </ul>
+                </div>
+            @endif
            <div class="row">
                <div class="col-md-8">
                    <x-form.input name="product_name" label="Tên sản phẩm" type="text" placeholder="Nhập tên sản phẩm" />
@@ -32,6 +44,7 @@
     </div>
 @endsection
 @section('js')
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script>
         function previewImage(event) {
             const input = event.target;
@@ -41,20 +54,30 @@
                 const reader = new FileReader();
                 reader.onload = function (e) {
                     preview.src = e.target.result;
-                    preview.style.display = 'block'; // show image
+                    preview.style.display = 'block';
                 };
                 reader.readAsDataURL(input.files[0]);
             }
         }
 
-        // Optional: reset preview if user clicks remove file
-        document.querySelector('input[name="Image"]').addEventListener('change', function (event) {
+        document.querySelector('input[name="image"]').addEventListener('change', function (event) {
             if (!event.target.files.length) {
                 const preview = document.getElementById('imagePreview');
                 preview.src = '#';
                 preview.style.display = 'none';
             }
         });
+
+        // Hiển thị thông báo thành công nếu có session 'success'
+        @if(session('success'))
+        Swal.fire({
+            icon: 'success',
+            title: 'Thành công!',
+            text: '{{ session('success') }}',
+            confirmButtonText: 'OK'
+        });
+        @endif
     </script>
 @endsection
+
 

@@ -29,38 +29,33 @@ class ProductController extends Controller
     }
 
 
-    public function store(ProductRequest $request) {
+    public function store(ProductRequest $request)
+    {
         $data = $request->all();
 
-        // Xử lý ảnh
-        if ($request->hasFile('Image')) {
-            $file = $request->file('Image');
+        // Xử lý ảnh upload
+        if ($request->hasFile('image')) {
+            $file = $request->file('image');
             $fileName = 'product_' . Str::random(10) . '.' . $file->getClientOriginalExtension();
-            $file->move(public_path('/img/products/'), $fileName);
-            $data['Image'] = '/img/products/' . $fileName;
+            $file->move(public_path('/images/products/'), $fileName);
+            $data['image'] = '/images/products/' . $fileName;
         }
 
-        // Tạo sản phẩm trước để lấy ID
+        // Tạo sản phẩm
         $product = Product::create($data);
 
-        // Tạo mã QR chứa ID hoặc URL của sản phẩm
-        $qrContent = route('show-product.show', $product->product_id);
+        // Tạo mã QR (dưới dạng SVG base64)
+        $qrContent = route('show-product.show', $product->product_id); // hoặc chỉ cần ID, tùy bạn
+        $svg = QrCode::format('svg')->size(200)->generate($qrContent);
+        $qrBase64 = base64_encode($svg);
 
-        // Tạo file QR
-        $qrFileName = 'qr_' . $product->id . '.png';
-        $qrPath = public_path('/img/qrcodes/' . $qrFileName);
-
-        // Tạo thư mục nếu chưa có
-        File::ensureDirectoryExists(public_path('/img/qrcodes/'));
-
-        // Lưu file QR
-        QrCode::format('png')->size(200)->generate($qrContent, $qrPath);
-
-        // Cập nhật đường dẫn QR vào DB
-        $product->update(['qr_code' => '/img/qrcodes/' . $qrFileName]);
+        // Lưu QR vào DB
+        $product->update(['qr_code_base64' => $qrBase64]);
 
         return redirect()->route('show-product.index')->with('success', 'Sản phẩm đã thêm kèm mã QR!');
     }
+
+
 
     public function edit(Product $product) {
         $suppliers = Supplier::pluck('SupplierName', 'SupplierID');

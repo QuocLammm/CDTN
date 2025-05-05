@@ -22,26 +22,29 @@ class ProductRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'SupplierID' => 'required|exists:suppliers,SupplierID',
-            'CategoryID' => 'required|exists:categories,CategoryID',
-            'ProductName' => 'required|max:255',
-            'Image' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
-            'Description' => 'required|string|min:10',
-            'Price' => 'required|numeric|min:0',
+            'supplier_id' => 'required|exists:suppliers,supplier_id',
+            'category_id' => 'required|exists:categories,category_id',
+            'product_name' => 'required|max:255',
+            'image' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+            'description' => 'required|string|min:10',
+            'price' => 'required|numeric|min:0',
         ];
     }
-    public function messages(): array{
+
+    public function messages(): array
+    {
         return [
-            'SupplierID.required' => 'Vui lòng chọn loại sản phẩm!',
-            'CategoryID.required' => 'Vui lòng chọn nhà cung cấp!',
-            'ProductName.required' => 'Tên sản phẩm không được để trống!',
-            'Image.mimes' => 'Vui lòng chọn đúng tệp hình!',
-            'Image.max' => 'Vui lòng chọn hình có kích thước nhỏ hơn!',
-            'Description.required' =>'Vui lòng nhập mô tả!',
-            'Description.min' => 'Mô tả ít nhất 10 từ!',
-            'Price.required' => 'Vui lòng nhập giá bán!',
-            'Price.numeric'=>'Vui lòng nhập số!',
-            'Price.min' => 'Vui lòng nhập số lượng lớn hơn min:!',
+            'supplier_id.required' => 'Vui lòng chọn nhà cung cấp!',
+            'category_id.required' => 'Vui lòng chọn loại sản phẩm!',
+            'product_name.required' => 'Tên sản phẩm không được để trống!',
+            'image.mimes' => 'Vui lòng chọn đúng tệp hình!',
+            'image.max' => 'Vui lòng chọn hình có kích thước nhỏ hơn!',
+            'description.required' => 'Vui lòng nhập mô tả!',
+            'description.min' => 'Mô tả ít nhất 10 từ!',
+            'price.required' => 'Vui lòng nhập giá bán!',
+            'price.numeric' => 'Vui lòng nhập số!',
+            'price.min' => 'Vui lòng nhập số lượng lớn hơn 0!',
         ];
     }
+
 }

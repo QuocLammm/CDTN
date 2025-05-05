@@ -1,62 +1,62 @@
 @extends('layouts.app')
-@push('css')
 
-@endpush
 @section('content')
     @include('layouts.navbars.auth.topnav', ['title' => 'Sản phẩm'])
     <div class="row mt-4 mx-4">
         <div class="col-12">
-            @php
-                $title = 'Danh sách sản phẩm';
-                $addRoute = route('show-product.create');
-                $tableId = 'productTable';
-
-                $thead = '
-                    <tr>
-                        <th>Tên sản phẩm</th>
-                        <th class="text-center">Hình ảnh</th>
-                        <th>Mô tả</th>
-                        <th>Giá</th>
-                        <th class="text-center">Thao tác</th>
-                    </tr>
-                ';
-
-                $tbody = '';
-                if (empty($products) || count($products) === 0) {
-                    $tbody .= '<tr><td colspan="5" class="text-center">Không có sản phẩm nào</td></tr>';
-                } else {
-                    foreach ($products as $product) {
-                        $tbody .= '
+            <div class="card">
+                <div class="card-header d-flex justify-content-between align-items-center">
+                    <h5 class="mb-0">Danh sách sản phẩm</h5>
+                    <a href="{{ route('show-product.create') }}" class="btn btn-primary">Thêm sản phẩm</a>
+                </div>
+                <div class="card-body">
+                    <table class="table table-bordered" id="productTable">
+                        <thead>
+                        <tr>
+                            <th>Tên sản phẩm</th>
+                            <th class="text-center">Hình ảnh</th>
+                            <th>Mô tả</th>
+                            <th>Giá</th>
+                            <th class="text-center">Thao tác</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        @forelse ($products as $product)
                             <tr>
-                                <td>' . $product->product_name . '</td>
+                                <td>{{ $product->product_name }}</td>
                                 <td class="text-center">
-                                    <img src="' . asset($product->image) . '" style="width: 50px; height: 50px; object-fit: cover;" class="rounded">
+                                    <img src="{{ asset($product->image) }}" style="width: 50px; height: 50px; object-fit: cover;" class="rounded">
                                 </td>
-                                <td>' . $product->description . '</td>
-                                <td>' . number_format($product->price) . ' VNĐ</td>
+                                <td>{{ $product->description }}</td>
+                                <td>{{ number_format($product->price) }} VNĐ</td>
                                 <td class="text-center">
-                                    <a href="' . route('show-product.edit', $product->product_id) . '" class="btn btn-sm btn-outline-success me-2">Edit</a>
-                                    <form action="' . route('show-product.destroy', $product->product_id) . '" method="POST" class="d-inline delete-form">
-                                        <input type="hidden" name="_token" value="' . csrf_token() . '">
-                                        <input type="hidden" name="_method" value="DELETE">
-                                        <button type="button" class="btn btn-sm btn-outline-danger btn-delete">
-                                            Delete
-                                        </button>
+                                    <a href="{{ route('show-product.edit', $product->product_id) }}" class="btn btn-sm btn-outline-success me-1">Edit</a>
+                                    <button type="button" class="btn btn-sm btn-outline-primary me-1 btn-show-qr" data-name="{{ $product->product_name }}" data-id="{{ $product->product_id }}">
+                                        QR Code
+                                    </button>
+                                    <form action="{{ route('show-product.destroy', $product->product_id) }}" method="POST" class="d-inline delete-form">
+                                        @csrf
+                                        @method('DELETE')
+                                        <button type="button" class="btn btn-sm btn-outline-danger btn-delete">Delete</button>
                                     </form>
                                 </td>
                             </tr>
-                        ';
-                    }
-                }
-            @endphp
-            @include('pages.tables', compact('title', 'addRoute', 'thead', 'tbody', 'tableId'))
+                        @empty
+                            <tr>
+                                <td colspan="5" class="text-center">Không có sản phẩm nào</td>
+                            </tr>
+                        @endforelse
+                        </tbody>
+                    </table>
+                </div>
+            </div>
         </div>
     </div>
 @endsection
 
 @push('js')
     <script>
-        $(document).ready(function() {
+        $(document).ready(function () {
             $('#productTable').DataTable({
                 pageLength: 5,
                 lengthMenu: [5, 10, 25, 50, 100],
@@ -75,17 +75,12 @@
                 }
             });
         });
-    </script>
-    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-    <script>
+
+        // Xử lý nút xóa
         document.addEventListener('DOMContentLoaded', function () {
-            const deleteButtons = document.querySelectorAll('.btn-delete');
-
-            deleteButtons.forEach(function (button) {
-                button.addEventListener('click', function (e) {
-                    e.preventDefault();
+            document.querySelectorAll('.btn-delete').forEach(function (button) {
+                button.addEventListener('click', function () {
                     const form = this.closest('form');
-
                     Swal.fire({
                         title: 'Bạn có chắc muốn xóa?',
                         text: "Hành động này không thể hoàn tác!",
@@ -102,7 +97,22 @@
                     });
                 });
             });
+
+            // Xử lý hiển thị QR Code
+            document.querySelectorAll('.btn-show-qr').forEach(function (button) {
+                button.addEventListener('click', function () {
+                    const productId = this.getAttribute('data-id');
+                    const productName = this.getAttribute('data-name');
+                    const qrUrl = `https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=${encodeURIComponent(productName + ' - ID: ' + productId)}`;
+
+                    Swal.fire({
+                        title: `QR Code cho sản phẩm`,
+                        html: `<img src="${qrUrl}" alt="QR Code" class="img-fluid">`,
+                        confirmButtonText: 'Đóng'
+                    });
+                });
+            });
         });
     </script>
-
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 @endpush
