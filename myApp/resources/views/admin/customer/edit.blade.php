@@ -24,7 +24,6 @@
                                 :options="$roles"
                                 :selected="$customer->role_id" />
                         </div>
-
                         <div class="col-md-4">
                             <x-form.select name="gender" label="Giới tính" :options="$customers" :selected="$customer->gender" />
                         </div>

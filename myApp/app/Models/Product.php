@@ -11,32 +11,30 @@ class Product extends Model
     use HasFactory;
 
     protected $table = 'products';
-    protected $primaryKey = 'ProductID';
+    protected $primaryKey = 'product_id';
     public $timestamps = true;
     protected $fillable = [
-        'SupplierID',
-        'CategoryID',
-        'ProductName',
-        'Description',
-        'Image',
-        'Price',
-        'CreatedAt',
-        'UpdatedAt',
+        'supplier_id',
+        'category_id',
+        'product_name',
+        'description',
+        'image',
+        'price',
 
     ];
     public function supplier()
     {
-        return $this->belongsTo(Supplier::class, 'SupplierID', 'SupplierID');
+        return $this->belongsTo(Supplier::class, 'supplier_id','supplier_id');
     }
 
     public function category()
     {
-        return $this->belongsTo(Category::class, 'CategoryID', 'CategoryID');
+        return $this->belongsTo(Category::class, 'category_id', 'category_id');
     }
 
     public function productDetail()
     {
-        return $this->hasOne(ProductDetail::class, 'ProductID', 'ProductID');
+        return $this->hasOne(ProductDetail::class, 'product_id', 'product_id');
     }
 
 

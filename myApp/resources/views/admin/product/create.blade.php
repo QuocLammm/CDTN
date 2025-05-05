@@ -9,20 +9,20 @@
             @csrf
            <div class="row">
                <div class="col-md-8">
-                   <x-form.input name="ProductName" label="Tên sản phẩm" type="text" placeholder="Nhập tên sản phẩm" />
+                   <x-form.input name="product_name" label="Tên sản phẩm" type="text" placeholder="Nhập tên sản phẩm" />
                    <div class="row">
                        <div class="col-md-6">
-                           <x-form.select name="CategoryID" label="Loại sản phẩm" :options="$categories" />
+                           <x-form.select name="category_id" label="Loại sản phẩm" :options="$categories" />
                        </div>
                        <div class="col-md-6">
-                           <x-form.select name="SupplierID" label="Nhà cung cấp" :options="$suppliers" />
+                           <x-form.select name="supplier_id" label="Nhà cung cấp" :options="$suppliers" />
                        </div>
                    </div>
-                   <x-form.input name="Price" label="Giá" type="number" placeholder="Nhập giá sản phẩm" />
-                   <x-form.textarea name="Description" label="Mô tả" placeholder="Nhập mô tả" rows="4" />
+                   <x-form.input name="price" label="Giá" type="number" placeholder="Nhập giá sản phẩm" />
+                   <x-form.textarea name="description" label="Mô tả" placeholder="Nhập mô tả" rows="4" />
                </div>
                <div class="col-md-4">
-                   <x-form.input name="Image" label="Hình ảnh" type="file" onchange="previewImage(event)" />
+                   <x-form.input name="image" label="Hình ảnh" type="file" onchange="previewImage(event)" />
                    <img id="imagePreview" src="#" alt="Ảnh xem trước" style="max-width: 100%; margin-top: 10px; display: none;">
                </div>
            </div>

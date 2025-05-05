@@ -40,7 +40,8 @@ return [
         'notification.delete',
         'feedback.view',
         'feedback.reply',
-        'pay.payment'
+        'pay.payment',
+        'home.homepage'
 
     ],
     'Description' =>[
@@ -84,5 +85,6 @@ return [
         'Xem phản hồi của khách hàng',
         'Phản hồi lại đánh giá của khách hàng',
         'Thanh toán',
+        'Trang chủ',
     ]
 ];

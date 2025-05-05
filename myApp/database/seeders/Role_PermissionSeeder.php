@@ -16,15 +16,28 @@ class Role_PermissionSeeder extends Seeder
         // Lấy tất cả các quyền
         $permissions = DB::table('permissions')->pluck('permission_id');
 
+        // Các quyền mà role_id = 2 ko được có
+        $excludedPermissionsForRole2 = [5, 8, 10];
+
         $rolePermissions = [];
+
         foreach ($permissions as $permissionId) {
             $rolePermissions[] = [
                 'role_id' => 1,
                 'permission_id' => $permissionId,
             ];
+
+            // Gán quyền cho role_id = 2, bỏ qua các quyền ko được
+            if (!in_array($permissionId, $excludedPermissionsForRole2)) {
+                $rolePermissions[] = [
+                    'role_id' => 2,
+                    'permission_id' => $permissionId,
+                ];
+            }
         }
 
-        // Chèn vào bảng role_permissions
+        // Chèn dữ liệu vào bảng role_permissions
         DB::table('role_permissions')->insert($rolePermissions);
     }
+
 }

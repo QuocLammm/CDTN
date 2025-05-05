@@ -9,7 +9,9 @@ use App\Models\Supplier;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use App\Models\Product;
+use Illuminate\Support\Facades\File;
 use Illuminate\Support\Str;
+use SimpleSoftwareIO\QrCode\Facades\QrCode;
 
 class ProductController extends Controller
 {
@@ -20,8 +22,8 @@ class ProductController extends Controller
 
     public function create() {
 
-        $suppliers = Supplier::pluck('SupplierName', 'SupplierID');
-        $categories = Category::pluck('CategoryName', 'CategoryID');
+        $suppliers = Supplier::pluck('supplier_name', 'supplier_id');
+        $categories = Category::pluck('category_name', 'category_id');
 
         return view('admin.product.create', compact('suppliers', 'categories'));
     }
@@ -29,22 +31,35 @@ class ProductController extends Controller
 
     public function store(ProductRequest $request) {
         $data = $request->all();
-        //Xử lý ảnh
+
+        // Xử lý ảnh
         if ($request->hasFile('Image')) {
             $file = $request->file('Image');
-
-            // Tạo tên file mới
             $fileName = 'product_' . Str::random(10) . '.' . $file->getClientOriginalExtension();
-
-            // Đường dẫn lưu file
             $file->move(public_path('/img/products/'), $fileName);
-
-            // Lưu đường dẫn vào database
             $data['Image'] = '/img/products/' . $fileName;
         }
 
-        Product::create($data);
-        return redirect()->route('show-product.index')->with('success', 'Sản phẩm đã thêm!');
+        // Tạo sản phẩm trước để lấy ID
+        $product = Product::create($data);
+
+        // Tạo mã QR chứa ID hoặc URL của sản phẩm
+        $qrContent = route('show-product.show', $product->product_id);
+
+        // Tạo file QR
+        $qrFileName = 'qr_' . $product->id . '.png';
+        $qrPath = public_path('/img/qrcodes/' . $qrFileName);
+
+        // Tạo thư mục nếu chưa có
+        File::ensureDirectoryExists(public_path('/img/qrcodes/'));
+
+        // Lưu file QR
+        QrCode::format('png')->size(200)->generate($qrContent, $qrPath);
+
+        // Cập nhật đường dẫn QR vào DB
+        $product->update(['qr_code' => '/img/qrcodes/' . $qrFileName]);
+
+        return redirect()->route('show-product.index')->with('success', 'Sản phẩm đã thêm kèm mã QR!');
     }
 
     public function edit(Product $product) {
@@ -88,4 +103,5 @@ class ProductController extends Controller
         $product->delete();
         return redirect()->route('show-product.index')->with('success', 'Sản phẩm đã xóa!');
     }
+
 }

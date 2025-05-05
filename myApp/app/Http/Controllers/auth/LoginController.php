@@ -24,7 +24,7 @@ class LoginController extends Controller
         // Thử xác thực với email và mật khẩu
         if (Auth::attempt($credentials, $request->boolean('remember'))) {
             $request->session()->regenerate();
-            return redirect()->intended('home');
+            return redirect()->intended('dashboard');
         }
 
         // Kiểm tra xem email có tồn tại trong hệ thống không

@@ -7,17 +7,20 @@ use App\Http\Controllers\admin\PermissionController;
 use App\Http\Controllers\admin\ProductController;
 use App\Http\Controllers\admin\SaleController;
 use App\Http\Controllers\admin\UserController;
+use App\Http\Controllers\auth\HomePageController;
 use App\Http\Controllers\auth\LoginController;
-use App\Http\Controllers\HomeController;
+use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\UserProfileController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\admin\VNPayController;
 
 //Homepage
-Route::get('/homepages', function () {
-    return view('homepages.homepage');
-});
+//Route::get('/homepages', function () {
+//    return view('homepages.homepage');
+//});
+Route::get('/homepages', [HomePageController::class, 'index'])->name('home');
+//Route::get('/product/{id}', [HomePageController::class, 'show'])->name('product.show');
 
 // Chặn người đã đăng nhập truy cập login/register
 Route::middleware('guest')->group(function () {
@@ -30,7 +33,7 @@ Route::middleware('guest')->group(function () {
 
 // Chặn người chưa đăng nhập truy cập dashboard
 Route::middleware('auth')->group(function () {
-    Route::get('/dashboard', [HomeController::class, 'index'])->name('home');
+    Route::get('/dashboard', [DashboardController::class, 'index'])->name('home');
 
     Route::post('/logout', [LoginController::class, 'logout'])->name('logout');
 });
@@ -38,8 +41,6 @@ Route::middleware('auth')->group(function () {
 
 //Nhân viên
 // Nhân viên
-
-
 
 
 Route::middleware('auth')->group(function () {

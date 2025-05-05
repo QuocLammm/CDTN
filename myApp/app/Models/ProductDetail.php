@@ -9,19 +9,19 @@ class ProductDetail extends Model
 {
     use HasFactory;
     protected $table = 'product_details';
-    protected $primaryKey = 'ProductDetailID';
+    protected $primaryKey = 'product_detail_id';
 
     public $timestamps = true;
 
     protected $fillable = [
-        'ProductID',
-        'Size',
-        'Color',
-        'Quantity',
+        'product_id',
+        'size',
+        'color',
+        'quantity',
     ];
 
     public function product()
     {
-        return $this->belongsTo(Product::class, 'ProductID');
+        return $this->belongsTo(Product::class, 'product_id');
     }
 }

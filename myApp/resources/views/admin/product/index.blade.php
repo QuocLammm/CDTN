@@ -28,15 +28,15 @@
                     foreach ($products as $product) {
                         $tbody .= '
                             <tr>
-                                <td>' . $product->ProductName . '</td>
+                                <td>' . $product->product_name . '</td>
                                 <td class="text-center">
-                                    <img src="' . asset($product->Image) . '" style="width: 50px; height: 50px; object-fit: cover;" class="rounded">
+                                    <img src="' . asset($product->image) . '" style="width: 50px; height: 50px; object-fit: cover;" class="rounded">
                                 </td>
-                                <td>' . $product->Description . '</td>
-                                <td>' . number_format($product->Price) . ' VNĐ</td>
+                                <td>' . $product->description . '</td>
+                                <td>' . number_format($product->price) . ' VNĐ</td>
                                 <td class="text-center">
-                                    <a href="' . route('show-product.edit', $product->ProductID) . '" class="btn btn-sm btn-outline-success me-2">Edit</a>
-                                    <form action="' . route('show-product.destroy', $product->ProductID) . '" method="POST" class="d-inline delete-form">
+                                    <a href="' . route('show-product.edit', $product->product_id) . '" class="btn btn-sm btn-outline-success me-2">Edit</a>
+                                    <form action="' . route('show-product.destroy', $product->product_id) . '" method="POST" class="d-inline delete-form">
                                         <input type="hidden" name="_token" value="' . csrf_token() . '">
                                         <input type="hidden" name="_method" value="DELETE">
                                         <button type="button" class="btn btn-sm btn-outline-danger btn-delete">
