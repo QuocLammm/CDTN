@@ -3,7 +3,7 @@
 
 @endpush
 @section('content')
-    @include('layouts.navbars.auth.topnav', ['title' => 'Loại sản phẩm'])
+    @include('layouts.header', ['title' => 'Loại sản phẩm'])
     <div class="row mt-4 mx-4">
         <div class="col-12">
             @php
@@ -50,7 +50,7 @@
 
 @push('js')
     <script>
-        $(document).ready(function() {
+        $(document).ready(function () {
             $('#categoryTable').DataTable({
                 pageLength: 5,
                 lengthMenu: [5, 10, 25, 50, 100],

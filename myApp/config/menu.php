@@ -6,6 +6,7 @@ return [
         'icon' => 'ni ni-tv-2 text-primary',
         'permission' => 'dashboard',
     ],
+
     [
         'title' => 'Chức năng',
         'is_parent' => true,
@@ -58,18 +59,19 @@ return [
         'title' => 'Tài khoản',
         'is_parent' => true,
         'children' => [
-//            [
-//                'title' => 'Trang cá nhân',
-//                'route' => 'show-profile',
-//                'icon' => 'ni ni-circle-08 text-dark',
-//                'permission' => 'user.profile',
-//            ],
-//            [
-//                'title' => 'Cài đặt',
-//                'route' => 'settings',
-//                'icon' => 'fa fa-cog text-dark',
-//                'permission' => 'user.setting', // <- thêm dòng này
-//            ],
+            [
+                'title' => 'Trang cá nhân',
+                'route' => 'show-profile.index',
+                'icon' => 'fa fa-cog text-dark',
+                'permission' => 'user.profile',
+            ],
+            [
+                'title' => 'Đăng xuất',
+                'route' => 'logout',
+                'icon' => 'ni ni-button-power text-danger',
+
+            ],
+
 //            [
 //                'title' => 'Thanh toán',
 //                'route' => 'vnpay.payment.product',

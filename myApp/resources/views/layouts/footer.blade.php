@@ -17,20 +17,16 @@
             <div class="col-lg-6">
                 <ul class="nav nav-footer justify-content-center justify-content-lg-end">
                     <li class="nav-item">
-                        <a href="https://www.updivision.com" class="nav-link text-muted" target="_blank">SweetSoft</a>
+                        <a href="https://sweetsoft.vn/" class="nav-link text-muted" target="_blank">SweetSoft</a>
                     </li>
                     <li class="nav-item">
                         <a href="https://www.facebook.com/an.tiue.3" class="nav-link text-muted" target="_blank">Quốc Lâm</a>
                     </li>
                     <li class="nav-item">
-                        <a href="https://sweetsoft.vn/" class="nav-link text-muted" target="_blank">About Us</a>
+                        <a href="https://sweetsoft.vn/" class="nav-link text-muted" target="_blank">Liên Hệ</a>
                     </li>
                     <li class="nav-item">
-                        <a href="https://www.creative-tim.com/blog" class="nav-link text-muted" target="_blank">Blog</a>
-                    </li>
-                    <li class="nav-item">
-                        <a href="https://www.creative-tim.com/license" class="nav-link pe-0 text-muted"
-                            target="_blank">License</a>
+                        <a href="https://www.creative-tim.com/blog" class="nav-link text-muted" target="_blank">Cửa hàng</a>
                     </li>
                 </ul>
             </div>

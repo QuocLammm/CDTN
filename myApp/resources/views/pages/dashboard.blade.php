@@ -1,7 +1,7 @@
 @extends('layouts.app', ['class' => 'g-sidenav-show bg-gray-100'])
 
 @section('content')
-    @include('layouts.navbars.auth.topnav', ['title' => 'Dashboard'])
+    @include('layouts.header', ['title' => 'Dashboard'])
     <div class="container-fluid py-4">
         <div class="row">
             <div class="col-xl-3 col-sm-6 mb-xl-0 mb-4">
@@ -21,7 +21,8 @@
                                 </div>
                             </div>
                             <div class="col-4 text-end">
-                                <div class="icon icon-shape bg-gradient-primary shadow-primary text-center rounded-circle">
+                                <div
+                                    class="icon icon-shape bg-gradient-primary shadow-primary text-center rounded-circle">
                                     <i class="ni ni-money-coins text-lg opacity-10" aria-hidden="true"></i>
                                 </div>
                             </div>
@@ -46,7 +47,8 @@
                                 </div>
                             </div>
                             <div class="col-4 text-end">
-                                <div class="icon icon-shape bg-gradient-danger shadow-danger text-center rounded-circle">
+                                <div
+                                    class="icon icon-shape bg-gradient-danger shadow-danger text-center rounded-circle">
                                     <i class="ni ni-world text-lg opacity-10" aria-hidden="true"></i>
                                 </div>
                             </div>
@@ -71,7 +73,8 @@
                                 </div>
                             </div>
                             <div class="col-4 text-end">
-                                <div class="icon icon-shape bg-gradient-success shadow-success text-center rounded-circle">
+                                <div
+                                    class="icon icon-shape bg-gradient-success shadow-success text-center rounded-circle">
                                     <i class="ni ni-paper-diploma text-lg opacity-10" aria-hidden="true"></i>
                                 </div>
                             </div>
@@ -95,7 +98,8 @@
                                 </div>
                             </div>
                             <div class="col-4 text-end">
-                                <div class="icon icon-shape bg-gradient-warning shadow-warning text-center rounded-circle">
+                                <div
+                                    class="icon icon-shape bg-gradient-warning shadow-warning text-center rounded-circle">
                                     <i class="ni ni-cart text-lg opacity-10" aria-hidden="true"></i>
                                 </div>
                             </div>
@@ -132,7 +136,8 @@
                                         <i class="ni ni-camera-compact text-dark opacity-10"></i>
                                     </div>
                                     <h5 class="text-white mb-1">Get started with Argon</h5>
-                                    <p>There’s nothing I really wanted to do in life that I wasn’t able to get good at.</p>
+                                    <p>There’s nothing I really wanted to do in life that I wasn’t able to get good
+                                        at.</p>
                                 </div>
                             </div>
                             <div class="carousel-item h-100" style="background-image: url('{{ asset('img/carousel-2.jpg') }}');
@@ -146,14 +151,16 @@
                                         ability to learn.</p>
                                 </div>
                             </div>
-                            <div class="carousel-item h-100" style="background-image: url('{{ asset('img/carousel-3.jpg') }}'); background-size: cover;">
+                            <div class="carousel-item h-100"
+                                 style="background-image: url('{{ asset('img/carousel-3.jpg') }}'); background-size: cover;">
 
                                 <div class="carousel-caption d-none d-md-block bottom-0 text-start start-0 ms-5">
                                     <div class="icon icon-shape icon-sm bg-white text-center border-radius-md mb-3">
                                         <i class="ni ni-trophy text-dark opacity-10"></i>
                                     </div>
                                     <h5 class="text-white mb-1">Share with us your design tips!</h5>
-                                    <p>Don’t be afraid to be wrong because you can’t learn anything from a compliment.</p>
+                                    <p>Don’t be afraid to be wrong because you can’t learn anything from a
+                                        compliment.</p>
                                 </div>
                             </div>
                         </div>
@@ -331,7 +338,8 @@
                                 </div>
                                 <div class="d-flex">
                                     <button
-                                        class="btn btn-link btn-icon-only btn-rounded btn-sm text-dark icon-move-right my-auto"><i
+                                        class="btn btn-link btn-icon-only btn-rounded btn-sm text-dark icon-move-right my-auto">
+                                        <i
                                             class="ni ni-bold-right" aria-hidden="true"></i></button>
                                 </div>
                             </li>
@@ -348,7 +356,8 @@
                                 </div>
                                 <div class="d-flex">
                                     <button
-                                        class="btn btn-link btn-icon-only btn-rounded btn-sm text-dark icon-move-right my-auto"><i
+                                        class="btn btn-link btn-icon-only btn-rounded btn-sm text-dark icon-move-right my-auto">
+                                        <i
                                             class="ni ni-bold-right" aria-hidden="true"></i></button>
                                 </div>
                             </li>
@@ -365,7 +374,8 @@
                                 </div>
                                 <div class="d-flex">
                                     <button
-                                        class="btn btn-link btn-icon-only btn-rounded btn-sm text-dark icon-move-right my-auto"><i
+                                        class="btn btn-link btn-icon-only btn-rounded btn-sm text-dark icon-move-right my-auto">
+                                        <i
                                             class="ni ni-bold-right" aria-hidden="true"></i></button>
                                 </div>
                             </li>
@@ -381,7 +391,8 @@
                                 </div>
                                 <div class="d-flex">
                                     <button
-                                        class="btn btn-link btn-icon-only btn-rounded btn-sm text-dark icon-move-right my-auto"><i
+                                        class="btn btn-link btn-icon-only btn-rounded btn-sm text-dark icon-move-right my-auto">
+                                        <i
                                             class="ni ni-bold-right" aria-hidden="true"></i></button>
                                 </div>
                             </li>
@@ -390,7 +401,7 @@
                 </div>
             </div>
         </div>
-        @include('layouts.footers.auth.footer')
+        @include('layouts.footer')
     </div>
 @endsection
 

@@ -1,8 +1,7 @@
-
 @extends('layouts.app')
 
 @section('content')
-    @include('layouts.navbars.auth.topnav', ['title' => 'Phân quyền'])
+    @include('layouts.header', ['title' => 'Phân quyền'])
     <div class="row mt-4 mx-4">
         <div class="col-12">
             <h3>Danh sách nhóm quyền</h3>
@@ -20,7 +19,8 @@
                         <td>{{ $role->role_name }}</td>
                         <td>{{ $role->description }}</td>
                         <td>
-                            <a href="{{ route('show-permission.edit', $role->role_id) }}" class="btn btn-sm btn-primary">Phân quyền</a>
+                            <a href="{{ route('show-permission.edit', $role->role_id) }}"
+                               class="btn btn-sm btn-primary">Phân quyền</a>
                         </td>
                     </tr>
                 @endforeach
@@ -33,7 +33,7 @@
 @push('js')
     <!-- Khởi tạo DataTables -->
     <script>
-        $(document).ready(function() {
+        $(document).ready(function () {
             $('#rolesTable').DataTable({
                 pageLength: 5, // Số lượng mục hiển thị trên mỗi trang
                 lengthMenu: [5, 10, 25, 50, 100], // Các lựa chọn cho phân trang

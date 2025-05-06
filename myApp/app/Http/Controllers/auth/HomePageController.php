@@ -4,6 +4,7 @@ namespace App\Http\Controllers\auth;
 
 use App\Http\Controllers\Controller;
 use App\Models\Product;
+use App\Models\User;
 
 class HomePageController extends Controller
 {
@@ -15,4 +16,13 @@ class HomePageController extends Controller
         // Trả dữ liệu sang view
         return view('homepages.homepage', compact('products'));
     }
+
+    // Profile User
+    public function showProfile($id)
+    {
+        $user = User::findOrFail($id);
+        return view('homepages.profile', compact('user'));
+    }
+
+
 }

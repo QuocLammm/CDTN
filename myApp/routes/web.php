@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\admin\AccountController;
 use App\Http\Controllers\admin\CategoryController;
 use App\Http\Controllers\admin\CustomerController;
 use App\Http\Controllers\admin\OrderController;
@@ -15,11 +16,9 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\admin\VNPayController;
 
-//Homepage
-//Route::get('/homepages', function () {
-//    return view('homepages.homepage');
-//});
+
 Route::get('/homepages', [HomePageController::class, 'index'])->name('home');
+Route::get('/profile/{id}', [HomePageController::class, 'showProfile'])->name('profile-user');
 //Route::get('/product/{id}', [HomePageController::class, 'show'])->name('product.show');
 
 // Chặn người đã đăng nhập truy cập login/register
@@ -35,12 +34,8 @@ Route::middleware('guest')->group(function () {
 Route::middleware('auth')->group(function () {
     Route::get('/dashboard', [DashboardController::class, 'index'])->name('home');
 
-    Route::post('/logout', [LoginController::class, 'logout'])->name('logout');
+    Route::get('/logout', [LoginController::class, 'logout'])->name('logout');
 });
-
-
-//Nhân viên
-// Nhân viên
 
 
 Route::middleware('auth')->group(function () {
@@ -70,8 +65,11 @@ Route::middleware('auth')->group(function () {
     // Đơn hàng
     Route::resource('/order', OrderController::class)->names('show-order');
 
-//Khuyến mãi
+    //Khuyến mãi
     Route::resource('/sale', SaleController::class)->names('show-sale');
+
+    //Account
+    Route::resource('/profile', AccountController::class)->names('show-profile');
 
 // Route cho việc hiển thị các sản phẩm và thực hiện thanh toán (GET)
     Route::get('/vnpay', [VNPayController::class, 'showPaymentPage'])->name('vnpay.payment.product');
@@ -87,8 +85,4 @@ Route::middleware('auth')->group(function () {
 });
 
 
-//Settings
-Route::get('/settings', function () {
-    return view('pages.settings');
-})->name('settings');
 

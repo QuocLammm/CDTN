@@ -1,13 +1,14 @@
 @extends('layouts.app', ['class' => 'g-sidenav-show bg-gray-100'])
 
 @section('content')
-    @include('layouts.navbars.auth.topnav', ['title' => 'Profile'])
+    @include('layouts.header', ['title' => 'Profile'])
     <div class="card shadow-lg mx-4 card-profile-bottom">
         <div class="card-body p-3">
             <div class="row gx-4">
                 <div class="col-auto">
                     <div class="avatar avatar-xl position-relative">
-                        <img src="{{ asset('/img/team-1.jpg')}}" alt="profile_image" class="w-100 border-radius-lg shadow-sm">
+                        <img src="{{ asset('/img/team-1.jpg')}}" alt="profile_image"
+                             class="w-100 border-radius-lg shadow-sm">
                     </div>
                 </div>
                 <div class="col-auto my-auto">
@@ -25,21 +26,21 @@
                         <ul class="nav nav-pills nav-fill p-1" role="tablist">
                             <li class="nav-item">
                                 <a class="nav-link mb-0 px-0 py-1 active d-flex align-items-center justify-content-center "
-                                    data-bs-toggle="tab" href="javascript:;" role="tab" aria-selected="true">
+                                   data-bs-toggle="tab" href="javascript:;" role="tab" aria-selected="true">
                                     <i class="ni ni-app"></i>
                                     <span class="ms-2">App</span>
                                 </a>
                             </li>
                             <li class="nav-item">
                                 <a class="nav-link mb-0 px-0 py-1 d-flex align-items-center justify-content-center "
-                                    data-bs-toggle="tab" href="javascript:;" role="tab" aria-selected="false">
+                                   data-bs-toggle="tab" href="javascript:;" role="tab" aria-selected="false">
                                     <i class="ni ni-email-83"></i>
                                     <span class="ms-2">Messages</span>
                                 </a>
                             </li>
                             <li class="nav-item">
                                 <a class="nav-link mb-0 px-0 py-1 d-flex align-items-center justify-content-center "
-                                    data-bs-toggle="tab" href="javascript:;" role="tab" aria-selected="false">
+                                   data-bs-toggle="tab" href="javascript:;" role="tab" aria-selected="false">
                                     <i class="ni ni-settings-gear-65"></i>
                                     <span class="ms-2">Settings</span>
                                 </a>
@@ -95,7 +96,7 @@
                                 <div class="form-group">
                                     <label for="example-text-input" class="form-control-label">Address</label>
                                     <input class="form-control" type="text"
-                                        value="Bld Mihail Kogalniceanu, nr. 8 Bl 1, Sc 1, Ap 09">
+                                           value="Bld Mihail Kogalniceanu, nr. 8 Bl 1, Sc 1, Ap 09">
                                 </div>
                             </div>
                             <div class="col-md-4">
@@ -124,7 +125,7 @@
                                 <div class="form-group">
                                     <label for="example-text-input" class="form-control-label">About me</label>
                                     <input class="form-control" type="text"
-                                        value="A beautiful Dashboard for Bootstrap 5. It is Free and Open Source.">
+                                           value="A beautiful Dashboard for Bootstrap 5. It is Free and Open Source.">
                                 </div>
                             </div>
                         </div>
@@ -140,7 +141,7 @@
                             <div class="mt-n4 mt-lg-n6 mb-4 mb-lg-0">
                                 <a href="javascript:;">
                                     <img src="{{asset('/img/team-2.jpg')}}"
-                                        class="rounded-circle img-fluid border border-2 border-white">
+                                         class="rounded-circle img-fluid border border-2 border-white">
                                 </a>
                             </div>
                         </div>
@@ -151,7 +152,7 @@
                             <a href="javascript:;" class="btn btn-sm btn-info mb-0 d-block d-lg-none"><i
                                     class="ni ni-collection"></i></a>
                             <a href="javascript:;"
-                                class="btn btn-sm btn-dark float-right mb-0 d-none d-lg-block">Message</a>
+                               class="btn btn-sm btn-dark float-right mb-0 d-none d-lg-block">Message</a>
                             <a href="javascript:;" class="btn btn-sm btn-dark float-right mb-0 d-block d-lg-none"><i
                                     class="ni ni-email-83"></i></a>
                         </div>
@@ -193,6 +194,6 @@
                 </div>
             </div>
         </div>
-        @include('layouts.footers.auth.footer')
+        @include('layouts.footer')
     </div>
 @endsection

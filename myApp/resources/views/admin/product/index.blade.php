@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('content')
-    @include('layouts.navbars.auth.topnav', ['title' => 'Sản phẩm'])
+    @include('layouts.header', ['title' => 'Sản phẩm'])
     <div class="row mt-4 mx-4">
         <div class="col-12">
             <div class="card">
@@ -25,19 +25,25 @@
                             <tr>
                                 <td>{{ $product->product_name }}</td>
                                 <td class="text-center">
-                                    <img src="{{ asset($product->image) }}" style="width: 50px; height: 50px; object-fit: cover;" class="rounded">
+                                    <img src="{{ asset($product->image) }}"
+                                         style="width: 50px; height: 50px; object-fit: cover;" class="rounded">
                                 </td>
                                 <td>{{ $product->description }}</td>
                                 <td>{{ number_format($product->price) }} VNĐ</td>
                                 <td class="text-center">
-                                    <a href="{{ route('show-product.edit', $product->product_id) }}" class="btn btn-sm btn-outline-success me-1">Edit</a>
-                                    <button type="button" class="btn btn-sm btn-outline-primary me-1 btn-show-qr" data-name="{{ $product->product_name }}" data-id="{{ $product->product_id }}">
+                                    <a href="{{ route('show-product.edit', $product->product_id) }}"
+                                       class="btn btn-sm btn-outline-success me-1">Edit</a>
+                                    <button type="button" class="btn btn-sm btn-outline-primary me-1 btn-show-qr"
+                                            data-name="{{ $product->product_name }}"
+                                            data-id="{{ $product->product_id }}">
                                         QR Code
                                     </button>
-                                    <form action="{{ route('show-product.destroy', $product->product_id) }}" method="POST" class="d-inline delete-form">
+                                    <form action="{{ route('show-product.destroy', $product->product_id) }}"
+                                          method="POST" class="d-inline delete-form">
                                         @csrf
                                         @method('DELETE')
-                                        <button type="button" class="btn btn-sm btn-outline-danger btn-delete">Delete</button>
+                                        <button type="button" class="btn btn-sm btn-outline-danger btn-delete">Delete
+                                        </button>
                                     </form>
                                 </td>
                             </tr>

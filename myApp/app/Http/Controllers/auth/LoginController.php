@@ -24,22 +24,21 @@ class LoginController extends Controller
         // Thử xác thực với email và mật khẩu
         if (Auth::attempt($credentials, $request->boolean('remember'))) {
             $request->session()->regenerate();
-            return redirect()->intended('dashboard');
+
+            // Lấy thông tin người dùng đã đăng nhập
+            $user = Auth::user();
+
+            // Kiểm tra role_id để điều hướng
+            if ($user->role_id === 1) {
+                return redirect()->intended('dashboard'); // Admin
+            } else {
+                return redirect()->intended('homepages'); // User
+            }
         }
 
-        // Kiểm tra xem email có tồn tại trong hệ thống không
-        $user = User::where('email', $request->email)->first();
-
-        // Nếu email tồn tại, thì lỗi là do mật khẩu sai
-        if ($user) {
-            return back()->withErrors([
-                'password' => 'Mật khẩu không chính xác.',
-            ])->onlyInput('email');
-        }
-
-        // Nếu email không tồn tại, thông báo lỗi
+        // Thông báo lỗi chung
         return back()->withErrors([
-            'email' => 'Email không chính xác.',
+            'login' => 'Thông tin đăng nhập không chính xác.',
         ])->onlyInput('email');
     }
 

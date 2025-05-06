@@ -35,9 +35,14 @@
             </span>
                 <span class="notification-count">3</span> <!-- Số lượng thông báo tạm thời -->
             </a>
-            <a href="#" class="icon account-icon">
-                <img id="user-avatar" src="/default-avatar.jpg" alt="Avatar" class="avatar">
+            <!-- Profile-->
+            <a href="{{ route('profile-user', ['id' => auth()->user()->user_id]) }}">
+                <img src="{{ auth()->user()->image ?? '/images/default-avatar.png' }}" alt="Avatar" class="user-avatar">
             </a>
+            <!-- Nút đăng xuất -->
+            <form action="{{ route('logout') }}" style="display:inline;">
+                <button type="submit" class="logout-btn">Đăng xuất</button>
+            </form>
         </div>
     </nav>
     <!--End of header-->

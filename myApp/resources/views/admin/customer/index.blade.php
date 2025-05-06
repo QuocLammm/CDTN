@@ -4,7 +4,7 @@
 @endphp
 @extends('layouts.app')
 @section('content')
-    @include('layouts.navbars.auth.topnav', ['title' => 'Khách hàng'])
+    @include('layouts.header', ['title' => 'Khách hàng'])
     <div class="row mt-4 mx-4">
         <div class="col-12">
             @php
@@ -40,28 +40,33 @@
                                 <tr>
                                     <td>{{ $customer->full_name }}</td>
                                     <td class="text-center">
-                                        <img src="{{ asset($customer->image) }}" style="width: 50px; height: 50px; object-fit: cover;" class="rounded">
+                                        <img src="{{ asset($customer->image) }}"
+                                             style="width: 50px; height: 50px; object-fit: cover;" class="rounded">
                                     </td>
                                     <td>{{ \Carbon\Carbon::parse($customer->date_of_birth)->format('d/m/Y') }}</td>
                                     <td>{{ $customer->email }}</td>
                                     <td class="text-center">
                                         @if ($userPermissions->contains('permission.assign'))
-                                            <a href="{{ route('show-customer.permissions', $customer->user_id) }}" class="btn btn-sm me-2"
+                                            <a href="{{ route('show-customer.permissions', $customer->user_id) }}"
+                                               class="btn btn-sm me-2"
                                                style="background: linear-gradient(45deg, #3f51b5, #7986cb); color: white; border: none;">
                                                 <i class="fas fa-users-cog"></i> <!-- Icon Role -->
                                             </a>
                                         @endif
                                         @if ($userPermissions->contains('customer.edit'))
-                                            <a href="{{ route('show-customer.edit', $customer->user_id) }}" class="btn btn-sm me-2"
+                                            <a href="{{ route('show-customer.edit', $customer->user_id) }}"
+                                               class="btn btn-sm me-2"
                                                style="background: linear-gradient(45deg, #4caf50, #81c784); color: white; border: none;">
                                                 <i class="fas fa-edit"></i> <!-- Icon Edit -->
                                             </a>
                                         @endif
                                         @if ($userPermissions->contains('customer.delete'))
-                                            <form action="{{ route('show-customer.destroy', $customer->user_id) }}" method="POST" class="d-inline delete-form">
+                                            <form action="{{ route('show-customer.destroy', $customer->user_id) }}"
+                                                  method="POST" class="d-inline delete-form">
                                                 @csrf
                                                 @method('DELETE')
-                                                <button type="button" class="btn btn-sm btn-delete me-2" style="background: linear-gradient(45deg, #f44336, #e57373); color: white; border: none;">
+                                                <button type="button" class="btn btn-sm btn-delete me-2"
+                                                        style="background: linear-gradient(45deg, #f44336, #e57373); color: white; border: none;">
                                                     <i class="fas fa-trash"></i> <!-- Icon Delete -->
                                                 </button>
                                             </form>
@@ -85,7 +90,7 @@
 
 @push('js')
     <script>
-        $(document).ready(function() {
+        $(document).ready(function () {
             $('#customerTable').DataTable({
                 pageLength: 5,
                 lengthMenu: [5, 10, 25, 50, 100],

@@ -1,7 +1,7 @@
 @extends('layouts.app', ['class' => 'g-sidenav-show bg-gray-100'])
 
 @section('content')
-    @include('layouts.navbars.auth.topnav', ['title' => 'Billing'])
+    @include('layouts.header', ['title' => 'Billing'])
     <div class="container-fluid py-4">
         <div class="row">
             <div class="col-lg-8">
@@ -9,7 +9,7 @@
                     <div class="col-xl-6 mb-xl-0 mb-4">
                         <div class="card bg-transparent shadow-xl">
                             <div class="overflow-hidden position-relative border-radius-xl"
-                                style="background-image: url('https://raw.githubusercontent.com/creativetimofficial/public-assets/master/argon-dashboard-pro/assets/img/card-visa.jpg');">
+                                 style="background-image: url('https://raw.githubusercontent.com/creativetimofficial/public-assets/master/argon-dashboard-pro/assets/img/card-visa.jpg');">
                                 <span class="mask bg-gradient-dark"></span>
                                 <div class="card-body position-relative z-index-1 p-3">
                                     <i class="fas fa-wifi text-white p-2"></i>
@@ -92,7 +92,7 @@
                                             <h6 class="mb-0">
                                                 ****&nbsp;&nbsp;&nbsp;****&nbsp;&nbsp;&nbsp;****&nbsp;&nbsp;&nbsp;7852</h6>
                                             <i class="fas fa-pencil-alt ms-auto text-dark cursor-pointer"
-                                                data-bs-toggle="tooltip" data-bs-placement="top" title="Edit Card"></i>
+                                               data-bs-toggle="tooltip" data-bs-placement="top" title="Edit Card"></i>
                                         </div>
                                     </div>
                                     <div class="col-md-6">
@@ -102,7 +102,7 @@
                                             <h6 class="mb-0">
                                                 ****&nbsp;&nbsp;&nbsp;****&nbsp;&nbsp;&nbsp;****&nbsp;&nbsp;&nbsp;5248</h6>
                                             <i class="fas fa-pencil-alt ms-auto text-dark cursor-pointer"
-                                                data-bs-toggle="tooltip" data-bs-placement="top" title="Edit Card"></i>
+                                               data-bs-toggle="tooltip" data-bs-placement="top" title="Edit Card"></i>
                                         </div>
                                     </div>
                                 </div>
@@ -133,7 +133,8 @@
                                 <div class="d-flex align-items-center text-sm">
                                     $180
                                     <button class="btn btn-link text-dark text-sm mb-0 px-0 ms-4"><i
-                                            class="fas fa-file-pdf text-lg me-1"></i> PDF</button>
+                                            class="fas fa-file-pdf text-lg me-1"></i> PDF
+                                    </button>
                                 </div>
                             </li>
                             <li class="list-group-item border-0 d-flex justify-content-between ps-0 mb-2 border-radius-lg">
@@ -144,7 +145,8 @@
                                 <div class="d-flex align-items-center text-sm">
                                     $250
                                     <button class="btn btn-link text-dark text-sm mb-0 px-0 ms-4"><i
-                                            class="fas fa-file-pdf text-lg me-1"></i> PDF</button>
+                                            class="fas fa-file-pdf text-lg me-1"></i> PDF
+                                    </button>
                                 </div>
                             </li>
                             <li class="list-group-item border-0 d-flex justify-content-between ps-0 mb-2 border-radius-lg">
@@ -155,7 +157,8 @@
                                 <div class="d-flex align-items-center text-sm">
                                     $560
                                     <button class="btn btn-link text-dark text-sm mb-0 px-0 ms-4"><i
-                                            class="fas fa-file-pdf text-lg me-1"></i> PDF</button>
+                                            class="fas fa-file-pdf text-lg me-1"></i> PDF
+                                    </button>
                                 </div>
                             </li>
                             <li class="list-group-item border-0 d-flex justify-content-between ps-0 mb-2 border-radius-lg">
@@ -166,7 +169,8 @@
                                 <div class="d-flex align-items-center text-sm">
                                     $120
                                     <button class="btn btn-link text-dark text-sm mb-0 px-0 ms-4"><i
-                                            class="fas fa-file-pdf text-lg me-1"></i> PDF</button>
+                                            class="fas fa-file-pdf text-lg me-1"></i> PDF
+                                    </button>
                                 </div>
                             </li>
                             <li class="list-group-item border-0 d-flex justify-content-between ps-0 border-radius-lg">
@@ -177,7 +181,8 @@
                                 <div class="d-flex align-items-center text-sm">
                                     $300
                                     <button class="btn btn-link text-dark text-sm mb-0 px-0 ms-4"><i
-                                            class="fas fa-file-pdf text-lg me-1"></i> PDF</button>
+                                            class="fas fa-file-pdf text-lg me-1"></i> PDF
+                                    </button>
                                 </div>
                             </li>
                         </ul>
@@ -267,28 +272,32 @@
                             <li class="list-group-item border-0 d-flex justify-content-between ps-0 mb-2 border-radius-lg">
                                 <div class="d-flex align-items-center">
                                     <button
-                                        class="btn btn-icon-only btn-rounded btn-outline-danger mb-0 me-3 btn-sm d-flex align-items-center justify-content-center"><i
+                                        class="btn btn-icon-only btn-rounded btn-outline-danger mb-0 me-3 btn-sm d-flex align-items-center justify-content-center">
+                                        <i
                                             class="fas fa-arrow-down"></i></button>
                                     <div class="d-flex flex-column">
                                         <h6 class="mb-1 text-dark text-sm">Netflix</h6>
                                         <span class="text-xs">27 March 2020, at 12:30 PM</span>
                                     </div>
                                 </div>
-                                <div class="d-flex align-items-center text-danger text-gradient text-sm font-weight-bold">
+                                <div
+                                    class="d-flex align-items-center text-danger text-gradient text-sm font-weight-bold">
                                     - $ 2,500
                                 </div>
                             </li>
                             <li class="list-group-item border-0 d-flex justify-content-between ps-0 mb-2 border-radius-lg">
                                 <div class="d-flex align-items-center">
                                     <button
-                                        class="btn btn-icon-only btn-rounded btn-outline-success mb-0 me-3 btn-sm d-flex align-items-center justify-content-center"><i
+                                        class="btn btn-icon-only btn-rounded btn-outline-success mb-0 me-3 btn-sm d-flex align-items-center justify-content-center">
+                                        <i
                                             class="fas fa-arrow-up"></i></button>
                                     <div class="d-flex flex-column">
                                         <h6 class="mb-1 text-dark text-sm">Apple</h6>
                                         <span class="text-xs">27 March 2020, at 04:30 AM</span>
                                     </div>
                                 </div>
-                                <div class="d-flex align-items-center text-success text-gradient text-sm font-weight-bold">
+                                <div
+                                    class="d-flex align-items-center text-success text-gradient text-sm font-weight-bold">
                                     + $ 2,000
                                 </div>
                             </li>
@@ -298,49 +307,56 @@
                             <li class="list-group-item border-0 d-flex justify-content-between ps-0 mb-2 border-radius-lg">
                                 <div class="d-flex align-items-center">
                                     <button
-                                        class="btn btn-icon-only btn-rounded btn-outline-success mb-0 me-3 btn-sm d-flex align-items-center justify-content-center"><i
+                                        class="btn btn-icon-only btn-rounded btn-outline-success mb-0 me-3 btn-sm d-flex align-items-center justify-content-center">
+                                        <i
                                             class="fas fa-arrow-up"></i></button>
                                     <div class="d-flex flex-column">
                                         <h6 class="mb-1 text-dark text-sm">Stripe</h6>
                                         <span class="text-xs">26 March 2020, at 13:45 PM</span>
                                     </div>
                                 </div>
-                                <div class="d-flex align-items-center text-success text-gradient text-sm font-weight-bold">
+                                <div
+                                    class="d-flex align-items-center text-success text-gradient text-sm font-weight-bold">
                                     + $ 750
                                 </div>
                             </li>
                             <li class="list-group-item border-0 d-flex justify-content-between ps-0 mb-2 border-radius-lg">
                                 <div class="d-flex align-items-center">
                                     <button
-                                        class="btn btn-icon-only btn-rounded btn-outline-success mb-0 me-3 btn-sm d-flex align-items-center justify-content-center"><i
+                                        class="btn btn-icon-only btn-rounded btn-outline-success mb-0 me-3 btn-sm d-flex align-items-center justify-content-center">
+                                        <i
                                             class="fas fa-arrow-up"></i></button>
                                     <div class="d-flex flex-column">
                                         <h6 class="mb-1 text-dark text-sm">HubSpot</h6>
                                         <span class="text-xs">26 March 2020, at 12:30 PM</span>
                                     </div>
                                 </div>
-                                <div class="d-flex align-items-center text-success text-gradient text-sm font-weight-bold">
+                                <div
+                                    class="d-flex align-items-center text-success text-gradient text-sm font-weight-bold">
                                     + $ 1,000
                                 </div>
                             </li>
                             <li class="list-group-item border-0 d-flex justify-content-between ps-0 mb-2 border-radius-lg">
                                 <div class="d-flex align-items-center">
                                     <button
-                                        class="btn btn-icon-only btn-rounded btn-outline-success mb-0 me-3 btn-sm d-flex align-items-center justify-content-center"><i
+                                        class="btn btn-icon-only btn-rounded btn-outline-success mb-0 me-3 btn-sm d-flex align-items-center justify-content-center">
+                                        <i
                                             class="fas fa-arrow-up"></i></button>
                                     <div class="d-flex flex-column">
                                         <h6 class="mb-1 text-dark text-sm">Creative Tim</h6>
                                         <span class="text-xs">26 March 2020, at 08:30 AM</span>
                                     </div>
                                 </div>
-                                <div class="d-flex align-items-center text-success text-gradient text-sm font-weight-bold">
+                                <div
+                                    class="d-flex align-items-center text-success text-gradient text-sm font-weight-bold">
                                     + $ 2,500
                                 </div>
                             </li>
                             <li class="list-group-item border-0 d-flex justify-content-between ps-0 mb-2 border-radius-lg">
                                 <div class="d-flex align-items-center">
                                     <button
-                                        class="btn btn-icon-only btn-rounded btn-outline-dark mb-0 me-3 btn-sm d-flex align-items-center justify-content-center"><i
+                                        class="btn btn-icon-only btn-rounded btn-outline-dark mb-0 me-3 btn-sm d-flex align-items-center justify-content-center">
+                                        <i
                                             class="fas fa-exclamation"></i></button>
                                     <div class="d-flex flex-column">
                                         <h6 class="mb-1 text-dark text-sm">Webflow</h6>
@@ -356,6 +372,6 @@
                 </div>
             </div>
         </div>
-        @include('layouts.footers.auth.footer')
+        @include('layouts.footer')
     </div>
 @endsection
