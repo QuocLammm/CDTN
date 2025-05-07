@@ -18,6 +18,7 @@ use App\Http\Controllers\admin\VNPayController;
 
 
 Route::get('/homepages', [HomePageController::class, 'index'])->name('home');
+Route::get('/showProduct',[HomePageController::class, 'showProduct'])->name('showProduct');
 Route::get('/profile/{id}', [HomePageController::class, 'showProfile'])->name('profile-user');
 //Route::get('/product/{id}', [HomePageController::class, 'show'])->name('product.show');
 

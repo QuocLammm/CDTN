@@ -7,12 +7,20 @@
     <link href="https://fonts.googleapis.com/css2?family=Material+Icons+Sharp" rel="stylesheet"/>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
     <title>TRUCDOANPHAM</title>
+    @stack('css')
 </head>
 <body>
+<header>
     @yield('header')
-    @include('homepages.item')
-    @yield('infomation')
+</header>
+    @yield('scroll')
+    @yield('item')
+    @yield('content') {{-- Nội dung động của từng trang --}}
+    @yield('information')
+<footer>
     @yield('footer')
-</body>
+</footer>
+
 <script src="{{ asset('assets/js/homepages/style.js')}}"></script>
+</body>
 </html>
