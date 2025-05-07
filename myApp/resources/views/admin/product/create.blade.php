@@ -30,7 +30,19 @@
                            <x-form.select name="supplier_id" label="Nhà cung cấp" :options="$suppliers" />
                        </div>
                    </div>
+                   <div class="row">
+                       <div class="col-md-4">
+                           <x-form.select name="size" label="Kích cỡ" :options="array_combine(range(32, 45), range(32, 45))" />
+                       </div>
+                       <div class="col-md-4">
+                           <x-form.input name="color" label="Màu sắc" type="text" placeholder="Nhập màu sắc" />
+                       </div>
+                       <div class="col-md-4">
+                           <x-form.input name="quantity" label="Số lượng" type="number" placeholder="Nhập số lượng" />
+                       </div>
+                   </div>
                    <x-form.input name="price" label="Giá" type="number" placeholder="Nhập giá sản phẩm" />
+
                    <x-form.textarea name="description" label="Mô tả" placeholder="Nhập mô tả" rows="4" />
                </div>
                <div class="col-md-4">
@@ -68,15 +80,17 @@
             }
         });
 
-        // Hiển thị thông báo thành công nếu có session 'success'
         @if(session('success'))
-        Swal.fire({
-            icon: 'success',
-            title: 'Thành công!',
-            text: '{{ session('success') }}',
-            confirmButtonText: 'OK'
-        });
-        @endif
+            Swal.fire({
+                toast: true,
+                position: 'top-end',
+                icon: 'success',
+                title: '{{ session('success') }}',
+                showConfirmButton: false,
+                timer: 3000,
+                timerProgressBar: true
+            });
+       @endif
     </script>
 @endsection
 

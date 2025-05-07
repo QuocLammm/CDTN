@@ -5,11 +5,10 @@ namespace App\Http\Controllers\admin;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\ProductRequest;
 use App\Models\Category;
+use App\Models\ProductDetail;
 use App\Models\Supplier;
-use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use App\Models\Product;
-use Illuminate\Support\Facades\File;
 use Illuminate\Support\Str;
 use SimpleSoftwareIO\QrCode\Facades\QrCode;
 
@@ -28,7 +27,6 @@ class ProductController extends Controller
         return view('admin.product.create', compact('suppliers', 'categories'));
     }
 
-
     public function store(ProductRequest $request)
     {
         $data = $request->all();
@@ -44,8 +42,16 @@ class ProductController extends Controller
         // Tạo sản phẩm
         $product = Product::create($data);
 
-        // Tạo mã QR (dưới dạng SVG base64)
-        $qrContent = route('show-product.show', $product->product_id); // hoặc chỉ cần ID, tùy bạn
+        // Tạo chi tiết sản phẩm
+        ProductDetail::create([
+            'product_id' => $product->product_id,
+            'size'       => $data['size'],
+            'color'      => $data['color'],
+            'quantity'   => $data['quantity'],
+        ]);
+
+        // Tạo mã QR
+        $qrContent = route('show-product.show', $product->product_id);
         $svg = QrCode::format('svg')->size(200)->generate($qrContent);
         $qrBase64 = base64_encode($svg);
 
@@ -54,7 +60,6 @@ class ProductController extends Controller
 
         return redirect()->route('show-product.index')->with('success', 'Sản phẩm đã thêm kèm mã QR!');
     }
-
 
 
     public function edit(Product $product) {
@@ -101,9 +106,23 @@ class ProductController extends Controller
         return redirect()->route('show-product.index')->with('success', 'Sản phẩm đã cập nhật!');
     }
 
-    public function destroy(Product $product) {
+    public function destroy(Product $product)
+    {
+        // Xóa chi tiết sản phẩm
+        $product->productDetail()->delete();
+        // Xóa sản phẩm
         $product->delete();
-        return redirect()->route('show-product.index')->with('success', 'Sản phẩm đã xóa!');
+        return redirect()->route('show-product.index')->with('success', 'Sản phẩm đã được xóa!');
+    }
+
+    public function getQrCode($productId)
+    {
+        $product = Product::findOrFail($productId);
+        $qrCodeBase64 = $product->qr_code_base64;
+
+        return response()->json([
+            'qr_code_base64' => $qrCodeBase64,
+        ]);
     }
 
 }

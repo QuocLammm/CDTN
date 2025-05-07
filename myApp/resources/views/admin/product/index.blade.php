@@ -16,7 +16,7 @@
                         <thead>
                         <tr>
                             <th>Tên sản phẩm</th>
-                            <th class="text-center">Hình ảnh</th>                    
+                            <th class="text-center">Hình ảnh</th>
                             <th>Giá</th>
                             <th class="text-center">Thao tác</th>
                         </tr>
@@ -42,8 +42,7 @@
                                           method="POST" class="d-inline delete-form">
                                         @csrf
                                         @method('DELETE')
-                                        <button type="button" class="btn btn-sm btn-outline-danger btn-delete">Delete
-                                        </button>
+                                        <button type="button" class="btn btn-sm btn-outline-danger btn-delete">Delete</button>
                                     </form>
                                 </td>
                             </tr>
@@ -61,6 +60,7 @@
 @endsection
 
 @push('js')
+    <!-- DataTables -->
     <script>
         $(document).ready(function () {
             $('#productTable').DataTable({
@@ -81,12 +81,90 @@
                 }
             });
         });
-
-        // Xử lý nút xóa
+    </script>
+    <!-- SweetAlert2 chỉ dùng cho QR -->
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script>
         document.addEventListener('DOMContentLoaded', function () {
-            document.querySelectorAll('.btn-delete').forEach(function (button) {
+            // Lấy tất cả các nút mã QR
+            const qrButtons = document.querySelectorAll('.btn-show-qr');
+
+            qrButtons.forEach(function (button) {
                 button.addEventListener('click', function () {
+                    const productId = this.getAttribute('data-id');
+                    const productName = this.getAttribute('data-name');
+
+                    // Gửi yêu cầu AJAX để lấy mã QR từ server
+                    fetch(`/api/qr-code/${productId}`)
+                        .then(response => response.json())
+                        .then(data => {
+                            // Hiển thị SweetAlert với mã QR
+                            Swal.fire({
+                                title: `QR Code của ${productName}`,
+                                html: `<img src="data:image/svg+xml;base64,${data.qr_code_base64}" style="width: 200px; height: 200px;">`,
+                                showConfirmButton: true,
+                            });
+                        })
+                        .catch(error => {
+                            console.error('Error fetching QR code:', error);
+                        });
+                });
+            });
+        });
+
+    </script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            // Cấu hình Toast
+            const Toast = Swal.mixin({
+                toast: true,
+                position: 'top-end',
+                showConfirmButton: false,
+                showCloseButton: true,
+                timer: 3000,
+                timerProgressBar: true,
+                customClass: {
+                    popup: 'colored-toast'
+                }
+            });
+
+            // Kiểm tra nếu có thông báo từ session
+            @if (session('success'))
+            Toast.fire({
+                icon: 'success',
+                title: '{{ session('success') }}',
+                background: '#4CAF50', // nền xanh lá
+                color: 'white'
+            });
+            @endif
+
+            @if (session('error'))
+            Toast.fire({
+                icon: 'error',
+                title: '{{ session('error') }}',
+                background: '#f44336', // nền đỏ
+                color: 'white'
+            });
+            @endif
+
+            @if (session('warning'))
+            Toast.fire({
+                icon: 'warning',
+                title: '{{ session('warning') }}',
+                background: '#FF9800', // nền cam
+                color: 'white'
+            });
+            @endif
+
+            // Lấy tất cả các nút xóa
+            const deleteButtons = document.querySelectorAll('.delete-form button');
+
+            deleteButtons.forEach(function (button) {
+                button.addEventListener('click', function (e) {
+                    e.preventDefault();  // Ngừng hành động mặc định của nút (submit form)
                     const form = this.closest('form');
+
+                    // Hiển thị SweetAlert2 thông báo xác nhận xóa
                     Swal.fire({
                         title: 'Bạn có chắc muốn xóa?',
                         text: "Hành động này không thể hoàn tác!",
@@ -98,27 +176,13 @@
                         cancelButtonText: 'Hủy'
                     }).then((result) => {
                         if (result.isConfirmed) {
+                            // Thực sự gửi form để xóa
                             form.submit();
                         }
                     });
                 });
             });
-
-            // Xử lý hiển thị QR Code
-            document.querySelectorAll('.btn-show-qr').forEach(function (button) {
-                button.addEventListener('click', function () {
-                    const productId = this.getAttribute('data-id');
-                    const productName = this.getAttribute('data-name');
-                    const qrUrl = `https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=${encodeURIComponent(productName + ' - ID: ' + productId)}`;
-
-                    Swal.fire({
-                        title: `QR Code cho sản phẩm`,
-                        html: `<img src="${qrUrl}" alt="QR Code" class="img-fluid">`,
-                        confirmButtonText: 'Đóng'
-                    });
-                });
-            });
         });
     </script>
-    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
 @endpush

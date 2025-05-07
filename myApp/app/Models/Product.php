@@ -18,6 +18,7 @@ class Product extends Model
         'category_id',
         'product_name',
         'description',
+        'qr_code_base64',
         'image',
         'price',
 

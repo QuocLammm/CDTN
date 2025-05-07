@@ -56,6 +56,7 @@ Route::middleware('auth')->group(function () {
 
     // Sản phẩm
     Route::resource('/product', ProductController::class)->names('show-product');
+    Route::get('/api/qr-code/{productId}', [ProductController::class, 'getQrCode']);
 
     // Khuyến mãi
     Route::resource('/permission', PermissionController::class)->names('show-permission');
