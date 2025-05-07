@@ -47,13 +47,13 @@
                                     <td>{{ \Carbon\Carbon::parse($user->date_of_birth)->format('d/m/Y') }}</td>
                                     <td>{{ $user->email }}</td>
                                     <td class="text-center">
-                                        @if ($userPermissions->contains('permission.assign'))
-                                            <a href="{{ route('show-staff.permissions', $user->user_id) }}"
-                                               class="btn btn-sm me-2"
-                                               style="background: linear-gradient(45deg, #3f51b5, #7986cb); color: white; border: none;">
-                                                <i class="fas fa-users-cog"></i> <!-- Icon Role -->
-                                            </a>
-                                        @endif
+{{--                                        @if ($userPermissions->contains('permission.assign'))--}}
+{{--                                            <a href="{{ route('show-staff.permissions', $user->user_id) }}"--}}
+{{--                                               class="btn btn-sm me-2"--}}
+{{--                                               style="background: linear-gradient(45deg, #3f51b5, #7986cb); color: white; border: none;">--}}
+{{--                                                <i class="fas fa-users-cog"></i> <!-- Icon Role -->--}}
+{{--                                            </a>--}}
+{{--                                        @endif--}}
                                         @if ($userPermissions->contains('user.edit'))
                                             <a href="{{ route('show-staff.edit', $user->user_id) }}"
                                                class="btn btn-sm me-2"

@@ -41,6 +41,7 @@ Route::middleware('auth')->group(function () {
 Route::middleware('auth')->group(function () {
     // Staff
     Route::resource('/staff', UserController::class)->names('show-staff');
+//    Route::get('/reset-password', [UserController::class, 'resetPassword'])->name('reset-password');
 
     // Permission Admin + Staff
     Route::get('staff/{user}/permissions', [UserController::class, 'permissions'])->name('show-staff.permissions');

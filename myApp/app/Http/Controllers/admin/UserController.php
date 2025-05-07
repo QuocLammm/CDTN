@@ -19,7 +19,8 @@ class UserController extends Controller
         return view('admin.staff.index', compact('users'));
     }
 
-    public function create(){
+    public function create()
+    {
         $roles = Role::whereIn('role_id', [1, 3])
             ->pluck('role_name', 'role_id')
             ->toArray();
@@ -27,20 +28,29 @@ class UserController extends Controller
             'Male' => 'Nam',
             'Female' => 'Nữ',
         ];
-        $password = collect([
-            Str::random(1), // lowercase
-            strtoupper(Str::random(1)), // uppercase
-            rand(0, 9), // number
-            collect(['@', '#', '$', '%', '&', '*', '!'])->random() // special char
-        ])
-            ->merge(str_split(Str::random(4)))
-            ->shuffle()
-            ->implode('');
+
+        // Mật khẩu ngẫu nhiên khi tạo mới
+        $password = $this->generateRandomPassword();
 
         return view('admin.staff.create', compact('roles', 'users', 'password'));
     }
 
-    public function store(Request $request)
+    // Phương thức tạo mật khẩu ngẫu nhiên
+    public function generateRandomPassword()
+    {
+        return collect([
+            Str::random(1),
+            strtoupper(Str::random(1)),
+            rand(0, 9), // number
+            collect(['@', '#', '$', '%', '&', '*', '!'])->random()
+        ])
+            ->merge(str_split(Str::random(4)))
+            ->shuffle()
+            ->implode('');
+    }
+
+
+    public function store(UserRequest $request)
     {
         $data = $request->all();
         $data['role_id'] = $request->input('role_id');
@@ -51,11 +61,11 @@ class UserController extends Controller
         if ($request->hasFile('image') && $request->file('image')->isValid()) {
             $file = $request->file('image');
             $fileName = 'staff_' . Str::random(10) . '.' . $file->getClientOriginalExtension();
-            $destinationPath = public_path('/img/staff/');
+            $destinationPath = public_path('/images/staff/');
             $file->move($destinationPath, $fileName);
 
             if (file_exists($destinationPath . $fileName)) {
-                $data['image'] = '/img/staff/' . $fileName;
+                $data['image'] = '/images/staff/' . $fileName;
             } else {
                 return back()->withErrors('Không thể lưu ảnh. Vui lòng thử lại.');
             }
@@ -63,7 +73,6 @@ class UserController extends Controller
             return back()->withErrors('Có lỗi khi tải lên ảnh.');
         }
 
-        // Save the data into the database
         User::create($data);
 
         return redirect()->route('show-staff.index')->with('success', 'Thêm nhân viên thành công!');
@@ -99,8 +108,8 @@ class UserController extends Controller
         if ($request->hasFile('image') && $request->file('image')->isValid()) {
             $file = $request->file('image');
             $fileName = 'user_' . Str::random(10) . '.' . $file->getClientOriginalExtension();
-            $file->move(public_path('/img/customers/'), $fileName);
-            $data['image'] = '/img/customers/' . $fileName;
+            $file->move(public_path('/images/staff/'), $fileName);
+            $data['image'] = '/images/staff/' . $fileName;
         }
         $user = User::findOrFail($id);
         $user->update($data);
@@ -127,43 +136,43 @@ class UserController extends Controller
 
 
 
-    // Hiển thị form phân quyền
-    public function permissions(User $user)
-    {
-        $permissions = Permission::all(); // Lấy tất cả quyền
-        $userPermissions = $user->permissions->pluck('permission_id')->toArray(); // Quyền mà user đang có
-        $groupedPermissions = [];
-        foreach ($permissions as $permission) {
-            $parts = explode('.', $permission->permission_name); // VD: user.view
-            $group = ucfirst($parts[0]); // 'User'
-            $groupedPermissions[$group][] = $permission;
-        }
-
-
-        return view('admin.staff.permissions', compact('user', 'permissions', 'userPermissions','groupedPermissions'));
-    }
-
-    // Cập nhật quyền
-    public function updatePermissions(Request $request, User $user)
-    {
-        $request->validate([
-            'permissions' => 'array'
-        ]);
-
-        if ($request->has('permissions') && is_array($request->permissions)) {
-            try {
-                // Cập nhật lại permissions
-                $user->permissions()->sync($request->permissions);
-            } catch (\Exception $e) {
-                return back()->with('error', 'Có lỗi xảy ra: ' . $e->getMessage());
-            }
-        } else {
-            // Nếu không có permissions gửi lên thì xóa hết
-            $user->permissions()->detach();
-        }
-
-        return redirect()->route('show-staff.index')->with('success', 'Cập nhật quyền thành công!');
-    }
+//    // Hiển thị form phân quyền
+//    public function permissions(User $user)
+//    {
+//        $permissions = Permission::all(); // Lấy tất cả quyền
+//        $userPermissions = $user->permissions->pluck('permission_id')->toArray(); // Quyền mà user đang có
+//        $groupedPermissions = [];
+//        foreach ($permissions as $permission) {
+//            $parts = explode('.', $permission->permission_name); // VD: user.view
+//            $group = ucfirst($parts[0]); // 'User'
+//            $groupedPermissions[$group][] = $permission;
+//        }
+//
+//
+//        return view('admin.staff.permissions', compact('user', 'permissions', 'userPermissions','groupedPermissions'));
+//    }
+//
+//    // Cập nhật quyền
+//    public function updatePermissions(Request $request, User $user)
+//    {
+//        $request->validate([
+//            'permissions' => 'array'
+//        ]);
+//
+//        if ($request->has('permissions') && is_array($request->permissions)) {
+//            try {
+//                // Cập nhật lại permissions
+//                $user->permissions()->sync($request->permissions);
+//            } catch (\Exception $e) {
+//                return back()->with('error', 'Có lỗi xảy ra: ' . $e->getMessage());
+//            }
+//        } else {
+//            // Nếu không có permissions gửi lên thì xóa hết
+//            $user->permissions()->detach();
+//        }
+//
+//        return redirect()->route('show-staff.index')->with('success', 'Cập nhật quyền thành công!');
+//    }
 
 
 }

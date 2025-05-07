@@ -12,7 +12,7 @@
 //             }
 //             reader.readAsDataURL(file); // Đọc file dưới dạng URL
 //         } else {
-//             avatarPreview.src = '/images/staff/default-product.png'; // Đặt lại hình ảnh mặc định nếu không có file
+//             avatarPreview.src = '/images/staff/default.png'; // Đặt lại hình ảnh mặc định nếu không có file
 //         }
 //     });
 // });

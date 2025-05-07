@@ -1,5 +1,16 @@
 @extends('layouts.app')
-
+@push('css')
+    <style>
+        #resetPasswordBtn {
+            height: 100%; /* Đảm bảo chiều cao bằng với ô nhập */
+            line-height: normal; /* Căn chỉnh nội dung bên trong */
+            padding: 0.300rem 0.75rem; /* Đảm bảo padding phù hợp */
+            display: flex; /* Sử dụng Flexbox để căn giữa */
+            justify-content: center; /* Căn giữa nội dung theo chiều ngang */
+            align-items: center; /* Căn giữa nội dung theo chiều dọc */
+        }
+    </style>
+    @endpush
 @section('content')
     <div class="container">
         <br>
@@ -37,7 +48,17 @@
                             <x-form.input name="address" label="Địa chỉ" type="text" placeholder="Nhập địa chỉ nhân viên" />
                         </div>
                         <div class="col-md-6">
-                            <x-form.input name="password" label="Mật khẩu" type="text" value="{{ $password }}" />
+                            <label for="password" class="form-label">Mật khẩu</label>
+                            <div class="row">
+                                <div class="col-md-10" style="padding-right: 0;">
+                                    <input type="text" name="password" id="password" class="form-control" placeholder="Tự động tạo hoặc chỉnh sửa" value="{{ $password }}">
+                                </div>
+                                <div class="col-md-2" style="padding-left: 0;">
+                                    <a href="#" id="resetPasswordBtn" class="btn btn-outline-secondary" title="Tạo lại mật khẩu ngẫu nhiên" style="background-color: #f0f0f0; width: 100%;">
+                                        <i class="fa fa-sync"></i>
+                                    </a>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </x-form.group>
@@ -52,28 +73,35 @@
     </div>
 @endsection
 
-{{--@section('js')--}}
-{{--    <script>--}}
-{{--        document.addEventListener('DOMContentLoaded', function () {--}}
-{{--            const fullNameInput = document.querySelector('input[name="full_name"]');--}}
-{{--            const accountNameInput = document.querySelector('input[name="account_name"]');--}}
+@push('js')
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const passwordField = document.querySelector('#password');
+            const resetPasswordBtn = document.querySelector('#resetPasswordBtn');
 
-{{--            function generateSlug() {--}}
-{{--                let slug = fullNameInput.value.toLowerCase();--}}
-{{--                slug = slug.normalize("NFD").replace(/[\u0300-\u036f]/g, "");--}}
-{{--                slug = slug.replace(/[^a-z0-9]/g, '');--}}
-{{--                accountNameInput.value = slug;--}}
-{{--            }--}}
+            if (passwordField && resetPasswordBtn) {
+                resetPasswordBtn.addEventListener('click', function (e) {
+                    e.preventDefault();
 
-{{--            fullNameInput.addEventListener('input', generateSlug);--}}
+                    // Tạo mật khẩu mới
+                    const generatePassword = () => {
+                        const lowercase = String.fromCharCode(Math.floor(Math.random() * 26) + 97);
+                        const uppercase = String.fromCharCode(Math.floor(Math.random() * 26) + 65);
+                        const number = Math.floor(Math.random() * 10).toString();
+                        const symbol = ['@', '#', '$', '%', '&', '*', '!', '?'][Math.floor(Math.random() * 8)];
+                        const others = Array.from({ length: 6 }, () =>
+                            String.fromCharCode(Math.floor(Math.random() * 26) + 97)
+                        );
 
-{{--            // 👇 Gọi khi tải trang để đảm bảo có giá trị ngay từ đầu--}}
-{{--            generateSlug();--}}
+                        const passwordArray = [lowercase, uppercase, number, symbol, ...others];
+                        const shuffled = passwordArray.sort(() => Math.random() - 0.5);
+                        return shuffled.join('');
+                    };
 
-{{--            document.querySelector('form').addEventListener('submit', function () {--}}
-{{--                console.log('Account Name:', accountNameInput.value);--}}
-{{--            });--}}
-{{--        });--}}
-{{--    </script>--}}
-{{--@endsection--}}
-
+                    // Cập nhật trường mật khẩu
+                    passwordField.value = generatePassword();
+                });
+            }
+        });
+    </script>
+@endpush
