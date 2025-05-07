@@ -18,23 +18,14 @@
         </li>
     </ul>
     <div class="icon-container">
-        <a href="{{ route('cart-user', ['id' => auth()->user()->user_id]) }}" class="icon">
+        <a href="#" class="icon">
             <span class="material-icons-sharp">
                 shopping_cart
             </span>
             <span class="notification-count">0</span>
         </a>
-        <a href="#" class="icon">
-            <span class="material-icons-sharp">
-                notifications
-            </span>
-            <span class="notification-count">3</span>
-        </a>
-        <a href="{{ route('profile-user', ['id' => auth()->user()->user_id]) }}" class="avatar-link">
-            <img src="{{ asset(auth()->user()->image ?? 'images/default-avatar.png') }}" alt="Avatar" class="user-avatar">
-        </a>
-        <form action="{{ route('logout') }}" style="display:inline;">
-            <button type="submit" class="logout-btn">Đăng xuất</button>
+        <form action="{{ route('login') }}" style="display:inline;">
+            <button type="submit" class="logout-btn">Đăng nhập</button>
         </form>
     </div>
 </nav>

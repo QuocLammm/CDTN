@@ -1,7 +1,12 @@
 @extends('homepages.master_page')
 @section('header')
-    @include('homepages.auth.header')
+    @if(Auth::check())
+        @include('homepages.auth.header')
+    @else
+        @include('homepages.guest.header')
+    @endif
 @endsection
+
 @section('scroll')
     @include('homepages.auth.scroll-bar')
 @endsection

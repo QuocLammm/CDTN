@@ -35,6 +35,7 @@ class HomePageController extends Controller
         $user = User::findOrFail($id);
         return view('homepages.profile', compact('user'));
     }
+
     // Cập nhật Profile
     public function updateProfile(ProfileRequest $request, $id)
     {
@@ -43,6 +44,11 @@ class HomePageController extends Controller
         $user->update($data);
 
         return redirect()->back()->with('success', 'Cập nhật hồ sơ thành công!');
+    }
+
+    // Giỏ hàng
+    public function showCart($id){
+        return view('homepages.cart');
     }
 
 

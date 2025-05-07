@@ -22,6 +22,8 @@ Route::get('/showProduct',[HomePageController::class, 'showProduct'])->name('sho
 // Profile User
 Route::get('/profile/{id}', [HomePageController::class, 'showProfile'])->name('profile-user');
 Route::put('/profile/{id}', [HomePageController::class, 'updateProfile'])->name('profile.update');
+// Giỏ hàng User
+Route::get('/cart/{id}', [HomePageController::class, 'showCart'])->name('cart-user');
 
 //Route::get('/product/{id}', [HomePageController::class, 'show'])->name('product.show');
 

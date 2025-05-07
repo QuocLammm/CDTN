@@ -48,10 +48,10 @@ nav {
     top: 0;
     left: 0;
     width: 100%;
-    z-index: 1000; /* Đảm bảo nav nằm trên các phần tử khác */
+    z-index: 1000;
     display: flex;
-    align-items: center; /* Căn giữa theo chiều dọc */
-    justify-content: space-between; /* Phân bổ không gian giữa logo, nav-links và button */
+    align-items: center;
+    justify-content: space-between;
     padding: 1rem; /* Khoảng cách bên trong */
     background-color: transparent; /* Background mặc định là trong suốt */
     transition: background-color 0.3s ease, border-bottom 0.3s ease; /* Hiệu ứng chuyển màu nền và border */
@@ -590,7 +590,7 @@ nav {
 .nav-links {
     list-style: none;
     display: flex;
-    gap: 20px;
+    gap: 50px;
 }
 
 .nav-links .link a {
@@ -606,46 +606,76 @@ nav {
 
 .search-container {
     position: relative;
+    width: 100%;
 }
 
 .search-input {
-    padding: 10px;
+    width: 100%;
+    padding: 8px 30px 8px 12px;
     font-size: 16px;
-    width: 200px;
     border: 1px solid #ccc;
-    border-radius: 5px;
+    border-radius: 20px;
+    box-sizing: border-box;
+}
+
+.search-input::placeholder {
+    color: #aaa;
+}
+
+.search-input {
+    background-image: url('https://fonts.gstatic.com/s/i/materialicons/search/v10/24px.svg');
+    background-position: 98% center;
+    background-repeat: no-repeat;
+    background-size: 20px 20px;
+    text-indent: 10px;
 }
 
 .search-icon {
-    position: absolute;
-    top: 50%;
-    right: 10px;
-    transform: translateY(-50%);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #333;
     font-size: 20px;
     cursor: pointer;
 }
 
-.icon-container {
-    display: flex;
-    align-items: center;
-    gap: 15px;
+.search-icon .material-icons-sharp {
+    line-height: 1;
+    margin-top: 7px;
 }
 
-.icon-container .material-icons-sharp {
+/* Thông báo*/
+.icon {
+    position: relative;
+    display: inline-block;
+    color: black;
     font-size: 24px;
+    transition: color 0.3s ease;
+}
+
+.icon:hover {
+    color: #333;
 }
 
 .notification-count {
     position: absolute;
     top: -5px;
-    right: -8px;
+    right: -5px;
     background-color: red;
     color: white;
     font-size: 12px;
-    padding: 2px 5px;
+    font-weight: bold;
     border-radius: 50%;
+    padding: 3px 6px;
+    min-width: 18px;
+    text-align: center;
 }
 
+.icon:hover .notification-count {
+    background-color: #333;
+}
+
+/* Avatar */
 .avatar-link {
     width: 40px;
     height: 40px;
@@ -653,6 +683,23 @@ nav {
     border-radius: 50%;
     overflow: hidden;
     margin-left: 20px;
+    position: relative;
+}
+
+.avatar-link::before {
+    content: '';
+    position: absolute;
+    top: -4px;
+    left: -4px;
+    right: -4px;
+    bottom: -4px;
+    border: 2px solid black;
+    border-radius: 50%;
+    transition: all 0.3s ease;
+}
+
+.avatar-link:hover::before {
+    border-color: #0056b3;
 }
 
 .user-avatar {
@@ -660,18 +707,39 @@ nav {
     height: 100%;
     object-fit: cover;
     border-radius: 50%;
+    border: 3px solid black;
+    transition: border-color 0.3s ease;
 }
 
+.user-avatar:hover {
+    border-color: #0056b3;
+}
+
+/* Đăng xuất */
+
 .logout-btn {
-    background-color: transparent;
-    border: 1px solid #555;
-    padding: 5px 10px;
-    font-weight: bold;
+    padding: 10px 20px;
+    font-size: 16px;
+    background-color: #FF5C5C;
+    color: white;
+    border: none;
+    border-radius: 25px;
     cursor: pointer;
-    border-radius: 5px;
-    color: #333;
+    transition: background-color 0.3s ease, transform 0.3s ease;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 }
 
 .logout-btn:hover {
-    background-color: #f0f0f0;
+    background-color: #e60000;
+    transform: translateY(-2px);
 }
+
+.logout-btn:active {
+    transform: translateY(2px);
+}
+
+.logout-btn:focus {
+    outline: none;
+    box-shadow: 0 0 10px rgba(255, 92, 92, 0.5);
+}
+
