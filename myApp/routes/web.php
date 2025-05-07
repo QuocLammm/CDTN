@@ -8,10 +8,10 @@ use App\Http\Controllers\admin\PermissionController;
 use App\Http\Controllers\admin\ProductController;
 use App\Http\Controllers\admin\SaleController;
 use App\Http\Controllers\admin\UserController;
+use App\Http\Controllers\auth\CartController;
 use App\Http\Controllers\auth\HomePageController;
 use App\Http\Controllers\auth\LoginController;
 use App\Http\Controllers\DashboardController;
-use App\Http\Controllers\UserProfileController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\admin\VNPayController;
@@ -22,9 +22,10 @@ Route::get('/showProduct',[HomePageController::class, 'showProduct'])->name('sho
 // Profile User
 Route::get('/profile/{id}', [HomePageController::class, 'showProfile'])->name('profile-user');
 Route::put('/profile/{id}', [HomePageController::class, 'updateProfile'])->name('profile.update');
-// Giỏ hàng User
-Route::get('/cart/{id}', [HomePageController::class, 'showCart'])->name('cart-user');
-
+// Giỏ hàng User session
+Route::get('/cart', [HomePageController::class, 'showCart'])->name('cart-user');
+// Giỏ hàng khi đăng nhập
+Route::get('/cart/{id}', [CartController::class, 'showCart'])->name('cart-real');
 //Route::get('/product/{id}', [HomePageController::class, 'show'])->name('product.show');
 
 // Chặn người đã đăng nhập truy cập login/register

@@ -46,12 +46,12 @@ class HomePageController extends Controller
         return redirect()->back()->with('success', 'Cập nhật hồ sơ thành công!');
     }
 
-    // Giỏ hàng
-    public function showCart($id){
-        return view('homepages.cart');
+    // Giỏ hàng tạm thời
+    public function showCart()
+    {
+        $cart = session()->get('cart', []);
+        return view('homepages.guest.cart', compact('cart'));
     }
-
-
 
     public function showProduct()
     {

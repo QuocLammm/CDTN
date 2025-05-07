@@ -7,8 +7,9 @@ use App\Http\Requests\Auth\LoginRequest;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
-
+use App\Http\Controllers\auth\CartController;
 class LoginController extends Controller
 {
     //loggin
@@ -23,6 +24,9 @@ class LoginController extends Controller
         // Thử xác thực với email và mật khẩu
         if (Auth::attempt($credentials, $request->boolean('remember'))) {
             $request->session()->regenerate();
+
+            // Đồng bộ cart tạm vào database
+            app(CartController::class)->syncSessionCartToDatabase();
 
             // Lấy thông tin người dùng đã đăng nhập
             $user = Auth::user();
@@ -70,4 +74,7 @@ class LoginController extends Controller
 
         return redirect()->route('login');
     }
+
+
+
 }

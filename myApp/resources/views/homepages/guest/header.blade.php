@@ -18,7 +18,7 @@
         </li>
     </ul>
     <div class="icon-container">
-        <a href="#" class="icon">
+        <a href="{{route('cart-user')}}" class="icon">
             <span class="material-icons-sharp">
                 shopping_cart
             </span>
