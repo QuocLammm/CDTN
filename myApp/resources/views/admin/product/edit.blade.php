@@ -3,76 +3,107 @@
 @section('content')
     <div class="container">
         <br>
-        <h3>Chỉnh sửa sản phẩm</h3>
+        <h3>Cập nhật thông tin sản phẩm</h3>
 
-        <form action="{{ route('show-product.update', $product->ProductID) }}" method="POST" enctype="multipart/form-data">
+        <form action="{{ route('show-product.update', $product->product_id) }}" method="POST" enctype="multipart/form-data">
             @csrf
             @method('PUT')
             <div class="row">
                 {{--Left--}}
                 <div class="col-md-8">
-                    <x-form.input name="ProductName" label="Tên sản phẩm"
-                        type="text" :value="old('ProductName', $product->ProductName)" placeholder="Nhập tên sản phẩm" />
+                    <x-form.input name="product_name" label="Tên sản phẩm"
+                        type="text" :value="old('product_name', $product->product_name)" placeholder="Nhập tên sản phẩm" />
 
                     <div class="row">
                         <div class="col-md-6">
-                            <x-form.select name="CategoryID" label="Loại sản phẩm" :options="$categories" :selected="$product->CategoryID" />
+                            <x-form.select name="category_idid" label="Loại sản phẩm" :options="$categories" :selected="$product->category_id" />
                         </div>
                         <div class="col-md-6">
-                            <x-form.select name="SupplierID" label="Nhà cung cấp" :options="$suppliers" :selected="$product->SupplierID" />
+                            <x-form.select name="supplier_id" label="Nhà cung cấp" :options="$suppliers" :selected="$product->supplier_id" />
                         </div>
                     </div>
 
                     <x-form.input
-                        name="Price"
+                        name="price"
                         label="Giá"
                         type="number"
-                        :value="old('Price', $product->Price)"
+                        :value="old('Price', $product->price)"
                         placeholder="Nhập giá sản phẩm" />
+                    <div class="row">
+                        {{-- Size --}}
+                        <div class="col-md-4">
+                            <x-form.select
+                                name="ProductDetail[size]"
+                                label="Kích thước"
+                                :options="[32 => 32, 33 => 33, 34 => 34, 35 => 35, 36 => 36, 37 => 37, 38 => 38, 39 => 39, 40 => 40, 41 => 41, 42 => 42, 43 => 43, 44 => 44, 45 => 45]"
+                                :value="old('ProductDetail.size', $product->productDetail->size ?? '')"
+                                placeholder="Chọn kích thước" />
+                        </div>
+
+                        {{-- Color --}}
+                        <div class="col-md-4">
+                            <x-form.input
+                                name="ProductDetail[color]"
+                                label="Màu sắc"
+                                type="text"
+                                :value="old('ProductDetail.color', $product->productDetail->color ?? '')"
+                                placeholder="Nhập màu sắc" />
+                        </div>
+
+                        {{-- Quantity --}}
+                        <div class="col-md-4">
+                            <x-form.input
+                                name="ProductDetail[quantity]"
+                                label="Số lượng"
+                                type="number"
+                                :value="old('ProductDetail.quantity', $product->productDetail->quantity ?? '')"
+                                placeholder="Nhập số lượng" />
+                        </div>
+                    </div>
                     <x-form.textarea
-                        name="Description"
+                        name="description"
                         label="Mô tả"
                         placeholder="Nhập mô tả"
-                        rows="4">{{ old('Description', $product->Description) }}</x-form.textarea>
-                    {{-- Size --}}
-                    <x-form.input
-                        name="ProductDetail[Size]"
-                        label="Size"
-                        type="text"
-                        :value="old('ProductDetail.Size', $product->productDetail->Size ?? '')"
-                        placeholder="Nhập size" />
+                        rows="4">{{ old('Description', $product->description) }}</x-form.textarea>
 
-                    {{-- Color --}}
-                    <x-form.input
-                        name="ProductDetail[Color]"
-                        label="Màu sắc"
-                        type="text"
-                        :value="old('ProductDetail.Color', $product->productDetail->Color ?? '')"
-                        placeholder="Nhập màu sắc" />
-
-                    {{-- Quantity --}}
-                    <x-form.input
-                        name="ProductDetail[Quantity]"
-                        label="Số lượng"
-                        type="number"
-                        :value="old('ProductDetail.Quantity', $product->productDetail->Quantity ?? '')"
-                        placeholder="Nhập số lượng" />
                     <button type="submit" class="btn btn-success">Cập nhật sản phẩm</button>
                     <a href="{{ route('show-product.index') }}" class="btn btn-secondary">Quay lại</a>
                 </div>
-
                 {{-- Right --}}
                 <div class="col-md-4">
-                    <x-form.input name="Image" label="Hình ảnh mới" type="file" />
-
-                    @if ($product->Image)
-                        <div class="mt-3">
-                            <label class="form-label">Hình ảnh hiện tại:</label><br>
-                            <img src="{{ asset($product->Image) }}" alt="Ảnh hiện tại" class="img-thumbnail" width="100%">
-                        </div>
-                    @endif
+                    <x-form.input name="image" label="Hình ảnh" type="file" onchange="previewImage(event)" />
+                    <img id="imagePreview"
+                          src="{{ $product->image ? asset($product->image) : '#' }}"
+                          alt="Ảnh xem trước"
+                          style="width: 100%; height: auto; object-fit: cover; margin-top: 10px; {{ $product->image ? '' : 'display: none;' }}">
                 </div>
             </div>
         </form>
     </div>
 @endsection
+@push('js')
+    <script>
+        function previewImage(event) {
+            const input = event.target;
+            const preview = document.getElementById('imagePreview');
+
+            if (input.files && input.files[0]) {
+                const reader = new FileReader();
+                reader.onload = function (e) {
+                    preview.src = e.target.result;
+                    preview.style.display = 'block';
+                    console.log('Image loaded:', e.target.result); // Thêm log để kiểm tra
+                };
+                reader.readAsDataURL(input.files[0]);
+            }
+        }
+
+        document.querySelector('input[name="image"]').addEventListener('change', function (event) {
+            if (!event.target.files.length) {
+                const preview = document.getElementById('imagePreview');
+                preview.src = '#';
+                preview.style.display = 'none';
+            }
+        });
+    </script>
+@endpush

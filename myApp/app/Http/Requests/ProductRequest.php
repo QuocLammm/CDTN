@@ -28,6 +28,9 @@ class ProductRequest extends FormRequest
             'image' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
             'description' => 'required|string|min:10',
             'price' => 'required|numeric|min:0',
+            'ProductDetail.size' => 'required|integer|between:32,45',
+            'ProductDetail.color' => 'required|string|max:50',
+            'ProductDetail.quantity' => 'required|integer|min:1',
         ];
     }
 
@@ -44,7 +47,15 @@ class ProductRequest extends FormRequest
             'price.required' => 'Vui lòng nhập giá bán!',
             'price.numeric' => 'Vui lòng nhập số!',
             'price.min' => 'Vui lòng nhập số lượng lớn hơn 0!',
+            'ProductDetail.size.required' => 'Vui lòng chọn kích thước!',
+            'ProductDetail.size.integer' => 'Kích thước phải là số nguyên!',
+            'ProductDetail.size.between' => 'Kích thước phải nằm trong khoảng từ 32 đến 45!',
+            'ProductDetail.color.required' => 'Vui lòng nhập màu sắc!',
+            'ProductDetail.color.string' => 'Màu sắc phải là chuỗi!',
+            'ProductDetail.color.max' => 'Màu sắc không được vượt quá 50 ký tự!',
+            'ProductDetail.quantity.required' => 'Vui lòng nhập số lượng!',
+            'ProductDetail.quantity.integer' => 'Số lượng phải là số nguyên!',
+            'ProductDetail.quantity.min' => 'Số lượng phải lớn hơn 0!',
         ];
     }
-
 }

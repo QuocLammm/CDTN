@@ -1,4 +1,5 @@
 @extends('layouts.app')
+
 @push('css')
     <style>
         #resetPasswordBtn {
@@ -10,7 +11,8 @@
             align-items: center;
         }
     </style>
-    @endpush
+@endpush
+
 @section('content')
     <div class="container">
         <br>
@@ -21,7 +23,10 @@
                 <x-form.group col="8">
                     <div class="row">
                         <x-form.group col="6">
-                            <x-form.input name="full_name" label="Tên nhân viên" type="text" placeholder="Nhập tên nhân viên"  />
+                            <x-form.input name="full_name" label="Tên nhân viên" type="text" placeholder="Nhập tên nhân viên" id="full_name" value="{{ old('full_name') }}"  />
+                        </x-form.group>
+                        <x-form.group col="6">
+                            <x-form.input name="account_name" label="Tên tài khoản" type="text" id="account_name" readonly />
                         </x-form.group>
                     </div>
                     <div class="row">
@@ -77,6 +82,32 @@
 @push('js')
     <script>
         document.addEventListener('DOMContentLoaded', function () {
+            const fullNameField = document.querySelector('#full_name');
+            const accountNameField = document.querySelector('#account_name');
+
+            const removeVietnameseTones = (str) => {
+                const vietnameseTones = {
+                    'a': /[áàảãạăắằẳẵặâấầẩẫậ]/g,
+                    'e': /[éèẻẽẹêếềểễệ]/g,
+                    'i': /[íìỉĩị]/g,
+                    'o': /[óòỏõọôốồổỗộơớờởỡợ]/g,
+                    'u': /[úùủũụưứừửữự]/g,
+                    'y': /[ýỳỷỹỵ]/g,
+                    'd': /[đ]/g
+                };
+                Object.keys(vietnameseTones).forEach((key) => {
+                    str = str.replace(vietnameseTones[key], key);
+                });
+                return str;
+            };
+
+            if (fullNameField && accountNameField) {
+                fullNameField.addEventListener('input', function () {
+                    const accountName = fullNameField.value.trim().toLowerCase();
+                    accountNameField.value = removeVietnameseTones(accountName.replace(/\s+/g, ''));
+                });
+            }
+
             const passwordField = document.querySelector('#password');
             const resetPasswordBtn = document.querySelector('#resetPasswordBtn');
 
@@ -105,6 +136,7 @@
             }
         });
     </script>
+
     <script>
         function previewImage(event) {
             const imagePreview = document.getElementById('imagePreview');

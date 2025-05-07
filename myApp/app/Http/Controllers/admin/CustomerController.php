@@ -20,16 +20,15 @@ class CustomerController extends Controller
 
     public function create()
     {
-        $roles = Role::pluck('role_name', 'role_id');
+        $roles = Role::where('role_id', 2)->pluck('role_name', 'role_id');
         $customers = [
             'Male' => 'Nam',
             'Female' => 'Nữ',
         ];
-        // Random pass theo đúng validation
         $password = collect([
-            Str::random(1), // lowercase
-            strtoupper(Str::random(1)), // uppercase
-            rand(0, 9), // number
+            Str::random(1),
+            strtoupper(Str::random(1)),
+            rand(0, 9),
             collect(['@', '#', '$', '%', '&', '*', '!'])->random()
         ])
             ->merge(str_split(Str::random(4)))
@@ -39,35 +38,43 @@ class CustomerController extends Controller
         return view('admin.customer.create', compact('roles', 'customers', 'password'));
     }
 
-
-    public function store(CustomerRequest $request) {
+    public function store(CustomerRequest $request)
+    {
         $data = $request->all();
-        $data['role_id'] = 2;
+        $data['role_id'] = $request->input('role_id');
         $data['password'] = bcrypt($data['password']);
         $data['gender'] = $data['gender'] === 'Female' ? 1 : 0;
 
-
-        // Xử lý ảnh
+        // Kiểm tra xem ảnh có hợp lệ không
         if ($request->hasFile('image') && $request->file('image')->isValid()) {
-            // Tạo thư mục nếu chưa tồn tại
-            if (!file_exists(public_path('/img/customers/'))) {
-                mkdir(public_path('/img/customers/'), 0755, true);
-            }
-
             $file = $request->file('image');
-            $fileName = 'user_' . Str::random(10) . '.' . $file->getClientOriginalExtension();
-            $file->move(public_path('/img/customers/'), $fileName);
-            $data['image'] = '/img/customers/' . $fileName;
+            $fileName = 'staff_' . Str::random(10) . '.' . $file->getClientOriginalExtension();
+            $destinationPath = public_path('/images/staff/');
+            $file->move($destinationPath, $fileName);
+
+            if (file_exists($destinationPath . $fileName)) {
+                $data['image'] = '/images/staff/' . $fileName;
+            } else {
+                return back()->withErrors('Không thể lưu ảnh. Vui lòng thử lại.')
+                            ->withInput($request->except('password')); // Giữ lại dữ liệu đã nhập
+            }
+        } else {
+            return back()->withErrors('Có lỗi khi tải lên ảnh.')
+                        ->withInput($request->except('password')); // Giữ lại dữ liệu đã nhập
         }
 
-        User::create($data);
-        return redirect()->route('show-customer.index')->with('success', 'Thêm khách hàng thành công!');
+        try {
+            User::create($data);
+            return redirect()->route('show-customer.index')->with('success', 'Thêm khách hàng thành công!');
+        } catch (\Exception $e) {
+            return back()->withErrors('Có lỗi xảy ra: ' . $e->getMessage())
+                        ->withInput($request->except('password')); // Giữ lại dữ liệu đã nhập
+        }
     }
-
 
     public function edit($id) {
         $customer = User::findOrFail($id);
-        $roles = Role::whereIn('role_id', [1, 3])
+        $roles = Role::where('role_id', 2)
             ->pluck('role_name', 'role_id')
             ->toArray();
         $customers = [
@@ -93,12 +100,12 @@ class CustomerController extends Controller
         if ($request->hasFile('image') && $request->file('image')->isValid()) {
             $file = $request->file('image');
             $fileName = 'user_' . Str::random(10) . '.' . $file->getClientOriginalExtension();
-            $file->move(public_path('/img/customers/'), $fileName);
-            $data['image'] = '/img/customers/' . $fileName;
+            $file->move(public_path('/imagesages/customers/'), $fileName);
+            $data['image'] = '/images/customers/' . $fileName;
         }
         $customer = User::findOrFail($id);
         $customer->update($data);
-        return redirect()->route('show-staff.index')->with('success', 'Cập nhật nhân viên thành công!');
+        return redirect()->route('show-customer.index')->with('success', 'Cập nhật nhân viên thành công!');
     }
 
     public function destroy(User $customer) {

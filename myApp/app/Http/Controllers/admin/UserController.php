@@ -56,8 +56,8 @@ class UserController extends Controller
         $data['role_id'] = $request->input('role_id');
         $data['password'] = bcrypt($data['password']);
         $data['gender'] = $data['gender'] === 'Female' ? 1 : 0;
-        $data['account_name'] = Str::slug($data['full_name'], '');
 
+        // Kiểm tra xem ảnh có hợp lệ không
         if ($request->hasFile('image') && $request->file('image')->isValid()) {
             $file = $request->file('image');
             $fileName = 'staff_' . Str::random(10) . '.' . $file->getClientOriginalExtension();
@@ -67,15 +67,21 @@ class UserController extends Controller
             if (file_exists($destinationPath . $fileName)) {
                 $data['image'] = '/images/staff/' . $fileName;
             } else {
-                return back()->withErrors('Không thể lưu ảnh. Vui lòng thử lại.');
+                return back()->withErrors('Không thể lưu ảnh. Vui lòng thử lại.')
+                            ->withInput($request->except('password')); // Giữ lại dữ liệu đã nhập
             }
         } else {
-            return back()->withErrors('Có lỗi khi tải lên ảnh.');
+            return back()->withErrors('Có lỗi khi tải lên ảnh.')
+                        ->withInput($request->except('password')); // Giữ lại dữ liệu đã nhập
         }
 
-        User::create($data);
-
-        return redirect()->route('show-staff.index')->with('success', 'Thêm nhân viên thành công!');
+        try {
+            User::create($data);
+            return redirect()->route('show-staff.index')->with('success', 'Thêm nhân viên thành công!');
+        } catch (\Exception $e) {
+            return back()->withErrors('Có lỗi xảy ra: ' . $e->getMessage())
+                        ->withInput($request->except('password')); // Giữ lại dữ liệu đã nhập
+        }
     }
 
 

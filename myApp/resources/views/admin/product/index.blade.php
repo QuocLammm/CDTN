@@ -5,17 +5,18 @@
     <div class="row mt-4 mx-4">
         <div class="col-12">
             <div class="card">
-                <div class="card-header d-flex justify-content-between align-items-center">
-                    <h5 class="mb-0">Danh sách sản phẩm</h5>
-                    <a href="{{ route('show-product.create') }}" class="btn btn-primary">Thêm sản phẩm</a>
+                <div class="card-header d-flex justify-content-between align-items-center pb-0">
+                    <div class="d-flex flex-column align-items-start">
+                        <h5 class="mb-0">Danh sách sản phẩm</h5>
+                        <a href="{{ route('show-product.create') }}" class="btn btn-primary">Thêm sản phẩm</a>
+                    </div>
                 </div>
                 <div class="card-body">
                     <table class="table table-bordered" id="productTable">
                         <thead>
                         <tr>
                             <th>Tên sản phẩm</th>
-                            <th class="text-center">Hình ảnh</th>
-                            <th>Mô tả</th>
+                            <th class="text-center">Hình ảnh</th>                    
                             <th>Giá</th>
                             <th class="text-center">Thao tác</th>
                         </tr>
@@ -28,7 +29,6 @@
                                     <img src="{{ asset($product->image) }}"
                                          style="width: 50px; height: 50px; object-fit: cover;" class="rounded">
                                 </td>
-                                <td>{{ $product->description }}</td>
                                 <td>{{ number_format($product->price) }} VNĐ</td>
                                 <td class="text-center">
                                     <a href="{{ route('show-product.edit', $product->product_id) }}"

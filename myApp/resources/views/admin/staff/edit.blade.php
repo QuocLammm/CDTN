@@ -51,7 +51,6 @@
                          src="{{ $user->image ? asset($user->image) : '#' }}"
                          alt="Ảnh xem trước"
                          style="width: 100%; height: auto; object-fit: cover; margin-top: 10px; {{ $user->image ? '' : 'display: none;' }}">
-
                 </div>
             </div>
             <button type="submit" class="btn btn-success">Cập nhật</button>
@@ -59,7 +58,7 @@
         </form>
     </div>
 @endsection
-@section('js')
+@push('js')
     <script>
         function previewImage(event) {
             const input = event.target;
@@ -83,4 +82,4 @@
             }
         });
     </script>
-@endsection
+@endpush

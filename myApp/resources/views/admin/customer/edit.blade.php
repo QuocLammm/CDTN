@@ -13,16 +13,15 @@
                             <x-form.input name="full_name" label="Tên nhân viên" type="text" placeholder="Nhập tên nhân viên" :value="$customer->full_name" />
                         </x-form.group>
                         <x-form.group col="6">
-                            <x-form.input name="email" label="Email" type="text" placeholder="Nhập email nhân viên" :value="$customer->email" />
+                            <x-form.input name="account_name" label="Tài khoản" type="text" placeholder="Nhập tài khoản khách hàng" :value="$customer->account_name" />
                         </x-form.group>
+                        
                     </div>
                     <div class="row">
                         <div class="col-md-4">
-                            <x-form.select
-                                name="role_id"
-                                label="Vai trò"
-                                :options="$roles"
-                                :selected="$customer->role_id" />
+                            <label for="role_id" class="form-label">Vai trò</label>
+                            <input type="text" id="role_id" class="form-control" value="{{ $customer->role->role_name }}" readonly />
+                            <input type="hidden" name="role_id" value="{{ $customer->role_id }}" /> <!-- Lưu role_id để gửi đi -->
                         </div>
                         <div class="col-md-4">
                             <x-form.select name="gender" label="Giới tính" :options="$customers" :selected="$customer->gender" />
@@ -30,13 +29,15 @@
                         <div class="col-md-4">
                             <x-form.input name="date_of_birth" label="Ngày sinh" type="date" :value="old('date_of_birth', \Carbon\Carbon::parse($customer->date_of_birth)->format('Y-m-d'))"
                             />
-
                         </div>
                     </div>
                     <div class="row">
                         <div class="col-md-6">
                             <x-form.input name="phone" label="Số điện thoại" type="text" placeholder="Nhập số điện thoại" :value="$customer->phone" />
                         </div>
+                        <x-form.group col="6">
+                            <x-form.input name="email" label="Email" type="text" placeholder="Nhập email nhân viên" :value="$customer->email" />
+                        </x-form.group>
                     </div>
                     <div class="row">
                         <div class="col-md-6">

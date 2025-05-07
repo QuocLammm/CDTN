@@ -58,39 +58,46 @@ class ProductController extends Controller
 
 
     public function edit(Product $product) {
-        $suppliers = Supplier::pluck('SupplierName', 'SupplierID');
-        $categories = Category::pluck('CategoryName', 'CategoryID');
+        $suppliers = Supplier::pluck('supplier_name', 'supplier_id');
+        $categories = Category::pluck('category_name', 'category_id');
         $product->load('productDetail');
         return view('admin.product.edit', compact('product', 'suppliers', 'categories'));
     }
 
-    public function update(ProductRequest $request, Product $product)
+    public function update(Request $request, $id)
     {
         $data = $request->all();
 
-        if ($request->hasFile('Image')) {
-            // Xóa ảnh cũ nếu tồn tại
-            if ($product->Image && file_exists(public_path($product->Image))) {
-                unlink(public_path($product->Image));
+        // Xử lý ảnh
+        if ($request->hasFile('image') && $request->file('image')->isValid()) {
+            try {
+                $file = $request->file('image');
+                $fileName = 'product_' . Str::random(10) . '.' . $file->getClientOriginalExtension();
+                $file->move(public_path('/images/products/'), $fileName);
+                $data['image'] = '/images/products/' . $fileName;
+            } catch (\Exception $e) {
+                return redirect()->back()->with('error', 'Lỗi khi tải lên hình ảnh: ' . $e->getMessage());
             }
-
-            $file = $request->file('Image');
-            $fileName = 'update_' . time() . '_' . $file->getClientOriginalName();
-            $path = '/img/products/';
-
-            // Di chuyển file vào thư mục
-            $file->move(public_path($path), $fileName);
-
-            // Gán đường dẫn vào DB
-            $data['Image'] = $path . $fileName;
         }
 
+        // Cập nhật sản phẩm
+        $product = Product::findOrFail($id);
         $product->update($data);
+
+        // Lưu 3 trường trong ProductDetail
+        $productDetailData = [
+            'size' => $request->input('ProductDetail.size'),
+            'color' => $request->input('ProductDetail.color'),
+            'quantity' => $request->input('ProductDetail.quantity'),
+        ];
+
+        // Kiểm tra và tạo mới hoặc cập nhật ProductDetail
         if ($product->productDetail) {
-            $product->productDetail->update($request->input('ProductDetail'));
+            $product->productDetail->update($productDetailData);
         } else {
-            $product->productDetail()->create($request->input('ProductDetail'));
+            $product->productDetail()->create($productDetailData);
         }
+
         return redirect()->route('show-product.index')->with('success', 'Sản phẩm đã cập nhật!');
     }
 

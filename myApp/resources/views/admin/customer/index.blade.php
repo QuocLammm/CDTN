@@ -2,6 +2,17 @@
     use App\Helpers\PermissionHelper;
     $userPermissions = PermissionHelper::getUserPermissions();
 @endphp
+@push('css')
+    <style>
+        .btn {
+            transition: transform 0.2s ease;
+        }
+        .btn:hover {
+            transform: scale(1.05);
+        }
+
+    </style>
+@endpush
 @extends('layouts.app')
 @section('content')
     @include('layouts.header', ['title' => 'Khách hàng'])
@@ -23,36 +34,29 @@
                         @endif
                     </div>
                 </div>
-                <div class="card-body px-0 pt-0 pb-2">
+                <div class="card-body px-3 pt-3 pb-2">
                     <div class="table-responsive p-0">
-                        <table id="{{ $tableId }}" class="table align-items-center mb-0">
+                        <table id="{{ $tableId }}" class="table table-striped table-hover table-bordered align-middle mb-0">
                             <thead>
                             <tr>
-                                <th>Tên khách hàng</th>
+                                <th class="text-center">Tên khách hàng</th>
                                 <th class="text-center">Hình ảnh</th>
-                                <th>Ngày Sinh</th>
-                                <th>Email</th>
+                                <th class="text-center">Ngày Sinh</th>
+                                <th class="text-center">Email</th>
                                 <th class="text-center">Thao tác</th>
                             </tr>
                             </thead>
                             <tbody>
                             @forelse ($customers as $customer)
                                 <tr>
-                                    <td>{{ $customer->full_name }}</td>
+                                    <td class="text-center">{{ $customer->full_name }}</td>
                                     <td class="text-center">
                                         <img src="{{ asset($customer->image) }}"
                                              style="width: 50px; height: 50px; object-fit: cover;" class="rounded">
                                     </td>
-                                    <td>{{ \Carbon\Carbon::parse($customer->date_of_birth)->format('d/m/Y') }}</td>
-                                    <td>{{ $customer->email }}</td>
+                                    <td class="text-center">{{ \Carbon\Carbon::parse($customer->date_of_birth)->format('d/m/Y') }}</td>
+                                    <td class="text-center">{{ $customer->email }}</td>
                                     <td class="text-center">
-                                        @if ($userPermissions->contains('permission.assign'))
-                                            <a href="{{ route('show-customer.permissions', $customer->user_id) }}"
-                                               class="btn btn-sm me-2"
-                                               style="background: linear-gradient(45deg, #3f51b5, #7986cb); color: white; border: none;">
-                                                <i class="fas fa-users-cog"></i> <!-- Icon Role -->
-                                            </a>
-                                        @endif
                                         @if ($userPermissions->contains('customer.edit'))
                                             <a href="{{ route('show-customer.edit', $customer->user_id) }}"
                                                class="btn btn-sm me-2"
@@ -114,13 +118,54 @@
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script>
         document.addEventListener('DOMContentLoaded', function () {
-            const deleteButtons = document.querySelectorAll('.btn-delete');
-
+            const Toast = Swal.mixin({
+            toast: true,
+            position: 'top-end',
+            showConfirmButton: false,
+            showCloseButton: true,
+            timer: 3000,
+            timerProgressBar: true,
+            customClass: {
+                popup: 'colored-toast'
+            }
+        });
+    
+            // Kiểm tra nếu có thông báo từ session
+            @if (session('success'))
+            Toast.fire({
+                icon: 'success',
+                title: '{{ session('success') }}',
+                background: '#4CAF50', // nền xanh lá
+                color: 'white'
+            });
+            @endif
+    
+            @if (session('error'))
+            Toast.fire({
+                icon: 'error',
+                title: '{{ session('error') }}',
+                background: '#f44336', // nền đỏ
+                color: 'white'
+            });
+            @endif
+    
+            @if (session('warning'))
+            Toast.fire({
+                icon: 'warning',
+                title: '{{ session('warning') }}',
+                background: '#FF9800', // nền cam
+                color: 'white'
+            });
+            @endif
+    
+            // Lấy tất cả các nút xóa
+            const deleteButtons = document.querySelectorAll('.delete-form button');
+    
             deleteButtons.forEach(function (button) {
                 button.addEventListener('click', function (e) {
-                    e.preventDefault();
+                    e.preventDefault();  // Ngừng hành động mặc định của nút (submit form)
                     const form = this.closest('form');
-
+                    // Hiển thị SweetAlert2 thông báo xác nhận xóa
                     Swal.fire({
                         title: 'Bạn có chắc muốn xóa?',
                         text: "Hành động này không thể hoàn tác!",
@@ -132,6 +177,7 @@
                         cancelButtonText: 'Hủy'
                     }).then((result) => {
                         if (result.isConfirmed) {
+                            // Thực sự gửi form để xóa
                             form.submit();
                         }
                     });
