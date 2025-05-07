@@ -17,9 +17,12 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\admin\VNPayController;
 
 
-Route::get('/homepages', [HomePageController::class, 'index'])->name('home');
+Route::get('/homepages', [HomePageController::class, 'index'])->name('homepage');
 Route::get('/showProduct',[HomePageController::class, 'showProduct'])->name('showProduct');
+// Profile User
 Route::get('/profile/{id}', [HomePageController::class, 'showProfile'])->name('profile-user');
+Route::put('/profile/{id}', [HomePageController::class, 'updateProfile'])->name('profile.update');
+
 //Route::get('/product/{id}', [HomePageController::class, 'show'])->name('product.show');
 
 // Chặn người đã đăng nhập truy cập login/register

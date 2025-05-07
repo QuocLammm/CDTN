@@ -1,14 +1,15 @@
 <nav>
     <div class="nav-logo">
-        <a href="#">
-            <img src="/images/logo1-1.png" alt="Logo">
+        <a href="{{route('homepage')}}" id="logo-link">
+            <img src="/images/logo1-1.png" alt="Logo" class="logo-img">
+            <span class="logo-text" id="logo-text">TRUCDOANPHAM</span>
         </a>
     </div>
-    <p id="logo-text" style="display: none;"></p>
     <ul class="nav-links">
-        <li class="link"><a href="#">Home</a></li>
+        <li class="link"><a href="{{route('homepage')}}">Trang chủ</a></li>
+        <li class="link"><a href="#featured-products">Giày thể thao</a></li>
         <li class="link"><a href="#">Giày nữ</a></li>
-        <li class="link"><a href="#featured-products">Sản phẩm bán chạy</a></li>
+        <li class="link"><a href="#">Dép nữ</a></li>
         <li class="link"><a href="#">Thông tin cửa hàng</a></li>
         <li class="link">
             <div class="search-container">
@@ -24,22 +25,19 @@
             <span class="material-icons-sharp">
                 shopping_cart
             </span>
-            <span class="notification-count">0</span> <!-- Số lượng thông báo tạm thời -->
+            <span class="notification-count">0</span>
         </a>
         <a href="#" class="icon">
             <span class="material-icons-sharp">
                 notifications
             </span>
-            <span class="notification-count">3</span> <!-- Số lượng thông báo tạm thời -->
+            <span class="notification-count">3</span>
         </a>
-        <!-- Profile-->
-        <a href="{{ route('profile-user', ['id' => auth()->user()->user_id]) }}">
-            <img src="{{ auth()->user()->image ?? '/images/default-avatar.png' }}" alt="Avatar" class="user-avatar">
+        <a href="{{ route('profile-user', ['id' => auth()->user()->user_id]) }}" class="avatar-link">
+            <img src="{{ asset(auth()->user()->image ?? 'images/default-avatar.png') }}" alt="Avatar" class="user-avatar">
         </a>
-        <!-- Nút đăng xuất -->
         <form action="{{ route('logout') }}" style="display:inline;">
             <button type="submit" class="logout-btn">Đăng xuất</button>
         </form>
     </div>
 </nav>
-<!--End of header-->

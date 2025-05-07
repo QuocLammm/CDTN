@@ -3,8 +3,10 @@
 namespace App\Http\Controllers\auth;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\homepage\ProfileRequest;
 use App\Models\Product;
 use App\Models\User;
+use Illuminate\Http\Request;
 
 class HomePageController extends Controller
 {
@@ -33,6 +35,17 @@ class HomePageController extends Controller
         $user = User::findOrFail($id);
         return view('homepages.profile', compact('user'));
     }
+    // Cập nhật Profile
+    public function updateProfile(ProfileRequest $request, $id)
+    {
+        $user = User::findOrFail($id);
+        $data = $request->validated();
+        $user->update($data);
+
+        return redirect()->back()->with('success', 'Cập nhật hồ sơ thành công!');
+    }
+
+
 
     public function showProduct()
     {

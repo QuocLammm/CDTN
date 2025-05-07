@@ -1,4 +1,4 @@
-<footer class="footer" style="background-color: #222; color: #fff; padding: 40px 20px; display: flex; justify-content: space-between; font-size: 14px; line-height: 1.6; flex-wrap: wrap;">
+<footer class="footer" style="background-color: #222; color: #fff; padding: 20px 20px; display: flex; justify-content: space-between; font-size: 14px; line-height: 1.6; flex-wrap: wrap;">
     <!-- Cột 1 - Về chúng tôi -->
     <div class="footer-column" style="flex: 1; min-width: 180px; margin: 10px;">
         <h4 style="color: #ffd700; margin-bottom: 10px;">Về chúng tôi</h4>
@@ -35,14 +35,14 @@
             Địa chỉ: 123 Đường ABC, TP.Nha Trang<br>
             Email: contact@example.com<br>
             Điện thoại: 0123 456 789<br>
-            Giờ mở cửa: 8:00 - 22:00
+            Giờ mở cửa: 8:00 am - 22:00 pm
         </p>
     </div>
 
     <!-- Cột 5 - Mạng xã hội và Gửi ý kiến -->
     <div class="footer-column" style="flex: 1; min-width: 180px; margin: 10px; text-align: center;">
-        <p style="margin-bottom: 8px;">TRUCDOANPHAM lắng nghe bạn!</p>
-        <h6 style="margin: 0 0 10px; font-weight: normal;">Chúng tôi luôn mong đợi ý kiến đóng góp từ khách hàng để nâng cấp dịch vụ tốt hơn.</h6>
+        <p style="margin-bottom: 8px;">TRUCDOAN<span style="color: red;">PHAM</span> lắng nghe bạn!</p>
+        <h5 style="margin: 0 0 10px; font-weight: normal;">Chúng tôi luôn mong đợi ý kiến đóng góp từ khách hàng để nâng cấp dịch vụ tốt hơn.</h5>
         <h4 style="color: #ffd700;">Theo dõi chúng tôi</h4>
         <div class="footer-social" style="margin: 10px 0; display: flex; justify-content: center;">
             <a href="#" style="margin: 0 10px;"><i class="fab fa-facebook" style="font-size: 24px; color: #ffd700;"></i></a>

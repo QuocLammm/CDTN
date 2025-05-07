@@ -100,7 +100,7 @@ class CustomerController extends Controller
         if ($request->hasFile('image') && $request->file('image')->isValid()) {
             $file = $request->file('image');
             $fileName = 'user_' . Str::random(10) . '.' . $file->getClientOriginalExtension();
-            $file->move(public_path('/imagesages/customers/'), $fileName);
+            $file->move(public_path('/images/customers/'), $fileName);
             $data['image'] = '/images/customers/' . $fileName;
         }
         $customer = User::findOrFail($id);

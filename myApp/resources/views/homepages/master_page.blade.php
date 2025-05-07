@@ -22,5 +22,6 @@
 </footer>
 
 <script src="{{ asset('assets/js/homepages/style.js')}}"></script>
+@stack('js')
 </body>
 </html>
