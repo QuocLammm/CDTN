@@ -82,8 +82,20 @@
 <!-- jQuery + DataTables JS -->
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
+<!-- Beams Notification-->
+<script src="https://js.pusher.com/beams/2.1.0/push-notifications-cdn.js"></script>
+<script>
+    const beamsClient = new PusherPushNotifications.Client({
+        instanceId: '573a3ca7-cef7-4741-b7d9-4c46d4925a47',
+    });
 
+    beamsClient.start()
+        .then(() => beamsClient.addDeviceInterest('hello'))
+        .then(() => console.log('Successfully registered and subscribed!'))
+        .catch(console.error);
+</script>
 @stack('js')
+
 <!-- SweetAlert2 JS -->
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 

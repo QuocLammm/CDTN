@@ -2,7 +2,18 @@
     use App\Helpers\PermissionHelper;
     $userPermissions = PermissionHelper::getUserPermissions();
 @endphp
+@push('css')
+    <style>
+        /* Gợi ý thêm trong thẻ <style> hoặc file CSS */
+        .btn {
+            transition: transform 0.2s ease;
+        }
+        .btn:hover {
+            transform: scale(1.05);
+        }
 
+    </style>
+    @endpush
 @extends('layouts.app')
 @section('content')
     @include('layouts.header', ['title' => 'Nhân viên'])
@@ -24,28 +35,28 @@
                         @endif
                     </div>
                 </div>
-                <div class="card-body px-0 pt-0 pb-2">
+                <div class="card-body px-3 pt-3 pb-2">
                     <div class="table-responsive p-0">
-                        <table id="{{ $tableId }}" class="table align-items-center mb-0">
-                            <thead>
+                        <table id="{{ $tableId }}" class="table table-striped table-hover table-bordered align-middle mb-0">
+                        <thead>
                             <tr>
-                                <th>Tên nhân viên</th>
+                                <th class="text-center">Tên nhân viên</th>
                                 <th class="text-center">Hình ảnh</th>
-                                <th>Ngày Sinh</th>
-                                <th>Email</th>
+                                <th class="text-center">Ngày Sinh</th>
+                                <th class="text-center">Email</th>
                                 <th class="text-center">Thao tác</th>
                             </tr>
                             </thead>
                             <tbody>
                             @forelse ($users as $user)
                                 <tr>
-                                    <td>{{ $user->full_name }}</td>
+                                    <td class="text-center">{{ $user->full_name }}</td>
                                     <td class="text-center">
                                         <img src="{{ asset($user->image) }}"
                                              style="width: 50px; height: 50px; object-fit: cover;" class="rounded">
                                     </td>
-                                    <td>{{ \Carbon\Carbon::parse($user->date_of_birth)->format('d/m/Y') }}</td>
-                                    <td>{{ $user->email }}</td>
+                                    <td class="text-center">{{ \Carbon\Carbon::parse($user->date_of_birth)->format('d/m/Y') }}</td>
+                                    <td class="text-center">{{ $user->email }}</td>
                                     <td class="text-center">
 {{--                                        @if ($userPermissions->contains('permission.assign'))--}}
 {{--                                            <a href="{{ route('show-staff.permissions', $user->user_id) }}"--}}

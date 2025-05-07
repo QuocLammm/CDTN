@@ -62,7 +62,7 @@ return [
             [
                 'title' => 'Trang cá nhân',
                 'route' => 'show-profile.index',
-                'icon' => 'fa fa-cog text-dark',
+                'icon' => 'fa fa-cog text-danger',
                 'permission' => 'user.profile',
             ],
             [
