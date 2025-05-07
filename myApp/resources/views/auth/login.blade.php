@@ -13,23 +13,21 @@
     <div class="form-container sign-in-container">
         <form method="POST" action="{{ route('login') }}">
             @csrf
-            <h1>Sign In</h1>
-            <div class="social-container">
-                <a href="#" class="social"><i class="fab fa-facebook-f"></i></a>
-                <a href="#" class="social"><i class="fab fa-google-plus-g"></i></a>
-                <a href="#" class="social"><i class="fab fa-linkedin-in"></i></a>
-            </div>
-            <span>or use your account</span>
+            <h1>Đăng nhập</h1>
+{{--            <div class="social-container">--}}
+{{--                <a href="#" class="social"><i class="fab fa-facebook-f"></i></a>--}}
+{{--                <a href="#" class="social"><i class="fab fa-google-plus-g"></i></a>--}}
+{{--                <a href="#" class="social"><i class="fab fa-linkedin-in"></i></a>--}}
+{{--            </div>--}}
+{{--            <span>or use your account</span>--}}
 
-            <!-- Email input field -->
-            <div class="infield">
-                <input type="email" name="email"  placeholder="Email" required />
-            </div>
 
             <div class="infield">
-                <input type="password" name="password"  placeholder="Password" required />
+                <input type="text" name="account_name"  placeholder="Tên tài khoản" required />
             </div>
-
+            <div class="infield">
+                <input type="password" name="password"  placeholder="Mật khẩu" required />
+            </div>
             <!-- Display error message if login fails -->
             @if ($errors->any())
                 <div class="error-messages">
@@ -38,10 +36,15 @@
                     @endforeach
                 </div>
             @endif
+            <!-- Quên mật khẩu -->
+            <div class="forgot-password-wrapper">
+                <a href="#" class="forgot">Quên mật khẩu?</a>
+            </div>
+            <!-- Nút đăng nhập -->
+            <div class="submit-button-wrapper">
+                <button type="submit">Đăng nhập</button>
+            </div>
 
-            <a href="#" class="forgot">Forgot your password?</a>
-
-            <button type="submit">Sign In</button>
         </form>
 
     </div>

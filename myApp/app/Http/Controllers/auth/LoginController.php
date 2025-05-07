@@ -18,7 +18,6 @@ class LoginController extends Controller
 
     public function login(LoginRequest $request)
     {
-        // Lấy dữ liệu đã được validated từ LoginRequest
         $credentials = $request->validated();
 
         // Thử xác thực với email và mật khẩu

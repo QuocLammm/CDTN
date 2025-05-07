@@ -2,6 +2,7 @@
     use App\Helpers\PermissionHelper;
     $userPermissions = PermissionHelper::getUserPermissions();
 @endphp
+
 @extends('layouts.app')
 @section('content')
     @include('layouts.header', ['title' => 'Nhân viên'])
@@ -61,16 +62,15 @@
                                             </a>
                                         @endif
                                         @if ($userPermissions->contains('user.delete'))
-                                            <form action="{{ route('show-staff.destroy', $user->user_id) }}"
-                                                  method="POST" class="d-inline delete-form">
-                                                @csrf
-                                                @method('DELETE')
-                                                <button type="button" class="btn btn-sm btn-delete me-2"
-                                                        style="background: linear-gradient(45deg, #f44336, #e57373); color: white; border: none;">
-                                                    <i class="fas fa-trash"></i> <!-- Icon Delete -->
-                                                </button>
-                                            </form>
-                                        @endif
+                                                <form action="{{ route('show-staff.destroy', $user->user_id) }}" method="POST" class="d-inline delete-form" data-is-admin="{{ $user->role_id == 1 ? 'true' : 'false' }}">
+                                                    @csrf
+                                                    @method('DELETE')
+                                                    <button type="button" class="btn btn-sm me-2" style="background: linear-gradient(45deg, #f44336, #e57373); color: white; border: none;">
+                                                        <i class="fas fa-trash"></i>
+                                                    </button>
+                                                </form>
+
+                                            @endif
                                     </td>
                                 </tr>
                             @empty
@@ -114,13 +114,66 @@
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script>
         document.addEventListener('DOMContentLoaded', function () {
-            const deleteButtons = document.querySelectorAll('.btn-delete');
+            // Cấu hình Toast
+            const Toast = Swal.mixin({
+                toast: true,
+                position: 'top-end',
+                showConfirmButton: false,
+                showCloseButton: true,
+                timer: 3000,
+                timerProgressBar: true,
+                customClass: {
+                    popup: 'colored-toast'
+                }
+            });
+
+            // Kiểm tra nếu có thông báo từ session
+            @if (session('success'))
+            Toast.fire({
+                icon: 'success',
+                title: '{{ session('success') }}',
+                background: '#4CAF50', // nền xanh lá
+                color: 'white'
+            });
+            @endif
+
+            @if (session('error'))
+            Toast.fire({
+                icon: 'error',
+                title: '{{ session('error') }}',
+                background: '#f44336', // nền đỏ
+                color: 'white'
+            });
+            @endif
+
+            @if (session('warning'))
+            Toast.fire({
+                icon: 'warning',
+                title: '{{ session('warning') }}',
+                background: '#FF9800', // nền cam
+                color: 'white'
+            });
+            @endif
+
+            // Lấy tất cả các nút xóa
+            const deleteButtons = document.querySelectorAll('.delete-form button');
 
             deleteButtons.forEach(function (button) {
                 button.addEventListener('click', function (e) {
-                    e.preventDefault();
+                    e.preventDefault();  // Ngừng hành động mặc định của nút (submit form)
                     const form = this.closest('form');
 
+                    // Kiểm tra nếu là admin thì không cho xóa
+                    if (form.dataset.isAdmin === 'true') {
+                        Swal.fire({
+                            title: 'Không thể xóa tài khoản Admin!',
+                            icon: 'error',
+                            confirmButtonText: 'Đồng ý'
+                        });
+                        return; // Dừng quá trình xóa
+                    }
+
+                    // Hiển thị SweetAlert2 thông báo xác nhận xóa
                     Swal.fire({
                         title: 'Bạn có chắc muốn xóa?',
                         text: "Hành động này không thể hoàn tác!",
@@ -132,6 +185,7 @@
                         cancelButtonText: 'Hủy'
                     }).then((result) => {
                         if (result.isConfirmed) {
+                            // Thực sự gửi form để xóa
                             form.submit();
                         }
                     });

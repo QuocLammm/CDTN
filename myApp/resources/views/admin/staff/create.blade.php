@@ -10,89 +10,70 @@
                 <x-form.group col="8">
                     <div class="row">
                         <x-form.group col="6">
-                            <x-form.input name="FullName" label="Tên nhân viên" type="text" placeholder="Nhập tên nhân viên" />
-                        </x-form.group>
-                        <x-form.group col="6">
-                            <x-form.input name="Email" label="Email" type="text" placeholder="Nhập email nhân viên" />
+                            <x-form.input name="full_name" label="Tên nhân viên" type="text" placeholder="Nhập tên nhân viên"  />
                         </x-form.group>
                     </div>
                     <div class="row">
                         <div class="col-md-4">
-                            <x-form.select name="RoleID" label="Vai trò" :options="$roles" :selected="old('RoleID')" />
+                            <x-form.select name="role_id" label="Vai trò" :options="$roles" :selected="old('role_id')" />
                         </div>
                         <div class="col-md-4">
-                            <x-form.select name="Gender" label="Giới tính" :options="$users" />
+                            <x-form.select name="gender" label="Giới tính" :options="$users" />
                         </div>
                         <div class="col-md-4">
-                            <x-form.input name="Date_of_Birth" label="Ngày sinh" type="date" />
+                            <x-form.input name="date_of_birth" label="Ngày sinh" type="date" />
                         </div>
                     </div>
                     <div class="row">
                         <div class="col-md-6">
-                            <x-form.input name="Phone" label="Số điện thoại" type="text" placeholder="Nhập số điện thoại nhân viên" />
+                            <x-form.input name="phone" label="Số điện thoại" type="text" placeholder="Nhập số điện thoại nhân viên" />
                         </div>
                         <div class="col-md-6">
-                            <x-form.input name="AccountName" label="Tài khoản nhân viên" type="text" placeholder="Nhập tài khoản " />
+                            <x-form.input name="email" label="Email" type="email" placeholder="Nhập email"/>
                         </div>
                     </div>
                     <div class="row">
                         <div class="col-md-6">
-                            <x-form.input name="Address" label="Địa chỉ" type="text" placeholder="Nhập địa chỉ nhân viên" />
+                            <x-form.input name="address" label="Địa chỉ" type="text" placeholder="Nhập địa chỉ nhân viên" />
                         </div>
                         <div class="col-md-6">
-                            <x-form.input name="Password" label="Mật khẩu" type="text" :value="$password" placeholder="Nhập mật khẩu khách hàng" />
+                            <x-form.input name="password" label="Mật khẩu" type="text" value="{{ $password }}" />
                         </div>
                     </div>
                 </x-form.group>
                 <div class="col-md-4">
-                    <x-form.input name="Image" label="Hình ảnh" type="file" onchange="previewImage(event)" />
+                    <x-form.input name="image" label="Hình ảnh" type="file" onchange="previewImage(event)" />
                     <img id="imagePreview" src="#" alt="Ảnh xem trước" style="max-width: 100%; margin-top: 10px; display: none;">
                 </div>
             </div>
-            <button type="submit" class="btn btn-primary">Thêm sản phẩm</button>
+            <button type="submit" class="btn btn-primary">Thêm nhân viên</button>
             <a href="{{ route('show-customer.index') }}" class="btn btn-secondary">Quay lại</a>
         </form>
     </div>
 @endsection
-@section('js')
-    <script>
-        function togglePassword(inputId, iconElement) {
-            const input = document.getElementById(inputId);
-            const icon = iconElement.querySelector('i');
-            if (input.type === "password") {
-                input.type = "text";
-                icon.classList.remove("fa-eye-slash");
-                icon.classList.add("fa-eye");
-            } else {
-                input.type = "password";
-                icon.classList.remove("fa-eye");
-                icon.classList.add("fa-eye-slash");
-            }
-        }
-    </script>
-    <script>
-        function previewImage(event) {
-            const input = event.target;
-            const preview = document.getElementById('imagePreview');
 
-            if (input.files && input.files[0]) {
-                const reader = new FileReader();
-                reader.onload = function (e) {
-                    preview.src = e.target.result;
-                    preview.style.display = 'block'; // show image
-                };
-                reader.readAsDataURL(input.files[0]);
-            }
-        }
+{{--@section('js')--}}
+{{--    <script>--}}
+{{--        document.addEventListener('DOMContentLoaded', function () {--}}
+{{--            const fullNameInput = document.querySelector('input[name="full_name"]');--}}
+{{--            const accountNameInput = document.querySelector('input[name="account_name"]');--}}
 
-        // Optional: reset preview if user clicks remove file
-        document.querySelector('input[name="Image"]').addEventListener('change', function (event) {
-            if (!event.target.files.length) {
-                const preview = document.getElementById('imagePreview');
-                preview.src = '#';
-                preview.style.display = 'none';
-            }
-        });
-    </script>
-@endsection
+{{--            function generateSlug() {--}}
+{{--                let slug = fullNameInput.value.toLowerCase();--}}
+{{--                slug = slug.normalize("NFD").replace(/[\u0300-\u036f]/g, "");--}}
+{{--                slug = slug.replace(/[^a-z0-9]/g, '');--}}
+{{--                accountNameInput.value = slug;--}}
+{{--            }--}}
+
+{{--            fullNameInput.addEventListener('input', generateSlug);--}}
+
+{{--            // 👇 Gọi khi tải trang để đảm bảo có giá trị ngay từ đầu--}}
+{{--            generateSlug();--}}
+
+{{--            document.querySelector('form').addEventListener('submit', function () {--}}
+{{--                console.log('Account Name:', accountNameInput.value);--}}
+{{--            });--}}
+{{--        });--}}
+{{--    </script>--}}
+{{--@endsection--}}
 

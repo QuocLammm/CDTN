@@ -24,7 +24,6 @@ class UserRequest extends FormRequest
         return [
             'role_id' =>'required|integer|in:1,3',
             'full_name' => 'required|string|regex:/^[\p{L}\s]{3,255}$/u',
-
             'address'=>'required|string|max:255',
             'phone' => [
                 'required',
@@ -36,7 +35,6 @@ class UserRequest extends FormRequest
                 'min:8',
                 'regex:/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{8,}$/'
             ],
-
             'date_of_birth' => 'required|date|date_format:Y-m-d',
             'gender'=>'required|in:Male,Female',
             'email'=> 'required|email|unique:users,Email',
@@ -48,7 +46,6 @@ class UserRequest extends FormRequest
         return [
             'role_id.required' => 'Vui lòng chọn quyền hạng!',
             'role_id.in' => 'Quyền hạng bạn chọn không phù hợp!',
-
             'full_name.required' => 'Vui lòng nhập họ và tên!',
             'full_name.regex' => 'Tên chỉ chứa chữ thường và chữ hoa có dấu, tối thiểu 3 đến 255 ký tự!',
 

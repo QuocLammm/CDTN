@@ -27,7 +27,6 @@ class UserController extends Controller
             'Male' => 'Nam',
             'Female' => 'Nữ',
         ];
-        // Random pass theo đúng validation
         $password = collect([
             Str::random(1), // lowercase
             strtoupper(Str::random(1)), // uppercase
@@ -41,22 +40,20 @@ class UserController extends Controller
         return view('admin.staff.create', compact('roles', 'users', 'password'));
     }
 
-    public function store(UserRequest $request){
-
+    public function store(Request $request)
+    {
         $data = $request->all();
         $data['role_id'] = $request->input('role_id');
         $data['password'] = bcrypt($data['password']);
         $data['gender'] = $data['gender'] === 'Female' ? 1 : 0;
+        $data['account_name'] = Str::slug($data['full_name'], '');
 
         if ($request->hasFile('image') && $request->file('image')->isValid()) {
             $file = $request->file('image');
             $fileName = 'staff_' . Str::random(10) . '.' . $file->getClientOriginalExtension();
-
-            // Try to move the file and check if it's successful
             $destinationPath = public_path('/img/staff/');
             $file->move($destinationPath, $fileName);
 
-            // Check if the file exists after moving
             if (file_exists($destinationPath . $fileName)) {
                 $data['image'] = '/img/staff/' . $fileName;
             } else {
@@ -66,9 +63,12 @@ class UserController extends Controller
             return back()->withErrors('Có lỗi khi tải lên ảnh.');
         }
 
+        // Save the data into the database
         User::create($data);
+
         return redirect()->route('show-staff.index')->with('success', 'Thêm nhân viên thành công!');
     }
+
 
 
     public function edit($id){
@@ -108,10 +108,24 @@ class UserController extends Controller
     }
 
 
-    public function destroy(User $user){
-        $user->delete();
-        return redirect()->route('show-staff.index')->with('success', 'Xóa nhân viên thành công!');
+    public function destroy($id)
+    {
+        $user = User::where('user_id', $id)->firstOrFail();
+
+        // Kiểm tra xem tài khoản có phải là admin không
+        if ($user->role_id == 1) {
+            return redirect()->route('show-staff.index')->with('error', 'Không thể xóa tài khoản Admin!');
+        }
+
+        try {
+            $user->delete();
+            return redirect()->route('show-staff.index')->with('success', 'Xóa nhân viên thành công!');
+        } catch (\Exception $e) {
+            return redirect()->route('show-staff.index')->with('error', 'Xóa thất bại: ' . $e->getMessage());
+        }
     }
+
+
 
     // Hiển thị form phân quyền
     public function permissions(User $user)
