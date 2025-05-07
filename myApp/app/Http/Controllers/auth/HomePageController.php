@@ -53,6 +53,7 @@ class HomePageController extends Controller
         return view('homepages.guest.cart', compact('cart'));
     }
 
+
     public function showProduct()
     {
         $sportShoes = Product::whereHas('category', function($query) {

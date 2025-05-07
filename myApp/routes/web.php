@@ -37,18 +37,17 @@ Route::middleware('guest')->group(function () {
     Route::post('/register', [LoginController::class, 'register']);
 });
 
-// Chặn người chưa đăng nhập truy cập dashboard
-Route::middleware('auth')->group(function () {
+
+Route::middleware('auth')->prefix('admin')->group(function () {
+    // Trang quản trị
     Route::get('/dashboard', [DashboardController::class, 'index'])->name('home');
 
+    // Đăng xuất
     Route::get('/logout', [LoginController::class, 'logout'])->name('logout');
-});
 
-
-Route::middleware('auth')->group(function () {
     // Staff
     Route::resource('/staff', UserController::class)->names('show-staff');
-//    Route::get('/reset-password', [UserController::class, 'resetPassword'])->name('reset-password');
+    //Route::get('/reset-password', [UserController::class, 'resetPassword'])->name('reset-password');
 
     // Permission Admin + Staff
     Route::get('staff/{user}/permissions', [UserController::class, 'permissions'])->name('show-staff.permissions');

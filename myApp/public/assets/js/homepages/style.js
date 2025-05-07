@@ -51,5 +51,22 @@ window.addEventListener("scroll", function () {
     // Hiển thị slide đầu tiên khi load trang
     showSlide(slideIndex);
 
+// Thông báo
+document.getElementById('notification-icon').addEventListener('click', function(e) {
+    e.preventDefault();
+    var dropdown = document.getElementById('notification-dropdown');
+
+    // Kiểm tra nếu dropdown đang hiển thị, thì ẩn nó, ngược lại hiển thị
+    dropdown.classList.toggle('show');
+});
+
+// Đóng dropdown khi nhấn ở ngoài
+window.addEventListener('click', function(e) {
+    if (!e.target.closest('.icon') && !e.target.closest('.notification-dropdown')) {
+        document.getElementById('notification-dropdown').classList.remove('show');
+    }
+});
+
+
 
 

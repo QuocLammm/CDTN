@@ -24,12 +24,22 @@
             </span>
             <span class="notification-count">0</span>
         </a>
-        <a href="#" class="icon">
+
+        <a href="#" class="icon" id="notification-icon">
             <span class="material-icons-sharp">
                 notifications
             </span>
             <span class="notification-count">3</span>
         </a>
+        <!-- Dropdown thông báo -->
+        <div class="notification-dropdown" id="notification-dropdown">
+            <ul>
+                <li><span class="notification-text">Thông báo 1</span></li>
+                <li><span class="notification-text">Thông báo 2</span></li>
+                <li><span class="notification-text">Thông báo 3</span></li>
+            </ul>
+        </div>
+
         <a href="{{ route('profile-user', ['id' => auth()->user()->user_id]) }}" class="avatar-link">
             <img src="{{ asset(auth()->user()->image ?? 'images/default-avatar.png') }}" alt="Avatar" class="user-avatar">
         </a>
