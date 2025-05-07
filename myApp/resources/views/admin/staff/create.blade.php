@@ -2,12 +2,12 @@
 @push('css')
     <style>
         #resetPasswordBtn {
-            height: 100%; /* Đảm bảo chiều cao bằng với ô nhập */
-            line-height: normal; /* Căn chỉnh nội dung bên trong */
-            padding: 0.300rem 0.75rem; /* Đảm bảo padding phù hợp */
-            display: flex; /* Sử dụng Flexbox để căn giữa */
-            justify-content: center; /* Căn giữa nội dung theo chiều ngang */
-            align-items: center; /* Căn giữa nội dung theo chiều dọc */
+            height: 100%;
+            line-height: normal;
+            padding: 0.300rem 0.75rem;
+            display: flex;
+            justify-content: center;
+            align-items: center;
         }
     </style>
     @endpush
@@ -64,7 +64,8 @@
                 </x-form.group>
                 <div class="col-md-4">
                     <x-form.input name="image" label="Hình ảnh" type="file" onchange="previewImage(event)" />
-                    <img id="imagePreview" src="#" alt="Ảnh xem trước" style="max-width: 100%; margin-top: 10px; display: none;">
+                    <img id="imagePreview" src="#" alt="Ảnh xem trước"
+                         style="width: 100%; max-height: 220px; object-fit: cover; border: 1px solid #ccc; border-radius: 8px; margin-top: 10px; display: none;">
                 </div>
             </div>
             <button type="submit" class="btn btn-primary">Thêm nhân viên</button>
@@ -104,4 +105,20 @@
             }
         });
     </script>
+    <script>
+        function previewImage(event) {
+            const imagePreview = document.getElementById('imagePreview');
+            const file = event.target.files[0];
+
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = function () {
+                    imagePreview.src = reader.result;
+                    imagePreview.style.display = 'block';
+                };
+                reader.readAsDataURL(file);
+            }
+        }
+    </script>
+
 @endpush
