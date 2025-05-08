@@ -7,11 +7,10 @@
                     <script>
                         document.write(new Date().getFullYear())
                     </script>,
-                    made with <i class="fa fa-heart"></i> by
+                    được thực hiện <i class="fa fa-heart"></i> bởi
                     <a href="https://www.facebook.com/an.tiue.3" class="font-weight-bold" target="_blank">Quốc Lâm</a>
-                    &
+                    và
                     <a href="https://sweetsoft.vn/" class="font-weight-bold" target="_blank">SweetSoft</a>
-                    for a better web.
                 </div>
             </div>
             <div class="col-lg-6">
@@ -23,10 +22,10 @@
                         <a href="https://www.facebook.com/an.tiue.3" class="nav-link text-muted" target="_blank">Quốc Lâm</a>
                     </li>
                     <li class="nav-item">
-                        <a href="https://sweetsoft.vn/" class="nav-link text-muted" target="_blank">Liên Hệ</a>
+                        <a href="https://www.facebook.com/profile.php?id=61565294172906" class="nav-link text-muted" target="_blank">Liên Hệ</a>
                     </li>
                     <li class="nav-item">
-                        <a href="https://www.creative-tim.com/blog" class="nav-link text-muted" target="_blank">Cửa hàng</a>
+                        <a href="{{route('homepage')}}" class="nav-link text-muted" target="_blank">Cửa hàng</a>
                     </li>
                 </ul>
             </div>

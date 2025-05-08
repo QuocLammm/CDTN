@@ -10,6 +10,8 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 use App\Http\Controllers\auth\CartController;
+use Laravel\Socialite\Facades\Socialite;
+
 class LoginController extends Controller
 {
     //loggin
@@ -47,7 +49,8 @@ class LoginController extends Controller
 
     //Register
     public function showRegister() {
-        return view('auth.register');
+        $user = Auth::user();
+        return view('auth.register', compact('user'));
     }
 
     public function register(Request $request) {
@@ -58,7 +61,7 @@ class LoginController extends Controller
         ]);
 
         User::create([
-            'name' => $request->name,
+            'name' => $request->account_name,
             'email' => $request->email,
             'password' => Hash::make($request->password),
         ]);
@@ -77,4 +80,27 @@ class LoginController extends Controller
 
 
 
+    // Login in Google
+    public function redirectToGoogle()
+    {
+        return Socialite::driver('google')->redirect();
+    }
+
+    public function handleGoogleCallback()
+    {
+        $googleUser = Socialite::driver('google')->user();
+
+        $user = User::updateOrCreate(
+            ['email' => $googleUser->getEmail()],
+            [
+                'name' => $googleUser->getName(),
+                'google_id' => $googleUser->getId(),
+                'password' => bcrypt(uniqid()) // random password
+            ]
+        );
+
+        Auth::login($user);
+
+        return redirect()->intended('/home'); // hoặc dashboard
+    }
 }

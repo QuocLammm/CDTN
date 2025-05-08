@@ -130,12 +130,6 @@ nav.scrolled {
     pointer-events: none; /* Không cho phép click vào biểu tượng */
 }
 
-/*.icon-container {*/
-/*    display: flex; !* Align icons in a row *!*/
-/*    align-items: center; !* Center them vertically *!*/
-/*    gap: 15px; !* Space between icons *!*/
-/*    position: relative; !* Để các phần tử con tuyệt đối có thể định vị chính xác *!*/
-/*}*/
 .icon-container {
     display: flex; /* Align icons in a row */
     align-items: center; /* Center them vertically */
@@ -802,4 +796,30 @@ nav {
     outline: none;
     box-shadow: 0 0 10px rgba(255, 92, 92, 0.5);
 }
+
+/* Item*/
+#sportShoes .header {
+    text-align: center;
+    margin-top:2rem;
+    margin-bottom: 20px;
+    font-size: 24px;
+    font-weight: bold;
+}
+#girlShoes .header {
+
+    text-align: center;
+    margin-top:2rem;
+    margin-bottom: 20px;
+    font-size: 24px;
+    font-weight: bold;
+}
+#girlDep .header {
+
+    text-align: center;
+    margin-top:2rem;
+    margin-bottom: 20px;
+    font-size: 24px;
+    font-weight: bold;
+}
+
 

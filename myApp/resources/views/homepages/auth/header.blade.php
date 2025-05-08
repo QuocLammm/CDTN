@@ -7,10 +7,10 @@
     </div>
     <ul class="nav-links">
         <li class="link"><a href="{{route('homepage')}}">Trang chủ</a></li>
-        <li class="link"><a href="#featured-products">Giày thể thao</a></li>
-        <li class="link"><a href="#">Giày nữ</a></li>
-        <li class="link"><a href="#">Dép nữ</a></li>
-        <li class="link"><a href="#">Thông tin cửa hàng</a></li>
+        <li class="link"><a href="#sportShoes">Giày thể thao</a></li>
+        <li class="link"><a href="#girlShoes">Giày nữ</a></li>
+        <li class="link"><a href="#girlDep">Dép nữ</a></li>
+        <li class="link"><a href="#shopInfo">Thông tin cửa hàng</a></li>
         <li class="link">
             <div class="search-container">
                 <input type="text" placeholder="Tìm kiếm các sản phẩm" class="search-input">

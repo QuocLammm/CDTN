@@ -9,12 +9,17 @@
 }
 
 body {
-    background: linear-gradient(120deg, #2980b9, #8e44ad);
+    background-image: url('https://www.facebook.com/photo/?fbid=122104613306509805&set=a.122104593620509805');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
     height: 100vh;
     display: flex;
     justify-content: center;
     align-items: center;
+    font-size: 16px;
 }
+
 
 .container {
     background-color: #fff;
@@ -23,103 +28,63 @@ body {
     0 10px 10px rgba(0,0,0,0.22);
     position: relative;
     overflow: hidden;
-    width: 900px;
+    width: 600px;
     max-width: 100%;
-    min-height: 500px;
+    min-height: 600px;
     display: flex;
+    flex-direction: column;
     transition: transform 0.6s ease;
-}
-.container .form-container {
-    transition: opacity 0.6s ease, transform 0.6s ease;
-}
-
-.container.right-panel-active .form-container {
-    opacity: 0;
-    transform: translateX(100%);
 }
 
 .form-container {
-    position: absolute;
-    top: 0;
-    height: 100%;
-    transition: all 0.6s ease-in-out;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    flex-direction: column;
-    width: 50%;
+    margin-top:5rem;
+    width: 100%;
     padding: 0 50px;
     text-align: center;
     background-color: #ffffff;
-}
-
-.sign-in-container {
-    left: 0;
-    z-index: 2;
-}
-
-.sign-up-container {
-    left: 0;
-    opacity: 0;
-    z-index: 1;
-}
-
-.overlay-container {
-    position: absolute;
-    top: 0;
-    left: 50%;
-    width: 50%;
-    height: 100%;
-    overflow: hidden;
-    transition: transform 0.6s ease-in-out;
-    z-index: 100;
-}
-
-.overlay {
-    background: linear-gradient(to right, #8e44ad, #2980b9);
-    background-repeat: no-repeat;
-    background-size: cover;
-    background-position: center;
-    color: #ffffff;
-    position: relative;
-    left: -100%;
-    height: 100%;
-    width: 200%;
-    transform: translateX(0);
-    transition: transform 0.6s ease-in-out;
-}
-
-.overlay-panel {
-    position: absolute;
-    display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    padding: 0 40px;
+    opacity: 1;
+    transition: opacity 0.6s ease;
+}
+
+.form-container.hidden {
+    opacity: 0;
+    display: none;
+}
+
+h1 {
+    font-size: 32px;
+    margin-bottom: 20px;
+}
+
+.infield {
+    width: 100%;
+    position: relative;
+    margin: 10px 0;
     text-align: center;
-    top: 0;
-    height: 100%;
-    width: 50%;
-    transform: translateX(0);
-    transition: transform 0.6s ease-in-out;
-}
-/* Sửa hiệu ứng Overlay */
-.container.right-panel-active .overlay {
-    transform: translateX(-100%);
 }
 
-.overlay-panel {
-    transition: transform 0.6s ease;
+.infield label {
+    position: absolute;
+    top: -14px;
+    left: 10px;
+    font-size: 12px;
+    color: #8e44ad;
+    background-color: white;
+    padding: 0 5px;
 }
 
-.overlay-left {
-    transform: translateX(-20%);
-    left: 0;
-}
-
-.overlay-right {
-    right: 0;
-    transform: translateX(0);
+input {
+    background-color: #eee;
+    border: none;
+    padding: 15px 20px; /* Tăng padding để ô input rộng hơn */
+    margin: 8px 0;
+    width: 100%; /* Đảm bảo chiều rộng ô input chiếm toàn bộ chiều rộng container */
+    border-radius: 5px;
+    font-size: 16px; /* Tăng font-size để chữ trong input rõ hơn */
+    box-sizing: border-box; /* Đảm bảo padding không làm giảm chiều rộng */
 }
 
 button {
@@ -140,166 +105,112 @@ button {
 button:hover {
     background-color: #732d91;
 }
-
-input {
-    background-color: #eee;
-    border: none;
-    padding: 12px 15px;
-    margin: 8px 0;
-    width: 100%;
-    border-radius: 5px;
-}
-
-.social-container {
-    margin: 20px 0;
-}
-
-.social-container a {
-    border: 1px solid #ddd;
-    border-radius: 50%;
-    display: inline-flex;
-    justify-content: center;
+.forgot-password-wrapper {
+    display: flex;
+    justify-content: space-between;
     align-items: center;
-    height: 40px;
-    width: 40px;
-    margin: 0 5px;
-    color: #8e44ad;
-}
-
-.social-container a:hover {
-    background-color: #8e44ad;
-    color: #fff;
-}
-
-footer {
-    position: absolute;
-    bottom: 10px;
     width: 100%;
+    margin-top: 2rem;
+}
+
+.remember-wrapper {
+    display: flex;
+    align-items: center;
+    white-space: nowrap; /* Ngăn label xuống dòng */
+    gap: 8px;             /* Khoảng cách giữa checkbox và label */
+}
+
+.submit-button-wrapper{
+    margin-top: 3rem;
+}
+
+.forgot-password-wrapper label {
+    font-size: 15px;
+}
+
+.forgot-password-wrapper a.forgot {
+    text-decoration: none;
+    color: #8e44ad; /* Màu cho link quên mật khẩu */
+    font-size: 13px;
+}
+
+.forgot-password-wrapper .forgot {
+    color: #8e44ad;
+    font-size: 15px;
+    text-decoration: none;
+}
+
+
+.forgot-password-wrapper .forgot:hover {
+    text-decoration: underline;
+}
+
+.register-link {
     text-align: center;
-    color: white;
+    margin-top: 20px;
     font-size: 14px;
 }
 
-
-
-.forgot {
+.register-link a {
     color: #8e44ad;
-    font-size: 13px;
-    margin: 10px 0;
-    display: inline-block;
+    text-decoration: none;
 }
 
-.infield {
-    width: 100%;
-    position: relative;
-    margin: 10px 0;
+.register-link a:hover {
+    text-decoration: underline;
 }
 
-.infield label {
-    position: absolute;
-    top: -14px;
-    left: 10px;
-    font-size: 12px;
-    color: #8e44ad;
-    background-color: white;
-    padding: 0 5px;
-}
-
-/* Khi overlay bật sẽ kích hoạt hiệu ứng trượt form */
-.container.right-panel-active .sign-in-container {
-    transform: translateX(100%);
-    opacity: 0;
-    z-index: 1;
-}
-
-
-.container.right-panel-active .sign-up-container {
-    transform: translateX(100%);
-    opacity: 1;
-    z-index: 5;
-}
-
-.container.right-panel-active .overlay {
-    transform: translateX(-100%);
-}
-
-/* Sửa lại overlay-container */
-.overlay-container {
-    position: absolute;
-    top: 0;
-    left: 50%;
-    width: 50%;
-    height: 100%;
-    overflow: hidden;
-    transition: transform 0.6s ease-in-out;
-    z-index: 1; /* Điều chỉnh z-index cho đúng */
-}
-
-/* Khi chuyển sang trạng thái right-panel-active, overlay chuyển */
-.container.right-panel-active .overlay {
-    transform: translateX(-100%); /* Đảm bảo overlay di chuyển chính xác */
-}
-
-/* Form Sign In */
-.sign-in-container {
-    left: 0;
-    z-index: 2; /* Đặt z-index lớn hơn cho sign-in container */
-}
-
-/* Form Sign Up */
-.sign-up-container {
-    left: 0;
-    opacity: 0;
-    z-index: 1; /* Đảm bảo z-index thấp hơn sign-in */
-}
-
-/* Khi chuyển sang trạng thái right-panel-active */
-.container.right-panel-active .sign-up-container {
-    transform: translateX(100%);
-    opacity: 1;
-    z-index: 5;
-}
-
-.container.right-panel-active .sign-in-container {
-    transform: translateX(100%);
-    opacity: 0;
-    z-index: 1;
-}
-
-/* Overlay Panels */
-.overlay-panel {
-    position: absolute;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    padding: 0 40px;
+.login-link {
     text-align: center;
-    top: 0;
-    height: 100%;
-    width: 50%;
-    transform: translateX(0);
-    transition: transform 0.6s ease-in-out;
+    margin-top: 20px;
+    font-size: 14px;
 }
 
-/* Overlay Left and Right */
-.overlay-left {
-    transform: translateX(-20%);
-    left: 0;
+.login-link a {
+    color: #8e44ad;
+    text-decoration: none;
 }
 
-.overlay-right {
-    right: 0;
-    transform: translateX(0);
+.login-link a:hover {
+    text-decoration: underline;
 }
 
-/* Chỉnh sửa Overlay Panel */
-.container.right-panel-active .overlay-left {
-    transform: translateX(0);
+/* Đăng ký*/
+.social-container {
+    margin: 20px 0;
+    display: flex;
+    justify-content: center;
+    gap: 15px; /* Khoảng cách giữa các icon */
 }
 
-.container.right-panel-active .overlay-right {
-    transform: translateX(20%);
+.social {
+    height: 40px;
+    width: 40px;
+    background-color: #eee;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #444;
+    font-size: 18px;
+    transition: all 0.3s ease;
+    text-decoration: none;
 }
+
+.social:hover {
+    background-color: #ccc;
+    color: #000;
+}
+.social.facebook {
+    background-color: #3b5998;
+    color: #fff;
+}
+
+.social.google {
+    background-color: #db4437;
+    color: #fff;
+}
+
+
 
 

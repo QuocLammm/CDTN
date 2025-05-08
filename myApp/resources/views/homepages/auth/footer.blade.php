@@ -51,6 +51,6 @@
             <a href="#" style="margin: 0 10px;"><i class="fab fa-youtube" style="font-size: 24px; color: #ffd700;"></i></a>
         </div>
 
-        <button style="margin-top: 10px; padding: 10px 20px; background-color: #ffd700; border: none; color: #000; font-weight: bold; cursor: pointer; border-radius: 4px;">Gửi ý kiến</button>
+        <button style="margin-top: 10px; padding: 10px 20px; background-color: #ffd700; border: none; color: #000; font-weight: bold; cursor: pointer; border-radius: 4px;">Gửi liên hệ</button>
     </div>
 </footer>

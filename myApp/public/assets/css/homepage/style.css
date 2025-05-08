@@ -11,6 +11,7 @@
     }
 }
 
+
 @media (min-width: 768px) {
     .product-grid {
         grid-template-columns: repeat(4, 1fr); /* 4 cột trên màn hình trung bình */
@@ -115,4 +116,14 @@
 
 .product-card .choose-button:hover {
     background-color: #2563eb;
+}
+
+
+#sidenav-main {
+    overflow: visible !important; /* Ngừng cuộn */
+    height: 100vh; /* Đảm bảo sidebar chiếm toàn bộ chiều cao màn hình */
+    position: fixed; /* Sidebar luôn cố định */
+    top: 0; /* Đảm bảo sidebar bắt đầu từ đầu trang */
+    left: 0; /* Đảm bảo sidebar ở bên trái */
+    bottom: 0; /* Sidebar không bị cuộn xuống dưới */
 }

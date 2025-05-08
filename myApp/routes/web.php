@@ -28,6 +28,10 @@ Route::get('/cart', [HomePageController::class, 'showCart'])->name('cart-user');
 Route::get('/cart/{id}', [CartController::class, 'showCart'])->name('cart-real');
 //Route::get('/product/{id}', [HomePageController::class, 'show'])->name('product.show');
 
+// Đăng nhập bằng GG
+Route::get('auth/google', [LoginController::class, 'redirectToGoogle'])->name('auth.google');
+Route::get('auth/google/callback', [loginController::class, 'handleGoogleCallback']);
+
 // Chặn người đã đăng nhập truy cập login/register
 Route::middleware('guest')->group(function () {
     Route::get('/login', [LoginController::class, 'showLogin'])->name('login');

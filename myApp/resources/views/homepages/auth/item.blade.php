@@ -1,4 +1,5 @@
-<div id="featured-products">
+<!-- Item 1-->
+<div id="sportShoes">
     <h2 class="header"> Giày thể thao </h2>
     <div class="features">
         @foreach ($sportShoes as $product)
@@ -22,8 +23,9 @@
     </div>
 </div>
 
-<!--Item 2-->
-<div id="featured-products">
+
+<!-- Item 2 -->
+<div id="girlShoes">
     <h2 class="header"> Giày nữ </h2>
     <div class="features">
         @foreach ($girlShoes as $product)
@@ -47,8 +49,8 @@
     </div>
 </div>
 
-<!--Item 3-->
-<div id="featured-products">
+<!-- Item 3 -->
+<div id="girlDep">
     <h2 class="header"> Dép nữ </h2>
     <div class="features">
         @foreach ($girlDep as $product)

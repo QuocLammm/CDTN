@@ -20,20 +20,14 @@ return [
             [
                 'title' => 'Khách hàng',
                 'route' => 'show-customer.index',
-                'icon' => '	ni ni-single-copy-04 text-dark',
+                'icon' => '	ni ni-user-run text-dark',
                 'permission' => 'customer.view',
             ],
             [
                 'title' => 'Phân quyền',
                 'route' => 'show-permission.index',
-                'icon' => 'fa-solid fa-shield',
+                'icon' => 'ni ni-settings text-dark',
                 'permission' => 'permission.view',
-            ],
-            [
-                'title' => 'Sản phẩm',
-                'route' => 'show-product.index',
-                'icon' => 'ni ni-basket text-dark',
-                'permission' => 'product.view',
             ],
             [
                 'title' => 'Loại sản phẩm',
@@ -41,6 +35,13 @@ return [
                 'icon' => 'ni ni-app text-dark',
                 'permission' => 'category.view',
             ],
+            [
+                'title' => 'Sản phẩm',
+                'route' => 'show-product.index',
+                'icon' => 'ni ni-basket text-dark',
+                'permission' => 'product.view',
+            ],
+
             [
                 'title' => 'Đơn hàng',
                 'route' => 'show-order.index',
@@ -62,7 +63,7 @@ return [
             [
                 'title' => 'Trang cá nhân',
                 'route' => 'show-profile.index',
-                'icon' => 'fa fa-cog text-danger',
+                'icon' => 'ni ni-single-02 text-dark',
                 'permission' => 'user.profile',
             ],
             [
