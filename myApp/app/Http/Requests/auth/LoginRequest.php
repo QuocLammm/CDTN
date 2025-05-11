@@ -33,7 +33,8 @@ class LoginRequest extends FormRequest
     public function messages(): array
     {
         return [
-            '*.required' => 'Thông tin đăng nhập không đúng!',
+            'account_name.required' => 'Thông tin đăng nhập không đúng!',
+            'password.required' => 'Thông tin đăng nhập không đúng!',
             'password.min' => 'Mật khẩu phải có ít nhất 8 ký tự!',
             'password.regex' => 'Mật khẩu phải chứa ít nhất một chữ thường, một chữ hoa và một ký tự đặc biệt!',
         ];

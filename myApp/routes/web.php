@@ -22,8 +22,10 @@ Route::get('/showProduct',[HomePageController::class, 'showProduct'])->name('sho
 // Profile User
 Route::get('/profile/{id}', [HomePageController::class, 'showProfile'])->name('profile-user');
 Route::put('/profile/{id}', [HomePageController::class, 'updateProfile'])->name('profile.update');
+
 // Giỏ hàng User session
 Route::get('/cart', [HomePageController::class, 'showCart'])->name('cart-user');
+
 // Giỏ hàng khi đăng nhập
 Route::get('/cart/{id}', [CartController::class, 'showCart'])->name('cart-real');
 //Route::get('/product/{id}', [HomePageController::class, 'show'])->name('product.show');
@@ -66,7 +68,7 @@ Route::middleware('auth')->prefix('admin')->group(function () {
 
     // Sản phẩm
     Route::resource('/product', ProductController::class)->names('show-product');
-    Route::get('/api/qr-code/{productId}', [ProductController::class, 'getQrCode']);
+    Route::get('/qr-code/{id}', [ProductController::class, 'getQrCode']);
 
     // Khuyến mãi
     Route::resource('/permission', PermissionController::class)->names('show-permission');

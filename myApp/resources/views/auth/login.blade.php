@@ -18,21 +18,21 @@
             <form method="POST" action="{{ route('login') }}">
                 @csrf
                 <h1>Đăng nhập</h1>
+                <!-- Tên tài khoản -->
                 <div class="infield">
-                    <input type="text" name="account_name" placeholder="Tên tài khoản" required />
+                    <input type="text" name="account_name" placeholder="Tên tài khoản" value="{{ old('account_name') }}" required />
+                    @error('account_name')
+                    <span class="error-message">{{ $message }}</span>
+                    @enderror
                 </div>
                 <br>
+                <!-- Mật khẩu -->
                 <div class="infield">
                     <input type="password" name="password" placeholder="Mật khẩu" required />
+                    @error('password')
+                    <span class="error-message">{{ $message }}</span>
+                    @enderror
                 </div>
-                <!-- Display error message if login fails -->
-                @if ($errors->any())
-                    <div class="error-messages">
-                        @foreach ($errors->all() as $error)
-                            <p>{{ $error }}</p>
-                        @endforeach
-                    </div>
-                @endif
                 <!-- Quên mật khẩu và Lưu mật khẩu -->
                 <div class="forgot-password-wrapper">
                     <div class="remember-wrapper">

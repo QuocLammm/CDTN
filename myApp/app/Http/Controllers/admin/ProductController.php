@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\ProductRequest;
 use App\Models\Category;
 use App\Models\ProductDetail;
+use App\Models\ProductQrCode;
 use App\Models\Supplier;
 use Illuminate\Http\Request;
 use App\Models\Product;
@@ -38,7 +39,6 @@ class ProductController extends Controller
             $file->move(public_path('/images/products/'), $fileName);
             $data['image'] = '/images/products/' . $fileName;
         }
-
         // Tạo sản phẩm
         $product = Product::create($data);
 
@@ -56,7 +56,13 @@ class ProductController extends Controller
         $qrBase64 = base64_encode($svg);
 
         // Lưu QR vào DB
-        $product->update(['qr_code_base64' => $qrBase64]);
+//        $product->update(['qr_code_base64' => $qrBase64]);
+        // Lưu QR vào bảng product_qrcodes
+        ProductQRCode::create([
+            'product_id'    => $product->product_id,
+            'qr_data'       => $qrContent,
+            'qr_image_path' => $qrBase64,
+        ]);
 
         return redirect()->route('show-product.index')->with('success', 'Sản phẩm đã thêm kèm mã QR!');
     }
@@ -117,12 +123,16 @@ class ProductController extends Controller
 
     public function getQrCode($productId)
     {
-        $product = Product::findOrFail($productId);
-        $qrCodeBase64 = $product->qr_code_base64;
+        $qr = ProductQRCode::where('product_id', $productId)->first();
+
+        if (!$qr) {
+            return response()->json(['error' => 'Không tìm thấy mã QR'], 404);
+        }
 
         return response()->json([
-            'qr_code_base64' => $qrCodeBase64,
+            'qr_image_path' => $qr->qr_image_path,
         ]);
     }
+
 
 }

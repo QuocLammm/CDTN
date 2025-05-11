@@ -47,7 +47,8 @@
                </div>
                <div class="col-md-4">
                    <x-form.input name="image" label="Hình ảnh" type="file" onchange="previewImage(event)" />
-                   <img id="imagePreview" src="#" alt="Ảnh xem trước" style="max-width: 100%; margin-top: 10px; display: none;">
+                   <img id="imagePreview" src="#" alt="Ảnh xem trước"
+                        style="width: 100%; max-height: 220px; object-fit: cover; border: 1px solid #ccc; border-radius: 8px; margin-top: 10px; display: none;">
                </div>
            </div>
             <button type="submit" class="btn btn-primary">Thêm sản phẩm</button>
@@ -55,7 +56,7 @@
         </form>
     </div>
 @endsection
-@section('js')
+@push('js')
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script>
         function previewImage(event) {
@@ -69,17 +70,14 @@
                     preview.style.display = 'block';
                 };
                 reader.readAsDataURL(input.files[0]);
-            }
-        }
-
-        document.querySelector('input[name="image"]').addEventListener('change', function (event) {
-            if (!event.target.files.length) {
-                const preview = document.getElementById('imagePreview');
+            } else {
                 preview.src = '#';
                 preview.style.display = 'none';
             }
-        });
+        }
 
+    </script>
+    <script>
         @if(session('success'))
             Swal.fire({
                 toast: true,
@@ -92,6 +90,6 @@
             });
        @endif
     </script>
-@endsection
+@endpush
 
 

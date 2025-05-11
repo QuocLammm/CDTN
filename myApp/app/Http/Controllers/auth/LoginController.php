@@ -3,18 +3,16 @@
 namespace App\Http\Controllers\auth;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\Auth\LoginRequest;
+use App\Http\Requests\auth\LoginRequest;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
-use App\Http\Controllers\auth\CartController;
 use Laravel\Socialite\Facades\Socialite;
 
 class LoginController extends Controller
 {
-    //loggin
+    // Đăng nhập
     public function showLogin() {
         return view('auth.login');
     }

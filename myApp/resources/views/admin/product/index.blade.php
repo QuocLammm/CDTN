@@ -95,13 +95,13 @@
                     const productName = this.getAttribute('data-name');
 
                     // Gửi yêu cầu AJAX để lấy mã QR từ server
-                    fetch(`/api/qr-code/${productId}`)
+                    fetch(`/admin/qr-code/${productId}`)
                         .then(response => response.json())
                         .then(data => {
                             // Hiển thị SweetAlert với mã QR
                             Swal.fire({
                                 title: `QR Code của ${productName}`,
-                                html: `<img src="data:image/svg+xml;base64,${data.qr_code_base64}" style="width: 200px; height: 200px;">`,
+                                html: `<img src="data:image/svg+xml;base64,${data.qr_image_path}" style="width: 200px; height: 200px;">`,
                                 showConfirmButton: true,
                             });
                         })
