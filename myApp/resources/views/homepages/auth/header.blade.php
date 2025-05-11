@@ -18,7 +18,7 @@
         </li>
     </ul>
     <div class="icon-container">
-        <a href="{{ route('cart-real', ['id' => auth()->user()->user_id]) }}" class="icon">
+        <a href="{{ route('cart.cart') }}" class="icon">
             <span class="material-icons-sharp">
                 shopping_cart
             </span>

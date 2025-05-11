@@ -17,8 +17,9 @@ class Cart extends Model
     // Mối quan hệ với bảng CartItem
     public function items()
     {
-        return $this->hasMany(CartItem::class);
+        return $this->hasMany(CartItem::class, 'cart_id', 'cart_id');
     }
+
 
     // Mối quan hệ với bảng User
     public function user()

@@ -3,6 +3,7 @@
     <h2 class="header"> Giày thể thao </h2>
     <div class="features">
         @foreach ($sportShoes as $product)
+            <a href="{{ route('product.show', $product->product_id) }}" class="card-link">
             <div class="card">
                 <img src="{{ $product->image }}" alt="{{ $product->product_name }}" class="product-image"
                      style="width: 100%;
@@ -18,6 +19,7 @@
                 </div>
                 <a href="#" class="buy-button">Mua</a>
             </div>
+            </a>
         @endforeach
         <a href="#" class="view-all">Xem tất cả</a>
     </div>

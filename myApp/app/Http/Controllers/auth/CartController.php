@@ -3,7 +3,9 @@
 namespace App\Http\Controllers\auth;
 
 use App\Http\Controllers\Controller;
+use App\Models\Cart;
 use App\Models\CartItem;
+use App\Models\Product;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
@@ -66,18 +68,97 @@ class CartController extends Controller
     }
 
     // Hiển thị giỏ hàng khi đã đăng nhập
-    public function showCart($userId)
+    public function showCart()
     {
-        // Kiểm tra xem người dùng có đăng nhập và ID khớp không
-        if (Auth::check() && Auth::id() == $userId) {
-            // Lấy tất cả sản phẩm trong giỏ hàng của người dùng
-            $cartItems = CartItem::whereHas('cart', function($query) use ($userId) {
-                $query->where('user_id', $userId);
-            })->get();
+        $userId = Auth::id();
+        $cart = Cart::where('user_id', $userId)->first();
 
-            return view('homepages.auth.cart', compact('cartItems'));
-        } else {
-            return redirect()->route('login');
+        if (!$cart) {
+            return view('homepages.auth.cart', ['items' => collect()]);
         }
+
+        $cartItems = $cart->items()->with('product')->get();
+        return view('homepages.auth.cart', compact('cartItems'));
     }
+
+
+
+    // Thêm vào giỏ hàng
+    public function addToCart(Request $request, $id)
+    {
+        $user = auth()->user();
+        $product = Product::findOrFail($id);
+
+        // Tìm hoặc tạo cart của user
+        $cart = Cart::firstOrCreate(['user_id' => $user->user_id]);
+
+        // Tìm cart item có sẵn
+        $item = CartItem::where('cart_id', $cart->cart_id)
+            ->where('product_id', $product->product_id)
+            ->first();
+
+        if ($item) {
+            $item->increment('quantity');
+        } else {
+            CartItem::create([
+                'cart_id' => $cart->cart_id,
+                'product_id' => $product->product_id,
+                'quantity' => 1,
+            ]);
+        }
+
+        return redirect()->route('cart.cart');
+
+    }
+
+
+    // Hàm xóa sản phẩm khỏi giỏ hàng
+    public function remove($id)
+    {
+        $userId = Auth::id();
+
+        $cartItem = CartItem::where('cart_item_id', $id)
+            ->whereHas('cart', function ($query) use ($userId) {
+                $query->where('user_id', $userId);
+            })
+            ->first();
+
+        if ($cartItem) {
+            $cartItem->delete();
+            return redirect()->route('cart.cart')->with('success', 'Sản phẩm đã được xóa khỏi giỏ hàng.');
+        }
+
+        return redirect()->route('cart.cart')->with('error', 'Sản phẩm không tồn tại trong giỏ hàng.');
+    }
+
+
+
+    public function checkout()
+    {
+        // Lấy người dùng hiện tại
+        $userId = Auth::id();
+
+        // Lấy thông tin giỏ hàng của người dùng
+        $cartItems = CartItem::where('user_id', $userId)->get();
+
+        // Nếu giỏ hàng trống
+        if ($cartItems->isEmpty()) {
+            return redirect()->route('homepages.auth.cart')->with('error', 'Giỏ hàng của bạn trống. Vui lòng thêm sản phẩm trước khi thanh toán.');
+        }
+
+        // Tính tổng tiền giỏ hàng
+        $total = $cartItems->sum(function ($item) {
+            return $item->product->price * $item->quantity;
+        });
+
+        // Thực hiện các bước thanh toán (giả sử bạn đã có phần xử lý thanh toán)
+        // Lưu đơn hàng vào bảng `orders`, hoặc các bước thanh toán khác
+
+        // Xóa giỏ hàng sau khi thanh toán
+        $cartItems->each->delete();
+
+        // Redirect đến trang thanh toán thành công
+        return redirect()->route('cart.index')->with('success', 'Thanh toán thành công! Cảm ơn bạn đã mua sắm.');
+    }
+
 }

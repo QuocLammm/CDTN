@@ -6,6 +6,7 @@ use App\Http\Controllers\admin\CustomerController;
 use App\Http\Controllers\admin\OrderController;
 use App\Http\Controllers\admin\PermissionController;
 use App\Http\Controllers\admin\ProductController;
+use App\Http\Controllers\auth\ProductDetailController;
 use App\Http\Controllers\admin\SaleController;
 use App\Http\Controllers\admin\UserController;
 use App\Http\Controllers\auth\CartController;
@@ -27,8 +28,13 @@ Route::put('/profile/{id}', [HomePageController::class, 'updateProfile'])->name(
 Route::get('/cart', [HomePageController::class, 'showCart'])->name('cart-user');
 
 // Giỏ hàng khi đăng nhập
-Route::get('/cart/{id}', [CartController::class, 'showCart'])->name('cart-real');
-//Route::get('/product/{id}', [HomePageController::class, 'show'])->name('product.show');
+Route::middleware('auth')->group(function () {
+    Route::get('/cart', [CartController::class, 'showCart'])->name('cart.cart');
+    Route::post('/add-to-cart/{id}', [CartController::class, 'addToCart'])->name('cart.add');
+    Route::delete('/cart/{id}', [CartController::class, 'remove'])->name('cart.remove');
+    Route::get('/checkout', [CartController::class, 'checkout'])->name('checkout');
+    Route::get('/product/{id}', [ProductDetailController::class, 'show'])->name('product.show');
+});
 
 // Đăng nhập bằng GG
 Route::get('auth/google', [LoginController::class, 'redirectToGoogle'])->name('auth.google');
