@@ -22,7 +22,7 @@
             <span class="material-icons-sharp">
                 shopping_cart
             </span>
-            <span class="notification-count">0</span>
+            <span class="notification-count">{{ $cartCount }}</span>
         </a>
         <form action="{{ route('login') }}" style="display:inline;">
             <button type="submit" class="logout-btn">Đăng nhập</button>

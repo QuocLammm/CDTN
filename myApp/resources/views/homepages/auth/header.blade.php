@@ -22,7 +22,7 @@
             <span class="material-icons-sharp">
                 shopping_cart
             </span>
-            <span class="notification-count">0</span>
+            <span class="notification-count">{{ $cartCount }}</span>
         </a>
 
         <a href="#" class="icon" id="notification-icon">

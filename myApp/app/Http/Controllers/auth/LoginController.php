@@ -33,7 +33,7 @@ class LoginController extends Controller
 
             // Kiểm tra role_id để điều hướng
             if ($user->role_id === 1) {
-                return redirect()->intended('dashboard'); // Admin
+                return redirect()->intended('admin.dashboard'); // Admin
             } else {
                 return redirect()->intended('homepages'); // User
             }
