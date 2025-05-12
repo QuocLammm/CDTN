@@ -18,11 +18,17 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\admin\VNPayController;
 
 
-Route::get('/homepages', [HomePageController::class, 'index'])->name('homepage');
-Route::get('/showProduct',[HomePageController::class, 'showProduct'])->name('showProduct');
+Route::get('/homepages', [HomePageController::class, 'index'])->name('homepage');// Trang chủ
+Route::get('/showProduct',[HomePageController::class, 'showProduct'])->name('showProduct');// Hiển thị sản phẩm ở trang chủ
+Route::get('/products/all', [HomePageController::class, 'viewAll'])->name('products.all'); // Xem all sản phẩm
+Route::get('/load-more-products', [HomePageController::class, 'loadMore'])->name('products.loadMore'); // Load More
+
+
+
 // Profile User
 Route::get('/profile/{id}', [HomePageController::class, 'showProfile'])->name('profile-user');
 Route::put('/profile/{id}', [HomePageController::class, 'updateProfile'])->name('profile.update');
+
 
 // Giỏ hàng User session
 Route::get('/cart', [HomePageController::class, 'showCart'])->name('cart-user');
@@ -33,6 +39,8 @@ Route::middleware('auth')->group(function () {
     Route::post('/add-to-cart/{id}', [CartController::class, 'addToCart'])->name('cart.add');
     Route::delete('/cart/{id}', [CartController::class, 'remove'])->name('cart.remove');
     Route::get('/checkout', [CartController::class, 'checkout'])->name('checkout');
+    // Tìm kiểm sản phẩm
+    Route::get('/search', [ProductController::class, 'search'])->name('product.search');
     Route::get('/product/{id}', [ProductDetailController::class, 'show'])->name('product.show');
 });
 

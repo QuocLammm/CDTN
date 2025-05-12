@@ -1,0 +1,57 @@
+.main-content {
+    font-family: 'Roboto', sans-serif;
+    padding: 40px 20px 120px;
+    box-sizing: border-box;
+    background-color: #fff;
+    margin-top:80px;
+}
+.features {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 20px;
+    margin-top: 30px;
+}
+
+.site-footer {
+    height: 240px;
+    background-color: #fff;
+    border-top: 1px solid #ccc;
+}
+/* Cải thiện giao diện của nút "Xem thêm" */
+#load-more {
+    margin-top:40px;
+    background-color: #ff7f50; /* Màu cam nổi bật */
+    color: white;
+    padding: 10px 20px;
+    font-size: 16px;
+    font-weight: bold;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s, transform 0.3s;
+    text-align: center;
+}
+
+#load-more:hover {
+    background-color: #ff5722; /* Màu cam đậm khi hover */
+    transform: scale(1.05); /* Hiệu ứng phóng to nhẹ khi hover */
+}
+
+/* Hiệu ứng khi nút bị vô hiệu hóa (khi hết sản phẩm) */
+#load-more.disabled {
+    background-color: #bbb;
+    cursor: not-allowed;
+}
+
+#load-more.disabled:hover {
+    background-color: #bbb;
+    transform: none;
+}
+
+/* Thông báo đã hết sản phẩm */
+#no-more-products {
+    color: #888;
+    font-size: 16px;
+    margin-top: 10px;
+    font-style: italic;
+}

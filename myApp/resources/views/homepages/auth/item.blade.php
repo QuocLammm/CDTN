@@ -19,7 +19,7 @@
                 </div>
             </a>
         @endforeach
-        <a href="#" class="view-all">Xem tất cả</a>
+        <a href="{{ route('products.all') }}" class="view-all">Xem tất cả</a>
     </div>
 </div>
 
@@ -44,7 +44,7 @@
                 </div>
             </a>
         @endforeach
-        <a href="#" class="view-all">Xem tất cả</a>
+        <a href="{{ route('products.all') }}" class="view-all">Xem tất cả</a>
     </div>
 </div>
 
@@ -68,7 +68,7 @@
                 </div>
             </a>
         @endforeach
-        <a href="#" class="view-all">Xem tất cả</a>
+        <a href="{{ route('products.all') }}" class="view-all">Xem tất cả</a>
     </div>
 </div>
 

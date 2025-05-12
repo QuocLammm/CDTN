@@ -134,5 +134,17 @@ class ProductController extends Controller
         ]);
     }
 
+    // API search ở homepage
+    public function search(Request $request)
+    {
+        $keyword = $request->input('keyword');
+
+        $products = Product::where('product_name', 'like', "%$keyword%")
+            ->orWhere('description', 'like', "%$keyword%")
+            ->paginate(10);
+
+        return view('homepages.auth.search_product', compact('products', 'keyword'));
+    }
+
 
 }

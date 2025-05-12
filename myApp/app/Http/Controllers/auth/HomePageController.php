@@ -53,7 +53,7 @@ class HomePageController extends Controller
         return view('homepages.guest.cart', compact('cart'));
     }
 
-
+    // Hiển thị sản phẩm ở trang chủ
     public function showProduct()
     {
         $sportShoes = Product::whereHas('category', function($query) {
@@ -71,5 +71,33 @@ class HomePageController extends Controller
         // Trả dữ liệu sang view
         return view('homepages.item', compact('sportShoes','girlShoes','girlDep'));
     }
+
+    // Hiển thị toàn bộ sản phẩm ở phần xem tất cả
+    public function viewAll()
+    {
+        $products = Product::take(10)->get();
+        return view('homepages.auth.view_all_products', compact('products'));
+    }
+
+    // Load More
+    public function loadMore(Request $request)
+    {
+        $page = $request->get('page', 1);
+        $limit = 10;
+        $offset = ($page - 1) * $limit;
+
+        $products = Product::skip($offset)->take($limit)->get();
+
+        if ($products->isEmpty()) {
+            return response()->json(['html' => '', 'end' => true]);
+        }
+
+        $html = view('components.product_items', compact('products'))->render();
+        return response()->json(['html' => $html]);
+    }
+
+
+
+
 
 }

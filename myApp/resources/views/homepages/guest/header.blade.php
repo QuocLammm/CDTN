@@ -13,7 +13,9 @@
         <li class="link"><a href="#">Thông tin cửa hàng</a></li>
         <li class="link">
             <div class="search-container">
-                <input type="text" placeholder="Tìm kiếm các sản phẩm" class="search-input">
+                <form action="{{ route('product.search') }}" method="GET" class="search-form">
+                    <input type="text" name="keyword" placeholder="Tìm kiếm các sản phẩm" class="search-input">
+                </form>
             </div>
         </li>
     </ul>
