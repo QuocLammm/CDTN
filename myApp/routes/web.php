@@ -20,7 +20,7 @@ use App\Http\Controllers\admin\VNPayController;
 
 Route::get('/homepages', [HomePageController::class, 'index'])->name('homepage');// Trang chủ
 Route::get('/showProduct',[HomePageController::class, 'showProduct'])->name('showProduct');// Hiển thị sản phẩm ở trang chủ
-Route::get('/products/all', [HomePageController::class, 'viewAll'])->name('products.all'); // Xem all sản phẩm
+Route::get('/products/all/{category_id}', [HomePageController::class, 'viewAll'])->name('products.all'); // Xem all sản phẩm
 Route::get('/load-more-products', [HomePageController::class, 'loadMore'])->name('products.loadMore'); // Load More
 
 

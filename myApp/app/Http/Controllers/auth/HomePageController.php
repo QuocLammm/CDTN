@@ -4,6 +4,7 @@ namespace App\Http\Controllers\auth;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\homepage\ProfileRequest;
+use App\Models\Category;
 use App\Models\Product;
 use App\Models\User;
 use Illuminate\Http\Request;
@@ -24,9 +25,10 @@ class HomePageController extends Controller
 
         // Lấy tất cả sản phẩm từ database
         $products = Product::all();
+        $categories = Category::all();
 
         // Trả dữ liệu sang view
-        return view('homepages.homepage', compact('products','sportShoes','girlShoes','girlDep'));
+        return view('homepages.homepage', compact('categories','products','sportShoes','girlShoes','girlDep'));
     }
 
     // Profile User
@@ -54,28 +56,36 @@ class HomePageController extends Controller
     }
 
     // Hiển thị sản phẩm ở trang chủ
+//    public function showProduct()
+//    {
+//        $sportShoes = Product::whereHas('category', function($query) {
+//            $query->where('category_name', 'Giày thể thao');
+//        })->get();
+//
+//        $girlShoes = Product::whereHas('category', function($query) {
+//            $query->where('category_name', 'Giày nữ');
+//        })->get();
+//
+//        $girlDep = Product::whereHas('category', function($query) {
+//            $query->where('category_name', 'Dép nữ');
+//        })->get();
+//
+//        // Trả dữ liệu sang view
+//        return view('homepages.item', compact('sportShoes','girlShoes','girlDep'));
+//    }
     public function showProduct()
     {
-        $sportShoes = Product::whereHas('category', function($query) {
-            $query->where('category_name', 'Giày thể thao');
-        })->get();
-
-        $girlShoes = Product::whereHas('category', function($query) {
-            $query->where('category_name', 'Giày nữ');
-        })->get();
-
-        $girlDep = Product::whereHas('category', function($query) {
-            $query->where('category_name', 'Dép nữ');
-        })->get();
+        // Lấy tất cả sản phẩm
+        $categories = Category::all();
 
         // Trả dữ liệu sang view
-        return view('homepages.item', compact('sportShoes','girlShoes','girlDep'));
+        return view('homepages.item', compact('categories'));
     }
 
     // Hiển thị toàn bộ sản phẩm ở phần xem tất cả
-    public function viewAll()
+    public function viewAll($category_id)
     {
-        $products = Product::take(10)->get();
+        $products = Product::where('category_id', $category_id)->get(); // Lấy sản phẩm theo danh mục
         return view('homepages.auth.view_all_products', compact('products'));
     }
 

@@ -82,6 +82,36 @@ document.querySelectorAll('a[href^="#"]').forEach(anchor => {
     });
 });
 
+// Model Contact
+// Lấy các phần tử cần thiết
+var modal = document.getElementById("contactModal");
+var btn = document.getElementById("contact-btn");
+var closeBtn = document.getElementById("close-btn");
+
+// Mở modal khi nhấn nút
+btn.onclick = function() {
+    modal.style.display = "flex"; // Dùng flex để căn giữa
+}
+
+// Đóng modal khi nhấn vào dấu "X"
+closeBtn.onclick = function() {
+    modal.style.display = "none";
+}
+
+// Đóng modal khi người dùng click ra ngoài modal
+window.onclick = function(event) {
+    if (event.target == modal) {
+        modal.style.display = "none";
+    }
+}
+
+
+// Navbar
+document.getElementById('menu-toggle').addEventListener('click', function() {
+    const navLinks = document.getElementById('nav-links');
+    navLinks.classList.toggle('show');
+});
+
 
 
 
