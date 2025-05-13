@@ -32,7 +32,7 @@
                         </button>
                         <div class="dropdown-menu">
                             <div class="dropdown-header">
-                                <h6>Chào mừng bạn! <span class="sitename">đến với shop</span></h6>
+                                <h6>Chào mừng bạn! <span class="sitename">đã đến với shop</span></h6>
                                 <p class="mb-0">Đăng nhập tài khoản &amp; quản lý giỏ hàng</p>
                             </div>
                             <div class="dropdown-body">

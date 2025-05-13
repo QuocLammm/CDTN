@@ -33,7 +33,7 @@
                         <div class="dropdown-menu">
                             <div class="dropdown-header">
                                 <h6 class="mb-0">Xin chào!</h6>
-                                <h6>{{ auth()->user()->full_name }}</h6>
+                                <h5>{{ auth()->user()->full_name }}</h5>
                                 <span class="sitename">Đã đến với shop của chúng tôi</span>
                             </div>
                             <div class="dropdown-body">

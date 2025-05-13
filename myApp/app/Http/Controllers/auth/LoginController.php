@@ -32,7 +32,7 @@ class LoginController extends Controller
             $user = Auth::user();
 
             // Kiểm tra role_id để điều hướng
-            if ($user->role_id === 1) {
+            if ($user->role_name === 'Admin' || $user->role_name === 'Staff') {
                 return redirect()->intended('admin.dashboard'); // Admin
             } else {
                 return redirect()->intended('homepages'); // User
@@ -73,9 +73,15 @@ class LoginController extends Controller
         $request->session()->invalidate();
         $request->session()->regenerateToken();
 
-        return redirect()->route('login');
-    }
+        // Kiểm tra vai trò của người dùng
+        if ($request->user()) {
+            if ($request->user()->hasRole('Admin') || $request->user()->hasRole('Staff')) {
+                return redirect()->route('login'); // Redirect đến trang đăng nhập cho admin và staff
+            }
+        }
 
+        return redirect()->route('homepage'); // Redirect đến trang chủ cho user thường
+    }
 
 
     // Login in Google

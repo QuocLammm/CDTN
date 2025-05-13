@@ -43,7 +43,7 @@ class User extends Authenticatable
     {
         return $this->belongsToMany(Permission::class, 'permission_user', 'user_id', 'permission_id');
     }
-
-
-
+    public function hasRole($role) {
+        return $this->role_name === $role;
+    }
 }

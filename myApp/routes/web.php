@@ -63,7 +63,7 @@ Route::middleware('auth')->group(function () {
     Route::get('/logout', [LoginController::class, 'logout'])->name('logout');
 });
 
-Route::middleware('auth')->prefix('admin')->group(function () {
+Route::middleware('auth')->prefix('/admin')->group(function () {
     // Trang quản trị
     Route::get('/dashboard', [DashboardController::class, 'index'])->name('home');
 
