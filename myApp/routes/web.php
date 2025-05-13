@@ -31,7 +31,7 @@ Route::put('/profile/{id}', [HomePageController::class, 'updateProfile'])->name(
 
 
 // Giỏ hàng User session
-Route::get('/cart', [HomePageController::class, 'showCart'])->name('cart-user');
+Route::get('/cart-user', [HomePageController::class, 'showCart'])->name('cart-user');
 
 // Giỏ hàng khi đăng nhập
 Route::middleware('auth')->group(function () {
@@ -57,13 +57,15 @@ Route::middleware('guest')->group(function () {
     Route::post('/register', [LoginController::class, 'register']);
 });
 
+// Đăng xuất
+Route::middleware('auth')->group(function () {
+    // Đăng xuất
+    Route::get('/logout', [LoginController::class, 'logout'])->name('logout');
+});
 
 Route::middleware('auth')->prefix('admin')->group(function () {
     // Trang quản trị
     Route::get('/dashboard', [DashboardController::class, 'index'])->name('home');
-
-    // Đăng xuất
-    Route::get('/logout', [LoginController::class, 'logout'])->name('logout');
 
     // Staff
     Route::resource('/staff', UserController::class)->names('show-staff');

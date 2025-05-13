@@ -4,13 +4,13 @@
             <div class="d-flex py-3 align-items-center justify-content-between">
                 <!-- Logo -->
                 <a href="{{route('homepage')}}" class="logo d-flex align-items-center">
-                    <h1 class="sitename">TRUCDOANPHAM</h1>
+                    <h1 class="sitename">TRUCDOAN<span style="color: red">PHAM</span></h1>
                 </a>
 
                 <!-- Search -->
-                <form class="search-form desktop-search-form">
+                <form  action="{{ route('product.search') }}" method="GET" class="search-form desktop-search-form">
                     <div class="input-group">
-                        <input type="text" class="form-control" placeholder="Tìm kiếm sản phẩm">
+                        <input type="text" name="keyword" class="form-control" placeholder="Tìm kiếm sản phẩm">
                         <button class="btn" type="submit">
                             <i class="bi bi-search"></i>
                         </button>
@@ -32,17 +32,19 @@
                         </button>
                         <div class="dropdown-menu">
                             <div class="dropdown-header">
-                                <h6>Chào mừng! <span class="sitename">đến với shop</span></h6>
-                                <p class="mb-0">Đăng nhập tài khoản &amp; quản lý giỏ hàng</p>
+                                <h6 class="mb-0">Xin chào!</h6>
+                                <h6>{{ auth()->user()->full_name }}</h6>
+                                <span class="sitename">Đã đến với shop của chúng tôi</span>
                             </div>
                             <div class="dropdown-body">
                                 <a class="dropdown-item d-flex align-items-center" href="{{ route('profile-user', ['id' => auth()->user()->user_id]) }}">
                                     <i class="bi bi-person-circle me-2"></i>
                                     <span>Trang cá nhân</span>
                                 </a>
-                                <a class="dropdown-item d-flex align-items-center" href="account.html">
+                                <a class="dropdown-item d-flex align-items-center" href="{{ route('cart.cart') }}">
                                     <i class="bi bi-bag-check me-2"></i>
-                                    <span>Giỏ hàng
+                                    <span>Giỏ hàng</span>
+                                </a>
                                 <a class="dropdown-item d-flex align-items-center" href="account.html">
                                     <i class="bi bi-heart me-2"></i>
                                     <span>Yêu thích</span>
@@ -53,8 +55,15 @@
                                 </a>
                             </div>
                             <div class="dropdown-footer">
-                                <a href="{{route('login')}}" class="btn btn-primary w-100 mb-2">Đăng nhập</a>
-                                <a href="{{route('register')}}" class="btn btn-outline-primary w-100">Đăng ký</a>
+                                @if(auth()->check())
+                                    <form action="{{ route('logout') }}" style="display: inline;">
+                                        @csrf
+                                        <button type="submit" class="btn btn-danger w-100 mb-2">Đăng xuất</button>
+                                    </form>
+                                @else
+                                    <a href="{{ route('login') }}" class="btn btn-primary w-100 mb-2">Đăng nhập</a>
+                                    <a href="{{ route('register') }}" class="btn btn-outline-primary w-100">Đăng ký</a>
+                                @endif
                             </div>
                         </div>
                     </div>
@@ -66,9 +75,9 @@
                     </a>
 
                     <!-- Cart -->
-                    <a href="cart.html" class="header-action-btn">
+                    <a href="{{route('cart.cart')}}" class="header-action-btn">
                         <i class="bi bi-cart3"></i>
-                        <span class="badge">3</span>
+                        <span class="badge">{{ $cartCount }}</span>
                     </a>
 
                     <!-- Mobile Navigation Toggle -->
