@@ -46,10 +46,15 @@
                    <x-form.textarea name="description" label="Mô tả" placeholder="Nhập mô tả" rows="4" />
                </div>
                <div class="col-md-4">
-                   <x-form.input name="image" label="Hình ảnh" type="file" onchange="previewImage(event)" />
-                   <img id="imagePreview" src="#" alt="Ảnh xem trước"
-                        style="width: 100%; max-height: 220px; object-fit: cover; border: 1px solid #ccc; border-radius: 8px; margin-top: 10px; display: none;">
+                   <div class="form-group mt-3">
+                       <label for="images">Hình ảnh sản phẩm (có thể chọn nhiều ảnh)</label>
+                       <input type="file" name="images[]" id="multi-image-input" multiple class="form-control">
+                   </div>
+                   <div class="form-group mt-2">
+                       <div id="preview-multiple-images" class="d-flex flex-wrap mt-3" style="gap: 6.5px;"></div>
+                   </div>
                </div>
+
            </div>
             <button type="submit" class="btn btn-primary">Thêm sản phẩm</button>
             <a href="{{ route('show-product.index') }}" class="btn btn-secondary">Quay lại</a>
@@ -59,22 +64,28 @@
 @push('js')
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script>
-        function previewImage(event) {
-            const input = event.target;
-            const preview = document.getElementById('imagePreview');
+        input.addEventListener('change', function (e) {
+            const files = Array.from(e.target.files);
 
-            if (input.files && input.files[0]) {
-                const reader = new FileReader();
-                reader.onload = function (e) {
-                    preview.src = e.target.result;
-                    preview.style.display = 'block';
-                };
-                reader.readAsDataURL(input.files[0]);
-            } else {
-                preview.src = '#';
-                preview.style.display = 'none';
+            for (const file of files) {
+                // Kiểm tra trùng lặp
+                if (!selectedImages.some(f => f.name === file.name && f.lastModified === file.lastModified)) {
+                    selectedImages.push(file);
+                }
             }
-        }
+
+            previewContainer.innerHTML = '';
+            for (const file of selectedImages) {
+                const reader = new FileReader();
+                reader.onload = function (event) {
+                    const img = document.createElement('img');
+                    img.src = event.target.result;
+                    // Style...
+                    previewContainer.appendChild(img);
+                };
+                reader.readAsDataURL(file);
+            }
+        });
 
     </script>
     <script>

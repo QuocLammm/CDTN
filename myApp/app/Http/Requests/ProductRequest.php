@@ -25,12 +25,12 @@ class ProductRequest extends FormRequest
             'supplier_id' => 'required|exists:suppliers,supplier_id',
             'category_id' => 'required|exists:categories,category_id',
             'product_name' => 'required|max:255',
-            'image' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
             'description' => 'required|string|min:10',
             'price' => 'required|numeric|min:0',
             'size'     => 'required|integer|between:32,45',
             'color'    => 'required|string|max:50',
             'quantity' => 'required|integer|min:1',
+            'images' => 'nullable|array',
         ];
     }
 
@@ -40,8 +40,6 @@ class ProductRequest extends FormRequest
             'supplier_id.required' => 'Vui lòng chọn nhà cung cấp!',
             'category_id.required' => 'Vui lòng chọn loại sản phẩm!',
             'product_name.required' => 'Tên sản phẩm không được để trống!',
-            'image.mimes' => 'Vui lòng chọn đúng tệp hình!',
-            'image.max' => 'Vui lòng chọn hình có kích thước nhỏ hơn!',
             'description.required' => 'Vui lòng nhập mô tả!',
             'description.min' => 'Mô tả ít nhất 10 từ!',
             'price.required' => 'Vui lòng nhập giá bán!',

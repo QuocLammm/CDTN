@@ -20,7 +20,8 @@ use App\Http\Controllers\admin\VNPayController;
 
 Route::get('/homepages', [HomePageController::class, 'index'])->name('homepage');// Trang chủ
 Route::get('/showProduct',[HomePageController::class, 'showProduct'])->name('showProduct');// Hiển thị sản phẩm ở trang chủ
-Route::get('/products/all/{category_id}', [HomePageController::class, 'viewAll'])->name('products.all'); // Xem all sản phẩm
+Route::get('/products/all/{category_id}', [HomePageController::class, 'viewAll'])->name('products.all'); // Xem all sản phẩm theo từng danh mục
+Route::get('/products/all/', [HomePageController::class, 'viewAllProduct'])->name('products.all_products'); // Xem all sản phẩm
 Route::get('/load-more-products', [HomePageController::class, 'loadMore'])->name('products.loadMore'); // Load More
 
 
@@ -63,7 +64,7 @@ Route::middleware('auth')->group(function () {
     Route::get('/logout', [LoginController::class, 'logout'])->name('logout');
 });
 
-Route::middleware('auth')->prefix('/admin')->group(function () {
+Route::middleware('auth')->prefix('admin')->group(function () {
     // Trang quản trị
     Route::get('/dashboard', [DashboardController::class, 'index'])->name('home');
 
@@ -85,6 +86,8 @@ Route::middleware('auth')->prefix('/admin')->group(function () {
     // Sản phẩm
     Route::resource('/product', ProductController::class)->names('show-product');
     Route::get('/qr-code/{id}', [ProductController::class, 'getQrCode']);
+    Route::delete('/product-images/{id}', [ProductController::class, 'destroyImage']);
+
 
     // Khuyến mãi
     Route::resource('/permission', PermissionController::class)->names('show-permission');

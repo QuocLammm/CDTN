@@ -6,10 +6,12 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\ProductRequest;
 use App\Models\Category;
 use App\Models\ProductDetail;
+use App\Models\ProductImage;
 use App\Models\ProductQrCode;
 use App\Models\Supplier;
 use Illuminate\Http\Request;
 use App\Models\Product;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Str;
 use SimpleSoftwareIO\QrCode\Facades\QrCode;
 
@@ -32,13 +34,6 @@ class ProductController extends Controller
     {
         $data = $request->all();
 
-        // Xử lý ảnh upload
-        if ($request->hasFile('image')) {
-            $file = $request->file('image');
-            $fileName = 'product_' . Str::random(10) . '.' . $file->getClientOriginalExtension();
-            $file->move(public_path('/images/products/'), $fileName);
-            $data['image'] = '/images/products/' . $fileName;
-        }
         // Tạo sản phẩm
         $product = Product::create($data);
 
@@ -50,67 +45,119 @@ class ProductController extends Controller
             'quantity'   => $data['quantity'],
         ]);
 
+        // Xử lý ảnh
+        $folderName = 'sp' . $product->product_id;
+        $uploadPath = public_path('images/products/' . $folderName);
+
+        // Nếu thư mục chưa tồn tại thì tạo
+        if (!file_exists($uploadPath)) {
+            mkdir($uploadPath, 0755, true);
+        }
+
+        if ($request->hasFile('images')) {
+            foreach ($request->file('images') as $image) {
+                $imageName = 'product_extra_' . Str::random(10) . '.' . $image->getClientOriginalExtension();
+                $image->move($uploadPath, $imageName);
+
+                $imagePath = '/images/products/' . $folderName . '/' . $imageName;
+
+                // Kiểm tra đường dẫn ảnh
+                Log::info('Image Path: ' . $imagePath);
+
+                $productImage = ProductImage::create([
+                    'product_id' => $product->product_id,
+                    'image_path' => $imagePath,
+                ]);
+
+                // Kiểm tra xem ảnh đã lưu vào database chưa
+                Log::info('Product Image Saved: ', [$productImage]);
+            }
+        }
+
+
         // Tạo mã QR
         $qrContent = route('show-product.show', $product->product_id);
         $svg = QrCode::format('svg')->size(200)->generate($qrContent);
         $qrBase64 = base64_encode($svg);
 
-        // Lưu QR vào DB
-//        $product->update(['qr_code_base64' => $qrBase64]);
-        // Lưu QR vào bảng product_qrcodes
+        // Lưu QR
         ProductQRCode::create([
             'product_id'    => $product->product_id,
             'qr_data'       => $qrContent,
             'qr_image_path' => $qrBase64,
         ]);
 
-        return redirect()->route('show-product.index')->with('success', 'Sản phẩm đã thêm kèm mã QR!');
+        return redirect()->route('show-product.index')->with('success', 'Sản phẩm đã thêm kèm mã QR và ảnh!');
     }
 
 
     public function edit(Product $product) {
         $suppliers = Supplier::pluck('supplier_name', 'supplier_id');
         $categories = Category::pluck('category_name', 'category_id');
-        $product->load('productDetail');
+        $product->load('productDetails');
         return view('admin.product.edit', compact('product', 'suppliers', 'categories'));
     }
 
     public function update(Request $request, $id)
     {
-        $data = $request->all();
-
-        // Xử lý ảnh
-        if ($request->hasFile('image') && $request->file('image')->isValid()) {
-            try {
-                $file = $request->file('image');
-                $fileName = 'product_' . Str::random(10) . '.' . $file->getClientOriginalExtension();
-                $file->move(public_path('/images/products/'), $fileName);
-                $data['image'] = '/images/products/' . $fileName;
-            } catch (\Exception $e) {
-                return redirect()->back()->with('error', 'Lỗi khi tải lên hình ảnh: ' . $e->getMessage());
-            }
-        }
-
-        // Cập nhật sản phẩm
+        $data = $request->except('ProductDetail');
         $product = Product::findOrFail($id);
         $product->update($data);
 
-        // Lưu 3 trường trong ProductDetail
-        $productDetailData = [
-            'size' => $request->input('ProductDetail.size'),
-            'color' => $request->input('ProductDetail.color'),
-            'quantity' => $request->input('ProductDetail.quantity'),
-        ];
 
-        // Kiểm tra và tạo mới hoặc cập nhật ProductDetail
-        if ($product->productDetail) {
-            $product->productDetail->update($productDetailData);
-        } else {
-            $product->productDetail()->create($productDetailData);
+        $detailIdsInForm = collect($request->input('ProductDetails'))->pluck('id')->filter()->all();
+
+        $product->productDetails()
+            ->whereNotIn('id', $detailIdsInForm)
+            ->delete();
+
+        // Duyệt và cập nhật các ProductDetail
+        foreach ($request->input('ProductDetail', []) as $detailData) {
+            if (isset($detailData['id'])) {
+                // Đã tồn tại: cập nhật
+                $productDetail = ProductDetail::find($detailData['id']);
+                if ($productDetail) {
+                    $productDetail->update($detailData);
+                }
+            } else {
+                $product->productDetails()->create($detailData);
+            }
+        }
+
+        // Xử lý ảnh
+        $folderName = 'sp' . $product->product_id;
+        $uploadPath = public_path('images/products/' . $folderName);
+
+        // Nếu thư mục chưa tồn tại thì tạo
+        if (!file_exists($uploadPath)) {
+            mkdir($uploadPath, 0755, true);
+        }
+
+        // Xử lý ảnh nếu có
+        if ($request->hasFile('images')) {
+            foreach ($request->file('images') as $image) {
+                $imageName = 'product_extra_' . Str::random(10) . '.' . $image->getClientOriginalExtension();
+                $image->move($uploadPath, $imageName);
+
+                $imagePath = '/images/products/' . $folderName . '/' . $imageName;
+
+                // Kiểm tra đường dẫn ảnh
+                Log::info('Image Path: ' . $imagePath);
+
+                // Lưu ảnh vào cơ sở dữ liệu
+                ProductImage::create([
+                    'product_id' => $product->product_id,
+                    'image_path' => $imagePath,
+                ]);
+
+                // Kiểm tra xem ảnh đã lưu vào database chưa
+                Log::info('Product Image Saved: ', [ $imagePath ]);
+            }
         }
 
         return redirect()->route('show-product.index')->with('success', 'Sản phẩm đã cập nhật!');
     }
+
 
     public function destroy(Product $product)
     {
@@ -144,6 +191,20 @@ class ProductController extends Controller
             ->paginate(10);
 
         return view('homepages.auth.search_product', compact('products', 'keyword'));
+    }
+
+    public function destroyImage($id){
+        $image = ProductImage::findOrFail($id);
+
+        // Xoá file ảnh nếu tồn tại
+        $imagePath = public_path($image->image_path);
+        if (file_exists($imagePath)) {
+            unlink($imagePath);
+        }
+
+        $image->delete();
+
+        return response()->json(['message' => 'Ảnh đã xoá']);
     }
 
 

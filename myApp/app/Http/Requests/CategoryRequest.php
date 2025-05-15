@@ -22,16 +22,13 @@ class CategoryRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'CategoryName'=>'required|string|regex:/^[a-zA-Z]$/',
-            'Description'=> 'required|text',
+            'category_name'=>'required|string',
         ];
     }
 
     public function messages(): array{
         return [
-            'CategoryName.required'=>'Vui lòng nhập tên loại sản phẩm!',
-            'CategoryName.regex' => 'Tên loại sản phẩm không chứa số và kí tự đặc biệt!',
-            'Description.required' => 'Vui lòng nhập mô tả loại sản phẩm!',
+            'category_name.required'=>'Vui lòng nhập tên loại sản phẩm!',
         ];
     }
 }

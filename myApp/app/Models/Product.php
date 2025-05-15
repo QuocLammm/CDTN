@@ -19,7 +19,6 @@ class Product extends Model
         'product_name',
         'description',
         'qr_code_base64',
-        'image',
         'price',
 
     ];
@@ -33,9 +32,14 @@ class Product extends Model
         return $this->belongsTo(Category::class, 'category_id', 'category_id');
     }
 
-    public function productDetail()
+    public function productDetails()
     {
-        return $this->hasOne(ProductDetail::class, 'product_id', 'product_id');
+        return $this->hasMany(ProductDetail::class, 'product_id', 'product_id');
+    }
+
+    public function images()
+    {
+        return $this->hasMany(ProductImage::class,'product_id','product_id');
     }
 
 

@@ -17,35 +17,45 @@
                         <tr>
                             <th>Tên sản phẩm</th>
                             <th class="text-center">Hình ảnh</th>
-                            <th>Giá</th>
+                            <th class="text-center">Giá</th>
+                            <th class="text-center">Chi tiết</th>
                             <th class="text-center">Thao tác</th>
                         </tr>
                         </thead>
                         <tbody>
-                        @forelse ($products as $product)
-                            <tr>
-                                <td>{{ $product->product_name }}</td>
-                                <td class="text-center">
-                                    <img src="{{ asset($product->image) }}"
-                                         style="width: 50px; height: 50px; object-fit: cover;" class="rounded">
-                                </td>
-                                <td>{{ number_format($product->price) }} VNĐ</td>
-                                <td class="text-center">
-                                    <a href="{{ route('show-product.edit', $product->product_id) }}"
-                                       class="btn btn-sm btn-outline-success me-1">Edit</a>
-                                    <button type="button" class="btn btn-sm btn-outline-primary me-1 btn-show-qr"
-                                            data-name="{{ $product->product_name }}"
-                                            data-id="{{ $product->product_id }}">
-                                        QR Code
-                                    </button>
-                                    <form action="{{ route('show-product.destroy', $product->product_id) }}"
-                                          method="POST" class="d-inline delete-form">
-                                        @csrf
-                                        @method('DELETE')
-                                        <button type="button" class="btn btn-sm btn-outline-danger btn-delete">Delete</button>
-                                    </form>
-                                </td>
-                            </tr>
+                        @forelse ($products->groupBy('product_name') as $productGroup)
+                            @foreach ($productGroup as $product)
+                                <tr>
+                                    <td>{{ $product->product_name }}</td>
+                                    <td class="text-center">
+                                        @if($product->images->count())
+                                            <img src="{{ asset($product->images->first()->image_path) }}"
+                                                 style="width: 60px; height: 60px; object-fit: cover;">
+                                        @endif
+                                    </td>
+                                    <td>{{ number_format($product->price) }} VNĐ</td>
+                                    <td>
+                                        @foreach ($product->productDetails as $detail)
+                                            <div>Size: {{ $detail->size }} - Màu: {{ $detail->color }} - SL: {{ $detail->quantity }}</div>
+                                        @endforeach
+                                    </td>
+                                    <td class="text-center">
+                                        <a href="{{ route('show-product.edit', $product->product_id) }}"
+                                           class="btn btn-sm btn-outline-success me-1">Edit</a>
+                                        <button type="button" class="btn btn-sm btn-outline-primary me-1 btn-show-qr"
+                                                data-name="{{ $product->product_name }}"
+                                                data-id="{{ $product->product_id }}">
+                                            QR Code
+                                        </button>
+                                        <form action="{{ route('show-product.destroy', $product->product_id) }}"
+                                              method="POST" class="d-inline delete-form">
+                                            @csrf
+                                            @method('DELETE')
+                                            <button type="button" class="btn btn-sm btn-outline-danger btn-delete">Delete</button>
+                                        </form>
+                                    </td>
+                                </tr>
+                            @endforeach
                         @empty
                             <tr>
                                 <td colspan="5" class="text-center">Không có sản phẩm nào</td>
@@ -111,7 +121,6 @@
                 });
             });
         });
-
     </script>
     <script>
         document.addEventListener('DOMContentLoaded', function () {
@@ -184,5 +193,4 @@
             });
         });
     </script>
-
 @endpush

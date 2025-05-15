@@ -25,7 +25,7 @@ class HomePageController extends Controller
 
         // Lấy tất cả sản phẩm từ database
         $products = Product::all();
-        $categories = Category::all();
+        $categories = Category::with(['products.images'])->get();
 
         // Trả dữ liệu sang view
         return view('homepages.homepage', compact('categories','products','sportShoes','girlShoes','girlDep'));
@@ -82,12 +82,19 @@ class HomePageController extends Controller
         return view('homepages.item', compact('categories'));
     }
 
-    // Hiển thị toàn bộ sản phẩm ở phần xem tất cả
+    // Hiển thị toàn bộ sản phẩm ở phần xem tất cả theo từng danh mục
     public function viewAll($category_id)
     {
         $products = Product::where('category_id', $category_id)->get(); // Lấy sản phẩm theo danh mục
+        return view('homepages.auth.view_all_products_categories', compact('products'));
+    }
+
+    // Hiênr thị full sản phẩm
+    public function viewAllProduct(){
+        $products = Product::all();
         return view('homepages.auth.view_all_products', compact('products'));
     }
+
 
     // Load More
     public function loadMore(Request $request)

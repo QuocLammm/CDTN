@@ -26,9 +26,9 @@
                                 <td>{{ $category->category_name }}</td>
                                 <td>{{ $category->description }}</td>
                                 <td class="text-center">
-                                    <a href="{{ route('show-product.edit', $category->category_id) }}"
+                                    <a href="{{ route('show-category.edit', $category->category_id) }}"
                                        class="btn btn-sm btn-outline-success me-1">Edit</a>
-                                    <form action="{{ route('show-product.destroy', $category->category_id) }}"
+                                    <form action="{{ route('show-category.destroy', $category->category_id) }}"
                                           method="POST" class="d-inline delete-form">
                                         @csrf
                                         @method('DELETE')

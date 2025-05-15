@@ -9,7 +9,8 @@
 @endsection
 @section('content')
     <div class="main-content">
-        <h2>Tất cả sản phẩm </h2>
+        <h2>Tất cả sản phẩm của </h2>
+
         {{-- Danh sách sản phẩm --}}
         <div class="features" id="product-list">
             @foreach ($products as $product)
@@ -24,7 +25,7 @@
             @endforeach
         </div>
 
-{{--         Phân trang --}}
+        {{-- Phân trang --}}
         <div style="text-align: center; margin-top: 40px;">
             <button id="load-more" data-page="1">Xem thêm</button>
             <p id="no-more-products" style="display:none;">Đã hiển thị hết sản phẩm.</p>

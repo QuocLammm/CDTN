@@ -15,9 +15,12 @@
         <div class="card-body p-3">
             <div class="row gx-4">
                 <div class="col-auto">
-                    <div class="avatar avatar-xl position-relative">
-                        <img src="/img/team-1.jpg" alt="profile_image" class="w-100 border-radius-lg shadow-sm">
+                    <div class="avatar position-relative">
+                        <img src="{{ auth()->user()->image }}" alt="profile_image"
+                             class="border-radius-lg shadow-sm"
+                             style="width: 60px; height: 60px; object-fit: cover;">
                     </div>
+
                 </div>
                 <div class="col-auto my-auto">
                     <div class="h-100">
@@ -126,7 +129,7 @@
                     <div class="card-header p-0 position-relative">
                         <img src="{{ asset('/img/bg-profile.jpg') }}" alt="background" class="w-100" style="height: 150px; object-fit: cover;">
                         <div class="position-absolute top-100 start-50 translate-middle">
-                            <img src="{{ asset('/img/team-1.jpg') }}" alt="avatar" class="rounded-circle border border-white shadow-sm" width="100" height="100">
+                            <img src="{{ auth()->user()->image}}" alt="avatar" class="rounded-circle border border-white shadow-sm" width="100" height="100">
                         </div>
                     </div>
                     <div class="card-body text-center mt-5 pt-4">
