@@ -19,6 +19,8 @@ return new class extends Migration
             $table->decimal('price', 10, 2);
 
             $table->foreign('order_id')->references('order_id')->on('orders');
+            $table->foreign('product_detail_id')->references('product_id')->on('products');
+            $table->timestamps();
         });
 
     }
@@ -30,6 +32,7 @@ return new class extends Migration
     {
         Schema::table('order_items', function (Blueprint $table) {
             $table->dropForeign('order_id');
+            $table->dropForeign('product_detail_id');
         });
         Schema::dropIfExists('order_items');
     }

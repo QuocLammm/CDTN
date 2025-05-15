@@ -22,6 +22,9 @@
 {{--    <link href="https://fonts.googleapis.com/css2?family=Material+Icons+Sharp" rel="stylesheet"/>--}}
 {{--    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">--}}
 
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css">
+
+
     <!-- Main CSS File -->
     <link href="{{asset('assets/css/main.css')}}" rel="stylesheet">
     <title>TRUCDOANPHAM</title>
@@ -56,6 +59,7 @@
 <script src="{{asset('assets/vendor/glightbox/js/glightbox.min.js')}}"></script>
 <script src="{{asset('assets/vendor/drift-zoom/Drift.min.js')}}"></script>
 <script src="{{asset('assets/vendor/purecounter/purecounter_vanilla.js')}}"></script>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 <!-- Main JS File -->
 <script src="{{asset('assets/js/main.js')}}"></script>
 @stack('js')

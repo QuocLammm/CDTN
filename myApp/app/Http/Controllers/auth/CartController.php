@@ -5,6 +5,8 @@ namespace App\Http\Controllers\auth;
 use App\Http\Controllers\Controller;
 use App\Models\Cart;
 use App\Models\CartItem;
+use App\Models\Order;
+use App\Models\OrderItem;
 use App\Models\Product;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -132,16 +134,21 @@ class CartController extends Controller
     }
 
 
-
-
-
     public function checkout()
     {
         // Lấy người dùng hiện tại
         $userId = Auth::id();
 
         // Lấy thông tin giỏ hàng của người dùng
-        $cartItems = CartItem::where('user_id', $userId)->get();
+        $cart = Cart::where('user_id', $userId)->first();
+
+        // Nếu không tìm thấy giỏ hàng
+        if (!$cart) {
+            return redirect()->route('homepages.auth.cart')->with('error', 'Giỏ hàng của bạn trống. Vui lòng thêm sản phẩm trước khi thanh toán.');
+        }
+
+        // Lấy tất cả các mục trong giỏ hàng
+        $cartItems = $cart->items;
 
         // Nếu giỏ hàng trống
         if ($cartItems->isEmpty()) {
@@ -149,18 +156,38 @@ class CartController extends Controller
         }
 
         // Tính tổng tiền giỏ hàng
-        $total = $cartItems->sum(function ($item) {
-            return $item->product->price * $item->quantity;
-        });
+        $total = 0;
+        foreach ($cartItems as $item) {
+            if ($item->product) { // Kiểm tra xem sản phẩm có tồn tại không
+                $total += $item->product->price * $item->quantity;
+            } else {
+                // Xử lý trường hợp không có sản phẩm
+                return redirect()->route('homepages.auth.cart')->with('error', 'Một sản phẩm trong giỏ hàng không còn tồn tại.');
+            }
+        }
 
-        // Thực hiện các bước thanh toán (giả sử bạn đã có phần xử lý thanh toán)
-        // Lưu đơn hàng vào bảng `orders`, hoặc các bước thanh toán khác
+        // Tạo bản ghi đơn hàng
+        $order = Order::create([
+            'user_id' => $userId,
+            'total_amount' => $total,
+            'status' => 'pending', // Hoặc trạng thái bạn muốn
+        ]);
+
+        // Lưu các mục đơn hàng
+        foreach ($cartItems as $item) {
+            OrderItem::create([
+                'order_id' => $order->order_id,
+                'product_detail_id' => $item->product->product_id,
+                'quantity' => $item->quantity,
+                'price' => $item->product->price,
+            ]);
+        }
 
         // Xóa giỏ hàng sau khi thanh toán
         $cartItems->each->delete();
 
         // Redirect đến trang thanh toán thành công
-        return redirect()->route('cart.index')->with('success', 'Thanh toán thành công! Cảm ơn bạn đã mua sắm.');
+        return redirect()->route('homepage')->with('success', 'Thanh toán thành công! Cảm ơn bạn đã mua sắm.');
     }
 
 }

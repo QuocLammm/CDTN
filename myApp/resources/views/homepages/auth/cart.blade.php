@@ -63,7 +63,7 @@
             </div>
             <!-- Nút Mua Hàng -->
             <div class="cart-actions">
-                <a href="{{ route('checkout') }}" class="btn-checkout">Mua hàng</a>
+                <button class="btn-checkout" id="checkout-button">Mua hàng</button>
             </div>
         @endif
     </div>
@@ -110,6 +110,25 @@
                 });
                 document.querySelector('.cart-total p').innerHTML = 'Tổng cộng: ' + formatter.format(total) + ' đ';
             }
+        });
+    </script>
+    <script>
+        document.getElementById('checkout-button').addEventListener('click', function() {
+            Swal.fire({
+                title: 'Xác nhận đơn hàng?',
+                text: "Bạn muốn xác nhận thanh toán cho đơn hàng này!",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Có, xác nhận!',
+                cancelButtonText: 'Hủy'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    // Redirect to checkout route
+                    window.location.href = '{{ route("checkout") }}';
+                }
+            });
         });
     </script>
 @endpush

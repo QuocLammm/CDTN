@@ -28,9 +28,9 @@
                     @endforeach
                 </div>
 
-                <div style="margin-top: 30px; text-align: center;">
-                    {{ $products->links() }}
-                </div>
+{{--                <div style="margin-top: 30px; text-align: center;">--}}
+{{--                    {{ $products->links() }}--}}
+{{--                </div>--}}
             @endif
         </div>
     </div>
