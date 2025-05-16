@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Providers;
+use App\View\Composers\NavbarComposer;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\View;
 use Illuminate\Support\Facades\Auth;
@@ -42,5 +43,6 @@ class AppServiceProvider extends ServiceProvider
 
             $view->with('cartCount', $cartCount);
         });
+        View::composer('layouts.header', NavbarComposer::class);
     }
 }

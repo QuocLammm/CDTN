@@ -76,7 +76,7 @@
     });
 
     beamsClient.start()
-        .then(() => beamsClient.addDeviceInterest('hello'))
+        .then(() => beamsClient.addDeviceInterest('orders'))
         .then(() => console.log('Successfully registered and subscribed!'))
         .catch(console.error);
 </script>

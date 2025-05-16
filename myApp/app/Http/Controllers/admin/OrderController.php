@@ -10,9 +10,13 @@ class OrderController extends Controller
 {
     public function index()
     {
-        $orders = Order::with('items.product')->get(); // Lấy đơn hàng cùng với các sản phẩm
+        $orders = Order::with('items.product')
+            ->orderBy('created_at', 'desc')
+            ->get();
+
         return view('admin.order.index', compact('orders'));
     }
+
 
     public function create(){
         return view('show-order.create');

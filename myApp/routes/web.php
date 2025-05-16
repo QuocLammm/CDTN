@@ -3,6 +3,7 @@
 use App\Http\Controllers\admin\AccountController;
 use App\Http\Controllers\admin\CategoryController;
 use App\Http\Controllers\admin\CustomerController;
+use App\Http\Controllers\admin\NotificationController;
 use App\Http\Controllers\admin\OrderController;
 use App\Http\Controllers\admin\PermissionController;
 use App\Http\Controllers\admin\ProductController;
@@ -40,6 +41,7 @@ Route::middleware('auth')->group(function () {
     Route::post('/add-to-cart/{id}', [CartController::class, 'addToCart'])->name('cart.add');
     Route::delete('/cart/{id}', [CartController::class, 'remove'])->name('cart.remove');
     Route::get('/checkout', [CartController::class, 'checkout'])->name('checkout');
+    Route::post('/cancel-order', [CartController::class, 'cancelOrder'])->name('cancel.order');
     // Tìm kiểm sản phẩm
     Route::get('/search', [ProductController::class, 'search'])->name('product.search');
     Route::get('/product/{id}', [ProductDetailController::class, 'show'])->name('product.show');
@@ -67,7 +69,7 @@ Route::middleware('auth')->group(function () {
 Route::middleware('auth')->prefix('admin')->group(function () {
     // Trang quản trị
     Route::get('/dashboard', [DashboardController::class, 'index'])->name('home');
-
+    Route::get('/navbar', [DashboardController::class, 'showNavbar'])->name('show.navbar');
     // Staff
     Route::resource('/staff', UserController::class)->names('show-staff');
     //Route::get('/reset-password', [UserController::class, 'resetPassword'])->name('reset-password');
@@ -103,6 +105,9 @@ Route::middleware('auth')->prefix('admin')->group(function () {
 
     //Account
     Route::resource('/profile', AccountController::class)->names('show-profile');
+
+    // Thông báo
+    Route::resource('/notification', NotificationController::class)->names('show-notification');
 
 // Route cho việc hiển thị các sản phẩm và thực hiện thanh toán (GET)
     Route::get('/vnpay', [VNPayController::class, 'showPaymentPage'])->name('vnpay.payment.product');

@@ -65,6 +65,11 @@
             <div class="cart-actions">
                 <button class="btn-checkout" id="checkout-button">Mua hàng</button>
             </div>
+            <!-- Form ẩn để hủy đơn hàng -->
+            <form id="cancel-order-form" action="{{ route('cancel.order') }}" method="POST" style="display: none;">
+                @csrf
+                <input type="hidden" name="order_id" value="{{ $order->order_id }}">
+            </form>
         @endif
     </div>
 @endsection
@@ -125,8 +130,11 @@
                 cancelButtonText: 'Hủy'
             }).then((result) => {
                 if (result.isConfirmed) {
-                    // Redirect to checkout route
+                    // Nếu xác nhận, chuyển đến trang thanh toán
                     window.location.href = '{{ route("checkout") }}';
+                } else {
+                    // Nếu hủy, gửi yêu cầu hủy đơn hàng
+                    document.getElementById('cancel-order-form').submit();
                 }
             });
         });

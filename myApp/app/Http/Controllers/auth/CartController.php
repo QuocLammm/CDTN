@@ -5,12 +5,14 @@ namespace App\Http\Controllers\auth;
 use App\Http\Controllers\Controller;
 use App\Models\Cart;
 use App\Models\CartItem;
+use App\Models\Notification;
 use App\Models\Order;
 use App\Models\OrderItem;
 use App\Models\Product;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Http;
 
 class CartController extends Controller
 {
@@ -74,13 +76,13 @@ class CartController extends Controller
     {
         $userId = Auth::id();
         $cart = Cart::where('user_id', $userId)->first();
-
+        $order = Order::where('user_id', $userId)->first();
         if (!$cart) {
             return view('homepages.auth.cart', ['items' => collect()]);
         }
 
         $cartItems = $cart->items()->with('product')->get();
-        return view('homepages.auth.cart', compact('cartItems'));
+        return view('homepages.auth.cart', compact('cartItems','order'));
     }
 
 
@@ -170,7 +172,7 @@ class CartController extends Controller
         $order = Order::create([
             'user_id' => $userId,
             'total_amount' => $total,
-            'status' => 'pending', // Hoặc trạng thái bạn muốn
+            'status' => 'pending',
         ]);
 
         // Lưu các mục đơn hàng
@@ -186,8 +188,50 @@ class CartController extends Controller
         // Xóa giỏ hàng sau khi thanh toán
         $cartItems->each->delete();
 
-        // Redirect đến trang thanh toán thành công
+        $beamsInstanceId = '573a3ca7-cef7-4741-b7d9-4c46d4925a47';
+        Http::withHeaders([
+            'Authorization' => 'Bearer ' . env('PRIMARY_KEY'),
+            'Content-Type' => 'application/json',
+        ])->post("https://{$beamsInstanceId}.pushnotifications.pusher.com/publish_api/v1/instances/{$beamsInstanceId}/publishes/interests", [
+            'interests' => ['orders'],
+            'web' => [
+                'notification' => [
+                    'title' => 'Đơn hàng mới!',
+                    'body' => 'Có đơn hàng mới từ khách hàng.',
+                    'deep_link' => route('show-order.index'),
+                ]
+            ]
+        ]);
+
+        // Lưu thông báo vào cơ sở dữ liệu
+        Notification::create([
+            'user_id' => $userId,
+            'content' => 'Đơn hàng mã #' . $order->order_id . ' đã được tạo thành công.',
+            'status' => 0, // chưa đọc
+        ]);
+
+
         return redirect()->route('homepage')->with('success', 'Thanh toán thành công! Cảm ơn bạn đã mua sắm.');
+    }
+
+    // Hủy đơn hàng
+    public function cancelOrder(Request $request)
+    {
+        $userId = Auth::id();
+        $orderId = $request->input('order_id');
+
+        // Tìm đơn hàng theo ID và người dùng
+        $order = Order::where('order_id', $orderId)->where('user_id', $userId)->where('status', 'pending')->first();
+
+        if ($order) {
+            $order->status = 'cancelled';
+            $order->save();
+
+            // Giữ nguyên sản phẩm trong giỏ hàng
+            return redirect()->route('cart.cart')->with('success', 'Đơn hàng đã được hủy thành công.');
+        }
+
+        return redirect()->route('cart.cart')->with('error', 'Không tìm thấy đơn hàng nào để hủy.');
     }
 
 }

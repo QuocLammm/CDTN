@@ -1,0 +1,33 @@
+@extends('layouts.app') {{-- hoặc layout bạn đang dùng --}}
+
+@section('content')
+    <div class="container mt-4">
+        <h3>Lịch sử thông báo</h3>
+
+        @if($notifications->isEmpty())
+            <p>Không có thông báo nào.</p>
+        @else
+            <ul class="list-group">
+                @foreach($notifications as $notification)
+                    <li class="list-group-item d-flex justify-content-between align-items-center">
+                        <div>
+                            <strong>{{ $notification->user->full_name ?? 'Hệ thống' }}</strong>:
+                            {{ $notification->content }}
+                            <br>
+                            <small class="text-muted">{{ $notification->created_at->diffForHumans() }}</small>
+                        </div>
+                        @if($notification->status == 0)
+                            <span class="badge bg-warning text-dark">Chưa đọc</span>
+                        @else
+                            <span class="badge bg-success">Đã đọc</span>
+                        @endif
+                    </li>
+                @endforeach
+            </ul>
+
+            <div class="mt-3">
+                {{ $notifications->links() }} {{-- phân trang --}}
+            </div>
+        @endif
+    </div>
+@endsection
