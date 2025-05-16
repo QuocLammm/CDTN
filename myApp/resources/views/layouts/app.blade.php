@@ -13,6 +13,7 @@
     <title>
         TrucDoanPham
     </title>
+    <meta name="csrf-token" content="{{ csrf_token() }}">
     <!--     Fonts and icons     -->
     <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700" rel="stylesheet"/>
     <!-- Nucleo Icons -->
@@ -29,10 +30,7 @@
     <!-- Thêm CSS cho Pickr -->
     <link href="https://cdn.jsdelivr.net/npm/@simonwep/pickr/dist/themes/classic.min.css" rel="stylesheet" />
 
-
-
     <link href="{{ asset('/assets/css/homepage/style.css')}}" rel="stylesheet"/>
-
     @stack('css')
 </head>
 
@@ -79,6 +77,45 @@
         .then(() => beamsClient.addDeviceInterest('orders'))
         .then(() => console.log('Successfully registered and subscribed!'))
         .catch(console.error);
+</script>
+<!-- Xử lý readtime header notification-->
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script>
+    $(document).ready(function() {
+        function fetchNotifications() {
+            $.ajax({
+                url: '/api/notifications',
+                method: 'GET',
+                success: function(data) {
+                    $('#notification-count').text(data.count).toggle(data.count > 0);
+                    $('.dropdown-menu').empty();
+
+                    if(data.notifications.length === 0) {
+                        $('.dropdown-menu').append('<li class="dropdown-item">Không có thông báo nào.</li>');
+                    } else {
+                        data.notifications.forEach(function(notification, index) {
+                            if(index < 3) { // Hiển thị chỉ 3 thông báo
+                                $('.dropdown-menu').append(`
+                                <li class="dropdown-item">
+                                    <strong>Đơn hàng #${notification.order_id}</strong><br>
+                                    <small class="text-muted">${notification.created_at}</small>
+                                </li>
+                                <li><hr class="dropdown-divider"></li>
+                            `);
+                            }
+                        });
+                        $('.dropdown-menu').append('<li class="dropdown-item text-center"><a href="{{ route("show-notification.index") }}">Xem lịch sử thông báo</a></li>');
+                    }
+                }
+            });
+        }
+
+        $('#dropdownMenuButton').on('click', function() {
+            fetchNotifications();
+        });
+
+        setInterval(fetchNotifications, 2000); // 30 giây
+    });
 </script>
 @stack('js')
 

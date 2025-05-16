@@ -1,4 +1,4 @@
-@extends('layouts.app') {{-- hoặc layout bạn đang dùng --}}
+@extends('layouts.app')
 
 @section('content')
     <div class="container mt-4">
@@ -25,8 +25,8 @@
                 @endforeach
             </ul>
 
-            <div class="mt-3">
-                {{ $notifications->links() }} {{-- phân trang --}}
+            <div class="mt-3 d-flex justify-content-center">
+                {{ $notifications->links('vendor.pagination.bootstrap-4') }} {{-- Phân trang với Bootstrap 4 --}}
             </div>
         @endif
     </div>

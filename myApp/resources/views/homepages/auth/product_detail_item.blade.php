@@ -18,7 +18,7 @@
                 <div class="product-description">
                     {{ $product->description ?? 'Không có mô tả sản phẩm.' }}
                 </div>
-                <a href="#" class="buy-button">Mua ngay</a>
+                <a href="{{ route('buy.now', $product->product_id) }}" class="buy-button">Mua ngay</a>
                 <form action="{{ route('cart.add', $product->product_id) }}" method="POST" style="display: inline;">
                     @csrf
                     <button type="submit" class="add-to-cart-button">Thêm vào giỏ hàng</button>

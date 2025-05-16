@@ -14,7 +14,9 @@ use App\Http\Controllers\auth\CartController;
 use App\Http\Controllers\auth\HomePageController;
 use App\Http\Controllers\auth\LoginController;
 use App\Http\Controllers\DashboardController;
+use App\Models\Notification;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Response;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\admin\VNPayController;
 
@@ -40,7 +42,8 @@ Route::middleware('auth')->group(function () {
     Route::get('/cart', [CartController::class, 'showCart'])->name('cart.cart');
     Route::post('/add-to-cart/{id}', [CartController::class, 'addToCart'])->name('cart.add');
     Route::delete('/cart/{id}', [CartController::class, 'remove'])->name('cart.remove');
-    Route::get('/checkout', [CartController::class, 'checkout'])->name('checkout');
+    Route::get('/checkout', [CartController::class, 'checkout'])->name('checkout'); // Mua trong giỏ hàng
+    Route::get('/buy-now/{id}', [CartController::class, 'buyNow'])->name('buy.now'); // Mua ngay trong chi tiết sản phẩm
     Route::post('/cancel-order', [CartController::class, 'cancelOrder'])->name('cancel.order');
     // Tìm kiểm sản phẩm
     Route::get('/search', [ProductController::class, 'search'])->name('product.search');
@@ -108,6 +111,15 @@ Route::middleware('auth')->prefix('admin')->group(function () {
 
     // Thông báo
     Route::resource('/notification', NotificationController::class)->names('show-notification');
+    Route::get('/notification/unread-count', function () {
+        $userId = Auth::id();
+
+        $count = \App\Models\Notification::where('status', 0)
+            ->where('user_id', $userId)
+            ->count();
+
+        return response()->json(['count' => $count]);
+    });
 
 // Route cho việc hiển thị các sản phẩm và thực hiện thanh toán (GET)
     Route::get('/vnpay', [VNPayController::class, 'showPaymentPage'])->name('vnpay.payment.product');
@@ -122,5 +134,17 @@ Route::middleware('auth')->prefix('admin')->group(function () {
     Route::get('/vnpay/failure', [VNPayController::class, 'paymentFailure'])->name('vnpay.failure');
 });
 
+// API đếm số thông báo
+Route::get('/api/notifications', function () {
+    $notifications = Notification::with('user.orders') // Lấy thông tin user và orders
+    ->latest()
+        ->take(3)
+        ->get();
 
+    $pendingOrdersCount = Notification::where('status', 0)->count(); // Đếm số thông báo chưa đọc
 
+    return response()->json([
+        'count' => $pendingOrdersCount,
+        'notifications' => $notifications,
+    ]);
+});

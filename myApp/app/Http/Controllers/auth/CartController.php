@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\auth;
 
+use App\Events\OrderCreated;
 use App\Http\Controllers\Controller;
 use App\Models\Cart;
 use App\Models\CartItem;
@@ -154,7 +155,7 @@ class CartController extends Controller
 
         // Nếu giỏ hàng trống
         if ($cartItems->isEmpty()) {
-            return redirect()->route('homepages.auth.cart')->with('error', 'Giỏ hàng của bạn trống. Vui lòng thêm sản phẩm trước khi thanh toán.');
+            return redirect()->route('cart.cart')->with('error', 'Giỏ hàng của bạn trống. Vui lòng thêm sản phẩm trước khi thanh toán.');
         }
 
         // Tính tổng tiền giỏ hàng
@@ -164,9 +165,10 @@ class CartController extends Controller
                 $total += $item->product->price * $item->quantity;
             } else {
                 // Xử lý trường hợp không có sản phẩm
-                return redirect()->route('homepages.auth.cart')->with('error', 'Một sản phẩm trong giỏ hàng không còn tồn tại.');
+                return redirect()->route('cart.cart')->with('error', 'Một sản phẩm trong giỏ hàng không còn tồn tại.');
             }
         }
+
 
         // Tạo bản ghi đơn hàng
         $order = Order::create([
@@ -184,6 +186,7 @@ class CartController extends Controller
                 'price' => $item->product->price,
             ]);
         }
+        event(new OrderCreated(auth()->id(), $order->order_id, now()));
 
         // Xóa giỏ hàng sau khi thanh toán
         $cartItems->each->delete();
@@ -213,6 +216,31 @@ class CartController extends Controller
 
         return redirect()->route('homepage')->with('success', 'Thanh toán thành công! Cảm ơn bạn đã mua sắm.');
     }
+
+    // Mua trong chi tiết sản phẩm
+    public function buyNow($productId)
+    {
+        $userId = Auth::id();
+
+        // Thêm sản phẩm vào giỏ hàng (hoặc tạo mới giỏ hàng)
+        $cart = Cart::firstOrCreate(['user_id' => $userId]);
+
+        // Thêm hoặc cập nhật số lượng sản phẩm trong giỏ hàng
+        $cartItem = $cart->items()->where('product_id', $productId)->first();
+        if ($cartItem) {
+            $cartItem->quantity += 1;
+            $cartItem->save();
+        } else {
+            $cart->items()->create([
+                'product_id' => $productId,
+                'quantity' => 1,
+            ]);
+        }
+
+        // Sau đó redirect thẳng đến checkout
+        return redirect()->route('checkout');
+    }
+
 
     // Hủy đơn hàng
     public function cancelOrder(Request $request)

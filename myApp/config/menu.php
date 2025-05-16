@@ -49,6 +49,12 @@ return [
                 'permission' => 'order.view',
             ],
             [
+                'title' => 'Thông báo',
+                'route' => 'show-notification.index',
+                'icon' => 'fas fa-bell text-dark',
+                'permission' => 'notification.view',
+            ],
+            [
                 'title' => 'Khuyến mãi',
                 'route' => 'show-sale.index',
                 'icon' => 'ni ni-tag text-dark',
@@ -72,6 +78,7 @@ return [
                 'icon' => 'ni ni-button-power text-danger',
 
             ],
+
 
 //            [
 //                'title' => 'Thanh toán',

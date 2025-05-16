@@ -46,4 +46,9 @@ class User extends Authenticatable
     public function hasRole($role) {
         return $this->role_name === $role;
     }
+
+    public function orders()
+    {
+        return $this->hasMany(Order::class, 'user_id'); // Mối quan hệ với bảng orders
+    }
 }
