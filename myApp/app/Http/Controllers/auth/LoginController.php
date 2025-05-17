@@ -69,19 +69,25 @@ class LoginController extends Controller
 
     //Logout
     public function logout(Request $request) {
+        // Lấy role_id trước khi logout
+        $roleId = $request->user() ? $request->user()->role_id : null;
+
         Auth::logout();
         $request->session()->invalidate();
         $request->session()->regenerateToken();
 
-        // Kiểm tra vai trò của người dùng
-        if ($request->user()) {
-            if ($request->user()->hasRole('Admin') || $request->user()->hasRole('Staff')) {
-                return redirect()->route('login'); // Redirect đến trang đăng nhập cho admin và staff
-            }
+        if ($roleId === 1 || $roleId === 3) {
+            // Admin hoặc Staff
+            return redirect()->route('login');
+        } elseif ($roleId === 2) {
+            // User thường
+            return redirect()->route('homepage');
         }
 
-        return redirect()->route('homepage'); // Redirect đến trang chủ cho user thường
+        // Mặc định redirect homepage nếu không xác định được role
+        return redirect()->route('homepage');
     }
+
 
 
     // Login in Google

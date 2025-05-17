@@ -8,6 +8,7 @@ use App\Models\Permission;
 use App\Models\Role;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Str;
 
@@ -76,11 +77,42 @@ class UserController extends Controller
         }
 
         try {
-            User::create($data);
+            $user = User::create($data);
+
+            // Xử lý gán quyền sau khi tạo user
+            if ($user) {
+                if ($user->role_id == 1) {
+                    // Full quyền: lấy tất cả permission
+                    $permissionIds = DB::table('permissions')->pluck('permission_id')->toArray();
+                } elseif ($user->role_id == 3) {
+                    // Bỏ quyền 5,8
+                    $permissionIds = DB::table('permissions')
+                        ->whereNotIn('permission_id', [5, 8])
+                        ->pluck('permission_id')
+                        ->toArray();
+                } else {
+                    // Nếu role_id khác thì không gán quyền (hoặc gán quyền mặc định)
+                    $permissionIds = [];
+                }
+
+                // Gán quyền cho user
+                $dataInsert = [];
+                foreach ($permissionIds as $permissionId) {
+                    $dataInsert[] = [
+                        'user_id' => $user->user_id,
+                        'permission_id' => $permissionId,
+                    ];
+                }
+                if (!empty($dataInsert)) {
+                    DB::table('permission_user')->insert($dataInsert);
+                }
+            }
+
             return redirect()->route('show-staff.index')->with('success', 'Thêm nhân viên thành công!');
+
         } catch (\Exception $e) {
             return back()->withErrors('Có lỗi xảy ra: ' . $e->getMessage())
-                        ->withInput($request->except('password')); // Giữ lại dữ liệu đã nhập
+                ->withInput($request->except('password'));
         }
     }
 

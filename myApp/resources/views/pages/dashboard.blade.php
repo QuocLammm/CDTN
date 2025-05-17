@@ -207,135 +207,50 @@
                     <div class="table-responsive">
                         <table class="table align-items-center ">
                             <tbody>
-                            <tr>
-                                <td class="w-30">
-                                    <div class="d-flex px-2 py-1 align-items-center">
-                                        <div>
-                                            <img src="./img/icons/flags/US.png" alt="Ảnh nhân viên">
-                                        </div>
-                                        <div class="ms-4">
-                                            <p class="text-xs font-weight-bold mb-0">Nhân viên:</p>
-                                            <h6 class="text-sm mb-0">Cao Nguyễn Quốc Lâm</h6>
-                                        </div>
-                                    </div>
-                                </td>
-                                <td>
-                                    <div class="text-center">
-                                        <p class="text-xs font-weight-bold mb-0">Đã bán:</p>
-                                        <h6 class="text-sm mb-0">2500</h6>
-                                    </div>
-                                </td>
-                                <td>
-                                    <div class="text-center">
-                                        <p class="text-xs font-weight-bold mb-0">Doanh thu:</p>
-                                        <h6 class="text-sm mb-0">$230,900</h6>
-                                    </div>
-                                </td>
-                                <td class="align-middle text-sm">
+                            @foreach($revenuePerStaff as $item)
+                                <tr>
+                                    <td class="w-30">
+                                        <div class="d-flex px-2 py-1 align-items-center">
+                                            <div>
+                                                <img src="{{ asset($item->staff->image ?? 'default.png') }}" alt="Ảnh nhân viên" style="width: 50px; height: 50px; object-fit: cover; border-radius: 8px;">
+                                            </div>
 
-                                    <div class="col text-center">
-                                        <p class="text-xs font-weight-bold mb-0">Tăng/Giảm</p>
-                                        <i class="fa fa-arrow-up text-success"></i>
-                                        <h6 class="text-sm mb-0">+29.9%</h6>
-                                    </div>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td class="w-30">
-                                    <div class="d-flex px-2 py-1 align-items-center">
-                                        <div>
-                                            <img src="./img/icons/flags/DE.png" alt="Country flag">
+                                            <div class="ms-4">
+                                                <p class="text-xs font-weight-bold mb-0">Nhân viên:</p>
+                                                <h6 class="text-sm mb-0">{{ $item->staff->full_name }}</h6>
+                                            </div>
                                         </div>
-                                        <div class="ms-4">
-                                            <p class="text-xs font-weight-bold mb-0">Nhân viên:</p>
-                                            <h6 class="text-sm mb-0">Germany</h6>
+                                    </td>
+                                    <td>
+                                        <div class="text-center">
+                                            <p class="text-xs font-weight-bold mb-0">Đã bán:</p>
+                                            <h6 class="text-sm mb-0">{{ $item->orders_count }}</h6>
                                         </div>
-                                    </div>
-                                </td>
-                                <td>
-                                    <div class="text-center">
-                                        <p class="text-xs font-weight-bold mb-0">Đã bán:</p>
-                                        <h6 class="text-sm mb-0">3.900</h6>
-                                    </div>
-                                </td>
-                                <td>
-                                    <div class="text-center">
-                                        <p class="text-xs font-weight-bold mb-0">Doanh thu:</p>
-                                        <h6 class="text-sm mb-0">$440,000</h6>
-                                    </div>
-                                </td>
-                                <td class="align-middle text-sm">
-                                    <div class="col text-center">
-                                        <p class="text-xs font-weight-bold mb-0">Tăng/Giảm</p>
-                                        <i class="fa fa-arrow-up text-success"></i>
-                                        <h6 class="text-sm mb-0">40.22%</h6>
-                                    </div>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td class="w-30">
-                                    <div class="d-flex px-2 py-1 align-items-center">
-                                        <div>
-                                            <img src="./img/icons/flags/GB.png" alt="Country flag">
+                                    </td>
+                                    <td>
+                                        <div class="text-center">
+                                            <p class="text-xs font-weight-bold mb-0">Doanh thu:</p>
+                                            <h6 class="text-sm mb-0">{{ number_format($item->total_revenue, 2) }} vnđ</h6>
                                         </div>
-                                        <div class="ms-4">
-                                            <p class="text-xs font-weight-bold mb-0">Nhân viên:</p>
-                                            <h6 class="text-sm mb-0">Great Britain</h6>
+                                    </td>
+                                    <td class="align-middle text-sm">
+                                        <div class="col text-center">
+                                            <p class="text-xs font-weight-bold mb-0">Tăng/Giảm</p>
+                                            @if (!is_null($item->change_percent))
+                                                @if ($item->change_percent >= 0)
+                                                    <i class="fa fa-arrow-up text-success"></i>
+                                                    <h6 class="text-sm mb-0">+{{ $item->change_percent }}%</h6>
+                                                @else
+                                                    <i class="fa fa-arrow-down text-danger"></i>
+                                                    <h6 class="text-sm mb-0">{{ $item->change_percent }}%</h6>
+                                                @endif
+                                            @else
+                                                <h6 class="text-sm mb-0">Không có dữ liệu</h6>
+                                            @endif
                                         </div>
-                                    </div>
-                                </td>
-                                <td>
-                                    <div class="text-center">
-                                        <p class="text-xs font-weight-bold mb-0">Đã bán:</p>
-                                        <h6 class="text-sm mb-0">1.400</h6>
-                                    </div>
-                                </td>
-                                <td>
-                                    <div class="text-center">
-                                        <p class="text-xs font-weight-bold mb-0">Danh thu:</p>
-                                        <h6 class="text-sm mb-0">$190,700</h6>
-                                    </div>
-                                </td>
-                                <td class="align-middle text-sm">
-                                    <div class="col text-center">
-                                        <p class="text-xs font-weight-bold mb-0">Tăng/Giảm</p>
-                                        <i class="fa fa-arrow-up text-success"></i>
-                                        <h6 class="text-sm mb-0">23.44%</h6>
-                                    </div>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td class="w-30">
-                                    <div class="d-flex px-2 py-1 align-items-center">
-                                        <div>
-                                            <img src="./img/icons/flags/BR.png" alt="Country flag">
-                                        </div>
-                                        <div class="ms-4">
-                                            <p class="text-xs font-weight-bold mb-0">Nhân viên:</p>
-                                            <h6 class="text-sm mb-0">Brasil</h6>
-                                        </div>
-                                    </div>
-                                </td>
-                                <td>
-                                    <div class="text-center">
-                                        <p class="text-xs font-weight-bold mb-0">Đã bán:</p>
-                                        <h6 class="text-sm mb-0">562</h6>
-                                    </div>
-                                </td>
-                                <td>
-                                    <div class="text-center">
-                                        <p class="text-xs font-weight-bold mb-0">Doanh thu:</p>
-                                        <h6 class="text-sm mb-0">$143,960</h6>
-                                    </div>
-                                </td>
-                                <td class="align-middle text-sm">
-                                    <div class="col text-center">
-                                        <p class="text-xs font-weight-bold mb-0">Tăng/Giảm</p>
-                                        <i class="fa fa-arrow-up text-success"></i>
-                                        <h6 class="text-sm mb-0">32.14%</h6>
-                                    </div>
-                                </td>
-                            </tr>
+                                    </td>
+                                </tr>
+                            @endforeach
                             </tbody>
                         </table>
                     </div>

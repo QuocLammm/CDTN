@@ -3,11 +3,14 @@
 namespace App\Http\Controllers\admin;
 
 use App\Http\Controllers\Controller;
+use App\Mail\OrderReadyMail;
 use App\Models\Notification;
 use App\Models\Order;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\Mail;
 
 class OrderController extends Controller
 {
@@ -26,6 +29,7 @@ class OrderController extends Controller
         $order = Order::find($id);
         if ($order) {
             $order->status = 'Success';
+            $order->staff_id = Auth::id();
             $order->save();
 
             // Gửi thông báo cho người dùng
@@ -50,7 +54,7 @@ class OrderController extends Controller
                 'notification' => [
                     'title' => 'Đơn hàng đã sẵn sàng!',
                     'body' => 'Đơn hàng của bạn đã sẵn sàng tại quầy.',
-                    'deep_link' => route('show-order.index'),
+                    'deep_link' => route('homepage'),
                 ]
             ]
         ]);
@@ -63,8 +67,7 @@ class OrderController extends Controller
                 'content' => 'Đơn hàng mã #' . $order->order_id . ' đã được sẵn sàng tại quầy.',
                 'status' => 1,
             ]);
-
-
+        Mail::to($user->email)->send(new OrderReadyMail($order));
     }
 
     public function show($id)

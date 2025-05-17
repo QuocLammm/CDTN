@@ -27,7 +27,7 @@ class Role_PermissionSeeder extends Seeder
                 'permission_id' => $permissionId,
             ];
 
-            // Gán quyền cho role_id = 2, bỏ qua các quyền ko được
+            // Gán quyền cho role_id = 3, bỏ qua các quyền ko được
             if (!in_array($permissionId, $excludedPermissionsForRole2)) {
                 $rolePermissions[] = [
                     'role_id' => 3,

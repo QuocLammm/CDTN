@@ -41,7 +41,8 @@ return [
         'feedback.view',
         'feedback.reply',
         'pay.payment',
-        'home.homepage'
+        'home.homepage',
+        'sale.view'
 
     ],
     'Description' =>[
@@ -86,5 +87,6 @@ return [
         'Phản hồi lại đánh giá của khách hàng',
         'Thanh toán',
         'Trang chủ',
+        'Khuyến mãi'
     ]
 ];

@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Notification;
 use App\Models\Order;
+use App\Models\User;
 use App\Models\ViewPage;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
@@ -124,6 +125,54 @@ class DashboardController extends Controller
             $percentChange = 0;
         }
 
+        // Doanh thu theo 4 nhân viên cao nhất
+        $now = Carbon::now();
+        $currentMonth = $now->format('m');
+        $lastMonth = $now->copy()->subMonth()->format('m');
+
+        // Doanh thu tháng hiện tại
+        $currentRevenue = DB::table('orders')
+            ->where('status', 'Success')
+            ->whereMonth('created_at', $currentMonth)
+            ->select('staff_id',DB::raw('COUNT(*) as orders_count'), DB::raw('SUM(total_amount) as total_revenue'))
+            ->groupBy('staff_id')
+            ->orderByDesc('total_revenue')
+            ->limit(4)
+            ->get();
+
+        // Lấy danh sách staff_id
+        $staffIds = $currentRevenue->pluck('staff_id')->toArray();
+
+        // Doanh thu tháng trước
+        $lastRevenue = DB::table('orders')
+            ->where('status', 'Success')
+            ->whereMonth('created_at', $lastMonth)
+            ->whereIn('staff_id', $staffIds)
+            ->select('staff_id', DB::raw('COUNT(*) as orders_count'),DB::raw('SUM(total_amount) as total_revenue'))
+            ->groupBy('staff_id')
+            ->get()
+            ->keyBy('staff_id');
+
+        // Lấy thông tin nhân viên
+        $staffs = User::whereIn('user_id', $staffIds)->get()->keyBy('user_id');
+
+        // Gộp dữ liệu + tính % tăng/giảm
+        $revenuePerStaff = $currentRevenue->map(function ($item) use ($lastRevenue, $staffs) {
+            $last = $lastRevenue->get($item->staff_id);
+            $lastAmount = $last ? $last->total_revenue : 0;
+
+            $changePercent = $lastAmount > 0
+                ? round((($item->total_revenue - $lastAmount) / $lastAmount) * 100, 2)
+                : null;
+
+            $item->change_percent = $changePercent;
+            $item->staff = $staffs->get($item->staff_id);
+
+            return $item;
+        });
+
+
+
 
         return view('pages.dashboard', compact(
             'doanhThuHomNay',
@@ -134,7 +183,8 @@ class DashboardController extends Controller
             'percentChange',
             'data',
             'percentChange',
-            'year'
+            'year',
+            'revenuePerStaff'
         ));
     }
 
