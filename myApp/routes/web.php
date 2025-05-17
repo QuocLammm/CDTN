@@ -15,6 +15,9 @@ use App\Http\Controllers\auth\HomePageController;
 use App\Http\Controllers\auth\LoginController;
 use App\Http\Controllers\DashboardController;
 use App\Models\Notification;
+use App\Models\Order;
+use App\Models\View;
+use Carbon\Carbon;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Response;
 use Illuminate\Support\Facades\Route;
@@ -149,4 +152,70 @@ Route::get('/api/notifications', function () {
     ]);
 });
 
+// API 4 card dashboard
+Route::get('/dashboard-data', function () {
+    // Card - 1: Doanh thu hôm nay và phần trăm thay đổi
+    $doanhThuHomNay = Order::whereDate('created_at', Carbon::today())
+        ->where('status', 'Success')
+        ->sum('total_amount');
+
+    $doanhThuHomQua = Order::whereDate('created_at', Carbon::yesterday())
+        ->where('status', 'Success')
+        ->sum('total_amount');
+
+    if ($doanhThuHomQua > 0) {
+        $phanTramThayDoi = (($doanhThuHomNay - $doanhThuHomQua) / $doanhThuHomQua) * 100;
+    } else {
+        $phanTramThayDoi = $doanhThuHomNay > 0 ? 100 : 0;
+    }
+
+    // Card - 3: Lượng truy cập hôm nay + phần trăm thay đổi tháng
+    $today = Carbon::today()->toDateString();
+
+    $todayViews = View::where('view_date', $today)->value('total_views') ?? 0;
+
+    $currentMonthViews = View::whereYear('view_date', Carbon::now()->year)
+        ->whereMonth('view_date', Carbon::now()->month)
+        ->sum('total_views');
+
+    $previousMonthViews = View::whereYear('view_date', Carbon::now()->subMonth()->year)
+        ->whereMonth('view_date', Carbon::now()->subMonth()->month)
+        ->sum('total_views');
+
+    if ($previousMonthViews == 0) {
+        $percentChange = $currentMonthViews > 0 ? 100 : 0;
+    } else {
+        $percentChange = (($currentMonthViews - $previousMonthViews) / $previousMonthViews) * 100;
+    }
+
+    // Card - 4: Đơn hàng tháng này + phần trăm thay đổi
+    $donHangThangNay = Order::whereMonth('created_at', Carbon::now()->month)
+        ->whereYear('created_at', Carbon::now()->year)
+        ->count();
+
+    $donHangThangTruoc = Order::whereMonth('created_at', Carbon::now()->subMonth()->month)
+        ->whereYear('created_at', Carbon::now()->subMonth()->year)
+        ->count();
+
+    if ($donHangThangTruoc > 0) {
+        $phanTramDonHang = (($donHangThangNay - $donHangThangTruoc) / $donHangThangTruoc) * 100;
+    } else {
+        $phanTramDonHang = $donHangThangNay > 0 ? 100 : 0;
+    }
+
+    return response()->json([
+        'doanhThuHomNay' => $doanhThuHomNay,
+        'phanTramThayDoi' => round($phanTramThayDoi, 1),
+
+        'todayViews' => $todayViews,
+        'percentChangeViews' => round($percentChange, 1),
+
+        'donHangThangNay' => $donHangThangNay,
+        'phanTramDonHang' => round($phanTramDonHang, 1),
+    ]);
+});
+
+
+
+// Done hàng cho khách
 Route::post('/orders/{id}/done', [OrderController::class, 'markAsDone']);

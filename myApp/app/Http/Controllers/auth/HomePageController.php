@@ -7,6 +7,8 @@ use App\Http\Requests\homepage\ProfileRequest;
 use App\Models\Category;
 use App\Models\Product;
 use App\Models\User;
+use App\Models\View;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 
 class HomePageController extends Controller
@@ -27,6 +29,17 @@ class HomePageController extends Controller
         $products = Product::all();
         $categories = Category::with(['products.images'])->get();
 
+        // Lượt truy cập web
+        $today = Carbon::today()->toDateString();
+        // Nếu chưa có bản ghi hôm nay thì tạo, nếu có thì lấy ra
+        if (!session()->has('view_counted_today')) {
+            $view = View::firstOrCreate(
+                ['view_date' => $today],
+                ['total_views' => 0]
+            );
+            $view->increment('total_views');
+            session(['view_counted_today' => true]);
+        }
         // Trả dữ liệu sang view
         return view('homepages.homepage', compact('categories','products','sportShoes','girlShoes','girlDep'));
     }

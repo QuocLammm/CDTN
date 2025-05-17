@@ -78,17 +78,6 @@
         .then(() => console.log('Successfully registered and subscribed!'))
         .catch(console.error);
 </script>
-<!-- Admin Push Notification -->
-{{--<script>--}}
-{{--    // user_id lấy từ backend (ví dụ Laravel blade hoặc inject vào JS)--}}
-{{--    const userId = "{{ auth()->user()->user_id }}"; // Giả sử bạn dùng auth()--}}
-
-{{--    beamsClient.start()--}}
-{{--        .then(() => beamsClient.addDeviceInterest('user_' + userId))--}}
-{{--        .then(() => console.log('Subscribed to user interest: user_' + userId))--}}
-{{--        .catch(console.error);--}}
-{{--</script>--}}
-
 <!-- Xử lý readtime header notification-->
 <script>
     $(document).ready(function() {
@@ -125,6 +114,26 @@
         });
 
         setInterval(fetchNotifications, 2000); // 30 giây
+    });
+</script>
+<!--Realtime cho Views-->
+<script>
+    function loadDashboardData() {
+        $.getJSON('/dashboard-data', function(data) {
+            $('#doanhThuHomNay').text(new Intl.NumberFormat().format(data.doanhThuHomNay));
+            $('#phanTramThayDoi').text(data.phanTramThayDoi + '%');
+
+            $('#todayViews').text(new Intl.NumberFormat().format(data.todayViews));
+            $('#percentChangeViews').text(data.percentChangeViews + '%');
+
+            $('#donHangThangNay').text(data.donHangThangNay);
+            $('#phanTramDonHang').text(data.phanTramDonHang + '%');
+        });
+    }
+
+    $(document).ready(function() {
+        loadDashboardData(); // lần đầu
+        setInterval(loadDashboardData, 2000); // cập nhật mỗi 60s
     });
 </script>
 @stack('js')
