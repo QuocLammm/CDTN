@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <!-- Thêm favicon -->
-    <link rel="icon" href="path_to_your_favicon.ico" type="image/x-icon">
+    <link rel="icon" href="{{asset('assets/img/admin/favicon.ico')}}">
     <link href="{{asset('assets/img/favicon.png')}}" rel="icon">
     <link href="{{asset('assets/img/apple-touch-icon.png')}}" rel="apple-touch-icon">
     <meta name="csrf-token" content="{{ csrf_token() }}">

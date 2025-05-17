@@ -4,9 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Đăng Nhập | Cửa Hàng Giày Dép</title>
-
     <!-- Thêm favicon -->
-    <link rel="icon" href="path_to_your_favicon.ico" type="image/x-icon">
+    <link rel="icon" href="{{asset('assets/img/admin/favicon.ico')}}" type="image/x-icon">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css" crossorigin="anonymous" />
     <link rel="stylesheet" href="{{ asset('/assets/css/login/style.css') }}">
 </head>
