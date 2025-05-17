@@ -12,7 +12,8 @@
         </a>
     </div>
     <hr class="horizontal dark mt-0">
-    <div class="collapse navbar-collapse w-auto" id="sidenav-collapse-main">
+{{--    class="collapse navbar-collapse w-auto"--}}
+    <div id="sidenav-collapse-main">
         <ul class="navbar-nav">
             @foreach ($menus as $menu)
                 @php

@@ -148,3 +148,5 @@ Route::get('/api/notifications', function () {
         'notifications' => $notifications,
     ]);
 });
+
+Route::post('/orders/{id}/done', [OrderController::class, 'markAsDone']);

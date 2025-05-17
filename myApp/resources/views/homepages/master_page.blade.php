@@ -7,6 +7,7 @@
     <link rel="icon" href="path_to_your_favicon.ico" type="image/x-icon">
     <link href="{{asset('assets/img/favicon.png')}}" rel="icon">
     <link href="{{asset('assets/img/apple-touch-icon.png')}}" rel="apple-touch-icon">
+    <meta name="csrf-token" content="{{ csrf_token() }}">
     <!-- Fonts -->
     <link href="https://fonts.googleapis.com" rel="preconnect">
     <link href="https://fonts.gstatic.com" rel="preconnect" crossorigin>
@@ -62,6 +63,24 @@
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 <!-- Main JS File -->
 <script src="{{asset('assets/js/main.js')}}"></script>
+<!-- Beams Notification-->
+<script src="https://js.pusher.com/beams/2.1.0/push-notifications-cdn.js"></script>
+<script>
+    const user_id = "{{ auth()->check() ? auth()->user()->user_id : '' }}";
+
+    const beamsClient = new PusherPushNotifications.Client({
+        instanceId: '573a3ca7-cef7-4741-b7d9-4c46d4925a47',
+    });
+
+    beamsClient.start()
+        .then(() => {
+            if (user_id) {
+                beamsClient.addDeviceInterest(`user_${user_id}`);
+            }
+        })
+        .catch(console.error);
+</script>
+
 @stack('js')
 </body>
 </html>

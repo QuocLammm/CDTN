@@ -78,8 +78,18 @@
         .then(() => console.log('Successfully registered and subscribed!'))
         .catch(console.error);
 </script>
+<!-- Admin Push Notification -->
+{{--<script>--}}
+{{--    // user_id lấy từ backend (ví dụ Laravel blade hoặc inject vào JS)--}}
+{{--    const userId = "{{ auth()->user()->user_id }}"; // Giả sử bạn dùng auth()--}}
+
+{{--    beamsClient.start()--}}
+{{--        .then(() => beamsClient.addDeviceInterest('user_' + userId))--}}
+{{--        .then(() => console.log('Subscribed to user interest: user_' + userId))--}}
+{{--        .catch(console.error);--}}
+{{--</script>--}}
+
 <!-- Xử lý readtime header notification-->
-<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script>
     $(document).ready(function() {
         function fetchNotifications() {

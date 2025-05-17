@@ -8,7 +8,6 @@
                 <div class="card-header d-flex justify-content-between align-items-center pb-0">
                     <div class="d-flex flex-column align-items-start">
                         <h5 class="mb-0">Danh sách đặt hàng</h5>
-{{--                        <a href="{{ route('show-category.create') }}" class="btn btn-primary">Thêm danh mục sản phẩm</a>--}}
                     </div>
                 </div>
                 <div class="card-body">
@@ -45,8 +44,7 @@
                                         @endif
                                     </td>
                                     <td>
-                                        {{--<a href="{{ route('orders.show', $order->order_id) }}" class="btn btn-info">Xem</a>--}}
-                                        <!-- Thêm các thao tác khác nếu cần -->
+                                        <button class="btn btn-success btn-done" data-id="{{ $order->order_id }}">Done</button>
                                     </td>
                                 </tr>
                             @endforeach
@@ -60,7 +58,13 @@
 @endsection
 @push('js')
     <script>
+
         $(document).ready(function () {
+            $.ajaxSetup({
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                }
+            });
             $('#productTable').DataTable({
                 pageLength: 5,
                 lengthMenu: [5, 10, 25, 50, 100],
@@ -77,6 +81,34 @@
                     infoEmpty: "Không có dữ liệu",
                     infoFiltered: "(lọc từ _MAX_ mục)"
                 }
+            });
+
+            // Xử lý nút "Done"
+            $(document).on('click', '.btn-done', function () {
+                const orderId = $(this).data('id');
+
+                Swal.fire({
+                    title: 'Bạn có chắc chắn đã chuẩn bị xong hàng?',
+                    icon: 'warning',
+                    showCancelButton: true,
+                    confirmButtonText: 'Đồng ý',
+                    cancelButtonText: 'Hủy'
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        $.ajax({
+                            url: `/orders/${orderId}/done`,
+                            method: 'POST',
+
+                            success: function(response) {
+                                Swal.fire('Thành công!', 'Đơn hàng đã được cập nhật.', 'success');
+                                location.reload();
+                            },
+                            error: function(error) {
+                                Swal.fire('Lỗi!', 'Có lỗi xảy ra.', 'error');
+                            }
+                        });
+                    }
+                });
             });
         });
     </script>

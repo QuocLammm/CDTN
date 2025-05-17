@@ -119,11 +119,3 @@
 }
 
 
-#sidenav-main {
-    overflow: visible !important; /* Ngừng cuộn */
-    height: 100vh; /* Đảm bảo sidebar chiếm toàn bộ chiều cao màn hình */
-    position: fixed; /* Sidebar luôn cố định */
-    top: 0; /* Đảm bảo sidebar bắt đầu từ đầu trang */
-    left: 0; /* Đảm bảo sidebar ở bên trái */
-    bottom: 0; /* Sidebar không bị cuộn xuống dưới */
-}

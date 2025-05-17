@@ -40,6 +40,32 @@ class CategorySeeder extends Seeder
                 'description' => 'Boot cao cổ phong cách cá tính',
                 'status' => 1,
             ],
+            // Các loại giày nữ
+            [
+                'category_name' => 'Giày Cao Gót',
+                'description' => 'Giày cao gót thanh lịch cho phái đẹp',
+                'status' => 1,
+            ],
+            [
+                'category_name' => 'Giày Búp Bê',
+                'description' => 'Giày búp bê dễ thương và thoải mái',
+                'status' => 1,
+            ],
+            [
+                'category_name' => 'Giày Sandal',
+                'description' => 'Sandal thoáng mát cho mùa hè',
+                'status' => 1,
+            ],
+            [
+                'category_name' => 'Giày Đế Bằng',
+                'description' => 'Giày đế bằng tiện lợi cho mọi dịp',
+                'status' => 1,
+            ],
+            [
+                'category_name' => 'Giày Thể Thao Nữ',
+                'description' => 'Giày thể thao dành riêng cho nữ',
+                'status' => 1,
+            ],
         ];
 
         DB::table('categories')->insert($categories);

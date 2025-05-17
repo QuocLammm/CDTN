@@ -186,7 +186,7 @@ class CartController extends Controller
                 'price' => $item->product->price,
             ]);
         }
-        event(new OrderCreated(auth()->id(), $order->order_id, now()));
+//        event(new OrderCreated(auth()->id(), $order->order_id, now()));
 
         // Xóa giỏ hàng sau khi thanh toán
         $cartItems->each->delete();
