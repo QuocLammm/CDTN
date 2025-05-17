@@ -63,7 +63,7 @@ class ViewClearCommand extends Command
         $path = $this->laravel['config']['view.compiled'];
 
         if (! $path) {
-            throw new RuntimeException('View path not found.');
+            throw new RuntimeException('ViewPage path not found.');
         }
 
         foreach ($this->files->glob("{$path}/*") as $view) {

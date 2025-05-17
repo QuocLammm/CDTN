@@ -7,7 +7,7 @@ use App\Http\Requests\homepage\ProfileRequest;
 use App\Models\Category;
 use App\Models\Product;
 use App\Models\User;
-use App\Models\View;
+use App\Models\ViewPage;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 
@@ -33,7 +33,7 @@ class HomePageController extends Controller
         $today = Carbon::today()->toDateString();
         // Nếu chưa có bản ghi hôm nay thì tạo, nếu có thì lấy ra
         if (!session()->has('view_counted_today')) {
-            $view = View::firstOrCreate(
+            $view = ViewPage::firstOrCreate(
                 ['view_date' => $today],
                 ['total_views' => 0]
             );

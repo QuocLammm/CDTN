@@ -16,7 +16,7 @@ use App\Http\Controllers\auth\LoginController;
 use App\Http\Controllers\DashboardController;
 use App\Models\Notification;
 use App\Models\Order;
-use App\Models\View;
+use App\Models\ViewPage;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Response;
@@ -172,13 +172,13 @@ Route::get('/dashboard-data', function () {
     // Card - 3: Lượng truy cập hôm nay + phần trăm thay đổi tháng
     $today = Carbon::today()->toDateString();
 
-    $todayViews = View::where('view_date', $today)->value('total_views') ?? 0;
+    $todayViews = ViewPage::where('view_date', $today)->value('total_views') ?? 0;
 
-    $currentMonthViews = View::whereYear('view_date', Carbon::now()->year)
+    $currentMonthViews = ViewPage::whereYear('view_date', Carbon::now()->year)
         ->whereMonth('view_date', Carbon::now()->month)
         ->sum('total_views');
 
-    $previousMonthViews = View::whereYear('view_date', Carbon::now()->subMonth()->year)
+    $previousMonthViews = ViewPage::whereYear('view_date', Carbon::now()->subMonth()->year)
         ->whereMonth('view_date', Carbon::now()->subMonth()->month)
         ->sum('total_views');
 

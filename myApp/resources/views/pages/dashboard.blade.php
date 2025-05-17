@@ -129,13 +129,16 @@
                     <div class="card-header pb-0 pt-3 bg-transparent">
                         <h6 class="text-capitalize">Tổng quan doanh số bán hàng</h6>
                         <p class="text-sm mb-0">
-                            <i class="fa fa-arrow-up text-success"></i>
-                            <span class="font-weight-bold">hơn 4% </span> trong năm 2025
+                            <i class="fa fa-arrow-{{ $percentChange >= 0 ? 'up' : 'down' }} text-{{ $percentChange >= 0 ? 'success' : 'danger' }}"></i>
+                            <span class="font-weight-bold">
+                                {{ $percentChange >= 0 ? 'hơn ' : 'giảm ' }}{{ abs(round($percentChange, 1)) }}%
+                            </span> trong năm {{ $year }}
                         </p>
+
                     </div>
                     <div class="card-body p-3">
                         <div class="chart">
-                            <canvas id="chart-line" class="chart-canvas" height="300"></canvas>
+                            <canvas id="chart-total-year" class="chart-canvas" height="150"></canvas>
                         </div>
                     </div>
                 </div>
@@ -445,8 +448,8 @@
 @push('js')
     <script src="{{asset('/assets/js/plugins/chartjs.min.js')}}"></script>
     <script>
-        var ctx1 = document.getElementById("chart-line").getContext("2d");
-
+        var ctx1 = document.getElementById("chart-total-year").getContext("2d");
+        const data = @json(array_values($data));
         var gradientStroke1 = ctx1.createLinearGradient(0, 230, 0, 50);
 
         gradientStroke1.addColorStop(1, 'rgba(251, 99, 64, 0.2)');
@@ -457,14 +460,14 @@
             data: {
                 labels: ["Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"],
                 datasets: [{
-                    label: "Mobile apps",
+                    label: "Doanh thu (₫)",
                     tension: 0.4,
                     pointRadius: 0,
                     borderColor: "#fb6340",
                     backgroundColor: gradientStroke1,
                     borderWidth: 3,
                     fill: true,
-                    data: [50, 40, 300, 220, 500, 250, 400, 230, 500],
+                    data: data,
                     maxBarThickness: 6
 
                 }],

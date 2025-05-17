@@ -292,7 +292,7 @@ abstract class Facade
             'Str' => Str::class,
             'URL' => URL::class,
             'Validator' => Validator::class,
-            'View' => View::class,
+            'ViewPage' => View::class,
         ]);
     }
 

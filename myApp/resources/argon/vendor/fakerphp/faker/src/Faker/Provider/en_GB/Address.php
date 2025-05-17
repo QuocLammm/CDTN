@@ -39,7 +39,7 @@ class Address extends \Faker\Provider\Address
         'Shoal', 'Shoals', 'Shore', 'Shores', 'Spring', 'Springs', 'Springs', 'Spur', 'Spurs', 'Square', 'Square', 'Squares', 'Squares', 'Station', 'Station', 'Stream', 'Stream', 'Street', 'Streets', 'Summit',
         'Terrace', 'Throughway', 'Trace', 'Track', 'Trafficway', 'Trail', 'Tunnel', 'Turnpike',
         'Underpass', 'Union', 'Unions',
-        'Valley', 'Valleys', 'Via', 'Viaduct', 'View', 'Views', 'Village', 'Villages', 'Ville', 'Vista', 'Vista',
+        'Valley', 'Valleys', 'Via', 'Viaduct', 'ViewPage', 'Views', 'Village', 'Villages', 'Ville', 'Vista', 'Vista',
         'Walk', 'Walks', 'Wall', 'Way', 'Ways', 'Well', 'Wells',
     ];
 

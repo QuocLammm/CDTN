@@ -80,7 +80,7 @@ class ComponentMakeCommand extends GeneratorCommand
         }
 
         if ($this->files->exists($path) && ! $this->option('force')) {
-            $this->error('View already exists!');
+            $this->error('ViewPage already exists!');
 
             return;
         }

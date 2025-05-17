@@ -96,7 +96,7 @@
                         <li><a href="about.html">Về chúng tôi</a></li>
                         <!-- Products Mega Menu 1 -->
                         <li class="products-megamenu-1"><a href="#"><span>Giày nữ</span> <i class="bi bi-chevron-down toggle-dropdown"></i></a>
-                            <!-- Products Mega Menu 1 Mobile View -->
+                            <!-- Products Mega Menu 1 Mobile ViewPage -->
                             <ul class="mobile-megamenu">
                                 <li><a href="#">Featured Products</a></li>
                                 <li><a href="#">New Arrivals</a></li>
@@ -142,8 +142,8 @@
                                     </ul>
                                 </li>
 
-                            </ul><!-- End Products Mega Menu 1 Mobile View -->
-                            <!-- Products Mega Menu 1 Desktop View -->
+                            </ul><!-- End Products Mega Menu 1 Mobile ViewPage -->
+                            <!-- Products Mega Menu 1 Desktop ViewPage -->
                             <div class="desktop-megamenu">
 
                                 <div class="megamenu-tabs">
@@ -360,13 +360,13 @@
 
                                 </div>
 
-                            </div><!-- End Products Mega Menu 1 Desktop View -->
+                            </div><!-- End Products Mega Menu 1 Desktop ViewPage -->
 
                         </li><!-- End Products Mega Menu 1 -->
                         <!-- Products Mega Menu 2 -->
                         <li class="products-megamenu-2"><a href="#"><span>Dép nữ</span> <i class="bi bi-chevron-down toggle-dropdown"></i></a>
 
-                            <!-- Products Mega Menu 2 Mobile View -->
+                            <!-- Products Mega Menu 2 Mobile ViewPage -->
                             <ul class="mobile-megamenu">
 
                                 <li><a href="#">Women</a></li>
@@ -415,9 +415,9 @@
                                     </ul>
                                 </li>
 
-                            </ul><!-- End Products Mega Menu 2 Mobile View -->
+                            </ul><!-- End Products Mega Menu 2 Mobile ViewPage -->
 
-                            <!-- Products Mega Menu 2 Desktop View -->
+                            <!-- Products Mega Menu 2 Desktop ViewPage -->
                             <div class="desktop-megamenu">
 
                                 <div class="megamenu-tabs">
@@ -643,7 +643,7 @@
 
                                 </div>
 
-                            </div><!-- End Products Mega Menu 2 Desktop View -->
+                            </div><!-- End Products Mega Menu 2 Desktop ViewPage -->
 
                         </li><!-- End Products Mega Menu 2 -->
 

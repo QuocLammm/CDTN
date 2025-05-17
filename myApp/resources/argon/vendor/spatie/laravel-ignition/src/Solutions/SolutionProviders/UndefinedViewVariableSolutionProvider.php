@@ -94,7 +94,7 @@ class UndefinedViewVariableSolutionProvider implements HasSolutionsForThrowable
      */
     protected function getNameAndView(Throwable $throwable): ?array
     {
-        $pattern = '/Undefined variable:? (.*?) \(View: (.*?)\)/';
+        $pattern = '/Undefined variable:? (.*?) \(ViewPage: (.*?)\)/';
 
         preg_match($pattern, $throwable->getMessage(), $matches);
 

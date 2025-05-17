@@ -39,7 +39,7 @@ class ViewExceptionMapper
             return $baseException;
         }
 
-        preg_match('/\(View: (?P<path>.*?)\)/', $viewException->getMessage(), $matches);
+        preg_match('/\(ViewPage: (?P<path>.*?)\)/', $viewException->getMessage(), $matches);
 
         $compiledViewPath = $matches['path'];
 

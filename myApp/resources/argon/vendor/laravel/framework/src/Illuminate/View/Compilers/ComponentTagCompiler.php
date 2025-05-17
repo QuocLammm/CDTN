@@ -319,7 +319,7 @@ class ComponentTagCompiler
 
         $class = $this->formatClassName($component);
 
-        return $namespace.'View\\Components\\'.$class;
+        return $namespace.'ViewPage\\Components\\'.$class;
     }
 
     /**

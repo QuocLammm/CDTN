@@ -37,7 +37,7 @@ class LaravelDocumentationLinkFinder
             'Routing' => "https://laravel.com/docs/{$majorVersion}.x/routing",
             'Session' => "https://laravel.com/docs/{$majorVersion}.x/session",
             'Validation' => "https://laravel.com/docs/{$majorVersion}.x/validation",
-            'View' => "https://laravel.com/docs/{$majorVersion}.x/views",
+            'ViewPage' => "https://laravel.com/docs/{$majorVersion}.x/views",
             default => null,
         };
     }

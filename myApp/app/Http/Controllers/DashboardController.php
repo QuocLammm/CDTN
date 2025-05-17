@@ -4,10 +4,11 @@ namespace App\Http\Controllers;
 
 use App\Models\Notification;
 use App\Models\Order;
-use App\Models\View;
+use App\Models\ViewPage;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 
 class DashboardController extends Controller
 {
@@ -49,15 +50,15 @@ class DashboardController extends Controller
         $today = Carbon::today()->toDateString();
 
         // Số khách hôm nay
-        $todayViews = View::where('view_date', $today)->value('total_views') ?? 0;
+        $todayViews = ViewPage::where('view_date', $today)->value('total_views') ?? 0;
 
         // Tổng khách tháng này
-        $currentMonthViews = View::whereYear('view_date', Carbon::now()->year)
+        $currentMonthViews = ViewPage::whereYear('view_date', Carbon::now()->year)
             ->whereMonth('view_date', Carbon::now()->month)
             ->sum('total_views');
 
         // Tổng khách tháng trước
-        $previousMonthViews = View::whereYear('view_date', Carbon::now()->subMonth()->year)
+        $previousMonthViews = ViewPage::whereYear('view_date', Carbon::now()->subMonth()->year)
             ->whereMonth('view_date', Carbon::now()->subMonth()->month)
             ->sum('total_views');
 
@@ -67,7 +68,6 @@ class DashboardController extends Controller
         } else {
             $percentChange = (($currentMonthViews - $previousMonthViews) / $previousMonthViews) * 100;
         }
-
 
         // Card - 4
         // Đơn hàng tháng này
@@ -87,16 +87,56 @@ class DashboardController extends Controller
             $phanTramDonHang = $donHangThangNay > 0 ? 100 : 0;
         }
 
+        // Chart - Total Sum Year
+        $year = Carbon::now()->year;
+        $lastYear = $year - 1;
+
+        // Doanh thu từng tháng năm hiện tại
+        $monthlyRevenue = Order::select(
+            DB::raw('MONTH(created_at) as month'),
+            DB::raw('SUM(total_amount) as total')
+        )
+            ->whereYear('created_at', $year)
+            ->where('status', 'Success')
+            ->groupBy(DB::raw('MONTH(created_at)'))
+            ->orderBy('month')
+            ->get();
+
+        // Tạo mảng tháng => doanh thu (nếu không có tháng nào thì 0)
+        $data = [];
+        for ($i = 1; $i <= 12; $i++) {
+            $monthData = $monthlyRevenue->firstWhere('month', $i);
+            $data[$i] = $monthData ? (float) $monthData->total : 0;
+        }
+
+        // Tổng doanh thu năm hiện tại
+        $totalCurrentYear = array_sum($data);
+
+        // Tổng doanh thu năm trước
+        $totalLastYear = Order::whereYear('created_at', $lastYear)
+            ->where('status', 'Success')
+            ->sum('total_amount');
+
+        // Tính phần trăm thay đổi doanh thu năm nay so với năm trước
+        if ($totalLastYear > 0) {
+            $percentChange = (($totalCurrentYear - $totalLastYear) / $totalLastYear) * 100;
+        } else {
+            $percentChange = 0;
+        }
+
+
         return view('pages.dashboard', compact(
             'doanhThuHomNay',
             'phanTramThayDoi',
             'donHangThangNay',
             'phanTramDonHang',
             'todayViews',
-            'percentChange'
+            'percentChange',
+            'data',
+            'percentChange',
+            'year'
         ));
     }
-
 
 
 
