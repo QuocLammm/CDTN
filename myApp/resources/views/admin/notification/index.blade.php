@@ -1,9 +1,8 @@
 @extends('layouts.app')
 
 @section('content')
+    @include('layouts.header', ['title' => 'Lịch sử thông báo'])
     <div class="container mt-4">
-        <h3>Lịch sử thông báo</h3>
-
         @if($notifications->isEmpty())
             <p>Không có thông báo nào.</p>
         @else
