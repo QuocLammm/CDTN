@@ -5,7 +5,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <!-- Thêm favicon -->
     <link rel="icon" href="{{asset('assets/img/admin/favicon.ico')}}">
-    <link href="{{asset('assets/img/favicon.png')}}" rel="icon">
     <link href="{{asset('assets/img/apple-touch-icon.png')}}" rel="apple-touch-icon">
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <!-- Fonts -->
@@ -20,15 +19,15 @@
     <link href="{{asset('assets/vendor/glightbox/css/glightbox.min.css')}}" rel="stylesheet">
     <link href="{{asset('assets/vendor/drift-zoom/drift-basic.css')}}" rel="stylesheet">
 
-{{--    <link href="https://fonts.googleapis.com/css2?family=Material+Icons+Sharp" rel="stylesheet"/>--}}
-{{--    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">--}}
+    <link href="https://fonts.googleapis.com/css2?family=Material+Icons+Sharp" rel="stylesheet"/>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
 
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css">
 
 
     <!-- Main CSS File -->
     <link href="{{asset('assets/css/main.css')}}" rel="stylesheet">
-    <title>TRUCDOANPHAM</title>
+    <title>TRUCDOANPHAM | Chuyên giày dép nữ</title>
     @stack('css')
 </head>
 <body class="index-page">

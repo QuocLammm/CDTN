@@ -13,44 +13,35 @@
         @if($cartItems->isEmpty())
             <p>Giỏ hàng của bạn hiện tại trống.</p>
         @else
-            <table class="cart-table">
-                <thead>
-                <tr>
-                    <th>Sản phẩm</th>
-                    <th>Giá</th>
-                    <th>Số lượng</th>
-                    <th>Tổng</th>
-                    <th>Thao tác</th>
-                </tr>
-                </thead>
-                <tbody>
+            <div class="cart-card-container">
                 @foreach($cartItems as $item)
-                    <tr>
-                        <td>
-                            <img src="{{ $item->product->image }}" alt="{{ $item->product->product_name }}" class="cart-item-image">
-                            {{ $item->product->product_name }}
-                        </td>
-                        <td>{{ number_format($item->product->price, 0, ',', '.') }} đ</td>
-                        <td>
-                            <button class="btn-quantity decrease">-</button>
-                            <span class="quantity">{{ $item->quantity }}</span>
-                            <button class="btn-quantity increase">+</button>
-                        </td>
-                        <td class="line-total" data-price="{{ $item->product->price }}">
-                            {{ number_format($item->product->price * $item->quantity, 0, ',', '.') }} đ
-                        </td>
-                        <td>
+                    <div class="cart-card">
+                        <div class="cart-card-left">
+                            <img src="{{ $item->product->images->first()->image_path ?? 'default.jpg' }}" alt="{{ $item->product->product_name }}">
+                        </div>
+
+                        <div class="cart-card-right">
+                            <div class="cart-product-name">{{ $item->product->product_name }}</div>
+                            <div class="cart-product-details">
+                            <span class="cart-quantity">
+                                <button class="btn-quantity decrease">-</button>
+                                <span class="quantity">{{ $item->quantity }}</span>
+                                <button class="btn-quantity increase">+</button>
+                            </span>
+                                <span class="cart-price">{{ number_format($item->product->price) }}₫</span>
+                            </div>
+                            <div class="cart-line-total">
+                                Thành tiền: <strong>{{ number_format($item->product->price * $item->quantity) }}₫</strong>
+                            </div>
                             <form action="{{ route('cart.remove', $item->cart_item_id) }}" method="POST" onsubmit="return confirm('Bạn có chắc chắn muốn xóa sản phẩm này khỏi giỏ hàng?')">
                                 @csrf
                                 @method('DELETE')
                                 <button type="submit" class="btn-delete">Xóa</button>
                             </form>
-                        </td>
-                    </tr>
+                        </div>
+                    </div>
                 @endforeach
-                </tbody>
-            </table>
-
+            </div>
             <div class="cart-total">
                 <p>Tổng cộng:
                     @php
@@ -65,11 +56,6 @@
             <div class="cart-actions">
                 <button class="btn-checkout" id="checkout-button">Mua hàng</button>
             </div>
-            <!-- Form ẩn để hủy đơn hàng -->
-            <form id="cancel-order-form" action="{{ route('cancel.order') }}" method="POST" style="display: none;">
-                @csrf
-                <input type="hidden" name="order_id" value="{{ $order->order_id }}">
-            </form>
         @endif
     </div>
 @endsection
@@ -78,18 +64,24 @@
         document.addEventListener('DOMContentLoaded', function () {
             const formatter = new Intl.NumberFormat('vi-VN');
 
-            document.querySelectorAll('.cart-table tbody tr').forEach(row => {
-                const btnIncrease = row.querySelector('.increase');
-                const btnDecrease = row.querySelector('.decrease');
-                const quantityEl = row.querySelector('.quantity');
-                const price = parseInt(row.querySelector('.line-total').dataset.price);
-                const lineTotalEl = row.querySelector('.line-total');
+            document.querySelectorAll('.cart-card').forEach(card => {
+                const btnIncrease = card.querySelector('.increase');
+                const btnDecrease = card.querySelector('.decrease');
+                const quantityEl = card.querySelector('.quantity');
+                const lineTotalEl = card.querySelector('.cart-line-total strong');
+                const price = parseInt(card.querySelector('.cart-price').innerText.replace(/[^\d]/g, ''));
+
+                function updateLineTotal() {
+                    const quantity = parseInt(quantityEl.innerText);
+                    const lineTotal = price * quantity;
+                    lineTotalEl.innerText = formatter.format(lineTotal) + '₫';
+                    updateCartTotal();
+                }
 
                 btnIncrease.addEventListener('click', () => {
                     let quantity = parseInt(quantityEl.innerText);
                     quantityEl.innerText = ++quantity;
                     updateLineTotal();
-                    updateCartTotal();
                 });
 
                 btnDecrease.addEventListener('click', () => {
@@ -97,26 +89,20 @@
                     if (quantity > 1) {
                         quantityEl.innerText = --quantity;
                         updateLineTotal();
-                        updateCartTotal();
                     }
                 });
-
-                function updateLineTotal() {
-                    const quantity = parseInt(quantityEl.innerText);
-                    const lineTotal = price * quantity;
-                    lineTotalEl.innerText = formatter.format(lineTotal) + ' đ';
-                }
             });
 
             function updateCartTotal() {
                 let total = 0;
-                document.querySelectorAll('.line-total').forEach(cell => {
-                    total += parseInt(cell.innerText.replace(/[^\d]/g, ''));
+                document.querySelectorAll('.cart-line-total strong').forEach(el => {
+                    total += parseInt(el.innerText.replace(/[^\d]/g, ''));
                 });
-                document.querySelector('.cart-total p').innerHTML = 'Tổng cộng: ' + formatter.format(total) + ' đ';
+                document.querySelector('.cart-total p').innerHTML = 'Tổng cộng: ' + formatter.format(total) + '₫';
             }
         });
     </script>
+
     <script>
         document.getElementById('checkout-button').addEventListener('click', function() {
             Swal.fire({
@@ -134,7 +120,7 @@
                     window.location.href = '{{ route("checkout") }}';
                 } else {
                     // Nếu hủy, gửi yêu cầu hủy đơn hàng
-                    document.getElementById('cancel-order-form').submit();
+                    // document.getElementById('cancel-order-form').submit();
                 }
             });
         });

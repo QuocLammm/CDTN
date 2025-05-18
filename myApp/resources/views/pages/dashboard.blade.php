@@ -217,7 +217,9 @@
 
                                             <div class="ms-4">
                                                 <p class="text-xs font-weight-bold mb-0">Nhân viên:</p>
-                                                <h6 class="text-sm mb-0">{{ $item->staff->full_name }}</h6>
+                                                <h6 class="text-sm mb-0">
+                                                    {{ $item->staff ? $item->staff->full_name : 'Không rõ' }}
+                                                </h6>
                                             </div>
                                         </div>
                                     </td>

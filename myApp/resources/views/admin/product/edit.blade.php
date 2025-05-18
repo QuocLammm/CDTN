@@ -40,7 +40,7 @@
                     <div class="row">
                         {{-- Size --}}
                         @foreach ($product->productDetails as $index => $detail)
-                                <input type="hidden" name="ProductDetail[{{ $index }}][id]" value="{{ $detail->id }}">
+                                <input type="hidden" name="ProductDetail[{{ $index }}][product_detail_id]" value="{{ $detail->product_detail_id }}">
 
                                 <div class="col-md-4">
                                     <x-form.input

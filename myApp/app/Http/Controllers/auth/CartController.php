@@ -94,10 +94,10 @@ class CartController extends Controller
         $user = auth()->user();
         $product = Product::findOrFail($id);
 
-        // Tìm hoặc tạo cart của user
+        // Tìm cart hoặc tạo mới
         $cart = Cart::firstOrCreate(['user_id' => $user->user_id]);
 
-        // Tìm cart item có sẵn
+        // Tìm cart item đã có
         $item = CartItem::where('cart_id', $cart->cart_id)
             ->where('product_id', $product->product_id)
             ->first();
@@ -113,7 +113,6 @@ class CartController extends Controller
         }
 
         return redirect()->route('cart.cart');
-
     }
 
 
@@ -214,7 +213,7 @@ class CartController extends Controller
         ]);
 
 
-        return redirect()->route('homepage')->with('success', 'Thanh toán thành công! Cảm ơn bạn đã mua sắm.');
+        return redirect()->route('profile-user', ['id' => $userId])->with('order_success', true);
     }
 
     // Mua trong chi tiết sản phẩm
@@ -246,20 +245,24 @@ class CartController extends Controller
     public function cancelOrder(Request $request)
     {
         $userId = Auth::id();
+
         $orderId = $request->input('order_id');
 
-        // Tìm đơn hàng theo ID và người dùng
-        $order = Order::where('order_id', $orderId)->where('user_id', $userId)->where('status', 'pending')->first();
+
+        // Lưu ý: chữ hoa "Pending" đúng với CSDL
+        $order = Order::where('order_id', $orderId)
+            ->where('user_id', $userId)
+            ->where('status', 'Pending')
+            ->first();
 
         if ($order) {
-            $order->status = 'cancelled';
+            $order->status = 'Cancelled';
             $order->save();
-
-            // Giữ nguyên sản phẩm trong giỏ hàng
-            return redirect()->route('cart.cart')->with('success', 'Đơn hàng đã được hủy thành công.');
+            return redirect()->route('profile-user', ['id' => $userId])->with('order_success', true);
         }
 
-        return redirect()->route('cart.cart')->with('error', 'Không tìm thấy đơn hàng nào để hủy.');
+        return redirect()->route('profile-user', ['id' => $userId])->with('order_success', false);
     }
+
 
 }

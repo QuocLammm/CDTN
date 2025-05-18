@@ -105,17 +105,17 @@ class ProductController extends Controller
         $product->update($data);
 
 
-        $detailIdsInForm = collect($request->input('ProductDetails'))->pluck('id')->filter()->all();
-
-        $product->productDetails()
-            ->whereNotIn('id', $detailIdsInForm)
-            ->delete();
+//        $detailIdsInForm = collect($request->input('ProductDetails'))->pluck('product_detail_id')->filter()->all();
+//
+//        $product->productDetails()
+//            ->whereNotIn('product_detail_id', $detailIdsInForm)
+//            ->delete();
 
         // Duyệt và cập nhật các ProductDetail
-        foreach ($request->input('ProductDetail', []) as $detailData) {
-            if (isset($detailData['id'])) {
+        foreach ($request->input('ProductDetails', []) as $detailData) {
+            if (isset($detailData['product_detail_id'])) {
                 // Đã tồn tại: cập nhật
-                $productDetail = ProductDetail::find($detailData['id']);
+                $productDetail = ProductDetail::find($detailData['product_detail_id']);
                 if ($productDetail) {
                     $productDetail->update($detailData);
                 }

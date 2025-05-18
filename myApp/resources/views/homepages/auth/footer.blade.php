@@ -1,81 +1,3 @@
-{{--<footer class="footer" style="background-color: #222; color: #fff; padding: 20px 20px; display: flex; justify-content: space-between; font-size: 14px; line-height: 1.6; flex-wrap: wrap;">--}}
-{{--    <!-- Cột 1 - Về chúng tôi -->--}}
-{{--    <div class="footer-column" style="flex: 1; min-width: 180px; margin: 10px;">--}}
-{{--        <h4 style="color: #ffd700; margin-bottom: 10px;">Về chúng tôi</h4>--}}
-{{--        <ul style="list-style: none; padding: 0;">--}}
-{{--            <li><a href="#" style="color: #ccc; text-decoration: none;">Giới thiệu</a></li>--}}
-{{--            <li><a href="#" style="color: #ccc; text-decoration: none;">Dịch vụ</a></li>--}}
-{{--            <li><a href="#" style="color: #ccc; text-decoration: none;">Liên hệ</a></li>--}}
-{{--        </ul>--}}
-{{--    </div>--}}
-
-{{--    <!-- Cột 2 - Hỗ trợ -->--}}
-{{--    <div class="footer-column" style="flex: 1; min-width: 180px; margin: 10px;">--}}
-{{--        <h4 style="color: #ffd700; margin-bottom: 10px;">Hỗ trợ</h4>--}}
-{{--        <ul style="list-style: none; padding: 0;">--}}
-{{--            <li><a href="#" style="color: #ccc; text-decoration: none;">Câu hỏi thường gặp</a></li>--}}
-{{--            <li><a href="#" style="color: #ccc; text-decoration: none;">Chính sách bảo mật</a></li>--}}
-{{--            <li><a href="#" style="color: #ccc; text-decoration: none;">Điều khoản sử dụng</a></li>--}}
-{{--        </ul>--}}
-{{--    </div>--}}
-
-{{--    <!-- Cột 3 - Hệ thống cửa hàng -->--}}
-{{--    <div class="footer-column" style="flex: 1; min-width: 180px; margin: 10px;">--}}
-{{--        <h4 style="color: #ffd700; margin-bottom: 10px;">Hệ thống cửa hàng</h4>--}}
-{{--        <ul style="list-style: none; padding: 0;">--}}
-{{--            <li><span style="font-weight: bold; color: #ffd700;">CS2:</span> Tầng 7, Gems Empire Tower 201 Trường Chinh, Thanh Xuân, Hà Nội - 0839.33.55.22</li>--}}
-{{--            <li><span style="font-weight: bold; color: #ffd700;">Kho T.P.HCM:</span> Landmark 1, 720A Đ. Điện Biên Phủ, Vinhomes Tân Cảng, Bình Thạnh, TP.HCM - 089.897.5522</li>--}}
-{{--        </ul>--}}
-{{--    </div>--}}
-
-{{--    <!-- Cột 4 - Liên hệ -->--}}
-{{--    <div class="footer-column" style="flex: 1; min-width: 180px; margin: 10px;">--}}
-{{--        <h4 style="color: #ffd700; margin-bottom: 10px;">Liên hệ</h4>--}}
-{{--        <p>--}}
-{{--            Địa chỉ: 123 Đường ABC, TP.Nha Trang<br>--}}
-{{--            Email: contact@example.com<br>--}}
-{{--            Điện thoại: 0123 456 789<br>--}}
-{{--            Giờ mở cửa: 8:00 am - 22:00 pm--}}
-{{--        </p>--}}
-{{--    </div>--}}
-
-{{--    <!-- Cột 5 - Mạng xã hội và Gửi ý kiến -->--}}
-{{--    <div class="footer-column" style="flex: 1; min-width: 180px; margin: 10px; text-align: center;">--}}
-{{--        <p style="margin-bottom: 8px;">TRUCDOAN<span style="color: red;">PHAM</span> lắng nghe bạn!</p>--}}
-{{--        <h5 style="margin: 0 0 10px; font-weight: normal;">Chúng tôi luôn mong đợi ý kiến đóng góp từ khách hàng để nâng cấp dịch vụ tốt hơn.</h5>--}}
-{{--        <h4 style="color: #ffd700;">Theo dõi chúng tôi</h4>--}}
-{{--        <div class="footer-social" style="margin: 10px 0; display: flex; justify-content: center;">--}}
-{{--            <a href="#" style="margin: 0 10px;"><i class="fab fa-facebook" style="font-size: 24px; color: #ffd700;"></i></a>--}}
-{{--            <a href="#" style="margin: 0 10px;"><i class="fab fa-twitter" style="font-size: 24px; color: #ffd700;"></i></a>--}}
-{{--            <a href="#" style="margin: 0 10px;"><i class="fab fa-instagram" style="font-size: 24px; color: #ffd700;"></i></a>--}}
-{{--            <a href="#" style="margin: 0 10px;"><i class="fab fa-youtube" style="font-size: 24px; color: #ffd700;"></i></a>--}}
-{{--        </div>--}}
-
-{{--        <!-- Nút Gửi liên hệ -->--}}
-{{--        <button id="contact-btn" style="margin-top: 10px; padding: 10px 20px; background-color: #ffd700; border: none; color: #000; font-weight: bold; cursor: pointer; border-radius: 4px;">Gửi yêu cầu</button>--}}
-
-{{--        <!-- Modal Form -->--}}
-{{--        <div id="contactModal" style="display:none;">--}}
-{{--            <div class="modal-content">--}}
-{{--                <span id="close-btn" style="cursor: pointer; color: #aaa; font-size: 28px; font-weight: bold; position: absolute; top: 10px; right: 20px;">&times;</span>--}}
-{{--                <h2>Liên hệ với chúng tôi</h2>--}}
-{{--                <form id="contact-form">--}}
-{{--                    <label for="name">Họ và tên:</label>--}}
-{{--                    <input type="text" id="name" name="name" required>--}}
-
-{{--                    <label for="email">Email:</label>--}}
-{{--                    <input type="email" id="email" name="email" required>--}}
-
-{{--                    <label for="message">Tin nhắn:</label>--}}
-{{--                    <textarea id="message" name="message" required></textarea>--}}
-
-{{--                    <button type="submit" style="padding: 10px 20px; background-color: #28a745; color: white; border: none; border-radius: 4px;">Gửi</button>--}}
-{{--                </form>--}}
-{{--            </div>--}}
-{{--        </div>--}}
-
-{{--    </div>--}}
-{{--</footer>--}}
 <footer id="footer" class="footer">
     <div class="footer-newsletter">
         <div class="container">
@@ -101,9 +23,9 @@
         <div class="container">
             <div class="row gy-4">
                 <div class="col-lg-3 col-md-6 col-sm-12">
-                    <div class="footer-widget footer-about">
-                        <a href="index.html" class="logo">
-                            <span class="sitename">TRUCDOANPHAM</span>
+                    <div class="footer-widget footer-about " style="text-align: center">
+                        <a href="{{route('homepage')}}" class="logo" >
+                            <span class="sitename">TRUCDOAN<span style="color: red">PHAM</span></span>
                         </a>
                         <p>Chúng tôi luôn mong đợi ý kiến đóng góp từ khách hàng để nâng cấp dịch vụ tốt hơn.</p>
                         <div class="footer-contact mt-4">
@@ -124,7 +46,7 @@
                 </div>
 
                 <div class="col-lg-2 col-md-6 col-sm-6">
-                    <div class="footer-widget">
+                    <div class="footer-widget" style="text-align: center">
                         <h4>Cửa hàng</h4>
                         <ul class="footer-links">
                             <li><a href="category.html">New Arrivals</a></li>
@@ -138,7 +60,7 @@
                 </div>
 
                 <div class="col-lg-2 col-md-6 col-sm-6">
-                    <div class="footer-widget">
+                    <div class="footer-widget" style="text-align: center">
                         <h4>Hỗ trợ</h4>
                         <ul class="footer-links">
                             <li><a href="support.html">Help Center</a></li>
@@ -152,7 +74,7 @@
                 </div>
 
                 <div class="col-lg-2 col-md-6 col-sm-6">
-                    <div class="footer-widget">
+                    <div class="footer-widget" style="text-align: center">
                         <h4>Công ty</h4>
                         <ul class="footer-links">
                             <li><a href="about.html">About Us</a></li>
@@ -166,7 +88,7 @@
                 </div>
 
                 <div class="col-lg-3 col-md-6 col-sm-6">
-                    <div class="footer-widget">
+                    <div class="footer-widget" style="text-align: center">
                         <div class="social-links mt-4">
                             <h5>Theo dõi chúng tôi</h5>
                             <div class="social-icons">
@@ -184,7 +106,7 @@
     <div class="footer-bottom">
         <div class="container">
             <div class="copyright text-center">
-                <p>© <span>Copyright</span> <strong class="sitename">Quốc Lâm</strong>. All Rights Reserved.</p>
+                <p>© <span>Copyright</span> <span class="sitename" style="color:red">Quốc Lâm SweetSoft</span></p>
             </div>
         </div>
     </div>

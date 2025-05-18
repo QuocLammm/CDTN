@@ -32,8 +32,7 @@ Route::get('/load-more-products', [HomePageController::class, 'loadMore'])->name
 
 
 
-// Profile User
-Route::get('/profile/{id}', [HomePageController::class, 'showProfile'])->name('profile-user');
+
 Route::put('/profile/{id}', [HomePageController::class, 'updateProfile'])->name('profile.update');
 
 
@@ -51,6 +50,13 @@ Route::middleware('auth')->group(function () {
     // Tìm kiểm sản phẩm
     Route::get('/search', [ProductController::class, 'search'])->name('product.search');
     Route::get('/product/{id}', [ProductDetailController::class, 'show'])->name('product.show');
+
+    // Profile User
+    Route::get('/profile/{id}', [HomePageController::class, 'showProfile'])->name('profile-user');
+
+    // load More Đơn hàng
+    Route::get('/orders/load-more', [HomePageController::class, 'loadMore'])->name('orders.loadMore');
+
 });
 
 // Đăng nhập bằng GG

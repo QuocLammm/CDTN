@@ -5,6 +5,7 @@ namespace App\Http\Controllers\auth;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\homepage\ProfileRequest;
 use App\Models\Category;
+use App\Models\Order;
 use App\Models\Product;
 use App\Models\User;
 use App\Models\ViewPage;
@@ -48,7 +49,9 @@ class HomePageController extends Controller
     public function showProfile($id)
     {
         $user = User::findOrFail($id);
-        return view('homepages.profile', compact('user'));
+        // Lấy danh sách đơn hàng của user (giả sử có quan hệ orders)
+        $orders = Order::with('items.product')->where('user_id', $id)->latest()->get();
+        return view('homepages.profile', compact('user', 'orders'));
     }
 
     // Cập nhật Profile
@@ -68,24 +71,29 @@ class HomePageController extends Controller
         return view('homepages.guest.cart', compact('cart'));
     }
 
-    // Hiển thị sản phẩm ở trang chủ
-//    public function showProduct()
-//    {
-//        $sportShoes = Product::whereHas('category', function($query) {
-//            $query->where('category_name', 'Giày thể thao');
-//        })->get();
-//
-//        $girlShoes = Product::whereHas('category', function($query) {
-//            $query->where('category_name', 'Giày nữ');
-//        })->get();
-//
-//        $girlDep = Product::whereHas('category', function($query) {
-//            $query->where('category_name', 'Dép nữ');
-//        })->get();
-//
-//        // Trả dữ liệu sang view
-//        return view('homepages.item', compact('sportShoes','girlShoes','girlDep'));
-//    }
+
+    // Load More đơn hàng
+    public function loadMore(Request $request)
+    {
+        $page = $request->query('page', 1);
+        $perPage = 4;
+
+        $orders = Order::with('items.product.images')
+            ->orderBy('created_at', 'desc')
+            ->paginate($perPage, ['*'], 'page', $page);
+
+        if ($orders->isEmpty()) {
+            return response()->json(['html' => '']);
+        }
+
+        $html = '';
+        foreach ($orders as $order) {
+            $html .= view('partials.order-card', compact('order'))->render();
+        }
+
+        return response()->json(['html' => $html]);
+    }
+
     public function showProduct()
     {
         // Lấy tất cả sản phẩm
@@ -107,27 +115,4 @@ class HomePageController extends Controller
         $products = Product::all();
         return view('homepages.auth.view_all_products', compact('products'));
     }
-
-
-    // Load More
-    public function loadMore(Request $request)
-    {
-        $page = $request->get('page', 1);
-        $limit = 10;
-        $offset = ($page - 1) * $limit;
-
-        $products = Product::skip($offset)->take($limit)->get();
-
-        if ($products->isEmpty()) {
-            return response()->json(['html' => '', 'end' => true]);
-        }
-
-        $html = view('components.product_items', compact('products'))->render();
-        return response()->json(['html' => $html]);
-    }
-
-
-
-
-
 }
