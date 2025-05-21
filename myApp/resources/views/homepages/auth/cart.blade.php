@@ -9,52 +9,68 @@
 @endsection
 @section('content')
     <div class="main-content">
-        <h2>Giỏ hàng của bạn</h2>
+        <h2 style="text-align: center">Giỏ hàng của bạn</h2>
         @if($cartItems->isEmpty())
-            <p>Giỏ hàng của bạn hiện tại trống.</p>
+            <p style="text-align: center">Giỏ hàng của bạn hiện tại trống.</p>
         @else
             <div class="cart-card-container">
                 @foreach($cartItems as $item)
-                    <div class="cart-card">
-                        <div class="cart-card-left">
-                            <img src="{{ $item->product->images->first()->image_path ?? 'default.jpg' }}" alt="{{ $item->product->product_name }}">
+                    <form action="{{ route('cart.remove', $item->cart_item_id) }}" method="POST"
+                          class="delete-form" onsubmit="return confirm('Bạn có chắc chắn muốn xóa sản phẩm này khỏi giỏ hàng?')">
+                        @csrf
+                        @method('DELETE')
+                        <button class="btn-xoa-icon" type="submit">&times;</button>
+                    </form>
+                    <div class="cart-card d-flex gap-3">
+                        <div class="cart-card-left col-4">
+                            <img src="{{ $item->product->images->first()->image_path ?? 'default.jpg' }}"
+                                 alt="{{ $item->product->product_name }}"
+                                 class="img-fluid rounded">
                         </div>
-
-                        <div class="cart-card-right">
-                            <div class="cart-product-name">{{ $item->product->product_name }}</div>
-                            <div class="cart-product-details">
-                            <span class="cart-quantity">
+                        <div class="cart-card-right col-8 d-flex flex-column justify-content-between">
+                            <div class="d-flex justify-content-between align-items-start">
+                                <h5 class="mb-2 cart-product-name">{{ Str::limit($item->product->product_name, 30, '...') }}</h5>
+                            </div>
+                            <div class="cart-quantity d-flex justify-content-end align-items-center">
                                 <button class="btn-quantity decrease">-</button>
                                 <span class="quantity">{{ $item->quantity }}</span>
                                 <button class="btn-quantity increase">+</button>
-                            </span>
-                                <span class="cart-price">{{ number_format($item->product->price) }}₫</span>
                             </div>
-                            <div class="cart-line-total">
-                                Thành tiền: <strong>{{ number_format($item->product->price * $item->quantity) }}₫</strong>
-                            </div>
-                            <form action="{{ route('cart.remove', $item->cart_item_id) }}" method="POST" onsubmit="return confirm('Bạn có chắc chắn muốn xóa sản phẩm này khỏi giỏ hàng?')">
-                                @csrf
-                                @method('DELETE')
-                                <button type="submit" class="btn-delete">Xóa</button>
-                            </form>
+{{--                            <p class="cart-price text-success fw-bold mb-1 text-end">--}}
+{{--                                {{ $item->quantity }} x {{ number_format($item->product->price) }}₫--}}
+{{--                            </p>--}}
+                            <p class="cart-line-total mb-2 text-end">
+                                Đơn giá: <strong>{{ number_format($item->product->price * $item->quantity) }}₫</strong>
+                            </p>
+{{--                            <form action="{{ route('cart.remove', $item->cart_item_id) }}" method="POST"--}}
+{{--                                  onsubmit="return confirm('Bạn có chắc chắn muốn xóa sản phẩm này khỏi giỏ hàng?')">--}}
+{{--                                @csrf--}}
+{{--                                @method('DELETE')--}}
+{{--                                <div class="xoa-btn-wrapper">--}}
+{{--                                    <button class="btn-xoa">Xóa</button>--}}
+{{--                                </div>--}}
+{{--                            </form>--}}
                         </div>
                     </div>
                 @endforeach
             </div>
-            <div class="cart-total">
-                <p>Tổng cộng:
-                    @php
-                        $total = $cartItems->sum(function($item) {
-                            return $item->product->price * $item->quantity;
-                        });
-                    @endphp
-                    {{ number_format($total, 0, ',', '.') }} đ
+            <div class="cart-total-actions align-items-center">
+                <p class="mb-0">
+                    <span class="total-label">Tổng cộng:</span>
+                    <span class="total-amount">
+                        @php
+                            $total = $cartItems->sum(function($item) {
+                                return $item->product->price * $item->quantity;
+                            });
+                        @endphp
+                                    {{ number_format($total, 0, ',', '.') }} đ
+                    </span>
                 </p>
-            </div>
-            <!-- Nút Mua Hàng -->
-            <div class="cart-actions">
-                <button class="btn-checkout" id="checkout-button">Mua hàng</button>
+                <form id="checkout-form" action="{{ route('order.process') }}" method="POST" style="display: none;">
+                    @csrf
+
+                </form>
+                <button id="checkout-button">Thanh toán</button>
             </div>
         @endif
     </div>
@@ -102,7 +118,6 @@
             }
         });
     </script>
-
     <script>
         document.getElementById('checkout-button').addEventListener('click', function() {
             Swal.fire({
@@ -116,18 +131,40 @@
                 cancelButtonText: 'Hủy'
             }).then((result) => {
                 if (result.isConfirmed) {
-                    // Nếu xác nhận, chuyển đến trang thanh toán
-                    window.location.href = '{{ route("checkout") }}';
-                } else {
-                    // Nếu hủy, gửi yêu cầu hủy đơn hàng
-                    // document.getElementById('cancel-order-form').submit();
+                    // Gửi form POST đến route order.process
+                    document.getElementById('checkout-form').submit();
                 }
             });
         });
+
     </script>
+
+{{--    <script>--}}
+{{--        document.getElementById('checkout-button').addEventListener('click', function() {--}}
+{{--            Swal.fire({--}}
+{{--                title: 'Xác nhận đơn hàng?',--}}
+{{--                text: "Bạn muốn xác nhận thanh toán cho đơn hàng này!",--}}
+{{--                icon: 'warning',--}}
+{{--                showCancelButton: true,--}}
+{{--                confirmButtonColor: '#3085d6',--}}
+{{--                cancelButtonColor: '#d33',--}}
+{{--                confirmButtonText: 'Có, xác nhận!',--}}
+{{--                cancelButtonText: 'Hủy'--}}
+{{--            }).then((result) => {--}}
+{{--                if (result.isConfirmed) {--}}
+{{--                    // Nếu xác nhận, chuyển đến trang thanh toán--}}
+{{--                    --}}{{--window.location.href = '{{ route("checkout") }}';--}}
+{{--                    window.location.href = '{{ route("order.process") }}';--}}
+{{--                } else {--}}
+{{--                    // Nếu hủy, gửi yêu cầu hủy đơn hàng--}}
+{{--                    // document.getElementById('cancel-order-form').submit();--}}
+{{--                }--}}
+{{--            });--}}
+{{--        });--}}
+{{--    </script>--}}
 @endpush
 @section('footer')
     <div class="site-footer">
-        @include('homepages.auth.footer')
+        @include('homepages.auth.footer_no_sale')
     </div>
 @endsection

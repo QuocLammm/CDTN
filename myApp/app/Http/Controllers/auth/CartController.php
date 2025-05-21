@@ -240,6 +240,28 @@ class CartController extends Controller
         return redirect()->route('checkout');
     }
 
+    // Thanh toán
+
+    public function confirm()
+    {
+        $user = Auth::user();
+
+        $cart = $user->cart()->with('items.product')->first();
+
+        if (!$cart || $cart->items->isEmpty()) {
+            return redirect()->route('cart.cart')->with('error', 'Giỏ hàng trống.');
+        }
+
+        $cartItems = $cart->items;
+
+        $total = $cartItems->sum(function ($item) {
+            return $item->product->price * $item->quantity;
+        });
+
+        return view('homepages.auth.payment', compact('cartItems', 'total'));
+    }
+
+
 
     // Hủy đơn hàng
     public function cancelOrder(Request $request)

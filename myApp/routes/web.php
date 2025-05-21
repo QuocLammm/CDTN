@@ -47,6 +47,9 @@ Route::middleware('auth')->group(function () {
     Route::get('/checkout', [CartController::class, 'checkout'])->name('checkout'); // Mua trong giỏ hàng
     Route::get('/buy-now/{id}', [CartController::class, 'buyNow'])->name('buy.now'); // Mua ngay trong chi tiết sản phẩm
     Route::post('/cancel-order', [CartController::class, 'cancelOrder'])->name('cancel.order');
+
+    Route::post('/process', [CartController::class, 'confirm'])->name('order.process');
+
     // Tìm kiểm sản phẩm
     Route::get('/search', [ProductController::class, 'search'])->name('product.search');
     Route::get('/product/{id}', [ProductDetailController::class, 'show'])->name('product.show');
@@ -79,6 +82,10 @@ Route::middleware('auth')->group(function () {
 });
 
 Route::middleware('auth')->prefix('admin')->group(function () {
+    Route::get('/', function () {
+        return view('welcome');
+    })->name('welcome');
+
     // Trang quản trị
     Route::get('/dashboard', [DashboardController::class, 'index'])->name('home');
     Route::get('/navbar', [DashboardController::class, 'showNavbar'])->name('show.navbar');

@@ -226,7 +226,7 @@
             <div class="col-md-6 col-lg-3" >
                 <div class="product-card">
                     <div class="product-image">
-                        <img src="{{ asset($product->image) }}" alt="{{ $product->name }}" >
+                        <img src="{{ $product->images->first()->image_path ?? 'default.jpg' }}" alt="{{ $product->name }}" >
                         <div class="product-actions">
                             <button class="btn-wishlist" type="button" aria-label="Add to wishlist">
                                 <i class="bi bi-heart"></i>

@@ -16,7 +16,6 @@
                         <tr>
                             <th>STT</th>
                             <th>Khách hàng</th>
-                            <th>Sản phẩm</th>
                             <th>Số lượng</th>
                             <th>Tổng tiền</th>
                             <th>Thời gian đặt hàng</th>
@@ -26,28 +25,37 @@
                         </thead>
                         <tbody>
                         @foreach($orders as $order)
+                            @php
+                                $totalAmount = 0;
+                                $productNames = []; // Khởi tạo biến ở đây
+                            @endphp
                             @foreach($order->items as $item)
-                                <tr>
-                                    <td>{{ $loop->parent->iteration }}</td>
-                                    <td>{{ $order->user->full_name }}</td>
-                                    <td>{{ $item->product->product_name }}</td>
-                                    <td>{{ $item->quantity }}</td>
-                                    <td>{{ $item->price * $item->quantity }}</td>
-                                    <td>{{ $order->created_at }}</td>
-                                    <td>
-                                        @if($order->status == 'Pending')
-                                            <span class="badge bg-warning">{{ $order->status }}</span>
-                                        @elseif($order->status == 'Success')
-                                            <span class="badge bg-success">{{ $order->status }}</span>
-                                        @elseif($order->status == 'Cancelled')
-                                            <span class="badge bg-danger">{{ $order->status }}</span>
-                                        @endif
-                                    </td>
-                                    <td>
-                                        <button class="btn btn-success btn-done" data-id="{{ $order->order_id }}">Done</button>
-                                    </td>
-                                </tr>
+                                @php
+                                $totalAmount += $item->price * $item->quantity;
+                                $productNames[] = $item->product->product_name;
+                                @endphp
                             @endforeach
+                            <tr>
+                                <td>{{ $loop->iteration }}</td>
+                                <td>{{ $order->user->full_name }}</td>
+                                <td>{{ $order->items->sum('quantity') }}</td>
+                                <td>{{ number_format($totalAmount, 0, ',', '.') }} đ</td>
+                                <td>{{ $order->created_at }}</td>
+                                <td>
+                                    @if($order->status == 'Pending')
+                                        <span class="badge bg-warning">{{ $order->status }}</span>
+                                    @elseif($order->status == 'Success')
+                                        <span class="badge bg-success">{{ $order->status }}</span>
+                                    @elseif($order->status == 'Cancelled')
+                                        <span class="badge bg-danger">{{ $order->status }}</span>
+                                    @endif
+                                </td>
+                                <td>
+                                    <button class="btn btn-success btn-done" data-id="{{ $order->order_id }}">Done</button>
+                                    <a href="{{ route('show-order.show', $order->order_id) }}" class="btn btn-info">Xem chi tiết</a>
+                                </td>
+
+                            </tr>
                         @endforeach
                         </tbody>
                     </table>

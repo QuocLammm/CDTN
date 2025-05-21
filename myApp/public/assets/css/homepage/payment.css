@@ -1,0 +1,111 @@
+.main-content h2{
+    text-align: center;
+    margin-top: 5px;
+}
+/* Container tổng */
+.checkout-summary {
+    max-width: 400px;
+    margin: 20px auto 40px auto;
+    padding: 20px;
+    border-radius: 12px;
+    box-shadow: 0 0 10px rgba(0,0,0,0.15);
+    background-color: #fff;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+/* Tiêu đề tổng tiền */
+.checkout-summary p strong {
+    font-size: 1.25rem;
+    color: #333;
+}
+
+/* Label và select phương thức */
+.checkout-summary label {
+    display: block;
+    font-weight: 600;
+    margin-bottom: 10px;
+    color: #555;
+}
+
+.checkout-summary select {
+    width: 100%;
+    padding: 10px 12px;
+    border: 1.5px solid #ccc;
+    border-radius: 8px;
+    font-size: 1rem;
+    transition: border-color 0.3s ease;
+}
+
+.checkout-summary select:focus {
+    outline: none;
+    border-color: #28a745; /* màu xanh nút */
+}
+
+/* Nút xác nhận */
+#confirm-payment-btn {
+    width: 100%;
+    padding: 12px;
+    margin-top: 20px;
+    border: none;
+    border-radius: 8px;
+    background-color: #28a745;
+    color: white;
+    font-size: 1.15rem;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+#confirm-payment-btn:hover {
+    background-color: #218838;
+}
+
+/* Card lớn bao đơn hàng và tổng */
+.order-card-wrapper {
+    max-width: 800px;
+    margin: 20px auto;
+    padding: 25px;
+}
+
+/* Card từng sản phẩm */
+.cart-card {
+    padding: 15px;
+    margin-bottom: 20px;
+    background-color: #ffffff;
+    border: 1px solid #eee;
+    border-radius: 12px;
+    transition: box-shadow 0.3s;
+}
+
+.cart-card:hover {
+    box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+}
+
+/* Responsive */
+@media (max-width: 576px) {
+    .cart-card {
+        flex-direction: column;
+    }
+
+    .cart-card-left,
+    .cart-card-right {
+        width: 100% !important;
+    }
+
+    .cart-card-right p, .cart-card-right h5 {
+        font-size: 0.95rem;
+    }
+}
+
+/* Responsive: nhỏ hơn 480px (điện thoại) */
+@media (max-width: 480px) {
+    .checkout-summary {
+        max-width: 90%;
+        padding: 15px;
+        margin: 15px auto 30px auto;
+    }
+
+    #confirm-payment-btn {
+        font-size: 1rem;
+        padding: 10px;
+    }
+}
