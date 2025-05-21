@@ -38,7 +38,9 @@
                         <input type="checkbox" name="remember" id="remember" />
                         <label for="remember">Lưu mật khẩu</label>
                     </div>
-                    <a href="#" class="forgot">Quên mật khẩu?</a>
+
+                    <a href="{{ route('password.request') }}" class="forgot">Quên mật khẩu?</a>
+
                 </div>
 
                 <!-- Nút đăng nhập -->
@@ -53,9 +55,19 @@
         </div>
     </div>
 </div>
-
-
-
-
+@if(session('success'))
+    <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script>
+        Swal.fire({
+            icon: 'success',
+            title: 'Thành công',
+            text: '{{ session("success") }}',
+            timer: 3000,
+            timerProgressBar: true,
+            showConfirmButton: true,
+            confirmButtonText: 'OK',
+        });
+    </script>
+@endif
 </body>
 </html>

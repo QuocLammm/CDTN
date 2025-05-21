@@ -7,12 +7,14 @@ use App\Http\Controllers\admin\NotificationController;
 use App\Http\Controllers\admin\OrderController;
 use App\Http\Controllers\admin\PermissionController;
 use App\Http\Controllers\admin\ProductController;
+use App\Http\Controllers\auth\ForgotPasswordController;
 use App\Http\Controllers\auth\ProductDetailController;
 use App\Http\Controllers\admin\SaleController;
 use App\Http\Controllers\admin\UserController;
 use App\Http\Controllers\auth\CartController;
 use App\Http\Controllers\auth\HomePageController;
 use App\Http\Controllers\auth\LoginController;
+use App\Http\Controllers\auth\ResetPasswordController;
 use App\Http\Controllers\DashboardController;
 use App\Models\Notification;
 use App\Models\Order;
@@ -66,6 +68,13 @@ Route::middleware('auth')->group(function () {
 Route::get('auth/google', [LoginController::class, 'redirectToGoogle'])->name('auth.google');
 Route::get('auth/google/callback', [loginController::class, 'handleGoogleCallback']);
 
+// Quên mật khẩu và cập nhật mật khẩu
+Route::get('/forgot-password', [ForgotPasswordController::class, 'showLinkRequestForm'])->name('password.request'); // Form nhập email
+Route::post('/forgot-password', [ForgotPasswordController::class, 'sendResetLinkEmail'])->name('password.email'); // Gửi mail chứa link khôi phục
+Route::get('/reset-password/{token}', [ResetPasswordController::class, 'showResetForm'])->name('password.reset'); // Form đặt lại mật khẩu (khi nhấn vào link trong email)
+Route::post('/reset-password', [ResetPasswordController::class, 'reset'])->name('password.update'); // Xử lý cập nhật mật khẩu mới
+
+
 // Chặn người đã đăng nhập truy cập login/register
 Route::middleware('guest')->group(function () {
     Route::get('/login', [LoginController::class, 'showLogin'])->name('login');
@@ -73,6 +82,7 @@ Route::middleware('guest')->group(function () {
 
     Route::get('/register', [LoginController::class, 'showRegister'])->name('register');
     Route::post('/register', [LoginController::class, 'register']);
+
 });
 
 // Đăng xuất

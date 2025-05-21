@@ -29,8 +29,21 @@
     <link href="{{asset('assets/css/main.css')}}" rel="stylesheet">
     <title>TRUCDOANPHAM | Chuyên giày dép nữ</title>
     @stack('css')
+    <style>
+        .swal2-toast {
+            background-color: green !important; /* nền xanh dương */
+            color: #ffffff !important;           /* chữ trắng */
+            font-weight: 500;
+            border: 1px solid green;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
+        }
+        .swal2-icon-success {
+            color: #ffffff !important; /* biểu tượng cũng trắng cho đồng bộ */
+        }
+    </style>
 </head>
 <body class="index-page">
+
 <header>
     @yield('header')
 </header>
@@ -79,7 +92,20 @@
         })
         .catch(console.error);
 </script>
-
+<!-- Toast thông báo -->
+@if (session('status'))
+    <script>
+        Swal.fire({
+            toast: true,
+            position: 'top-end',
+            icon: 'success',
+            title: '{{ session('status') }}',
+            showConfirmButton: false,
+            timer: 5000,
+            timerProgressBar: true,
+        });
+    </script>
+@endif
 @stack('js')
 </body>
 </html>

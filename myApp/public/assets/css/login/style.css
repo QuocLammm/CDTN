@@ -9,15 +9,17 @@
 }
 
 body {
-    background-image: url('https://www.facebook.com/photo/?fbid=122104613306509805&set=a.122104593620509805');
+    background-image: url('https://images.unsplash.com/photo-1511974035430-5de47d3b95da');
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
-    height: 100vh;
+    min-height: 100vh;
+    overflow-x: hidden;
     display: flex;
     justify-content: center;
     align-items: center;
-    font-size: 16px;
+    padding: 20px 10px;
+    width: 100%;
 }
 
 
@@ -209,6 +211,107 @@ button:hover {
 .social.google {
     background-color: #db4437;
     color: #fff;
+}
+
+/*Responsive*/
+@media (max-width: 1024px) {
+    .container {
+        width: 90%;
+    }
+
+    .form-container {
+        padding: 0 30px;
+    }
+
+    input {
+        font-size: 15px;
+    }
+}
+
+@media (max-width: 768px) {
+    h1 {
+        font-size: 28px;
+    }
+
+    .form-container {
+        padding: 0 20px;
+    }
+
+    input {
+        padding: 12px 16px;
+    }
+
+    button {
+        padding: 10px 35px;
+        font-size: 13px;
+    }
+
+    .forgot-password-wrapper {
+        flex-direction: column;
+        gap: 10px;
+    }
+}
+
+@media (max-width: 480px) {
+    .container {
+        min-height: auto;
+        padding: 20px 10px;
+    }
+
+    h1 {
+        font-size: 24px;
+    }
+
+    input {
+        font-size: 14px;
+    }
+
+    button {
+        width: 100%;
+        padding: 10px 0;
+    }
+
+    .register-link,
+    .login-link,
+    .forgot-password-wrapper {
+        font-size: 13px;
+    }
+}
+
+@media (max-width: 360px) {
+    .container {
+        width: 95%;
+    }
+
+    .form-container {
+        padding: 0 10px;
+    }
+
+    h1 {
+        font-size: 20px;
+    }
+
+    input {
+        padding: 10px 14px;
+    }
+
+    button {
+        font-size: 12px;
+    }
+}
+
+@media screen and (max-width: 600px) {
+    body {
+        padding: 0 10px;
+        overflow-x: hidden;
+    }
+
+    .container {
+        width: 100%;
+        max-width: 100%;
+        margin: 0 auto;
+        transform: none !important; /* Ngăn transform gây lệch */
+    }
 }
 
 
