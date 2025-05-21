@@ -62,10 +62,10 @@
             icon: 'success',
             title: 'Thành công',
             text: '{{ session("success") }}',
-            timer: 3000,
-            timerProgressBar: true,
             showConfirmButton: true,
             confirmButtonText: 'OK',
+            timer: 3000,
+            timerProgressBar: true,
         });
     </script>
 @endif

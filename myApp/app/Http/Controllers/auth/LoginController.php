@@ -53,18 +53,20 @@ class LoginController extends Controller
 
     public function register(Request $request) {
         $request->validate([
-            'name' => 'required|string|max:255',
+            'account_name' => 'required|string|max:255',
             'email' => 'required|string|email|unique:users',
             'password' => 'required|string|min:6|confirmed',
         ]);
 
         User::create([
-            'name' => $request->account_name,
+            'role_id' => 2,
+            'full_name' => $request->account_name,
+            'account_name' => $request->account_name,
             'email' => $request->email,
             'password' => Hash::make($request->password),
         ]);
 
-        return redirect()->route('login')->with('success', 'Register success! Please login.');
+        return redirect()->route('login')->with('success', 'Đăng ký thành công! Vui lòng đăng nhập.');
     }
 
     //Logout
