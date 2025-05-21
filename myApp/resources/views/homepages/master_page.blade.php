@@ -23,8 +23,11 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
 
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css">
-
-
+    <style>
+        body {
+            background-image: url('{{ asset("/images/background.jpeg") }}');
+        }
+    </style>
     <!-- Main CSS File -->
     <link href="{{asset('assets/css/main.css')}}" rel="stylesheet">
     <title>TRUCDOANPHAM | Chuyên giày dép nữ</title>
