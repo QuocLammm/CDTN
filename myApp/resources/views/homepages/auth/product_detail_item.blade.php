@@ -10,7 +10,7 @@
 @section('content')
     <div class="main-content">
         <div class="product-detail-container">
-            <img src="{{ $product->image }}" alt="{{ $product->product_name }}" class="product-detail-image">
+            <img src="{{ $product->images()->first()->image_path }}" alt="{{ $product->product_name }}" class="product-detail-image">
 
             <div class="product-detail-info">
                 <h2>{{ $product->product_name }}</h2>

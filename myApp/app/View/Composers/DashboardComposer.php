@@ -29,22 +29,16 @@ class DashboardComposer
             ? (($doanhThuHomNay - $doanhThuHomQua) / $doanhThuHomQua) * 100
             : ($doanhThuHomNay > 0 ? 100 : 0);
 
-        // Số khách hôm nay
+        // Lượt truy cập hôm nay và hôm qua
         $today = Carbon::today()->toDateString();
+        $yesterday = Carbon::yesterday()->toDateString();
+
         $todayViews = ViewPage::where('view_date', $today)->value('total_views') ?? 0;
+        $yesterdayViews = ViewPage::where('view_date', $yesterday)->value('total_views') ?? 0;
 
-        // Tổng khách tháng này và tháng trước
-        $currentMonthViews = ViewPage::whereYear('view_date', $year)
-            ->whereMonth('view_date', Carbon::now()->month)
-            ->sum('total_views');
-
-        $previousMonthViews = ViewPage::whereYear('view_date', Carbon::now()->subMonth()->year)
-            ->whereMonth('view_date', Carbon::now()->subMonth()->month)
-            ->sum('total_views');
-
-        $percentChangeViews = ($previousMonthViews == 0)
-            ? ($currentMonthViews > 0 ? 100 : 0)
-            : (($currentMonthViews - $previousMonthViews) / $previousMonthViews) * 100;
+        $percentChangeViews = ($yesterdayViews == 0)
+            ? ($todayViews > 0 ? 100 : 0)
+            : (($todayViews - $yesterdayViews) / $yesterdayViews) * 100;
 
         // Đơn hàng tháng này và tháng trước
         $donHangThangNay = Order::whereMonth('created_at', Carbon::now()->month)

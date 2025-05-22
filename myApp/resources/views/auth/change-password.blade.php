@@ -33,6 +33,7 @@
 </head>
 <body>
 <div>
+
     <main class="main-content  mt-0">
         <section>
             <div class="page-header min-vh-100">
@@ -40,6 +41,12 @@
                     <div class="row">
                         <div class="col-xl-4 col-lg-5 col-md-7 d-flex flex-column mx-lg-0 mx-auto">
                             <div class="card card-plain">
+                                <h3 style="text-align: center">TRUCDOAN<span style="color:red">PHAM</span></h3>
+                                <br>
+                                <br>
+                                <br>
+                                <br>
+                                <br>
                                 <div class="card-header pb-0 text-start" >
                                     <h4 class="font-weight-bolder" style="text-align:center">Cập nhật mật khẩu</h4>
                                     <p class="mb-0" style="text-align:center">Đặt mật khẩu mới cho email của bạn</p>

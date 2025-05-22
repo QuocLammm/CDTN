@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\ActivityLog;
 use App\Models\Notification;
 use App\Models\Order;
 use App\Models\User;
@@ -47,27 +48,42 @@ class DashboardController extends Controller
             $phanTramThayDoi = $doanhThuHomNay > 0 ? 100 : 0;
         }
 
-        // Card- 3
+        // Card- 2
+        // Ngày hôm nay
         $today = Carbon::today()->toDateString();
+
+        // Ngày hôm qua
+        $yesterday = Carbon::yesterday()->toDateString();
 
         // Số khách hôm nay
         $todayViews = ViewPage::where('view_date', $today)->value('total_views') ?? 0;
 
-        // Tổng khách tháng này
-        $currentMonthViews = ViewPage::whereYear('view_date', Carbon::now()->year)
-            ->whereMonth('view_date', Carbon::now()->month)
-            ->sum('total_views');
+        // Số khách hôm qua
+        $yesterdayViews = ViewPage::where('view_date', $yesterday)->value('total_views') ?? 0;
 
-        // Tổng khách tháng trước
-        $previousMonthViews = ViewPage::whereYear('view_date', Carbon::now()->subMonth()->year)
-            ->whereMonth('view_date', Carbon::now()->subMonth()->month)
-            ->sum('total_views');
-
-        // Tính phần trăm tăng giảm
-        if ($previousMonthViews == 0) {
-            $percentChange = $currentMonthViews > 0 ? 100 : 0;
+        // Tính phần trăm tăng giảm so với ngày hôm qua
+        if ($yesterdayViews == 0) {
+            $percentChangeViews = $todayViews > 0 ? 100 : 0;
         } else {
-            $percentChange = (($currentMonthViews - $previousMonthViews) / $previousMonthViews) * 100;
+            $percentChangeViews = (($todayViews - $yesterdayViews) / $yesterdayViews) * 100;
+        }
+
+        // Card - 3
+        // Khách hàng mới tháng này
+        $khachHangThangNay = User::whereMonth('created_at', Carbon::now()->month)
+            ->whereYear('created_at', Carbon::now()->year)
+            ->count();
+
+        // Khách hàng mới tháng trước
+        $khachHangThangTruoc = User::whereMonth('created_at', Carbon::now()->subMonth()->month)
+            ->whereYear('created_at', Carbon::now()->subMonth()->year)
+            ->count();
+
+        // Tính phần trăm thay đổi so với tháng trước
+        if ($khachHangThangTruoc > 0) {
+            $phanTramKhachHang = (($khachHangThangNay - $khachHangThangTruoc) / $khachHangThangTruoc) * 100;
+        } else {
+            $phanTramKhachHang = $khachHangThangNay > 0 ? 100 : 0;
         }
 
         // Card - 4
@@ -120,9 +136,9 @@ class DashboardController extends Controller
 
         // Tính phần trăm thay đổi doanh thu năm nay so với năm trước
         if ($totalLastYear > 0) {
-            $percentChange = (($totalCurrentYear - $totalLastYear) / $totalLastYear) * 100;
+            $percentChangeRevenueYear = (($totalCurrentYear - $totalLastYear) / $totalLastYear) * 100;
         } else {
-            $percentChange = 0;
+            $percentChangeRevenueYear = 0;
         }
 
         // Doanh thu theo 4 nhân viên cao nhất
@@ -171,20 +187,24 @@ class DashboardController extends Controller
             return $item;
         });
 
-
+        // Ghi Logs
+        $logs = ActivityLog::latest()->take(5)->get();
 
 
         return view('pages.dashboard', compact(
             'doanhThuHomNay',
             'phanTramThayDoi',
+            'khachHangThangNay',
+            'phanTramKhachHang',
             'donHangThangNay',
             'phanTramDonHang',
             'todayViews',
-            'percentChange',
+            'percentChangeViews',
             'data',
-            'percentChange',
+            'percentChangeRevenueYear',
             'year',
-            'revenuePerStaff'
+            'revenuePerStaff',
+            'logs'
         ));
     }
 

@@ -215,7 +215,7 @@
     <!-- Section Title -->
     <div class="container section-title" data-aos="fade-up">
         <h2>Siêu giảm giá</h2>
-        <p>Necessitatibus eius consequatur ex aliquid fuga eum quidem sint consectetur velit</p>
+        <p>Ưu đãi cực sốc – cơ hội mua sắm giá hời không thể bỏ lỡ!</p>
     </div><!-- End Section Title -->
 
     <div class="container" data-aos="fade-up" data-aos-delay="100">
@@ -342,62 +342,62 @@
 </section><!-- /Best Sellers Section -->
 
 <!-- Product List Section -->
-<section id="product-list" class="product-list section">
+{{--<section id="product-list" class="product-list section">--}}
 
-    <div class="container isotope-layout" data-aos="fade-up" data-aos-delay="100" data-default-filter="*" data-layout="masonry" data-sort="original-order">
+{{--    <div class="container isotope-layout" data-aos="fade-up" data-aos-delay="100" data-default-filter="*" data-layout="masonry" data-sort="original-order">--}}
 
-        <div class="row">
-            <div class="col-12">
-                <div class="product-filters isotope-filters mb-5 d-flex justify-content-center" data-aos="fade-up">
-                    <ul class="d-flex flex-wrap gap-2 list-unstyled">
-                        <li class="filter-active" data-filter="*">Tất cả</li>
-                        <li data-filter=".filter-clothing">Giày nữ</li>
-                        <li data-filter=".filter-accessories">Dép nữ</li>
-                        <li data-filter=".filter-electronics">Giày thể thao</li>
-                    </ul>
-                </div>
-            </div>
-        </div>
+{{--        <div class="row">--}}
+{{--            <div class="col-12">--}}
+{{--                <div class="product-filters isotope-filters mb-5 d-flex justify-content-center" data-aos="fade-up">--}}
+{{--                    <ul class="d-flex flex-wrap gap-2 list-unstyled">--}}
+{{--                        <li class="filter-active" data-filter="*">Tất cả</li>--}}
+{{--                        <li data-filter=".filter-clothing">Giày nữ</li>--}}
+{{--                        <li data-filter=".filter-accessories">Dép nữ</li>--}}
+{{--                        <li data-filter=".filter-electronics">Giày thể thao</li>--}}
+{{--                    </ul>--}}
+{{--                </div>--}}
+{{--            </div>--}}
+{{--        </div>--}}
 
-        <div class="row product-container isotope-container" data-aos="fade-up" data-aos-delay="200">
-            <!-- Product Item 1 -->
-            <div class="col-md-6 col-lg-3 product-item isotope-item filter-clothing">
-                <div class="product-card">
-                    <div class="product-image">
-                        <span class="badge">Sale</span>
-                        <img src="assets/img/product/product-11.webp" alt="Product" class="img-fluid main-img">
-                        <img src="assets/img/product/product-11-variant.webp" alt="Product Hover" class="img-fluid hover-img">
-                        <div class="product-overlay">
-                            <a href="{{route('cart.cart')}}" class="btn-cart"><i class="bi bi-cart-plus"></i> Thêm vào giỏ hàng</a>
-                            <div class="product-actions">
-                                <a href="#" class="action-btn"><i class="bi bi-heart"></i></a>
-                                <a href="#" class="action-btn"><i class="bi bi-eye"></i></a>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="product-info">
-                        <h5 class="product-title"><a href="product-details.html">Lorem ipsum dolor sit amet</a></h5>
-                        <div class="product-price">
-                            <span class="current-price">$89.99</span>
-                            <span class="old-price">$129.99</span>
-                        </div>
-                        <div class="product-rating">
-                            <i class="bi bi-star-fill"></i>
-                            <i class="bi bi-star-fill"></i>
-                            <i class="bi bi-star-fill"></i>
-                            <i class="bi bi-star-fill"></i>
-                            <i class="bi bi-star-half"></i>
-                            <span>(24)</span>
-                        </div>
-                    </div>
-                </div>
-            </div><!-- End Product Item -->
-        </div>
+{{--        <div class="row product-container isotope-container" data-aos="fade-up" data-aos-delay="200">--}}
+{{--            <!-- Product Item 1 -->--}}
+{{--            <div class="col-md-6 col-lg-3 product-item isotope-item filter-clothing">--}}
+{{--                <div class="product-card">--}}
+{{--                    <div class="product-image">--}}
+{{--                        <span class="badge">Sale</span>--}}
+{{--                        <img src="assets/img/product/product-11.webp" alt="Product" class="img-fluid main-img">--}}
+{{--                        <img src="assets/img/product/product-11-variant.webp" alt="Product Hover" class="img-fluid hover-img">--}}
+{{--                        <div class="product-overlay">--}}
+{{--                            <a href="{{route('cart.cart')}}" class="btn-cart"><i class="bi bi-cart-plus"></i> Thêm vào giỏ hàng</a>--}}
+{{--                            <div class="product-actions">--}}
+{{--                                <a href="#" class="action-btn"><i class="bi bi-heart"></i></a>--}}
+{{--                                <a href="#" class="action-btn"><i class="bi bi-eye"></i></a>--}}
+{{--                            </div>--}}
+{{--                        </div>--}}
+{{--                    </div>--}}
+{{--                    <div class="product-info">--}}
+{{--                        <h5 class="product-title"><a href="product-details.html">Lorem ipsum dolor sit amet</a></h5>--}}
+{{--                        <div class="product-price">--}}
+{{--                            <span class="current-price">$89.99</span>--}}
+{{--                            <span class="old-price">$129.99</span>--}}
+{{--                        </div>--}}
+{{--                        <div class="product-rating">--}}
+{{--                            <i class="bi bi-star-fill"></i>--}}
+{{--                            <i class="bi bi-star-fill"></i>--}}
+{{--                            <i class="bi bi-star-fill"></i>--}}
+{{--                            <i class="bi bi-star-fill"></i>--}}
+{{--                            <i class="bi bi-star-half"></i>--}}
+{{--                            <span>(24)</span>--}}
+{{--                        </div>--}}
+{{--                    </div>--}}
+{{--                </div>--}}
+{{--            </div><!-- End Product Item -->--}}
+{{--        </div>--}}
 
-        <div class="text-center mt-5" data-aos="fade-up">
-            <a href="{{route('products.all_products')}}" class="view-all-btn">Xem tất cả sản phẩm <i class="bi bi-arrow-right"></i></a>
-        </div>
+{{--        <div class="text-center mt-5" data-aos="fade-up">--}}
+{{--            <a href="{{route('products.all_products')}}" class="view-all-btn">Xem tất cả sản phẩm <i class="bi bi-arrow-right"></i></a>--}}
+{{--        </div>--}}
 
-    </div>
+{{--    </div>--}}
 
-</section>
+{{--</section>--}}

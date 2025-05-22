@@ -16,6 +16,7 @@ use App\Http\Controllers\auth\HomePageController;
 use App\Http\Controllers\auth\LoginController;
 use App\Http\Controllers\auth\ResetPasswordController;
 use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\SettingController;
 use App\Models\Notification;
 use App\Models\Order;
 use App\Models\ViewPage;
@@ -145,6 +146,9 @@ Route::middleware('auth')->prefix('admin')->group(function () {
 
         return response()->json(['count' => $count]);
     });
+
+    // Cài đặt
+    Route::resource('/setting',SettingController::class)->names('show-setting');
 
 // Route cho việc hiển thị các sản phẩm và thực hiện thanh toán (GET)
     Route::get('/vnpay', [VNPayController::class, 'showPaymentPage'])->name('vnpay.payment.product');

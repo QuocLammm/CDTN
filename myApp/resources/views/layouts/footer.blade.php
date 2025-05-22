@@ -8,9 +8,7 @@
                         document.write(new Date().getFullYear())
                     </script>,
                     được thực hiện <i class="fa fa-heart"></i> bởi
-                    <a href="https://www.facebook.com/an.tiue.3" class="font-weight-bold" target="_blank">Quốc Lâm</a>
-                    và
-                    <a href="https://sweetsoft.vn/" class="font-weight-bold" target="_blank">SweetSoft</a>
+                    <a href="https://www.facebook.com/an.tiue.3" class="font-weight-bold" target="_blank">Quốc Lâm SweetSoft</a>
                 </div>
             </div>
             <div class="col-lg-6">

@@ -108,12 +108,44 @@
                     fetch(`/admin/qr-code/${productId}`)
                         .then(response => response.json())
                         .then(data => {
-                            // Hiển thị SweetAlert với mã QR
+                            // Hiển thị SweetAlert với mã QR và nút "Xuất"
                             Swal.fire({
                                 title: `QR Code của ${productName}`,
                                 html: `<img src="data:image/svg+xml;base64,${data.qr_image_path}" style="width: 200px; height: 200px;">`,
                                 showConfirmButton: true,
+                                confirmButtonText: 'OK',
+                                showCancelButton: true,
+                                cancelButtonText: 'Xuất',
+                                reverseButtons: true,  // Nếu muốn nút OK bên phải, Xuất bên trái
+                            }).then((result) => {
+                                if (result.dismiss === Swal.DismissReason.cancel) {
+                                    // Nút "Xuất" được bấm
+                                    const imgSrc = `data:image/svg+xml;base64,${data.qr_image_path}`;
+                                    const printWindow = window.open('', '_blank');
+                                    printWindow.document.write(`
+                                    <html>
+                                        <head>
+                                            <title>In QR Code</title>
+                                            <style>
+                                                body { text-align: center; margin: 0; padding: 20px; }
+                                                img { max-width: 100%; height: auto; }
+                                            </style>
+                                        </head>
+                                        <body>
+                                            <img src="${imgSrc}" alt="QR Code" />
+                                            <script>
+                                                window.onload = function() {
+                                                    window.print();
+                                                    window.onafterprint = function() { window.close(); }
+                                                }
+                                            <\/script>
+                                        </body>
+                                    </html>
+                                `);
+                                    printWindow.document.close();
+                                }
                             });
+
                         })
                         .catch(error => {
                             console.error('Error fetching QR code:', error);

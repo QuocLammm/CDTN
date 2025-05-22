@@ -26,7 +26,7 @@ return [
             [
                 'title' => 'Phân quyền',
                 'route' => 'show-permission.index',
-                'icon' => 'ni ni-settings text-dark',
+                'icon' => 'ni ni-lock-circle-open text-dark',
                 'permission' => 'permission.view',
             ],
             [
@@ -73,10 +73,15 @@ return [
                 'permission' => 'user.profile',
             ],
             [
+                'title' => 'Cài đặt',
+                'route' => 'show-setting.index',
+                'icon' => 'ni ni-settings text-dark',
+                'permission' => 'user.setting',
+            ],
+            [
                 'title' => 'Đăng xuất',
                 'route' => 'logout',
                 'icon' => 'ni ni-button-power text-danger',
-
             ],
 
 

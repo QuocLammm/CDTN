@@ -20,7 +20,7 @@
                 <div class="content">
                     <span class="promo-badge">Thiết kế mới 2025</span>
                     <h1>Khám phá nhiều mẫu <span>giày</span> cho mọi mùa</h1>
-                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut elit tellus, luctus nec ullamcorper mattis, pulvinar dapibus leo. Vestibulum ante ipsum primis in faucibus.</p>
+                    <p>Thỏa sức lựa chọn những đôi giày thời trang, phù hợp cho mọi mùa trong năm – từ năng động ngày hè đến ấm áp ngày đông.</p>
                     <div class="hero-cta">
                         <a href="#" class="btn btn-shop">Mua ngay <i class="bi bi-arrow-right"></i></a>
                         <a href="#" class="btn btn-collection">Xem tất cả</a>
