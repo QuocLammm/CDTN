@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\ActivityLog;
 use App\Models\Notification;
 use App\Models\Order;
+use App\Models\ProductReview;
 use App\Models\User;
 use App\Models\ViewPage;
 use Carbon\Carbon;
@@ -104,7 +105,7 @@ class DashboardController extends Controller
             $phanTramDonHang = $donHangThangNay > 0 ? 100 : 0;
         }
 
-        // Chart - Total Sum Year
+        // Chart - Doanh số bán hàng trong năm
         $year = Carbon::now()->year;
         $lastYear = $year - 1;
 
@@ -139,6 +140,22 @@ class DashboardController extends Controller
             $percentChangeRevenueYear = (($totalCurrentYear - $totalLastYear) / $totalLastYear) * 100;
         } else {
             $percentChangeRevenueYear = 0;
+        }
+
+        // Chart - Thống kê đánh giá/phản hồi của khách lên sản phẩm
+        $datas = ProductReview::selectRaw('product_id, COUNT(*) as review_count, AVG(rating) as avg_rating')
+            ->groupBy('product_id')
+            ->with('product')
+            ->get();
+
+        $labels = [];
+        $ratings = [];
+        $counts = [];
+
+        foreach ($datas as $item) {
+            $labels[] = $item->product->product_name ?? 'Không rõ';
+            $ratings[] = round($item->avg_rating, 1);
+            $counts[] = $item->review_count;
         }
 
         // Doanh thu theo 4 nhân viên cao nhất
@@ -204,7 +221,10 @@ class DashboardController extends Controller
             'percentChangeRevenueYear',
             'year',
             'revenuePerStaff',
-            'logs'
+            'logs',
+            'labels',
+            'ratings',
+            'counts',
         ));
     }
 

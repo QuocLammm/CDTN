@@ -118,4 +118,9 @@
     background-color: #2563eb;
 }
 
+#feedbackChart {
+    height: 150px !important;
+    max-height: 150px;
+    width: 100% !important;
+}
 
