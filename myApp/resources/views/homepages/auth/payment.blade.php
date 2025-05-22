@@ -76,6 +76,11 @@
             });
         });
     </script>
+    <script>
+        document.getElementById('payment-method').addEventListener('change', function () {
+            document.getElementById('confirm-payment-btn').style.display = 'block';
+        });
+    </script>
 @endpush
 
 @section('footer')

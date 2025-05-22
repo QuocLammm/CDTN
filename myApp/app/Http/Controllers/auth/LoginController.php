@@ -107,12 +107,12 @@ class LoginController extends Controller
             [
                 'name' => $googleUser->getName(),
                 'google_id' => $googleUser->getId(),
-                'password' => bcrypt(uniqid()) // random password
+                'password' => bcrypt(uniqid())
             ]
         );
 
         Auth::login($user);
 
-        return redirect()->intended('/home'); // hoặc dashboard
+        return redirect()->intended('/homepages'); // hoặc dashboard
     }
 }

@@ -76,7 +76,7 @@ class ProductController extends Controller
 
 
         // Tạo mã QR
-        $qrContent = route('show-product.show', $product->product_id);
+        $qrContent = route('product.show', $product->product_id);
         $svg = QrCode::format('svg')->size(200)->generate($qrContent);
         $qrBase64 = base64_encode($svg);
 
@@ -162,7 +162,7 @@ class ProductController extends Controller
     public function destroy(Product $product)
     {
         // Xóa chi tiết sản phẩm
-        $product->productDetail()->delete();
+        $product->productDetails()->delete();
         // Xóa sản phẩm
         $product->delete();
         return redirect()->route('show-product.index')->with('success', 'Sản phẩm đã được xóa!');

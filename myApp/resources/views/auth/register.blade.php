@@ -16,7 +16,6 @@
             @csrf
             <h1>Đăng ký tài khoản</h1>
             <div class="social-container">
-                <a href="#" class="social facebook"><i class="fab fa-facebook-f"></i></a>
                 <a href="{{ route('auth.google') }}" class="social google"><i class="fab fa-google-plus-g"></i></a>
             </div>
             <div class="infield">

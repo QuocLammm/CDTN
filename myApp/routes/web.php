@@ -46,7 +46,7 @@ Route::middleware('auth')->group(function () {
     Route::get('/cart', [CartController::class, 'showCart'])->name('cart.cart');
     Route::post('/add-to-cart/{id}', [CartController::class, 'addToCart'])->name('cart.add');
     Route::delete('/cart/{id}', [CartController::class, 'remove'])->name('cart.remove');
-    Route::get('/checkout', [CartController::class, 'checkout'])->name('checkout'); // Mua trong giỏ hàng
+    Route::post('/checkout', [CartController::class, 'checkout'])->name('checkout');// Mua trong giỏ hàng
     Route::get('/buy-now/{id}', [CartController::class, 'buyNow'])->name('buy.now'); // Mua ngay trong chi tiết sản phẩm
     Route::post('/cancel-order', [CartController::class, 'cancelOrder'])->name('cancel.order');
 
