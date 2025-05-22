@@ -141,7 +141,7 @@
                     </div>
                     <div class="card-body p-3">
                         <div class="chart">
-                            <canvas id="chart-total-year" class="chart-canvas" height="150"></canvas>
+                            <canvas id="chart-total-year" class="chart-canvas" ></canvas>
                         </div>
                     </div>
                 </div>
@@ -150,7 +150,7 @@
                 <div class="card h-100">
                     <div class="card-body p-3">
                         <h6 class="text-capitalize">Biểu đồ đánh giá sản phẩm</h6>
-                        <canvas id="feedbackChart" class="chart-canvas w-100 h-100"></canvas>
+                        <canvas id="feedbackChart" class="chart-canvas"></canvas>
                     </div>
                 </div>
             </div>
@@ -168,7 +168,7 @@
                             <tbody>
                             @foreach($revenuePerStaff as $item)
                                 <tr>
-                                    <td class="w-30">
+                                    <td class="col-avatar-name w-20">
                                         <div class="d-flex px-2 py-1 align-items-center">
                                             <div>
                                                 <img src="{{ asset($item->staff->image ?? 'default.png') }}" alt="Ảnh nhân viên" style="width: 50px; height: 50px; object-fit: cover; border-radius: 8px;">
@@ -182,19 +182,19 @@
                                             </div>
                                         </div>
                                     </td>
-                                    <td>
+                                    <td class="col-orders d-none d-md-table-cell">
                                         <div class="text-center">
                                             <p class="text-xs font-weight-bold mb-0">Đã bán:</p>
                                             <h6 class="text-sm mb-0">{{ $item->orders_count }}</h6>
                                         </div>
                                     </td>
-                                    <td>
+                                    <td class="col-revenue">
                                         <div class="text-center">
                                             <p class="text-xs font-weight-bold mb-0">Doanh thu:</p>
                                             <h6 class="text-sm mb-0">{{ number_format($item->total_revenue, 2) }} vnđ</h6>
                                         </div>
                                     </td>
-                                    <td class="align-middle text-sm">
+                                    <td class="align-middle text-sm col-change d-none d-md-table-cell">
                                         <div class="col text-center">
                                             <p class="text-xs font-weight-bold mb-0">Tăng/Giảm</p>
                                             @if (!is_null($item->change_percent))

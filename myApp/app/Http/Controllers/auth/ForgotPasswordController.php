@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\auth;
 
+use App\Helpers\MailConfigHelper;
 use App\Http\Controllers\Controller;
 use App\Mail\ResetPasswordMail;
 use App\Models\User;
@@ -22,7 +23,7 @@ class ForgotPasswordController extends Controller
 
         $user = User::where('email', $request->email)->first();
         $token = Password::createToken($user);
-
+        MailConfigHelper::loadFromDatabase(); // Load Setting trước khi gửi mail
         Mail::to($request->email)->send(new ResetPasswordMail($token, $request->email));
 
         return redirect()->route('homepage')->with('status', 'Liên kết đặt lại mật khẩu đã được gửi vào email của bạn!');

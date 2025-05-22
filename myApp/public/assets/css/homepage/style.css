@@ -119,8 +119,164 @@
 }
 
 #feedbackChart {
-    height: 150px !important;
-    max-height: 150px;
+    height: 200px !important;
+    max-height: 200px;
     width: 100% !important;
 }
+
+@media (max-width: 767.98px) {
+    .col-avatar-name img {
+        width: 40px !important;
+        height: 40px !important;
+    }
+    .col-avatar-name h6 {
+        font-size: 0.875rem; /* 14px */
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        max-width: 100px;
+    }
+    .col-avatar-name p {
+        font-size: 0.75rem; /* 12px */
+    }
+}
+
+
+
+/*Setting Admin*/
+.setting-container {
+    display: flex;
+    gap: 20px;
+    padding: 20px;
+    background: #fff;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgb(0 0 0 / 0.1);
+}
+#setting-groups {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    border-right: 1px solid #ddd;
+    min-width: 180px;
+}
+
+#setting-groups .group-item {
+    cursor: pointer;
+    padding: 12px 15px;
+    font-weight: 600;
+    border-left: 4px solid transparent;
+    color: #555;
+    transition: background-color 0.3s, border-color 0.3s, color 0.3s;
+}
+
+#setting-groups .group-item:hover {
+    background-color: #f0f0f0;
+}
+
+#setting-groups .group-item.active {
+    border-left-color: #007bff;
+    background-color: #e7f1ff;
+    color: #007bff;
+}
+
+/* Nội dung phải */
+.group-content {
+    flex: 1;
+    padding-left: 20px;
+}
+
+.group-content form {
+    max-width: 600px;
+}
+
+.group-content label {
+    display: block;
+    margin-bottom: 6px;
+    font-weight: 600;
+    color: #333;
+}
+
+.group-content input[type="text"],
+.group-content input[type="password"],
+.group-content select {
+    width: 100%;
+    padding: 10px 12px;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    font-size: 1rem;
+    transition: border-color 0.3s;
+}
+
+.group-content input[type="text"]:focus,
+.group-content input[type="password"]:focus,
+.group-content select:focus {
+    border-color: #007bff;
+    outline: none;
+}
+
+.group-content button[type="submit"] {
+    margin-top: 20px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    padding: 12px 25px;
+    border-radius: 6px;
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.group-content button[type="submit"]:hover {
+    background-color: #0056b3;
+}
+
+/* Responsive - nhỏ hơn 768px thì đổi thành cột dọc */
+@media (max-width: 767px) {
+    .setting-container {
+        flex-direction: column;
+        padding: 15px;
+    }
+    #setting-groups {
+        display: flex;
+        border-right: none;
+        border-bottom: 1px solid #ddd;
+        min-width: auto;
+        overflow-x: auto;
+    }
+    #setting-groups .group-item {
+        flex: 1 0 auto;
+        border-left: none;
+        border-bottom: 4px solid transparent;
+        padding: 10px 20px;
+        text-align: center;
+    }
+    #setting-groups .group-item.active {
+        border-left: none;
+        border-bottom-color: #007bff;
+        background-color: transparent;
+    }
+    .group-content {
+        padding-left: 0;
+        margin-top: 15px;
+    }
+}
+
+/* Responsive rất nhỏ (điện thoại) */
+@media (max-width: 400px) {
+    .group-content form {
+        max-width: 100%;
+    }
+    .group-content input[type="text"],
+    .group-content input[type="password"],
+    .group-content select {
+        font-size: 0.9rem;
+        padding: 8px 10px;
+    }
+    .group-content button[type="submit"] {
+        padding: 10px 18px;
+        font-size: 0.9rem;
+    }
+}
+
 

@@ -42,5 +42,10 @@ class Product extends Model
         return $this->hasMany(ProductImage::class,'product_id','product_id');
     }
 
+    // Quan hệ với ProductReview
+    public function reviews(){
+        return $this->hasMany(ProductReview::class,'product_id','product_id');
+    }
+
 
 }

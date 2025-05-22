@@ -20,21 +20,19 @@
 
                 {{-- Icon cài đặt --}}
                 <li class="nav-item px-3 d-flex align-items-center">
-                    <a href="javascript:;" class="nav-link text-dark p-0">
+                    <a href="{{route('admin.setting.index')}}" class="nav-link text-dark p-0">
                         <i class="fa fa-cog fixed-plugin-button-nav cursor-pointer"></i>
                     </a>
                 </li>
 
                 {{-- Icon thông báo --}}
-                {{-- Icon thông báo --}}
-
 
                 <li class="nav-item dropdown pe-3 me-3 d-flex align-items-center position-relative">
                     <a href="javascript:;" class="nav-link text-dark p-0" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-expanded="false">
                         <i class="fa fa-bell cursor-pointer" style="color: #ffc107; font-size: 18px;"></i>
                         <span id="notification-count" class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
-            {{ $pendingOrdersCount }}
-        </span>
+                        {{ $pendingOrdersCount }}
+                    </span>
                     </a>
                     <ul class="dropdown-menu dropdown-menu-end px-2 py-3 me-sm-n4" aria-labelledby="dropdownMenuButton" style="min-width: 300px;">
                         @if($notifications->isEmpty())
@@ -55,7 +53,6 @@
                         @endif
                     </ul>
                 </li>
-
 
                 {{-- Nút đăng xuất --}}
                 <li class="nav-item d-flex align-items-center">

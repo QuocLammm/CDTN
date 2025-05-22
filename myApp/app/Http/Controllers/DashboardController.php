@@ -205,7 +205,7 @@ class DashboardController extends Controller
         });
 
         // Ghi Logs
-        $logs = ActivityLog::latest()->take(5)->get();
+        $logs = ActivityLog::latest()->take(4)->get();
 
 
         return view('pages.dashboard', compact(

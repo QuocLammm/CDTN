@@ -148,7 +148,9 @@ Route::middleware('auth')->prefix('admin')->group(function () {
     });
 
     // Cài đặt
-    Route::resource('/setting',SettingController::class)->names('show-setting');
+    Route::get('/settings', [SettingController::class, 'index'])->name('admin.setting.index');
+    Route::put('/settings', [SettingController::class, 'update'])->name('admin.setting.update');
+
 
 // Route cho việc hiển thị các sản phẩm và thực hiện thanh toán (GET)
     Route::get('/vnpay', [VNPayController::class, 'showPaymentPage'])->name('vnpay.payment.product');

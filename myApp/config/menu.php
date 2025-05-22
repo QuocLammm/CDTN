@@ -74,7 +74,7 @@ return [
             ],
             [
                 'title' => 'Cài đặt',
-                'route' => 'show-setting.index',
+                'route' => 'admin.setting.index',
                 'icon' => 'ni ni-settings text-dark',
                 'permission' => 'user.setting',
             ],
