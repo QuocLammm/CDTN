@@ -165,6 +165,7 @@ class CartController extends Controller
                 'user_id' => $userId,
                 'total_amount' => $total,
                 'status' => 'pending',
+                'payment_method' => $paymentMethod,
             ]);
 
             foreach ($cart->items as $item) {

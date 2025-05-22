@@ -72,8 +72,8 @@ class OrderController extends Controller
 
     public function show($id)
     {
-        $order = Order::with('items.product')->findOrFail($id);
-        return view('show-order.show', compact('order')); // Đảm bảo đường dẫn đúng
+        $order = Order::with(['items.product', 'user'])->findOrFail($id);
+        return view('admin.order.show', compact('order'));
     }
 
 }

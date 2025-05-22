@@ -1,4 +1,4 @@
-@extends('layouts.app')
+@extends('layouts.app', ['class' => 'g-sidenav-show bg-gray-100'])
 
 @section('content')
     @include('layouts.header', ['title' => 'Quản lý đơn hàng'])
@@ -27,7 +27,7 @@
                         @foreach($orders as $order)
                             @php
                                 $totalAmount = 0;
-                                $productNames = []; // Khởi tạo biến ở đây
+                                $productNames = [];
                             @endphp
                             @foreach($order->items as $item)
                                 @php
