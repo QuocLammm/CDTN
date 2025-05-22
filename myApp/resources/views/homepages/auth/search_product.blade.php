@@ -4,7 +4,7 @@
 @endpush
 @section('header')
     <div class="site-header">
-        @include('homepages.auth.header')
+        @include('homepages.guest.header')
     </div>
 @endsection
 @section('content')

@@ -31,7 +31,7 @@ Route::get('/showProduct',[HomePageController::class, 'showProduct'])->name('sho
 Route::get('/products/all/{category_id}', [HomePageController::class, 'viewAll'])->name('products.all'); // Xem all sản phẩm theo từng danh mục
 Route::get('/products/all/', [HomePageController::class, 'viewAllProduct'])->name('products.all_products'); // Xem all sản phẩm
 Route::get('/load-more-products', [HomePageController::class, 'loadMore'])->name('products.loadMore'); // Load More
-
+Route::get('/search', [ProductController::class, 'search'])->name('product.search');// Tìm kiểm sản phẩm
 
 
 
@@ -52,8 +52,7 @@ Route::middleware('auth')->group(function () {
 
     Route::post('/process', [CartController::class, 'confirm'])->name('order.process');
 
-    // Tìm kiểm sản phẩm
-    Route::get('/search', [ProductController::class, 'search'])->name('product.search');
+
     Route::get('/product/{id}', [ProductDetailController::class, 'show'])->name('product.show');
 
     // Profile User
