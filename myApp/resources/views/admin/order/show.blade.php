@@ -1,26 +1,12 @@
 @extends('layouts.app', ['class' => 'g-sidenav-show bg-gray-100'])
-@push('css')
-{{--    <style>--}}
-{{--        @media (max-width: 365px) {--}}
-{{--            /* Ẩn cột Giá và Số lượng */--}}
-{{--            .col-price,--}}
-{{--            .col-qty {--}}
-{{--                display: none;--}}
-{{--            }--}}
-
-{{--            /* Đảm bảo các cột còn lại hiển thị */--}}
-{{--            .col-id,--}}
-{{--            .col-name,--}}
-{{--            .col-subtotal {--}}
-{{--                display: table-cell;--}}
-{{--            }--}}
-{{--        }--}}
-
-{{--    </style>--}}
-@endpush
+@php
+    $breadcrumbItems = [
+        ['label' => 'Đơn hàng', 'url' => route('show-order.index')],
+        ['label' => 'Thông tin đơn hàng']
+    ];
+@endphp
 @section('content')
-    @include('layouts.header', ['title' => 'Chi tiết đơn hàng'])
-
+    @include('layouts.header')
     <div class="container mt-4">
         <div class="card shadow">
             <div class="card-header bg-primary text-white d-flex justify-content-between align-items-center">

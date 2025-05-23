@@ -1,5 +1,12 @@
 @extends('layouts.app')
+@php
+    $breadcrumbItems = [
+        ['label' => 'Danh mục sản phẩm', 'url' => route('show-category.index')],
+        ['label' => 'Thêm mới danh mục sản phẩm']
+    ];
+@endphp
 @section('content')
+    @include('layouts.header')
     <div class="container">
         <br>
         <h3>Thêm mới danh mục sản phẩm</h3>

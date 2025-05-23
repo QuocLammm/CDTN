@@ -1,5 +1,12 @@
 @extends('layouts.app')
+@php
+    $breadcrumbItems = [
+        ['label' => 'Khách hàng', 'url' => route('show-customer.index')],
+        ['label' => 'Cập nhật thông tin khách hàng']
+    ];
+@endphp
 @section('content')
+    @include('layouts.header')
     <div class="container">
         <br>
         <h3>Cập nhật thông tin khách hàng</h3>
@@ -15,7 +22,7 @@
                         <x-form.group col="6">
                             <x-form.input name="account_name" label="Tài khoản" type="text" placeholder="Nhập tài khoản khách hàng" :value="$customer->account_name" />
                         </x-form.group>
-                        
+
                     </div>
                     <div class="row">
                         <div class="col-md-4">

@@ -1,8 +1,15 @@
 @extends('layouts.app')
+@php
+    $breadcrumbItems = [
+        ['label' => 'Sản phẩm', 'url' => route('show-category.index')],
+        ['label' => 'Cập nhật danh mục sản phẩm']
+    ];
+@endphp
 @section('content')
+    @include('layouts.header')
     <div class="container">
         <br>
-        <h3>Chỉnh sửa danh mục sản phẩm</h3>
+        <h3>Cập nhật danh mục sản phẩm</h3>
         <form action="{{ route('show-category.update', $categories->category_id) }}" method="POST" enctype="multipart/form-data">
             @csrf
             @method('PUT')

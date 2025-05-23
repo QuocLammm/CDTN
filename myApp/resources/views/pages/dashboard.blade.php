@@ -149,7 +149,7 @@
             <div class="col-lg-5 mb-lg-0 mb-4">
                 <div class="card h-100">
                     <div class="card-body p-3">
-                        <h6 class="text-capitalize">Biểu đồ đánh giá sản phẩm</h6>
+                        <h6 class="text-capitalize">Tổng quan đánh giá sản phẩm</h6>
                         <canvas id="feedbackChart" class="chart-canvas"></canvas>
                     </div>
                 </div>

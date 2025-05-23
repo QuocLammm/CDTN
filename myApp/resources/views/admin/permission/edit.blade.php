@@ -1,6 +1,12 @@
 @extends('layouts.app')
-
+@php
+    $breadcrumbItems = [
+        ['label' => 'Phân quyền', 'url' => route('show-permission.index')],
+        ['label' => 'Phân quyền cho nhóm người dung']
+    ];
+@endphp
 @section('content')
+    @include('layouts.header')
     <div class="container">
         <h3>Phân quyền cho nhóm: {{ $role->role_name }}</h3>
 

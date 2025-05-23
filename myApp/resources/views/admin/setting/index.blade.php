@@ -1,7 +1,12 @@
 @extends('layouts.app', ['class' => 'g-sidenav-show bg-gray-100'])
+@php
+    $breadcrumbItems = [
+        ['label' => 'Cài đặt', 'url' => route('admin.setting.index')],
+        ['label' => 'Cài đặt chung']
+    ];
+@endphp
 @section('content')
-    @include('layouts.header', ['title' => 'Cài đặt'])
-
+    @include('layouts.header')
     <div class="setting-container" >
         <div >
             <ul id="setting-groups" style="list-style: none">
@@ -95,5 +100,31 @@
                 });
             });
         });
+    </script>
+    <script>
+        const breadcrumbItems = document.querySelectorAll('.breadcrumb-item');
+        const lastBreadcrumb = breadcrumbItems[breadcrumbItems.length - 1];
+
+        document.querySelectorAll('#setting-groups .group-item').forEach(item => {
+            item.addEventListener('click', () => {
+                document.querySelectorAll('#setting-groups .group-item').forEach(i => i.classList.remove('active'));
+                item.classList.add('active');
+
+                const group = item.getAttribute('data-group');
+
+                document.querySelectorAll('.group-content').forEach(content => {
+                    content.style.display = content.getAttribute('data-group') === group ? 'block' : 'none';
+                });
+
+                // Đổi tên breadcrumb cuối
+                if(group === 'general') {
+                    lastBreadcrumb.textContent = 'Cài đặt chung';
+                } else if(group === 'email') {
+                    lastBreadcrumb.textContent = 'Email';
+                }
+            });
+        });
+
+
     </script>
 @endpush

@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\admin\AccountController;
 use App\Http\Controllers\admin\CategoryController;
+use App\Http\Controllers\admin\ContactController;
 use App\Http\Controllers\admin\CustomerController;
 use App\Http\Controllers\admin\NotificationController;
 use App\Http\Controllers\admin\OrderController;
@@ -119,8 +120,7 @@ Route::middleware('auth')->prefix('admin')->group(function () {
     Route::get('/qr-code/{id}', [ProductController::class, 'getQrCode']);
     Route::delete('/product-images/{id}', [ProductController::class, 'destroyImage']);
 
-
-    // Khuyến mãi
+    // Phân quyền
     Route::resource('/permission', PermissionController::class)->names('show-permission');
 
     // Loại sản phẩm
@@ -129,8 +129,14 @@ Route::middleware('auth')->prefix('admin')->group(function () {
     // Đơn hàng
     Route::resource('/order', OrderController::class)->names('show-order');
 
-    //Khuyến mãi
+    // Khuyến mãi
     Route::resource('/sale', SaleController::class)->names('show-sale');
+
+    // Liên hệ
+    Route::get('/contacts', [ContactController::class, 'index'])->name('admin.contact.index');
+    Route::get('/contacts/{id}/edit', [ContactController::class, 'edit'])->name('contacts.edit');
+    Route::post('/contacts/{id}/reply', [ContactController::class, 'reply'])->name('contacts.reply');
+
 
     //Account
     Route::resource('/profile', AccountController::class)->names('show-profile');

@@ -1,4 +1,10 @@
 @extends('layouts.app')
+@php
+    $breadcrumbItems = [
+        ['label' => 'Sản phẩm', 'url' => route('show-product.index')],
+        ['label' => 'Cập nhật thông tin sản phẩm']
+    ];
+@endphp
 @push('css')
     <style>
         .btn-close {
@@ -9,6 +15,7 @@
     </style>
 @endpush
 @section('content')
+    @include('layouts.header')
     <div class="container">
         <br>
         <h3>Cập nhật thông tin sản phẩm</h3>

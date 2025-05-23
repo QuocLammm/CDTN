@@ -1,4 +1,10 @@
 @extends('layouts.app')
+@php
+    $breadcrumbItems = [
+        ['label' => 'Trang cá nhân', 'url' => ''],
+        ['label' => 'Xem trang cá nhân']
+    ];
+@endphp
 @push('css')
     <style>
         .gender-male {
@@ -10,7 +16,7 @@
     </style>
 @endpush
 @section('content')
-    @include('layouts.header', ['title' => 'Trang cá nhân'])
+    @include('layouts.header')
     <div class="card shadow-lg mx-4 ">
         <div class="card-body p-3">
             <div class="row gx-4">

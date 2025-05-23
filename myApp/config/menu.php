@@ -55,6 +55,12 @@ return [
                 'permission' => 'notification.view',
             ],
             [
+                'title' => 'Liên hệ',
+                'route' => 'admin.contact.index',
+                'icon' => 'fas fa-bell text-dark',
+//                'permission' => 'contact.view',
+            ],
+            [
                 'title' => 'Khuyến mãi',
                 'route' => 'show-sale.index',
                 'icon' => 'ni ni-tag text-dark',
