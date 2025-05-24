@@ -193,8 +193,8 @@
                                 </select>
                             </div>
                             <div style="margin-top: 10px;">
-                                <label for="comment">Bình luận:</label><br>
-                                <textarea name="comment" id="comment" rows="4" required style="width: 100%;"></textarea>
+
+                                <textarea name="comment" id="comment" rows="4" style="width: 100%;"></textarea>
                             </div>
                             <button type="submit" style="margin-top: 10px;">Gửi bình luận</button>
                         </form>
@@ -207,14 +207,14 @@
     </div>
 @endsection
 @push('js')
-    <script src="https://cdn.ckeditor.com/ckeditor5/39.0.1/classic/ckeditor.js"></script>
+    <script src="https://cdn.ckeditor.com/4.22.1/standard/ckeditor.js"></script>
     <script>
-        ClassicEditor
-            .create(document.querySelector('#comment'))
-            .catch(error => {
-                console.error(error);
-            });
+        // Khởi tạo CKEditor nếu chưa có
+        if (!CKEDITOR.instances['comment']) {
+            CKEDITOR.replace('comment');
+        }
     </script>
+
     <script>
         function showTab(tab) {
             document.querySelectorAll('.tab-pane').forEach(el => el.classList.remove('active'));
