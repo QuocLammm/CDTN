@@ -12,6 +12,7 @@
             <ul id="setting-groups" style="list-style: none">
                 <li class="group-item active" data-group="general" style="cursor: pointer; padding: 10px;">⚙️ Cài đặt chung</li>
                 <li class="group-item" data-group="email" style="cursor: pointer; padding: 10px;">📧 Email</li>
+                <li class="group-item" data-group="contact" style="cursor: pointer; padding: 10px;">📞 Contact</li>
             </ul>
         </div>
 
@@ -76,6 +77,36 @@
                 </form>
             </div>
 
+            {{-- Contact Settings --}}
+            <div class="group-content" data-group="contact" style="display: none;">
+                <form action="{{ route('admin.setting.update') }}" method="POST">
+                    @csrf
+                    @method('PUT')
+                    @foreach([
+                        'contact_address' => 'Địa chỉ',
+                        'contact_phone' => 'Điện thoại',
+                        'contact_email' => 'Email',
+                        'contact_opening_hours' => 'Giờ mở cửa',
+                        'contact_google_map_iframe' => 'Iframe Bản đồ (HTML)',
+                    ] as $key => $label)
+                        <div style="margin-bottom: 15px;">
+                            <label>{{ $label }}</label><br>
+                            @if($key === 'contact_google_map_iframe')
+                                <textarea name="settings[{{ $key }}]" rows="5" style="width: 100%; padding: 8px;">{{ $contactSettings->firstWhere('key', $key)->value ?? '' }}</textarea>
+                            @else
+                                <input
+                                    type="text"
+                                    name="settings[{{ $key }}]"
+                                    value="{{ $contactSettings->firstWhere('key', $key)->value ?? '' }}"
+                                    style="width: 100%; padding: 8px;"
+                                >
+                            @endif
+                        </div>
+                    @endforeach
+                    <button type="submit" style="padding: 8px 15px; cursor: pointer;">Lưu Cài Đặt</button>
+                </form>
+            </div>
+
         </div>
     </div>
 @endsection
@@ -121,6 +152,8 @@
                     lastBreadcrumb.textContent = 'Cài đặt chung';
                 } else if(group === 'email') {
                     lastBreadcrumb.textContent = 'Email';
+                }else if(group === 'contact'){
+                    lastBreadcrumb.textContent = 'Contact';
                 }
             });
         });

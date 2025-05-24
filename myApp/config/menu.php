@@ -57,7 +57,7 @@ return [
             [
                 'title' => 'Liên hệ',
                 'route' => 'admin.contact.index',
-                'icon' => 'fas fa-bell text-dark',
+                'icon' => 'fas fa-phone text-dark',
 //                'permission' => 'contact.view',
             ],
             [

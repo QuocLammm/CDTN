@@ -17,7 +17,10 @@ class SettingController extends Controller
         $generalSettings = $settings->filter(fn($item) => str_starts_with($item->key, 'site_'));
 
         $emailSettings = $settings->filter(fn($item) => str_starts_with($item->key, 'mail_'));
-        return view('admin.setting.index', compact('generalSettings', 'emailSettings'));
+
+        $contactSettings = $settings->filter(fn($item) => str_starts_with($item->key, 'contact_'));
+
+        return view('admin.setting.index', compact('generalSettings', 'emailSettings','contactSettings'));
     }
 
 

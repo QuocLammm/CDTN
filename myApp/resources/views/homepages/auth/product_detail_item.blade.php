@@ -2,46 +2,6 @@
 @extends('homepages.master_page')
 @push('css')
     <link rel="stylesheet" href="{{ asset('assets/css/homepage/product_item.css') }}">
-    <style>
-        .product-detail-tabs {
-            margin-top: 30px;
-            border: 1px solid #ddd;
-            padding: 15px;
-            border-radius: 8px;
-        }
-        .tab-header {
-            display: flex;
-            border-bottom: 1px solid #ccc;
-            margin-bottom: 10px;
-        }
-        .tab-button {
-            padding: 10px 20px;
-            background: none;
-            border: none;
-            cursor: pointer;
-            font-weight: bold;
-        }
-        .tab-button.active {
-            border-bottom: 2px solid #007bff;
-            color: #007bff;
-        }
-        .tab-pane {
-            display: none;
-        }
-        .tab-pane.active {
-            display: block;
-        }
-        input[type="radio"]:checked + label {
-            border-color: #dc3545 !important; /* đỏ nổi bật */
-            color: #dc3545;
-            box-shadow: 0 0 8px rgba(220, 53, 69, 0.5);
-        }
-        .thumbnail-gallery img:hover {
-            border-color: #007bff;
-            transform: scale(1.05);
-            transition: 0.2s ease-in-out;
-        }
-    </style>
 @endpush
 @section('header')
     <div class="site-header">
@@ -102,7 +62,7 @@
                         <!-- Màu sắc -->
                         <div style="margin-bottom: 15px;">
                             <strong>Màu sắc:</strong>
-                            <div style="display: flex; justify-content: center; gap: 10px; margin-top: 5px; flex-wrap: wrap;">
+                            <div style="display: flex; justify-content: center; gap: 10px;">
                                 @php
                                     $colors = $product->productDetails->pluck('color')->unique()->filter()->toArray();
                                     function colorToCss($colorName) {
@@ -114,6 +74,8 @@
                                             'đỏ' => 'red',
                                             'vàng' => 'yellow',
                                             'hồng' => 'pink',
+                                            'nâu' => 'brown',
+                                            'xanh lá' =>'green',
                                             'không màu', 'không xác định' => 'transparent',
                                             default => 'transparent',
                                         };
@@ -224,8 +186,28 @@
                             </div>
                         @endforeach
                     @endif
+                        @auth
+                            <form action="{{ route('product.review.store', $product->product_id) }}" method="POST" style="margin-top: 20px;">
+                                @csrf
+                                <div>
+                                    <label for="rating">Đánh giá:</label>
+                                    <select name="rating" id="rating" required>
+                                        <option value="">Chọn số sao</option>
+                                        @for ($i = 1; $i <= 5; $i++)
+                                            <option value="{{ $i }}">{{ $i }} sao</option>
+                                        @endfor
+                                    </select>
+                                </div>
+                                <div style="margin-top: 10px;">
+                                    <label for="comment">Bình luận:</label><br>
+                                    <textarea name="comment" id="comment" rows="4" required style="width: 100%;"></textarea>
+                                </div>
+                                <button type="submit" style="margin-top: 10px;">Gửi bình luận</button>
+                            </form>
+                        @else
+                            <p><a href="{{ route('login') }}">Đăng nhập</a> để bình luận sản phẩm.</p>
+                        @endauth
                 </div>
-
             </div>
         </div>
     </div>

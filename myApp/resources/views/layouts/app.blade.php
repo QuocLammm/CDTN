@@ -135,6 +135,34 @@
         setInterval(loadDashboardData, 2000); // cập nhật mỗi 60s
     });
 </script>
+
+<!-- Realtime cho liên hệ-->
+<script>
+    function fetchUnreadContactCount() {
+        fetch('{{ route('admin.unread-contacts-count') }}')
+            .then(response => response.json())
+            .then(data => {
+                const badge = document.getElementById('unread-contact-count');
+                if (badge) {
+                    if (data.count > 0) {
+                        badge.textContent = data.count;
+                        badge.style.display = 'inline-block';
+                    } else {
+                        badge.style.display = 'none';
+                    }
+                }
+            })
+            .catch(error => console.error('Lỗi khi fetch số liên hệ chưa đọc:', error));
+    }
+
+    // Gọi lần đầu khi load
+    fetchUnreadContactCount();
+
+    // Cập nhật mỗi 30 giây
+    setInterval(fetchUnreadContactCount, 2000);
+</script>
+
+
 @stack('js')
 
 <!-- SweetAlert2 JS -->

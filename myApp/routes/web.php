@@ -18,6 +18,7 @@ use App\Http\Controllers\auth\LoginController;
 use App\Http\Controllers\auth\ResetPasswordController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\SettingController;
+use App\Models\Contact;
 use App\Models\Notification;
 use App\Models\Order;
 use App\Models\ViewPage;
@@ -34,6 +35,9 @@ Route::get('/products/all/{category_id}', [HomePageController::class, 'viewAll']
 Route::get('/products/all/', [HomePageController::class, 'viewAllProduct'])->name('products.all_products'); // Xem all sản phẩm
 Route::get('/load-more-products', [HomePageController::class, 'loadMore'])->name('products.loadMore'); // Load More
 Route::get('/search', [ProductController::class, 'search'])->name('product.search');// Tìm kiểm sản phẩm
+
+Route::get('/contact', [HomePageController::class, 'showContact'])->name('contact.index');// Show contact
+Route::post('/contact/send', [HomePageController::class, 'send'])->name('contact.send'); // Contact Send
 
 
 
@@ -248,6 +252,17 @@ Route::get('/api/notifications', function () {
 //    ]);
 //});
 
+// Trả về số lượng liên hệ để fetch
+Route::get('/admin/unread-contacts-count', function () {
+    return response()->json([
+        'count' => Contact::where('status', 'unread')->count()
+    ]);
+})->name('admin.unread-contacts-count')->middleware('auth');
+
+// web.php
+Route::post('/products/{product}/review', [ProductDetailController::class, 'store'])
+    ->name('product.review.store')
+    ->middleware('auth');
 
 
 // Done hàng cho khách

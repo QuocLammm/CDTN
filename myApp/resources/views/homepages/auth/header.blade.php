@@ -648,7 +648,7 @@
 
                         </li><!-- End Products Mega Menu 2 -->
 
-                        <li><a href="contact.html">Liên hệ</a></li>
+                        <li><a href="{{route('contact.index')}}">Liên hệ</a></li>
 
                     </ul>
                 </nav>

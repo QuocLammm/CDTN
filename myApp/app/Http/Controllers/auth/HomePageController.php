@@ -3,10 +3,13 @@
 namespace App\Http\Controllers\auth;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\homepage\ContactRequest;
 use App\Http\Requests\homepage\ProfileRequest;
 use App\Models\Category;
+use App\Models\Contact;
 use App\Models\Order;
 use App\Models\Product;
+use App\Models\Setting;
 use App\Models\User;
 use App\Models\ViewPage;
 use Carbon\Carbon;
@@ -115,4 +118,38 @@ class HomePageController extends Controller
         $products = Product::all();
         return view('homepages.auth.view_all_products', compact('products'));
     }
+
+    // Hiển thị liên hệ
+    public function showContact()
+    {
+        $settings = [
+            'address' => Setting::getValue('contact_address', 'Chưa có địa chỉ'),
+            'phone' => Setting::getValue('contact_phone', 'Chưa có số điện thoại'),
+            'email' => Setting::getValue('contact_email', 'Chưa có email'),
+            'opening_hours' => Setting::getValue('contact_opening_hours', 'Chưa có giờ mở cửa'),
+            'google_map_iframe' => Setting::getValue('contact_google_map_iframe', ''),
+        ];
+        return view('homepages.auth.contact', compact('settings'));
+    }
+
+    // Gửi liên hệ
+    public function send(ContactRequest $request)
+    {
+        $data = $request->validated();
+
+        Contact::create([
+            'full_name' => $data['full_name'],
+            'email' => $data['email'],
+            'phone' => $data['phone'],
+            'subject' => $data['subject'],
+            'message' => $data['message'],
+            'status' => 'unread',
+            'sent_date' => Carbon::now(),
+        ]);
+
+
+        return redirect()->back()->with('success', 'Liên hệ của bạn đã được gửi thành công.');
+
+    }
+
 }

@@ -4,7 +4,9 @@ namespace App\Http\Controllers\admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\Contact;
+use App\Models\Reply;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class ContactController extends Controller
 {
@@ -30,8 +32,17 @@ class ContactController extends Controller
         ]);
 
         $contact = Contact::findOrFail($id);
+
+        // Tạo phản hồi mới
+        Reply::create([
+            'contact_id' => $contact->id,
+            'admin_name' => Auth::user()->full_name ?? 'Admin',
+            'reply_message' => $request->reply_message,
+            'reply_date' => now(),
+        ]);
+
+        // Cập nhật trạng thái liên hệ
         $contact->status = 'read';
-        $contact->reply_message = $request->reply_message;
         $contact->save();
 
         return redirect()->back()->with('success', 'Đã gửi phản hồi thành công.');
