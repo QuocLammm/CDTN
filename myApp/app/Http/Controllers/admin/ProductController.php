@@ -34,10 +34,26 @@ class ProductController extends Controller
     {
         $data = $request->all();
 
-        // Tạo sản phẩm
-        $product = Product::create($data);
+        // Tìm sản phẩm theo tên
+        $product = Product::where('product_name', $data['product_name'])->first();
 
-        // Tạo chi tiết sản phẩm
+        if (!$product) {
+            // Nếu chưa có thì tạo mới sản phẩm
+            $product = Product::create($data);
+
+            // Tạo mã QR
+            $qrContent = route('product.show', $product->product_id);
+            $svg = QrCode::format('svg')->size(200)->generate($qrContent);
+            $qrBase64 = base64_encode($svg);
+
+            ProductQRCode::create([
+                'product_id'    => $product->product_id,
+                'qr_data'       => $qrContent,
+                'qr_image_path' => $qrBase64,
+            ]);
+        }
+
+        // Tạo chi tiết sản phẩm (mỗi loại size/color là một dòng riêng)
         ProductDetail::create([
             'product_id' => $product->product_id,
             'size'       => $data['size'],
@@ -45,50 +61,31 @@ class ProductController extends Controller
             'quantity'   => $data['quantity'],
         ]);
 
-        // Xử lý ảnh
-        $folderName = 'sp' . $product->product_id;
-        $uploadPath = public_path('images/products/' . $folderName);
-
-        // Nếu thư mục chưa tồn tại thì tạo
-        if (!file_exists($uploadPath)) {
-            mkdir($uploadPath, 0755, true);
-        }
-
+        // Nếu có ảnh thì tiếp tục xử lý ảnh
         if ($request->hasFile('images')) {
+            $folderName = 'sp' . $product->product_id;
+            $uploadPath = public_path('images/products/' . $folderName);
+
+            if (!file_exists($uploadPath)) {
+                mkdir($uploadPath, 0755, true);
+            }
+
             foreach ($request->file('images') as $image) {
                 $imageName = 'product_extra_' . Str::random(10) . '.' . $image->getClientOriginalExtension();
                 $image->move($uploadPath, $imageName);
 
                 $imagePath = '/images/products/' . $folderName . '/' . $imageName;
 
-                // Kiểm tra đường dẫn ảnh
-                Log::info('Image Path: ' . $imagePath);
-
-                $productImage = ProductImage::create([
+                ProductImage::create([
                     'product_id' => $product->product_id,
                     'image_path' => $imagePath,
                 ]);
-
-                // Kiểm tra xem ảnh đã lưu vào database chưa
-                Log::info('Product Image Saved: ', [$productImage]);
             }
         }
 
-
-        // Tạo mã QR
-        $qrContent = route('product.show', $product->product_id);
-        $svg = QrCode::format('svg')->size(200)->generate($qrContent);
-        $qrBase64 = base64_encode($svg);
-
-        // Lưu QR
-        ProductQRCode::create([
-            'product_id'    => $product->product_id,
-            'qr_data'       => $qrContent,
-            'qr_image_path' => $qrBase64,
-        ]);
-
-        return redirect()->route('show-product.index')->with('success', 'Sản phẩm đã thêm kèm mã QR và ảnh!');
+        return redirect()->route('show-product.index')->with('success', 'Sản phẩm đã được cập nhật/thêm chi tiết!');
     }
+
 
 
     public function edit(Product $product) {

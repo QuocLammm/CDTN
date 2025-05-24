@@ -229,7 +229,7 @@
                                     <div class="d-flex align-items-center">
                                         {{-- Hình ảnh người dùng --}}
                                         <div class="icon icon-shape icon-sm me-3 shadow text-center">
-                                            <img src="{{ $log->user_image }}" alt="{{ $log->user_name }}" width="40" height="40" class="me-3 border rounded-2">
+                                            <img src="{{ $log->user_image }}" alt="{{ $log->full_name }}" width="40" height="40" class="me-3 border rounded-2">
                                         </div>
 
                                         {{-- Thông tin log --}}

@@ -96,10 +96,13 @@ class CartController extends Controller
 
         // Tìm cart hoặc tạo mới
         $cart = Cart::firstOrCreate(['user_id' => $user->user_id]);
-
+        $color = $request->input('color');
+        $size = $request->input('size');
         // Tìm cart item đã có
         $item = CartItem::where('cart_id', $cart->cart_id)
             ->where('product_id', $product->product_id)
+            ->where('color', $color)
+            ->where('size', $size)
             ->first();
 
         if ($item) {
@@ -109,6 +112,8 @@ class CartController extends Controller
                 'cart_id' => $cart->cart_id,
                 'product_id' => $product->product_id,
                 'quantity' => 1,
+                'color' => $color,
+                'size' => $size,
             ]);
         }
 
@@ -174,6 +179,8 @@ class CartController extends Controller
                     'product_detail_id' => $item->product->product_id,
                     'quantity' => $item->quantity,
                     'price' => $item->product->price,
+                    'color' => $item->color,
+                    'size' => $item->size,
                 ]);
             }
 

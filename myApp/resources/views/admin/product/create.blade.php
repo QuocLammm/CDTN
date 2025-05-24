@@ -69,6 +69,12 @@
 @endsection
 @push('js')
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="https://cdn.ckeditor.com/4.22.1/standard/ckeditor.js"></script>
+    <script>
+        CKEDITOR.replace('description', {
+            height: 200
+        });
+    </script>
     <script>
         input.addEventListener('change', function (e) {
             const files = Array.from(e.target.files);

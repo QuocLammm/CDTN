@@ -55,7 +55,10 @@
                             <th class="col-name">Tên sản phẩm</th>
                             <th class="col-price">Giá</th>
                             <th class="col-qty">Số lượng</th>
+                            <th>Màu Sắc</th>
+                            <th>Kích thước</th>
                             <th class="col-subtotal">Thành tiền</th>
+
                         </tr>
                         </thead>
                         <tbody>
@@ -70,13 +73,15 @@
                                 <td class="col-name">{{ $item->product->product_name }}</td>
                                 <td class="col-price">{{ number_format($item->price, 0, ',', '.') }} đ</td>
                                 <td class="col-qty">{{ $item->quantity }}</td>
+                                <td>{{ $item->color ?? 'Không rõ' }}</td>
+                                <td>{{ $item->size ?? 'Không rõ' }}</td>
                                 <td class="col-subtotal">{{ number_format($subtotal, 0, ',', '.') }} đ</td>
                             </tr>
                         @endforeach
                         </tbody>
                         <tfoot class="table-light">
                         <tr>
-                            <th colspan="4" class="text-end">Tổng cộng:</th>
+                            <th colspan="6" class="text-end">Tổng cộng:</th>
                             <th class="col-subtotal">{{ number_format($total, 0, ',', '.') }} đ</th>
                         </tr>
                         </tfoot>

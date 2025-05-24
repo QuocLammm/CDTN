@@ -81,7 +81,9 @@
                         name="description"
                         label="Mô tả"
                         placeholder="Nhập mô tả"
-                        rows="4">{{ old('Description', $product->description) }}</x-form.textarea>
+                        rows="4">{{ old('Description', $product->description) }}
+                    </x-form.textarea>
+
 
                     <button type="submit" class="btn btn-success">Cập nhật sản phẩm</button>
                     <a href="{{ route('show-product.index') }}" class="btn btn-secondary">Quay lại</a>
@@ -116,6 +118,12 @@
     </div>
 @endsection
 @push('js')
+    <script src="https://cdn.ckeditor.com/4.22.1/standard/ckeditor.js"></script>
+    <script>
+        CKEDITOR.replace('description', {
+            height: 200
+        });
+    </script>
     <script>
         function removeImage(imageId, button) {
             // Xoá ảnh ngay mà không hỏi lại

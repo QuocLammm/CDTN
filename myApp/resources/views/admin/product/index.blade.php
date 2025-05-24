@@ -1,5 +1,16 @@
 @extends('layouts.app')
-
+@push('css')
+    <style>
+        .text-ellipsis {
+            max-width: 200px; /* hoặc bất kỳ giá trị phù hợp */
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            display: inline-block;
+            vertical-align: middle;
+        }
+    </style>
+@endpush
 @section('content')
     @include('layouts.header', ['title' => 'Sản phẩm'])
     <div class="row mt-4 mx-4">
@@ -26,7 +37,7 @@
                         @forelse ($products->groupBy('product_name') as $productGroup)
                             @foreach ($productGroup as $product)
                                 <tr>
-                                    <td>{{ $product->product_name }}</td>
+                                    <td class="text-ellipsis">{{ $product->product_name }}</td>
                                     <td class="text-center">
                                         @if($product->images->count())
                                             <img src="{{ asset($product->images->first()->image_path) }}"

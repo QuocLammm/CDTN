@@ -54,7 +54,6 @@ Route::middleware('auth')->group(function () {
 
     Route::post('/process', [CartController::class, 'confirm'])->name('order.process');
 
-
     Route::get('/product/{id}', [ProductDetailController::class, 'show'])->name('product.show');
 
     // Profile User
