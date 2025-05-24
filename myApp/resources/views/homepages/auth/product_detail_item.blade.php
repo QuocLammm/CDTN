@@ -157,62 +157,64 @@
                         <p>Chưa có bình luận nào.</p>
                     @else
                         @foreach ($product->reviews as $review)
-                            <div style="margin-bottom: 15px; padding: 10px; border-bottom: 1px solid #eee; position: relative;">
-                                <div style="display: flex; align-items: center; gap: 10px;">
-                                    <img src="{{ asset($review->user->image ?? 'default-avatar.png') }}" alt="Avatar" style="width: 40px; height: 40px; border-radius: 50%; object-fit: cover;">
+                            <div class="review-item">
+                                <div class="review-header">
+                                    <img src="{{ asset($review->user->image ?? 'default-avatar.png') }}" alt="Avatar">
                                     <strong>{{ $review->user->full_name ?? 'Người dùng' }}</strong>
                                 </div>
 
-                                {{-- Ngày giờ góc phải --}}
-                                <span style="position: absolute; top: 10px; right: 10px; color: #999; font-size: 0.85em;">
-                                    {{ $review->created_at->format('d/m/Y H:i') }}
-                                </span>
+                                <span class="review-date">
+            {{ $review->created_at->format('d/m/Y H:i') }}
+        </span>
 
-                                {{-- Sao đánh giá dịch sang phải --}}
-                                <div style="margin-left: 50px">
+                                <div class="review-stars">
                                     @for ($i = 1; $i <= 5; $i++)
-                                        @if ($i <= $review->rating)
-                                            <span style="color: gold;">&#9733;</span>
-                                        @else
-                                            <span style="color: #ccc;">&#9733;</span>
-                                        @endif
+                                        <span class="{{ $i <= $review->rating ? 'active' : 'inactive' }}">&#9733;</span>
                                     @endfor
                                 </div>
 
-                                {{-- Mô tả đóng khung --}}
-                                <div style="margin-top: 10px; border: 1px solid #ddd; border-radius: 6px; padding: 8px; background-color: #f9f9f9;">
-                                    {{ $review->comment }}
+                                <div class="review-content">
+                                    {!! $review->comment !!}
                                 </div>
                             </div>
                         @endforeach
+
                     @endif
-                        @auth
-                            <form action="{{ route('product.review.store', $product->product_id) }}" method="POST" style="margin-top: 20px;">
-                                @csrf
-                                <div>
-                                    <label for="rating">Đánh giá:</label>
-                                    <select name="rating" id="rating" required>
-                                        <option value="">Chọn số sao</option>
-                                        @for ($i = 1; $i <= 5; $i++)
-                                            <option value="{{ $i }}">{{ $i }} sao</option>
-                                        @endfor
-                                    </select>
-                                </div>
-                                <div style="margin-top: 10px;">
-                                    <label for="comment">Bình luận:</label><br>
-                                    <textarea name="comment" id="comment" rows="4" required style="width: 100%;"></textarea>
-                                </div>
-                                <button type="submit" style="margin-top: 10px;">Gửi bình luận</button>
-                            </form>
-                        @else
-                            <p><a href="{{ route('login') }}">Đăng nhập</a> để bình luận sản phẩm.</p>
-                        @endauth
+                    @auth
+                        <form action="{{ route('product.review.store', $product->product_id) }}" method="POST" style="margin-top: 20px;">
+                            @csrf
+                            <div>
+                                <label for="rating">Đánh giá:</label>
+                                <select name="rating" id="rating" required>
+                                    <option value="">Chọn số sao</option>
+                                    @for ($i = 1; $i <= 5; $i++)
+                                        <option value="{{ $i }}">{{ $i }} sao</option>
+                                    @endfor
+                                </select>
+                            </div>
+                            <div style="margin-top: 10px;">
+                                <label for="comment">Bình luận:</label><br>
+                                <textarea name="comment" id="comment" rows="4" required style="width: 100%;"></textarea>
+                            </div>
+                            <button type="submit" style="margin-top: 10px;">Gửi bình luận</button>
+                        </form>
+                    @else
+                        <p><a href="{{ route('login') }}">Đăng nhập</a> để bình luận sản phẩm.</p>
+                    @endauth
                 </div>
             </div>
         </div>
     </div>
 @endsection
 @push('js')
+    <script src="https://cdn.ckeditor.com/ckeditor5/39.0.1/classic/ckeditor.js"></script>
+    <script>
+        ClassicEditor
+            .create(document.querySelector('#comment'))
+            .catch(error => {
+                console.error(error);
+            });
+    </script>
     <script>
         function showTab(tab) {
             document.querySelectorAll('.tab-pane').forEach(el => el.classList.remove('active'));

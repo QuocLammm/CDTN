@@ -23,6 +23,7 @@ use App\Models\Notification;
 use App\Models\Order;
 use App\Models\ViewPage;
 use Carbon\Carbon;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Response;
 use Illuminate\Support\Facades\Route;
@@ -258,6 +259,16 @@ Route::get('/admin/unread-contacts-count', function () {
         'count' => Contact::where('status', 'unread')->count()
     ]);
 })->name('admin.unread-contacts-count')->middleware('auth');
+
+Route::post('/upload-image', function(Request $request) {
+    $file = $request->file('upload');
+    $filename = time() . '.' . $file->getClientOriginalExtension();
+    $file->move(public_path('uploads'), $filename);
+    return response()->json([
+        'url' => asset('uploads/' . $filename)
+    ]);
+})->name('upload.image');
+
 
 // web.php
 Route::post('/products/{product}/review', [ProductDetailController::class, 'store'])

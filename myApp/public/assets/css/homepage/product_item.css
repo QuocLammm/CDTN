@@ -364,24 +364,22 @@ input[type="radio"]:checked + label {
     }
 }
 
-/* --- Khung tổng bình luận --- */
-#comments {
-    margin-top: 30px;
-    padding: 20px;
-    background: #fff;
-    border-radius: 10px;
-    border: 1px solid #ddd;
-}
-
 /* --- Một bình luận --- */
 #comments .review-item {
-    padding: 15px;
+    background: #fff;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+    border: 1px solid #e0e0e0;
+    border-radius: 10px;
+    padding: 20px;
     margin-bottom: 20px;
-    border-bottom: 1px solid #eee;
     position: relative;
-    background-color: #fafafa;
-    border-radius: 8px;
+    transition: box-shadow 0.3s;
 }
+
+#comments .review-item:hover {
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.08);
+}
+
 
 /* Avatar + Tên */
 #comments .review-header {
