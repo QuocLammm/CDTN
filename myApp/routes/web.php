@@ -5,6 +5,7 @@ use App\Http\Controllers\admin\AccountController;
 use App\Http\Controllers\admin\CategoryController;
 use App\Http\Controllers\admin\ContactController;
 use App\Http\Controllers\admin\CustomerController;
+use App\Http\Controllers\admin\DiscountController;
 use App\Http\Controllers\admin\NotificationController;
 use App\Http\Controllers\admin\OrderController;
 use App\Http\Controllers\admin\PermissionController;
@@ -148,6 +149,7 @@ Route::middleware('auth')->prefix('admin')->group(function () {
 
     // Khuyến mãi
     Route::resource('/sale', SaleController::class)->names('show-sale');
+    Route::resource('/discounts', DiscountController::class)->names('show-discount');
 
     // Liên hệ
     Route::get('/contacts', [ContactController::class, 'index'])->name('admin.contact.index');

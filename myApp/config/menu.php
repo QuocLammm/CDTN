@@ -69,7 +69,7 @@ return [
             ],
             [
                 'title' => 'Khuyến mãi',
-                'route' => 'show-sale.index',
+                'route' => 'show-discount.index',
                 'icon' => 'ni ni-tag text-dark',
                 'permission' => 'sale.view',
             ],

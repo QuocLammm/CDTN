@@ -76,7 +76,8 @@
                                 <div class="col-md-6">
                                     <div class="form-group">
                                         <label class="form-control-label">Tỉnh/Thành phố</label>
-                                        <select id="province" name="province" class="form-control">
+                                        <select id="province" class="form-control"
+                                                data-selected="{{ old('province', auth()->user()->province) }}">
                                             <option value="">-- Chọn Tỉnh/Thành phố --</option>
                                         </select>
                                     </div>
@@ -84,7 +85,8 @@
                                 <div class="col-md-6">
                                     <div class="form-group">
                                         <label class="form-control-label">Huyện</label>
-                                        <select id="district" name="district" class="form-control">
+                                        <select id="district" class="form-control"
+                                                data-selected="{{ old('district', auth()->user()->district) }}">
                                             <option value="">-- Chọn Huyện --</option>
                                         </select>
                                     </div>
@@ -179,26 +181,31 @@
         let provinces = {};
         let districts = {};
 
+        const provinceEl = document.getElementById('province');
+        const districtEl = document.getElementById('district');
+
+        const selectedProvince = provinceEl.getAttribute('data-selected');
+        const selectedDistrict = districtEl.getAttribute('data-selected');
+
         // Load provinces
         fetch('/provinces.json')
-            .then(res => {
-                if (!res.ok) {
-                    throw new Error('Failed to load provinces data');
-                }
-                return res.json();
-            })
+            .then(res => res.json())
             .then(data => {
                 provinces = Object.values(data);
-                const provinceSelect = document.getElementById('province');
                 provinces.forEach(p => {
                     let opt = document.createElement('option');
-                    opt.value = p.code; // Lưu mã tỉnh
+                    opt.value = p.code;
                     opt.text = p.name;
-                    provinceSelect.appendChild(opt);
+                    if (p.code === selectedProvince) {
+                        opt.selected = true;
+                    }
+                    provinceEl.appendChild(opt);
                 });
-            })
-            .catch(error => {
-                console.error('Error loading provinces:', error);
+
+                // Nếu đã có province thì load district tương ứng
+                if (selectedProvince) {
+                    loadDistricts(selectedProvince);
+                }
             });
 
         // Load districts
@@ -206,29 +213,31 @@
             .then(res => res.json())
             .then(data => {
                 districts = Object.values(data);
-            })
-            .catch(error => {
-                console.error('Error loading districts:', error);
+                // Nếu đã có province (và đã load xong province) thì gọi lại loadDistricts
+                if (selectedProvince) {
+                    loadDistricts(selectedProvince);
+                }
             });
 
-        // When province changes, update the district list
-        document.getElementById('province').addEventListener('change', function () {
-            const selectedProvince = this.value;
-            const districtSelect = document.getElementById('district');
-            districtSelect.innerHTML = '<option value="">-- Chọn Huyện --</option>';
-
-            let filtered = districts.filter(d => d.parent_code === selectedProvince);
+        function loadDistricts(provinceCode) {
+            districtEl.innerHTML = '<option value="">-- Chọn Huyện --</option>';
+            const filtered = districts.filter(d => d.parent_code === provinceCode);
             filtered.forEach(d => {
                 let opt = document.createElement('option');
                 opt.value = d.name;
                 opt.text = d.name;
-                districtSelect.appendChild(opt);
+                if (d.name === selectedDistrict) {
+                    opt.selected = true;
+                }
+                districtEl.appendChild(opt);
             });
 
             updateFullAddress();
-        });
+        }
 
-        // Update hidden input when address fields change
+        provinceEl.addEventListener('change', function () {
+            loadDistricts(this.value);
+        });
         ['district', 'detail_address'].forEach(id => {
             document.getElementById(id).addEventListener('input', updateFullAddress);
         });

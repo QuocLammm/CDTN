@@ -1,5 +1,8 @@
 @extends('layouts.app')
-
+@php
+    use App\Helpers\PermissionHelper;
+    $userPermissions = PermissionHelper::getUserPermissions();
+@endphp
 @section('content')
     @include('layouts.header', ['title' => 'Danh mục sản phẩm'])
     <div class="row mt-4 mx-4">
@@ -26,14 +29,22 @@
                                 <td>{{ $category->category_name }}</td>
                                 <td>{{ $category->description }}</td>
                                 <td class="text-center">
-                                    <a href="{{ route('show-category.edit', $category->category_id) }}"
-                                       class="btn btn-sm btn-outline-success me-1">Edit</a>
-                                    <form action="{{ route('show-category.destroy', $category->category_id) }}"
-                                          method="POST" class="d-inline delete-form">
-                                        @csrf
-                                        @method('DELETE')
-                                        <button type="button" class="btn btn-sm btn-outline-danger btn-delete">Delete</button>
-                                    </form>
+                                    @if ($userPermissions->contains('user.edit'))
+                                        <a href="{{route('show-category.edit', $category->category_id) }}"
+                                           class="btn btn-sm me-2"
+                                           style="background: linear-gradient(45deg, #4caf50, #81c784); color: white; border: none;">
+                                            <i class="fas fa-edit"></i> <!-- Icon Edit -->
+                                        </a>
+                                    @endif
+                                    @if ($userPermissions->contains('user.delete'))
+                                        <form action="{{ route('show-category.destroy', $category->category_id) }}" method="POST" class="d-inline delete-form">
+                                            @csrf
+                                            @method('DELETE')
+                                            <button type="button" class="btn btn-sm me-2" style="background: linear-gradient(45deg, #f44336, #e57373); color: white; border: none;">
+                                                <i class="fas fa-trash"></i>
+                                            </button>
+                                        </form>
+                                    @endif
                                 </td>
                             </tr>
                         @empty

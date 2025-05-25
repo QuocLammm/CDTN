@@ -28,6 +28,7 @@ class DatabaseSeeder extends Seeder
             ProductReviewSeeder::class,
             SettingSeeder::class,
             ContactSeeder::class,
+            DiscountSeeder::class
         ]);
     }
 }

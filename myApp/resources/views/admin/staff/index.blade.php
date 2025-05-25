@@ -73,15 +73,14 @@
                                             </a>
                                         @endif
                                         @if ($userPermissions->contains('user.delete'))
-                                                <form action="{{ route('show-staff.destroy', $user->user_id) }}" method="POST" class="d-inline delete-form" data-is-admin="{{ $user->role_id == 1 ? 'true' : 'false' }}">
-                                                    @csrf
-                                                    @method('DELETE')
-                                                    <button type="button" class="btn btn-sm me-2" style="background: linear-gradient(45deg, #f44336, #e57373); color: white; border: none;">
-                                                        <i class="fas fa-trash"></i>
-                                                    </button>
-                                                </form>
-
-                                            @endif
+                                            <form action="{{ route('show-staff.destroy', $user->user_id) }}" method="POST" class="d-inline delete-form" data-is-admin="{{ $user->role_id == 1 ? 'true' : 'false' }}">
+                                                @csrf
+                                                @method('DELETE')
+                                                <button type="button" class="btn btn-sm me-2" style="background: linear-gradient(45deg, #f44336, #e57373); color: white; border: none;">
+                                                    <i class="fas fa-trash"></i>
+                                                </button>
+                                            </form>
+                                        @endif
                                     </td>
                                 </tr>
                             @empty

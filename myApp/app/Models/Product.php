@@ -44,9 +44,11 @@ class Product extends Model
     }
 
     // Quan hệ với ProductReview
-    public function reviews(){
+    public function reviews()
+    {
         return $this->hasMany(ProductReview::class,'product_id','product_id');
     }
+
 
 
 }
