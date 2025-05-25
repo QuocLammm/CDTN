@@ -9,6 +9,7 @@ use App\Models\Category;
 use App\Models\Contact;
 use App\Models\Order;
 use App\Models\Product;
+use App\Models\ProductReview;
 use App\Models\Setting;
 use App\Models\User;
 use App\Models\ViewPage;
@@ -53,7 +54,13 @@ class HomePageController extends Controller
         $user = User::findOrFail($id);
         // Lấy danh sách đơn hàng của user (giả sử có quan hệ orders)
         $orders = Order::with('items.product')->where('user_id', $id)->latest()->get();
-        return view('homepages.profile', compact('user', 'orders'));
+
+        // Lấy đánh giá của user này
+        $reviews = ProductReview::with('product') // nếu có quan hệ product()
+        ->where('user_id', $id)
+            ->latest()
+            ->get();
+        return view('homepages.profile', compact('user', 'orders', 'reviews'));
     }
 
     // Cập nhật Profile

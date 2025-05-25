@@ -49,50 +49,45 @@
                     <div class="footer-widget" style="text-align: center">
                         <h4>Cửa hàng</h4>
                         <ul class="footer-links">
-                            <li><a href="category.html">New Arrivals</a></li>
-                            <li><a href="category.html">Bestsellers</a></li>
-                            <li><a href="category.html">Women's Clothing</a></li>
-                            <li><a href="category.html">Men's Clothing</a></li>
-                            <li><a href="category.html">Accessories</a></li>
-                            <li><a href="category.html">Sale</a></li>
+                            <li><a href="category.html">Thông tin cửa hàng</a></li>
+                            <li><a href="category.html">Đối tác cung cấp</a></li>
+                            <li><a href="category.html">Chính sách và hỗ trợ</a></li>
                         </ul>
                     </div>
                 </div>
+
+                <div class="col-lg-2 col-md-6 col-sm-6">
+                    <div class="footer-widget" style="text-align: center">
+                        <h4>Sản phẩm</h4>
+                        <ul class="footer-links">
+                            <li><a href="category.html">Sản phẩm mới</a></li>
+                            <li><a href="category.html">Siêu giảm giá</a></li>
+                            <li><a href="category.html">Giày nữ</a></li>
+                            <li><a href="category.html">Dép nữ</a></li>
+                        </ul>
+                    </div>
+                </div>
+
 
                 <div class="col-lg-2 col-md-6 col-sm-6">
                     <div class="footer-widget" style="text-align: center">
                         <h4>Hỗ trợ</h4>
                         <ul class="footer-links">
-                            <li><a href="support.html">Help Center</a></li>
-                            <li><a href="account.html">Order Status</a></li>
-                            <li><a href="shiping-info.html">Shipping Info</a></li>
-                            <li><a href="return-policy.html">Returns &amp; Exchanges</a></li>
-                            <li><a href="#">Size Guide</a></li>
-                            <li><a href="contact.html">Contact Us</a></li>
-                        </ul>
-                    </div>
-                </div>
-
-                <div class="col-lg-2 col-md-6 col-sm-6">
-                    <div class="footer-widget" style="text-align: center">
-                        <h4>Công ty</h4>
-                        <ul class="footer-links">
-                            <li><a href="about.html">About Us</a></li>
-                            <li><a href="about.html">Careers</a></li>
-                            <li><a href="about.html">Press</a></li>
-                            <li><a href="about.html">Affiliates</a></li>
-                            <li><a href="about.html">Responsibility</a></li>
-                            <li><a href="about.html">Investors</a></li>
+                            <li><a href="support.html">Chính sách bảo hành</a></li>
+                            <li><a href="{{ route('contact.index') }}">Liên hệ</a></li>
                         </ul>
                     </div>
                 </div>
 
                 <div class="col-lg-3 col-md-6 col-sm-6">
                     <div class="footer-widget" style="text-align: center">
-                        <div class="social-links mt-4">
+                        {{-- Iframe Facebook hiển thị trước dòng "Theo dõi chúng tôi" --}}
+                        <div class="fb-page" data-href="https://www.facebook.com/sweetsoft.vn" data-tabs="timeline" data-width="700" data-height="100" data-small-header="false" data-adapt-container-width="true" data-hide-cover="false" data-show-facepile="true"></div>
+
+                        <div class="social-links mt-4 " style="text-align: center">
                             <h5>Theo dõi chúng tôi</h5>
                             <div class="social-icons">
-                                <a href="#" aria-label="Facebook"><i class="bi bi-facebook"></i></a>
+                                <a href="https://www.facebook.com/profile.php?id=61565294172906" aria-label="Facebook" ><i class="bi bi-facebook"></i></a>
                                 <a href="#" aria-label="Instagram"><i class="bi bi-instagram"></i></a>
                                 <a href="#" aria-label="TikTok"><i class="bi bi-tiktok"></i></a>
                             </div>

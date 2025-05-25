@@ -154,13 +154,35 @@
                         <button id="loadMoreBtn" type="button">Xem thêm</button>
                     </div>
                 </div>
-
-
                 <!-- Đánh giá -->
                 <div id="section-reviews" class="profile-section">
                     <h3>Đánh giá</h3>
-                    <p>Hiển thị các đánh giá đã gửi hoặc nhận.</p>
+
+                    @if($reviews->isEmpty())
+                        <p>Bạn chưa có đánh giá nào.</p>
+                    @else
+                        @foreach($reviews as $review)
+                            <div class="review-card border rounded p-3 mb-3">
+                                <div class="d-flex justify-content-between">
+                                    <strong>{{ $review->product->product_name ?? 'Sản phẩm không tồn tại' }}</strong>
+                                    <small>{{ $review->created_at->format('d/m/Y') }}</small>
+                                </div>
+                                <p class="mb-1">
+                                    @for ($i = 1; $i <= 5; $i++)
+                                        @if ($i <= $review->rating)
+                                            <span style="color: gold;">&#9733;</span> {{-- sao đầy --}}
+                                        @else
+                                            <span style="color: #ccc;">&#9734;</span> {{-- sao rỗng --}}
+                                        @endif
+                                    @endfor
+                                    <strong>({{ $review->rating }}/5)</strong>
+                                </p>
+                                <p class="mb-0">Nội dung:{!! $review->comment !!}</p>
+                            </div>
+                        @endforeach
+                    @endif
                 </div>
+
 
             </div>
         </form>
