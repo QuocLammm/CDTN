@@ -45,6 +45,9 @@
                                             {{ $child['title'] }}
                                             @if ($child['route'] === 'admin.contact.index')
                                                 <span id="unread-contact-count" class="badge bg-danger ms-2" style="display: none;"></span>
+                                            @elseif($child['route'] === 'admin.notification.index')
+                                                <span class="unread-notification-count badge bg-danger ms-2" style="display: none; border: 1px solid black;"></span>
+
                                             @endif
                                         </span>
 

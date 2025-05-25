@@ -9,6 +9,7 @@ use App\Http\Controllers\admin\NotificationController;
 use App\Http\Controllers\admin\OrderController;
 use App\Http\Controllers\admin\PermissionController;
 use App\Http\Controllers\admin\ProductController;
+use App\Http\Controllers\admin\SupplierController;
 use App\Http\Controllers\auth\ForgotPasswordController;
 use App\Http\Controllers\auth\ProductDetailController;
 use App\Http\Controllers\admin\SaleController;
@@ -137,6 +138,8 @@ Route::middleware('auth')->prefix('admin')->group(function () {
     // Phân quyền
     Route::resource('/permission', PermissionController::class)->names('show-permission');
 
+    // Nhà cung cấp
+    Route::resource('/suppliers', SupplierController::class)->names('show-supplier');
     // Loại sản phẩm
     Route::resource('/category',CategoryController::class)->names('show-category');
 
@@ -269,6 +272,13 @@ Route::get('/admin/unread-contacts-count', function () {
         'count' => Contact::where('status', 'unread')->count()
     ]);
 })->name('admin.unread-contacts-count')->middleware('auth');
+
+// Trả về số lượng thông báo để fetch
+Route::get('/admin/unread-notification-count', function () {
+    return response()->json([
+        'count' => Notification::where('status', 0)->count()
+    ]);
+})->name('admin.unread-notification-count')->middleware('auth');
 
 Route::post('/upload-image', function(Request $request) {
     $file = $request->file('upload');

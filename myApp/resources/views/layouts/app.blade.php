@@ -160,6 +160,30 @@
     // Cập nhật mỗi 30 giây
     setInterval(fetchUnreadContactCount, 2000);
 </script>
+<!-- Realtime cho thông báo-->
+<script>
+    function fetchUnreadNotiCount() {
+        fetch('{{ route('admin.unread-notification-count') }}')
+            .then(response => response.json())
+            .then(data => {
+                document.querySelectorAll('.unread-notification-count').forEach(badge => {
+                    if (data.count > 0) {
+                        badge.textContent = data.count;
+                        badge.style.display = 'inline-block';
+                    } else {
+                        badge.style.display = 'none';
+                    }
+                });
+            })
+            .catch(error => console.error('Lỗi khi fetch số thông báo chưa đọc:', error));
+    }
+
+    // Gọi lần đầu khi load
+    document.addEventListener('DOMContentLoaded', function () {
+        fetchUnreadNotiCount();
+        setInterval(fetchUnreadNotiCount, 2000);
+    });
+</script>
 
 
 @stack('js')

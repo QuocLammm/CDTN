@@ -3,8 +3,11 @@
 namespace App\Http\Controllers\admin;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\UserRequest;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Str;
 
 class AccountController extends Controller
 {
@@ -28,9 +31,9 @@ class AccountController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(UserRequest $request)
     {
-        //
+
     }
 
     /**
@@ -52,15 +55,24 @@ class AccountController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(Request $request, $id)
     {
+        // Lấy người dùng hiện tại hoặc theo $id
         $user = User::findOrFail($id);
-        $user->full_name = $request->input('full_name');
-        // update other fields...
+        // Cập nhật thông tin
+        $user->full_name = $request->input('username');
+        $user->date_of_birth = $request->input('date_of_birth');
+        $user->address = $request->input('address');
+        $user->phone = $request->input('phone');
+        $user->email = $request->input('email');
+
+        // Lưu
         $user->save();
 
-        return redirect()->route('show-profile.index')->with('success', 'Profile updated.');
+        return redirect()->back()->with('success', 'Cập nhật thông tin thành công!');
     }
+
+
 
     /**
      * Remove the specified resource from storage.

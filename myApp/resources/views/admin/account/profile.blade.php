@@ -62,7 +62,7 @@
                                 <div class="col-md-6">
                                     <div class="form-group">
                                         <label for="username" class="form-control-label">Họ và tên</label>
-                                        <input class="form-control" type="text" name="username" value="{{ old('username', auth()->user()->full_name) }}">
+                                        <input class="form-control" type="text" name="username" value="{{ old('full_name', auth()->user()->full_name) }}">
                                     </div>
                                 </div>
                                 <div class="col-md-6">
@@ -76,7 +76,7 @@
                                 <div class="col-md-6">
                                     <div class="form-group">
                                         <label class="form-control-label">Tỉnh/Thành phố</label>
-                                        <select id="province" class="form-control">
+                                        <select id="province" name="province" class="form-control">
                                             <option value="">-- Chọn Tỉnh/Thành phố --</option>
                                         </select>
                                     </div>
@@ -84,7 +84,7 @@
                                 <div class="col-md-6">
                                     <div class="form-group">
                                         <label class="form-control-label">Huyện</label>
-                                        <select id="district" class="form-control">
+                                        <select id="district" name="district" class="form-control">
                                             <option value="">-- Chọn Huyện --</option>
                                         </select>
                                     </div>
@@ -98,13 +98,6 @@
                             </div>
                             <input type="hidden" name="address" id="full_address">
                         </div>
-                    </form>
-                </div>
-
-                <div class="card mt-3">
-                    <form method="POST" action="{{ route('show-profile.update', auth()->user()->user_id) }}" enctype="multipart/form-data">
-                        @csrf
-                        @method('PUT')
 
                         <!-- Thông tin liên hệ -->
                         <div class="card-header pb-0">
@@ -181,7 +174,7 @@
     </div>
 @endsection
 
-@push('scripts')
+@push('js')
     <script>
         let provinces = {};
         let districts = {};
@@ -241,15 +234,19 @@
         });
 
         function updateFullAddress() {
-            const province = document.getElementById('province').value;
+            const provinceEl = document.getElementById('province');
             const district = document.getElementById('district').value;
             const detail = document.getElementById('detail_address').value;
 
-            let result = detail;
-            if (district) result += `, ${district}`;
-            if (province) result += `, ${province}`;
+            const provinceText = provinceEl.options[provinceEl.selectedIndex]?.text || '';
 
-            document.getElementById('full_address').value = result;
+            let parts = [];
+            if (detail) parts.push(detail);
+            if (district) parts.push(district);
+            if (provinceText) parts.push(provinceText);
+
+            document.getElementById('full_address').value = parts.join(', ');
         }
+
     </script>
 @endpush

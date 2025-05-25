@@ -23,17 +23,18 @@ return [
                 'icon' => '	ni ni-user-run text-dark',
                 'permission' => 'customer.view',
             ],
-            [
-                'title' => 'Phân quyền',
-                'route' => 'show-permission.index',
-                'icon' => 'ni ni-lock-circle-open text-dark',
-                'permission' => 'permission.view',
-            ],
+
             [
                 'title' => 'Loại sản phẩm',
                 'route' => 'show-category.index',
                 'icon' => 'ni ni-app text-dark',
                 'permission' => 'category.view',
+            ],
+            [
+                'title' => 'Nhà cung cấp',
+                'route' => 'show-supplier.index',
+                'icon' => 'fas fa-handshake text-dark',
+//                'permission' => 'supplier.view',
             ],
             [
                 'title' => 'Sản phẩm',
@@ -59,6 +60,12 @@ return [
                 'route' => 'admin.contact.index',
                 'icon' => 'fas fa-phone text-dark',
 //                'permission' => 'contact.view',
+            ],
+            [
+                'title' => 'Phân quyền',
+                'route' => 'show-permission.index',
+                'icon' => 'ni ni-lock-circle-open text-dark',
+                'permission' => 'permission.view',
             ],
             [
                 'title' => 'Khuyến mãi',
