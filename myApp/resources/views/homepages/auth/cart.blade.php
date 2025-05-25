@@ -13,47 +13,36 @@
         @if($cartItems->isEmpty())
             <p style="text-align: center">Giỏ hàng của bạn hiện tại trống.</p>
         @else
-            <div class="cart-card-container">
-                @foreach($cartItems as $item)
+            @foreach($cartItems as $item)
+                <div class="cart-card d-flex gap-3">
                     <form action="{{ route('cart.remove', $item->cart_item_id) }}" method="POST"
                           class="delete-form" onsubmit="return confirm('Bạn có chắc chắn muốn xóa sản phẩm này khỏi giỏ hàng?')">
                         @csrf
                         @method('DELETE')
                         <button class="btn-xoa-icon" type="submit">&times;</button>
                     </form>
-                    <div class="cart-card d-flex gap-3">
-                        <div class="cart-card-left col-4">
-                            <img src="{{ $item->product->images->first()->image_path ?? 'default.jpg' }}"
-                                 alt="{{ $item->product->product_name }}"
-                                 class="img-fluid rounded">
-                        </div>
-                        <div class="cart-card-right col-8 d-flex flex-column justify-content-between">
-                            <div class="d-flex justify-content-between align-items-start">
-                                <h5 class="mb-2 cart-product-name">{{ Str::limit($item->product->product_name, 30, '...') }}</h5>
-                            </div>
-                            <div class="cart-quantity d-flex justify-content-end align-items-center">
-                                <button class="btn-quantity decrease">-</button>
-                                <span class="quantity">{{ $item->quantity }}</span>
-                                <button class="btn-quantity increase">+</button>
-                            </div>
-{{--                            <p class="cart-price text-success fw-bold mb-1 text-end">--}}
-{{--                                {{ $item->quantity }} x {{ number_format($item->product->price) }}₫--}}
-{{--                            </p>--}}
-                            <p class="cart-line-total mb-2 text-end">
-                                Đơn giá: <strong>{{ number_format($item->product->price * $item->quantity) }}₫</strong>
-                            </p>
-{{--                            <form action="{{ route('cart.remove', $item->cart_item_id) }}" method="POST"--}}
-{{--                                  onsubmit="return confirm('Bạn có chắc chắn muốn xóa sản phẩm này khỏi giỏ hàng?')">--}}
-{{--                                @csrf--}}
-{{--                                @method('DELETE')--}}
-{{--                                <div class="xoa-btn-wrapper">--}}
-{{--                                    <button class="btn-xoa">Xóa</button>--}}
-{{--                                </div>--}}
-{{--                            </form>--}}
-                        </div>
+
+                    <div class="cart-card-left col-4">
+                        <img src="{{ $item->product->images->first()->image_path ?? 'default.jpg' }}"
+                             alt="{{ $item->product->product_name }}"
+                             class="img-fluid rounded">
                     </div>
-                @endforeach
-            </div>
+                    <div class="cart-card-right col-8 d-flex flex-column justify-content-between">
+                        <div class="d-flex justify-content-between align-items-start">
+                            <h5 class="mb-2 cart-product-name">{{ Str::limit($item->product->product_name, 30, '...') }}</h5>
+                        </div>
+                        <div class="cart-quantity d-flex justify-content-end align-items-center">
+                            <button class="btn-quantity decrease">-</button>
+                            <span class="quantity">{{ $item->quantity }}</span>
+                            <button class="btn-quantity increase">+</button>
+                        </div>
+                        <p class="cart-line-total mb-2 text-end">
+                            Đơn giá: <strong>{{ number_format($item->product->price * $item->quantity) }}₫</strong>
+                        </p>
+                    </div>
+                </div>
+            @endforeach
+
             <div class="cart-total-actions align-items-center">
                 <p class="mb-0">
                     <span class="total-label">Tổng cộng:</span>

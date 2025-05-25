@@ -130,11 +130,9 @@ class HomePageController extends Controller
             ->first();
 
         if ($wishlist) {
-            // Đã yêu thích → xóa
             $wishlist->delete();
             $message = 'Đã xóa khỏi mục yêu thích!';
         } else {
-            // Chưa yêu thích → thêm
             Wishlist::create([
                 'user_id' => $userId,
                 'product_id' => $productId,

@@ -41,9 +41,9 @@
                                     <i class="bi bi-person-circle me-2"></i>
                                     <span>Trang cá nhân</span>
                                 </a>
-                                <a class="dropdown-item d-flex align-items-center" href="{{ route('cart.cart') }}">
-                                    <i class="bi bi-bag-check me-2"></i>
-                                    <span>Giỏ hàng</span>
+                                <a class="dropdown-item align-items-center header-action-btn " href="{{ route('cart.cart') }}">
+                                    <i class="bi bi-bell me-2"></i>
+                                    <span>Thông báo</span>
                                 </a>
                                 <a class="dropdown-item d-flex align-items-center" href="account.html">
                                     <i class="bi bi-heart me-2"></i>
@@ -69,13 +69,13 @@
                     </div>
 
                     <!-- Wishlist -->
-                    <a href="account.html" class="header-action-btn d-none d-md-block">
+                    <a href="{{ route('wishlist.show') }}" class="header-action-btn d-none d-md-block">
                         <i class="bi bi-heart"></i>
-                        <span class="badge">0</span>
+                        <span class="badge">{{ $wishlistCount }}</span>
                     </a>
 
                     <!-- Cart -->
-                    <a href="{{route('cart.cart')}}" class="header-action-btn">
+                    <a href="{{ route('cart.cart') }}" class="header-action-btn">
                         <i class="bi bi-cart3"></i>
                         <span class="badge">{{ $cartCount }}</span>
                     </a>

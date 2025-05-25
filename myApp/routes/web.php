@@ -17,6 +17,7 @@ use App\Http\Controllers\auth\CartController;
 use App\Http\Controllers\auth\HomePageController;
 use App\Http\Controllers\auth\LoginController;
 use App\Http\Controllers\auth\ResetPasswordController;
+use App\Http\Controllers\auth\WishListController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\SettingController;
 use App\Models\Contact;
@@ -71,6 +72,10 @@ Route::middleware('auth')->group(function () {
 
     // load More Đơn hàng
     Route::get('/orders/load-more', [HomePageController::class, 'loadMore'])->name('orders.loadMore');
+
+    // Hiển thị page yêu thích
+    Route::get('/wishlist', [WishListController::class, 'showWishList'])->name('wishlist.show');
+    Route::delete('/wishlist/remove/{wishlist_id}', [WishListController::class, 'remove'])->name('wishlist.remove');
 
 });
 

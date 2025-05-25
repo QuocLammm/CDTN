@@ -22,8 +22,8 @@
                     <h1>Khám phá nhiều mẫu <span>giày</span> cho mọi mùa</h1>
                     <p>Thỏa sức lựa chọn những đôi giày thời trang, phù hợp cho mọi mùa trong năm – từ năng động ngày hè đến ấm áp ngày đông.</p>
                     <div class="hero-cta">
-                        <a href="#" class="btn btn-shop">Mua ngay <i class="bi bi-arrow-right"></i></a>
-                        <a href="#" class="btn btn-collection">Xem tất cả</a>
+                        <a href="{{route('products.all_products')}}" class="btn btn-shop">Mua ngay <i class="bi bi-arrow-right"></i></a>
+                        <a href="{{route('products.all_products')}}" class="btn btn-collection">Xem tất cả</a>
                     </div>
                     <div class="hero-features">
                         <div class="feature-item">
