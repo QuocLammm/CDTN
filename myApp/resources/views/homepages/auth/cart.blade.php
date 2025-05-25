@@ -127,30 +127,6 @@
         });
 
     </script>
-
-{{--    <script>--}}
-{{--        document.getElementById('checkout-button').addEventListener('click', function() {--}}
-{{--            Swal.fire({--}}
-{{--                title: 'Xác nhận đơn hàng?',--}}
-{{--                text: "Bạn muốn xác nhận thanh toán cho đơn hàng này!",--}}
-{{--                icon: 'warning',--}}
-{{--                showCancelButton: true,--}}
-{{--                confirmButtonColor: '#3085d6',--}}
-{{--                cancelButtonColor: '#d33',--}}
-{{--                confirmButtonText: 'Có, xác nhận!',--}}
-{{--                cancelButtonText: 'Hủy'--}}
-{{--            }).then((result) => {--}}
-{{--                if (result.isConfirmed) {--}}
-{{--                    // Nếu xác nhận, chuyển đến trang thanh toán--}}
-{{--                    --}}{{--window.location.href = '{{ route("checkout") }}';--}}
-{{--                    window.location.href = '{{ route("order.process") }}';--}}
-{{--                } else {--}}
-{{--                    // Nếu hủy, gửi yêu cầu hủy đơn hàng--}}
-{{--                    // document.getElementById('cancel-order-form').submit();--}}
-{{--                }--}}
-{{--            });--}}
-{{--        });--}}
-{{--    </script>--}}
 @endpush
 @section('footer')
     <div class="site-footer">

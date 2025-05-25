@@ -65,6 +65,8 @@ Route::middleware('auth')->group(function () {
     Route::get('/buy-now/{id}', [CartController::class, 'buyNow'])->name('buy.now'); // Mua ngay trong chi tiết sản phẩm
     Route::post('/cancel-order', [CartController::class, 'cancelOrder'])->name('cancel.order');
 
+    Route::get('/vnpay/checkout', [VNPayController::class, 'createPayment'])->name('vnpay.checkout'); // Thanh toán bằng VNpay
+
     Route::post('/process', [CartController::class, 'confirm'])->name('order.process');
 
     Route::get('/product/{id}', [ProductDetailController::class, 'show'])->name('product.show');

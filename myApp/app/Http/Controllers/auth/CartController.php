@@ -149,7 +149,7 @@ class CartController extends Controller
         $paymentMethod = $request->input('payment_method');
 
         if ($paymentMethod === 'cod') {
-            // === Thanh toán tại quầy ===
+
 
             // Lấy thông tin giỏ hàng
             $cart = Cart::where('user_id', $userId)->first();
@@ -213,7 +213,6 @@ class CartController extends Controller
             return redirect()->route('profile-user', ['id' => $userId])->with('order_success', true);
 
         } elseif ($paymentMethod === 'bank') {
-            // === Thanh toán VNPay: chuyển hướng sang VNPay Controller ===
             return redirect()->route('vnpay.checkout'); // route này bạn cần định nghĩa
         } else {
             return redirect()->back()->with('error', 'Phương thức thanh toán không hợp lệ.');
