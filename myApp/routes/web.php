@@ -1,5 +1,6 @@
 <?php
 
+use App\Exports\ContactsExport;
 use App\Http\Controllers\admin\AccountController;
 use App\Http\Controllers\admin\CategoryController;
 use App\Http\Controllers\admin\ContactController;
@@ -28,6 +29,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Response;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\admin\VNPayController;
+use Maatwebsite\Excel\Facades\Excel;
 
 
 Route::get('/homepages', [HomePageController::class, 'index'])->name('homepage');// Trang chủ
@@ -39,6 +41,9 @@ Route::get('/search', [ProductController::class, 'search'])->name('product.searc
 
 Route::get('/contact', [HomePageController::class, 'showContact'])->name('contact.index');// Show contact
 Route::post('/contact/send', [HomePageController::class, 'send'])->name('contact.send'); // Contact Send
+
+Route::post('/wishlist/toggle/{product_id}', [HomePageController::class, 'toggle'])->name('wishlist.toggle');
+
 
 
 
@@ -275,6 +280,10 @@ Route::post('/products/{product}/review', [ProductDetailController::class, 'stor
     ->name('product.review.store')
     ->middleware('auth');
 
+// Xuất file CSV
+Route::get('/contacts/export', function () {
+    return Excel::download(new ContactsExport, 'danh_sach_lien_he.xlsx');
+})->name('contacts.export');
 
 // Done hàng cho khách
 Route::post('/orders/{id}/done', [OrderController::class, 'markAsDone']);

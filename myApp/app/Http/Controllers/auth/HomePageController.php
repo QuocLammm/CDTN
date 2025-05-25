@@ -12,6 +12,7 @@ use App\Models\Product;
 use App\Models\Setting;
 use App\Models\User;
 use App\Models\ViewPage;
+use App\Models\WishList;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 
@@ -19,19 +20,17 @@ class HomePageController extends Controller
 {
     public function index()
     {
-        $sportShoes = Product::whereHas('category', function($query) {
-            $query->where('category_name', 'Giày thể thao');
-        })->get();
-        $girlShoes = Product::whereHas('category', function($query) {
-            $query->where('category_name', 'Giày nữ');
-        })->get();
-        $girlDep = Product::whereHas('category', function($query) {
-            $query->where('category_name', 'Dép nữ');
-        })->get();
-
         // Lấy tất cả sản phẩm từ database
-        $products = Product::all();
+        $products = Product::withAvg('reviews', 'rating')->withCount('reviews')->get();
         $categories = Category::with(['products.images'])->get();
+
+        // Lấy danh sách yêu thích
+        $wishlistProductIds = [];
+        if (auth()->check()) {
+            $wishlistProductIds = Wishlist::where('user_id', auth()->id())
+                ->pluck('product_id')
+                ->toArray();
+        }
 
         // Lượt truy cập web
         $today = Carbon::today()->toDateString();
@@ -45,7 +44,7 @@ class HomePageController extends Controller
             session(['view_counted_today' => true]);
         }
         // Trả dữ liệu sang view
-        return view('homepages.homepage', compact('categories','products','sportShoes','girlShoes','girlDep'));
+        return view('homepages.homepage', compact('categories','products','wishlistProductIds','today'));
     }
 
     // Profile User
@@ -97,13 +96,15 @@ class HomePageController extends Controller
         return response()->json(['html' => $html]);
     }
 
+    // Hiển thị danh sách sản phẩm
     public function showProduct()
     {
         // Lấy tất cả sản phẩm
         $categories = Category::all();
+        $products = Product::withAvg('reviews', 'rating')->withCount('reviews')->get();
 
         // Trả dữ liệu sang view
-        return view('homepages.item', compact('categories'));
+        return view('homepages.item', compact('categories','products'));
     }
 
     // Hiển thị toàn bộ sản phẩm ở phần xem tất cả theo từng danh mục
@@ -118,6 +119,33 @@ class HomePageController extends Controller
         $products = Product::all();
         return view('homepages.auth.view_all_products', compact('products'));
     }
+
+    // Thêm và hủy mục yêu thích
+    public function toggle($productId)
+    {
+        $userId = auth()->id();
+
+        $wishlist = Wishlist::where('user_id', $userId)
+            ->where('product_id', $productId)
+            ->first();
+
+        if ($wishlist) {
+            // Đã yêu thích → xóa
+            $wishlist->delete();
+            $message = 'Đã xóa khỏi mục yêu thích!';
+        } else {
+            // Chưa yêu thích → thêm
+            Wishlist::create([
+                'user_id' => $userId,
+                'product_id' => $productId,
+            ]);
+            $message = 'Đã thêm vào mục yêu thích!';
+        }
+
+        return back()->with('success', $message);
+    }
+
+
 
     // Hiển thị liên hệ
     public function showContact()

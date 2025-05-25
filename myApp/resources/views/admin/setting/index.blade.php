@@ -12,7 +12,7 @@
             <ul id="setting-groups" style="list-style: none">
                 <li class="group-item active" data-group="general" style="cursor: pointer; padding: 10px;">⚙️ Cài đặt chung</li>
                 <li class="group-item" data-group="email" style="cursor: pointer; padding: 10px;">📧 Email</li>
-                <li class="group-item" data-group="contact" style="cursor: pointer; padding: 10px;">📞 Contact</li>
+                <li class="group-item" data-group="contact" style="cursor: pointer; padding: 10px;">📞 Liên hệ</li>
             </ul>
         </div>
 
@@ -153,7 +153,7 @@
                 } else if(group === 'email') {
                     lastBreadcrumb.textContent = 'Email';
                 }else if(group === 'contact'){
-                    lastBreadcrumb.textContent = 'Contact';
+                    lastBreadcrumb.textContent = 'Liên hệ';
                 }
             });
         });

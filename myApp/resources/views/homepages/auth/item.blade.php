@@ -1,76 +1,4 @@
-{{--<!-- Item 1-->--}}
-{{--<div id="sportShoes">--}}
-{{--    <h2 class="header"> Giày thể thao </h2>--}}
-{{--    <div class="features">--}}
-{{--        @foreach ($sportShoes as $product)--}}
-{{--            <a href="{{ route('product.show', $product->product_id) }}" class="card-link" style="text-decoration: none; color: inherit;">--}}
-{{--                <div class="card">--}}
-{{--                    <img src="{{ $product->image }}" alt="{{ $product->product_name }}" class="product-image"--}}
-{{--                         style="width: 100%; height: 300px; object-fit: cover; display: block;">--}}
-{{--                    <h4 style="text-align: center;">{{ $product->product_name }}</h4>--}}
 
-{{--                    <p>{{ number_format($product->price, 0, ',', '.') }} đ</p>--}}
-{{--                    <div class="color-options">--}}
-{{--                        <button class="color-button" style="background-color: #855C40;"></button>--}}
-{{--                        <button class="color-button" style="background-color: #000000;"></button>--}}
-{{--                        <button class="color-button" style="background-color: #F0E1D4;"></button>--}}
-{{--                    </div>--}}
-{{--                    <div class="buy-button">Mua</div>--}}
-{{--                </div>--}}
-{{--            </a>--}}
-{{--        @endforeach--}}
-{{--        <a href="{{ route('products.all') }}" class="view-all">Xem tất cả</a>--}}
-{{--    </div>--}}
-{{--</div>--}}
-
-
-{{--<!-- Item 2 -->--}}
-{{--<div id="girlShoes">--}}
-{{--    <h2 class="header"> Giày thể thao </h2>--}}
-{{--    <div class="features">--}}
-{{--        @foreach ($girlShoes as $product)--}}
-{{--            <a href="{{ route('product.show', $product->product_id) }}" class="card-link" style="text-decoration: none; color: inherit;">--}}
-{{--                <div class="card">--}}
-{{--                    <img src="{{ $product->image }}" alt="{{ $product->product_name }}" class="product-image"--}}
-{{--                         style="width: 100%; height: 300px; object-fit: cover; display: block;">--}}
-{{--                    <h4 style="text-align: center;">{{ $product->product_name }}</h4>--}}
-{{--                    <p>{{ number_format($product->price, 0, ',', '.') }} đ</p>--}}
-{{--                    <div class="color-options">--}}
-{{--                        <button class="color-button" style="background-color: #855C40;"></button>--}}
-{{--                        <button class="color-button" style="background-color: #000000;"></button>--}}
-{{--                        <button class="color-button" style="background-color: #F0E1D4;"></button>--}}
-{{--                    </div>--}}
-{{--                    <div class="buy-button">Mua</div>--}}
-{{--                </div>--}}
-{{--            </a>--}}
-{{--        @endforeach--}}
-{{--        <a href="{{ route('products.all') }}" class="view-all">Xem tất cả</a>--}}
-{{--    </div>--}}
-{{--</div>--}}
-
-{{--<!-- Item 3 -->--}}
-{{--<div id="girlDep">--}}
-{{--    <h2 class="header"> Giày thể thao </h2>--}}
-{{--    <div class="features">--}}
-{{--        @foreach ($girlDep as $product)--}}
-{{--            <a href="{{ route('product.show', $product->product_id) }}" class="card-link" style="text-decoration: none; color: inherit;">--}}
-{{--                <div class="card">--}}
-{{--                    <img src="{{ $product->image }}" alt="{{ $product->product_name }}" class="product-image"--}}
-{{--                         style="width: 100%; height: 300px; object-fit: cover; display: block;">--}}
-{{--                    <h4 style="text-align: center;">{{ $product->product_name }}</h4>--}}
-{{--                    <p>{{ number_format($product->price, 0, ',', '.') }} đ</p>--}}
-{{--                    <div class="color-options">--}}
-{{--                        <button class="color-button" style="background-color: #855C40;"></button>--}}
-{{--                        <button class="color-button" style="background-color: #000000;"></button>--}}
-{{--                        <button class="color-button" style="background-color: #F0E1D4;"></button>--}}
-{{--                    </div>--}}
-{{--                    <div class="buy-button">Mua</div>--}}
-{{--                </div>--}}
-{{--            </a>--}}
-{{--        @endforeach--}}
-{{--        <a href="{{ route('products.all') }}" class="view-all">Xem tất cả</a>--}}
-{{--    </div>--}}
-{{--</div>--}}
 
 <!-- Info Cards Section -->
 <section id="info-cards" class="info-cards section light-background">
@@ -201,8 +129,6 @@
                     </div>
                 @endforeach
             </div>
-
-
             <div class="swiper-button-next"></div>
             <div class="swiper-button-prev"></div>
         </div>
@@ -223,15 +149,25 @@
         <div class="row gy-4">
             <!-- Product 1 -->
             @foreach($products as $product)
+                @php
+                    $reviews = $product->reviews;
+                    $averageRating = $product->reviews_avg_rating;
+                    $reviewCount = $product->reviews_count;
+                @endphp
             <div class="col-md-6 col-lg-3" >
                 <div class="product-card">
                     <div class="product-image">
                         <img src="{{ $product->images->first()->image_path ?? 'default.jpg' }}" alt="{{ $product->name }}" >
                         <div class="product-actions">
-                            <button class="btn-wishlist" type="button" aria-label="Add to wishlist">
-                                <i class="bi bi-heart"></i>
-                            </button>
-                            <button class="btn-quickview" type="button" aria-label="Quick view">
+                            <form action="{{ route('wishlist.toggle', $product->product_id) }}" method="POST" style="display:inline;">
+                                @csrf
+                                <button type="submit" class="btn-wishlist" aria-label="Toggle wishlist" style="background: none; border: none;">
+                                    <i class="bi {{ in_array($product->product_id, $wishlistProductIds) ? 'bi-heart-fill text-danger' : 'bi-heart' }}"></i>
+                                </button>
+                            </form>
+
+                            <button class="btn-quickview" type="button" aria-label="Quick view"
+                                    onclick="window.location.href='{{ route('product.show', $product->product_id) }}'">
                                 <i class="bi bi-eye"></i>
                             </button>
                         </div>
@@ -242,17 +178,16 @@
                             <span class="current-price">${{ $product->price }}</span>
                         </div>
                         <div class="product-rating">
-                            <i class="bi bi-star-fill"></i>
-                            <i class="bi bi-star-fill"></i>
-                            <i class="bi bi-star-fill"></i>
-                            <i class="bi bi-star-fill"></i>
-                            <i class="bi bi-star"></i>
-                            <span class="rating-count">(28)</span>
+                            @for ($i = 1; $i <= 5; $i++)
+                                <span style="color: {{ $reviewCount > 0 && $i <= round($averageRating) ? 'gold' : '#ccc' }};">&#9733;</span>
+                            @endfor
+                            <span style="color: #666;">({{ $reviewCount }} đánh giá)</span>
                         </div>
+
                         <form action="{{ route('cart.add', $product->product_id) }}" method="POST" style="display: inline;">
                             @csrf <!-- Đảm bảo thêm token CSRF -->
                             <button class="btn btn-add-to-cart">
-                                <i class="bi bi-bag-plus me-2"></i>Add to Cart
+                                <i class="bi bi-bag-plus me-2"></i>Thêm vào giỏ hàng
                             </button>
                         </form>
                     </div>
