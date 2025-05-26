@@ -52,7 +52,7 @@
         <div class="containers">
             <div class="team">
                 <div class="team-member">
-                    <h3>Phạm Nguyễn Trúc Đoan</h3>
+                    <h3>Phạm Trúc Đoan</h3>
                     <p>Chủ cửa hàng</p>
                 </div>
                 <div class="team-member">

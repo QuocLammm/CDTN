@@ -8,7 +8,6 @@
 }
 .containers {
     max-width: 1500px;
-    display: flex; /* Sử dụng flexbox */
     justify-content: center; /* Căn giữa theo chiều ngang */
     align-items: center; /* Căn giữa theo chiều dọc nếu cần */
     margin: 0 auto; /* Tự động căn giữa theo chiều ngang */
@@ -79,15 +78,25 @@
 }
 
 .team-member {
-    flex: 1; /* Để các card có cùng chiều rộng */
+    flex: 1 1 300px; /* Đặt chiều rộng tối thiểu cho card */
     margin: 10px; /* Khoảng cách giữa các card */
-    padding: 40px; /* Tăng padding bên trong card */
+    padding: 20px; /* Tăng padding bên trong card */
     background-color: #f1f1f1; /* Màu nền card */
     border-radius: 10px; /* Bo góc */
     text-align: center;
     transition: transform 0.3s;
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2); /* Đổ bóng */
-    min-width: 400px; /* Đặt chiều rộng tối thiểu cho card */
+    height: 150px; /* Đặt chiều cao cố định cho card */
+    display: flex; /* Sử dụng flexbox */
+    flex-direction: column; /* Đặt chiều dọc cho nội dung */
+    justify-content: center; /* Căn giữa nội dung theo chiều dọc */
+}
+
+.team-member p {
+    overflow: hidden; /* Ẩn nội dung thừa */
+    text-overflow: ellipsis; /* Hiển thị dấu "..." */
+    white-space: nowrap; /* Không cho phép xuống dòng */
+    margin: 0; /* Xóa margin để tránh chồng chéo */
 }
 
 .team-member:hover {
@@ -162,6 +171,13 @@
     .team-member {
         margin: 10px 0; /* Khoảng cách giữa các card khi xuống dòng */
         min-width: 80%; /* Chiều rộng tối thiểu cho card */
+        height: 50px; /* Chiều cao tự động để điều chỉnh nội dung */
+        padding: 10px; /* Giảm padding trên thiết bị nhỏ */
+    }
+
+    .team-member p {
+        white-space: normal; /* Cho phép xuống dòng trên thiết bị nhỏ */
+        overflow: visible; /* Hiển thị toàn bộ nội dung */
     }
 
     .left, .right {
