@@ -44,7 +44,7 @@
                                     <i class="bi bi-bag-check me-2"></i>
                                     <span>Giỏ hàng</span>
                                 </a>
-                                <a class="dropdown-item d-flex align-items-center" href="account.html">
+                                <a class="dropdown-item d-flex align-items-center" href="{{ route('wishlist.show') }}">
                                     <i class="bi bi-heart me-2"></i>
                                     <span>Yêu thích</span>
                                 </a>
@@ -68,9 +68,9 @@
                     </div>
 
                     <!-- Wishlist -->
-                    <a href="account.html" class="header-action-btn d-none d-md-block">
+                    <a href="{{ route('wishlist.show') }}" class="header-action-btn d-none d-md-block">
                         <i class="bi bi-heart"></i>
-                        <span class="badge">0</span>
+                        <span class="badge">{{ $wishlistCount }}</span>
                     </a>
 
                     <!-- Cart -->
@@ -93,7 +93,7 @@
                 <nav id="navmenu" class="navmenu">
                     <ul>
                         <li><a href="{{route('homepage')}}" class="active">Trang chủ</a></li>
-                        <li><a href="about.html">Về chúng tôi</a></li>
+                        <li><a href="{{ route('about') }}">Về chúng tôi</a></li>
                         <!-- Products Mega Menu 1 -->
                         <li class="products-megamenu-1"><a href="#"><span>Giày nữ</span> <i class="bi bi-chevron-down toggle-dropdown"></i></a>
                             <!-- Products Mega Menu 1 Mobile ViewPage -->
@@ -647,7 +647,7 @@
 
                         </li><!-- End Products Mega Menu 2 -->
 
-                        <li><a href="contact.html">Liên hệ</a></li>
+                        <li><a href="{{ route('contact.index') }}">Liên hệ</a></li>
 
                     </ul>
                 </nav>

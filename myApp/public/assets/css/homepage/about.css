@@ -1,0 +1,199 @@
+
+.container-about {
+    max-width: 1500px;
+    margin: 20px auto;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+.containers {
+    max-width: 1500px;
+    display: flex; /* Sử dụng flexbox */
+    justify-content: center; /* Căn giữa theo chiều ngang */
+    align-items: center; /* Căn giữa theo chiều dọc nếu cần */
+    margin: 0 auto; /* Tự động căn giữa theo chiều ngang */
+}
+
+.staff-left{
+    max-width: 1500px;
+    margin: 16px auto;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    flex: 1;
+
+}
+
+.containers h2{
+    position: relative;
+    display: inline-block;
+}
+
+.left, .right {
+
+}
+
+.center{
+    padding: 80px;
+}
+
+.right li strong {
+    color: #4CAF50; /* Màu sắc nổi bật cho chữ trước dấu */
+    font-weight: bold; /* In đậm */
+}
+
+.highlight {
+    position: relative;
+    display: inline-block;
+}
+
+.highlight::before {
+    content: '';
+    position: absolute;
+    left: 0; /* Bắt đầu từ bên trái */
+    right: 0; /* Bắt đầu từ bên phải */
+    top:2.5rem;
+    bottom: 0;
+    height: 5px; /* Chiều cao của khung */
+    background-color: #FFD700; /* Màu vàng */
+    animation: move 1s infinite alternate; /* Thêm hiệu ứng di chuyển */
+}
+
+@keyframes move {
+    0% {
+        transform: translateX(-10px); /* Bắt đầu bên trái */
+    }
+    100% {
+        transform: translateX(10px); /* Di chuyển sang phải */
+    }
+}
+
+.image-container {
+    text-align: center;
+    margin-top: 20px;
+    height: 60%;
+}
+.team {
+    display: flex;
+    margin-top: 40px;
+}
+
+.team-member {
+    flex: 1; /* Để các card có cùng chiều rộng */
+    margin: 10px; /* Khoảng cách giữa các card */
+    padding: 40px; /* Tăng padding bên trong card */
+    background-color: #f1f1f1; /* Màu nền card */
+    border-radius: 10px; /* Bo góc */
+    text-align: center;
+    transition: transform 0.3s;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2); /* Đổ bóng */
+    min-width: 400px; /* Đặt chiều rộng tối thiểu cho card */
+}
+
+.team-member:hover {
+    transform: translateY(-5px); /* Nổi bật khi hover */
+}
+
+.fade-in {
+    opacity: 0;
+    transform: translateY(20px);
+    transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+}
+
+.fade-in.visible {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.right h3 {
+    margin-top: 40px;
+    font-size: 24px;
+}
+
+.right ul {
+    list-style-type: none; /* Xóa dấu chấm */
+    padding: 0;
+}
+
+.right li {
+    margin: 15px 0; /* Khoảng cách giữa các mục */
+    padding: 10px;
+    border-radius: 5px;
+    transition: transform 0.3s, box-shadow 0.3s;
+}
+
+.right li:hover {
+    transform: translateY(-5px); /* Nổi bật khi hover */
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2); /* Đổ bóng */
+}
+
+.line-container {
+    position: relative;
+    padding-left: 25px; /* Khoảng cách cho đường thẳng */
+}
+
+.line-container::before {
+    content: '';
+    position: absolute;
+    left: 10px; /* Vị trí đường thẳng */
+    top: 0; /* Bắt đầu từ đầu */
+    bottom: 0; /* Kéo dài đến cuối */
+    width: 2px; /* Độ dày của đường thẳng */
+    background-color: #4CAF50; /* Màu sắc đường thẳng */
+}
+/* Responsive Styles */
+@media (max-width: 768px) {
+    .container-about {
+        flex-direction: column; /* Đặt chiều dọc cho các phần */
+    }
+    .center {
+        display: none;
+    }
+
+    .staff-left {
+        text-align: center; /* Căn giữa tiêu đề */
+    }
+
+    .team {
+        flex-direction: column; /* Đặt chiều dọc cho các card */
+        align-items: center; /* Căn giữa các card */
+    }
+
+    .team-member {
+        margin: 10px 0; /* Khoảng cách giữa các card khi xuống dòng */
+        min-width: 80%; /* Chiều rộng tối thiểu cho card */
+    }
+
+    .left, .right {
+        flex: 1 1 100%; /* Chiếm toàn bộ chiều rộng */
+        padding: 10px; /* Giảm padding */
+    }
+}
+
+@media (max-width: 968px) {
+    .container-about {
+        flex-direction: column; /* Đặt chiều dọc cho các phần */
+    }
+    .center {
+        display: none;
+    }
+
+    .staff-left {
+        text-align: center; /* Căn giữa tiêu đề */
+    }
+
+    .team {
+        flex-direction: column; /* Đặt chiều dọc cho các card */
+        align-items: center; /* Căn giữa các card */
+    }
+
+    .team-member {
+        margin: 10px 0; /* Khoảng cách giữa các card khi xuống dòng */
+        min-width: 80%; /* Chiều rộng tối thiểu cho card */
+    }
+
+    .left, .right {
+        flex: 1 1 100%; /* Chiếm toàn bộ chiều rộng */
+        padding: 10px; /* Giảm padding */
+    }
+}

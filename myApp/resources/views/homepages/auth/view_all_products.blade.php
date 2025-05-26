@@ -3,9 +3,11 @@
     <link rel="stylesheet" href="{{ asset('assets/css/homepage/view_all_product.css') }}">
 @endpush
 @section('header')
-    <div class="site-header">
+    @if(Auth::check())
         @include('homepages.auth.header')
-    </div>
+    @else
+        @include('homepages.guest.header')
+    @endif
 @endsection
 @section('content')
     <div class="main-content">

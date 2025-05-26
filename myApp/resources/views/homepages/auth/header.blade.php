@@ -94,7 +94,7 @@
                 <nav id="navmenu" class="navmenu">
                     <ul>
                         <li><a href="{{route('homepage')}}" class="active">Trang chủ</a></li>
-                        <li><a href="about.html">Về chúng tôi</a></li>
+                        <li><a href="{{ route('about') }}">Về chúng tôi</a></li>
                         <!-- Products Mega Menu 1 -->
                         <li class="products-megamenu-1"><a href="#"><span>Giày nữ</span> <i class="bi bi-chevron-down toggle-dropdown"></i></a>
                             <!-- Products Mega Menu 1 Mobile ViewPage -->

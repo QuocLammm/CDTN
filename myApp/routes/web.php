@@ -47,6 +47,8 @@ Route::post('/contact/send', [HomePageController::class, 'send'])->name('contact
 
 Route::post('/wishlist/toggle/{product_id}', [HomePageController::class, 'toggle'])->name('wishlist.toggle');
 
+// About Us
+Route::get('/about-us', [HomePageController::class, 'showAboutUs'])->name('about');
 
 
 

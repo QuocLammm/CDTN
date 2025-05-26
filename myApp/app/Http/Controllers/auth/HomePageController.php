@@ -185,4 +185,9 @@ class HomePageController extends Controller
 
     }
 
+    // Trang About Us
+    public function showAboutUs(){
+        return view('homepages.auth.about_us');
+    }
+
 }
