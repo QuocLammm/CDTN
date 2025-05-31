@@ -51,24 +51,25 @@
         </div>
         <div class="containers">
             <div class="team">
-                <div class="team-member">
-                    <h3>Phạm Trúc Đoan</h3>
-                    <p>Chủ cửa hàng</p>
-                </div>
-                <div class="team-member">
-                    <h3>Trần Thị B</h3>
-                    <p>Quản lý sản phẩm</p>
-                </div>
-                <div class="team-member">
-                    <h3>Phạm Văn C</h3>
-                    <p>Chuyên viên bán hàng</p>
-                </div>
-                <div class="team-member">
-                    <h3>Nguyễn Thị D</h3>
-                    <p>Nhân viên marketing</p>
-                </div>
+                @foreach($users as $user)
+                    <div class="team-member fade-in">
+                        <img src="{{ $user->image ?? asset('default-avatar.png') }}" alt="Ảnh của {{ $user->full_name }}" class="team-image">
+                        <h3>{{ $user->full_name }}</h3>
+                        <p>
+                            @php
+                                $displayRole = match($user->role->role_name) {
+                                    'Admin' => 'Quản trị viên',
+                                    'Staff' => 'Nhân viên',
+                                    default => $user->role->role_name
+                                };
+                            @endphp
+                            {{ $displayRole }}
+                        </p>
+                    </div>
+                @endforeach
             </div>
         </div>
+
     </div>
 @endsection
 

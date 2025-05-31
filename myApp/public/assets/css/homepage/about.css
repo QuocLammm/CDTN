@@ -14,8 +14,8 @@
 }
 
 .staff-left{
-    max-width: 1500px;
-    margin: 16px auto;
+    max-width: 1400px;
+    margin: 12px auto;
     display: flex;
     flex-direction: row;
     justify-content: space-between;
@@ -28,12 +28,15 @@
     display: inline-block;
 }
 
-.left, .right {
-
+.left{
+    margin-left: 2rem;
 }
 
+.right{
+    margin-right: 2rem;
+}
 .center{
-    padding: 80px;
+    padding: 50px;
 }
 
 .right li strong {
@@ -73,23 +76,38 @@
     height: 60%;
 }
 .team {
-    display: flex;
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 30px;
     margin-top: 40px;
+    justify-items: center;
 }
 
 .team-member {
-    flex: 1 1 300px; /* Đặt chiều rộng tối thiểu cho card */
-    margin: 10px; /* Khoảng cách giữa các card */
-    padding: 20px; /* Tăng padding bên trong card */
-    background-color: #f1f1f1; /* Màu nền card */
-    border-radius: 10px; /* Bo góc */
+    width: 300px;
+    height: 320px;
+    background-color: #f1f1f1;
+    border-radius: 10px;
+    padding: 20px;
     text-align: center;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
     transition: transform 0.3s;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2); /* Đổ bóng */
-    height: 150px; /* Đặt chiều cao cố định cho card */
-    display: flex; /* Sử dụng flexbox */
-    flex-direction: column; /* Đặt chiều dọc cho nội dung */
-    justify-content: center; /* Căn giữa nội dung theo chiều dọc */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: start;
+}
+
+.team-member:hover {
+    transform: translateY(-5px);
+}
+
+.team-image {
+    width: 120px;
+    height: 120px;
+    object-fit: cover;
+    margin-bottom: 15px;
+    border-radius: 50%;
 }
 
 .team-member p {
@@ -99,9 +117,6 @@
     margin: 0; /* Xóa margin để tránh chồng chéo */
 }
 
-.team-member:hover {
-    transform: translateY(-5px); /* Nổi bật khi hover */
-}
 
 .fade-in {
     opacity: 0;
@@ -211,5 +226,28 @@
     .left, .right {
         flex: 1 1 100%; /* Chiếm toàn bộ chiều rộng */
         padding: 10px; /* Giảm padding */
+    }
+}
+@media (max-width: 1024px) {
+    .team {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media (max-width: 600px) {
+    .team {
+        grid-template-columns: 1fr;
+    }
+}
+
+/* Animation chính */
+@keyframes fadeInUp {
+    0% {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+    100% {
+        opacity: 1;
+        transform: translateY(0);
     }
 }

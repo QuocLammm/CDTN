@@ -186,8 +186,22 @@ class HomePageController extends Controller
     }
 
     // Trang About Us
-    public function showAboutUs(){
-        return view('homepages.auth.about_us');
+    public function showAboutUs()
+    {
+        $admin = User::with('role')
+            ->where('role_id', 1)
+            ->first(); // Lấy 1 người role_id = 1
+
+        $staffs = User::with('role')
+            ->where('role_id', 3)
+            ->take(3)
+            ->get(); // Lấy 3 người role_id = 3
+
+        // Gộp lại thành 1 collection
+        $users = collect([$admin])->merge($staffs);
+
+        return view('homepages.auth.about_us', compact('users'));
     }
+
 
 }
