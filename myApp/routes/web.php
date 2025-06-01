@@ -41,9 +41,10 @@ Route::get('/products/all/{category_id}', [HomePageController::class, 'viewAll']
 Route::get('/products/all/', [HomePageController::class, 'viewAllProduct'])->name('products.all_products'); // Xem all sản phẩm
 Route::get('/load-more-products', [HomePageController::class, 'loadMore'])->name('products.loadMore'); // Load More
 Route::get('/search', [ProductController::class, 'search'])->name('product.search');// Tìm kiểm sản phẩm
-
+Route::get('/product/{id}', [ProductDetailController::class, 'show'])->name('product.show'); // Hiển thị chi tiết sản phẩm
 Route::get('/contact', [HomePageController::class, 'showContact'])->name('contact.index');// Show contact
 Route::post('/contact/send', [HomePageController::class, 'send'])->name('contact.send'); // Contact Send
+
 
 Route::post('/wishlist/toggle/{product_id}', [HomePageController::class, 'toggle'])->name('wishlist.toggle');
 
@@ -71,8 +72,6 @@ Route::middleware('auth')->group(function () {
 
     Route::post('/process', [CartController::class, 'confirm'])->name('order.process');
 
-    Route::get('/product/{id}', [ProductDetailController::class, 'show'])->name('product.show');
-
     // Profile User
     Route::get('/profile/{id}', [HomePageController::class, 'showProfile'])->name('profile-user');
 
@@ -83,6 +82,8 @@ Route::middleware('auth')->group(function () {
     Route::get('/wishlist', [WishListController::class, 'showWishList'])->name('wishlist.show');
     Route::delete('/wishlist/remove/{wishlist_id}', [WishListController::class, 'remove'])->name('wishlist.remove');
 
+
+    Route::post('/apply-voucher', [CartController::class, 'applyVoucher'])->name('apply.voucher');
 });
 
 // Đăng nhập bằng GG

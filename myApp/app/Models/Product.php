@@ -21,6 +21,10 @@ class Product extends Model
         'description',
         'qr_code_base64',
         'price',
+        'status',
+        'is_new',
+        'is_sale',
+        'sale_price',
 
     ];
     public function supplier()

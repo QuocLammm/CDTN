@@ -4,6 +4,7 @@ namespace App\Http\Controllers\admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\Cart;
+use App\Models\Discount;
 use App\Models\Notification;
 use App\Models\Order;
 use App\Models\OrderItem;
@@ -11,6 +12,7 @@ use App\Models\Product;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Http;
+use Illuminate\Support\Facades\Log;
 
 class VNPayController extends Controller
 {
@@ -26,12 +28,41 @@ class VNPayController extends Controller
 
         // Tính tổng tiền
         $total = 0;
+
         foreach ($cart->items as $item) {
             if (!$item->product) {
                 return redirect()->route('cart.cart')->with('error', 'Một sản phẩm trong giỏ hàng không còn tồn tại.');
             }
-            $total += $item->product->price * $item->quantity;
+
+            $unitPrice = $item->product->is_sale ? $item->product->sale_price : $item->product->price;
+            $total += $unitPrice * $item->quantity;
         }
+
+        // Áp dụng mã giảm giá nếu có
+        $voucherCode = $request->input('voucher_code');
+        if ($voucherCode) {
+            $voucher = Discount::where('discount_code', $voucherCode)
+                ->where('status', true)
+                ->where('start_date', '<=', now())
+                ->where('end_date', '>=', now())
+                ->first();
+
+            if ($voucher) {
+                $discountAmount = 0;
+
+                foreach ($cart->items as $item) {
+                    $unitPrice = $item->product->is_sale ? $item->product->sale_price : $item->product->price;
+                    $discountAmount += ($unitPrice * $item->quantity) * ($voucher->discount_amount / 100);
+                }
+
+                if ($voucher->max_discount && $discountAmount > $voucher->max_discount) {
+                    $discountAmount = $voucher->max_discount;
+                }
+
+                $total = max(0, $total - $discountAmount);
+            }
+        }
+
 
         // Tạo đơn hàng mới với trạng thái chờ thanh toán
         $order = Order::create([
@@ -40,6 +71,7 @@ class VNPayController extends Controller
             'status' => 'pending',
             'payment_method' => 'bank', // thanh toán qua VNPay
         ]);
+        Log::info('VNPay Total:', ['total' => $total]);
 
         // Lưu order_id vào session
         session(['vnp_order_id' => $order->order_id]);
@@ -50,7 +82,7 @@ class VNPayController extends Controller
                 'order_id' => $order->order_id,
                 'product_detail_id' => $item->product->product_id,
                 'quantity' => $item->quantity,
-                'price' => $item->product->price,
+                'price' => $total,
                 'color' => $item->color,
                 'size' => $item->size,
             ]);

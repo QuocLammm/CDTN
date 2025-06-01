@@ -8,10 +8,15 @@
 @push('css')
     <style>
         .btn-close {
-        color: red !important; /* Force the color to be red */
-        border: none;
+            color: red !important; /* Force the color to be red */
+            border: none;
         }
-
+         .form-check-input:checked + .form-check-label {
+             color: red; /* Change color when checked */
+         }
+        .form-check-label {
+            margin-left: 10px; /* Space between checkbox and label */
+        }
     </style>
 @endpush
 @section('content')
@@ -77,6 +82,34 @@
                                 </div>
                         @endforeach
                     </div>
+                    <div class="form-group">
+                        <label for="is_new">Sản phẩm mới</label>
+                        <div class="form-check form-switch">
+                            <input class="form-check-input" type="checkbox" name="is_new" id="is_new" value="1" {{ $product->is_new ? 'checked' : '' }} onchange="updateLabel(this)">
+                            <label class="form-check-label" for="is_new" id="toggleLabel">
+                                {{ $product->is_new ? 'Sản phẩm mới' : 'Sản phẩm cũ' }}
+                            </label>
+                        </div>
+                    </div>
+                    <!-- Sale-->
+                    <!-- Toggle Khuyến mãi -->
+                    <div>
+                        <label for="is_sale">Khuyến mãi</label>
+                        <div class="form-check form-switch">
+                            <input class="form-check-input" type="checkbox" name="is_sale" id="is_sale" value="1"
+                                {{ old('is_sale', $product->is_sale) ? 'checked' : '' }}>
+                            <label class="form-check-label" for="is_sale">
+                                {{ $product->is_sale }}
+                            </label>
+                        </div>
+                    </div>
+
+                    <!-- Ô nhập giá khuyến mãi -->
+                    <div class="form-group" id="sale_price_wrapper" style="{{ old('is_sale', $product->is_sale) ? '' : 'display:none;' }}">
+                        <label for="sale_price">Giá khuyến mãi</label>
+                        <input type="number" name="sale_price" class="form-control" value="{{ old('sale_price', $product->sale_price) }}">
+                    </div>
+
                     <x-form.textarea
                         name="description"
                         label="Mô tả"
@@ -118,6 +151,18 @@
     </div>
 @endsection
 @push('js')
+    <script>
+        document.getElementById('is_sale').addEventListener('change', function () {
+            const wrapper = document.getElementById('sale_price_wrapper');
+            wrapper.style.display = this.checked ? 'block' : 'none';
+        });
+    </script>
+    <script>
+        function updateLabel(checkbox) {
+            const label = document.getElementById('toggleLabel');
+            label.textContent = checkbox.checked ? 'Sản phẩm mới' : 'Sản phẩm cũ';
+        }
+    </script>
     <script src="https://cdn.ckeditor.com/4.22.1/standard/ckeditor.js"></script>
     <script>
         CKEDITOR.replace('description', {

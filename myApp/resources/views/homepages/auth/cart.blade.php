@@ -36,8 +36,11 @@
                             <span class="quantity">{{ $item->quantity }}</span>
                             <button class="btn-quantity increase">+</button>
                         </div>
+                        @php
+                            $unitPrice = $item->product->is_sale ? $item->product->sale_price : $item->product->price;
+                        @endphp
                         <p class="cart-line-total mb-2 text-end">
-                            Đơn giá: <strong>{{ number_format($item->product->price * $item->quantity) }}₫</strong>
+                            Đơn giá: <strong>{{ number_format($unitPrice * $item->quantity) }}₫</strong>
                         </p>
                     </div>
                 </div>
@@ -49,10 +52,11 @@
                     <span class="total-amount">
                         @php
                             $total = $cartItems->sum(function($item) {
-                                return $item->product->price * $item->quantity;
+                                $unitPrice = $item->product->is_sale ? $item->product->sale_price : $item->product->price;
+                                return $unitPrice * $item->quantity;
                             });
                         @endphp
-                                    {{ number_format($total, 0, ',', '.') }} đ
+                        {{ number_format($total, 0, ',', '.') }} đ
                     </span>
                 </p>
                 <form id="checkout-form" action="{{ route('order.process') }}" method="POST" style="display: none;">

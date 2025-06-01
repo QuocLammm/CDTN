@@ -98,15 +98,15 @@ class ProductController extends Controller
     public function update(Request $request, $id)
     {
         $data = $request->except('ProductDetail');
+        $data['is_new'] = $request->has('is_new') ? 1 : 0;
+        $data['is_sale'] = $request->has('is_sale') ? 1 : 0;
+        // Nếu không có is_sale thì xoá giá khuyến mãi
+        if (!$request->has('is_sale')) {
+            $data['sale_price'] = null;
+        }
+
         $product = Product::findOrFail($id);
         $product->update($data);
-
-
-//        $detailIdsInForm = collect($request->input('ProductDetails'))->pluck('product_detail_id')->filter()->all();
-//
-//        $product->productDetails()
-//            ->whereNotIn('product_detail_id', $detailIdsInForm)
-//            ->delete();
 
         // Duyệt và cập nhật các ProductDetail
         foreach ($request->input('ProductDetails', []) as $detailData) {

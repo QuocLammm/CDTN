@@ -6,6 +6,8 @@ use App\Events\OrderCreated;
 use App\Http\Controllers\Controller;
 use App\Models\Cart;
 use App\Models\CartItem;
+use App\Models\Discount;
+use App\Models\DiscountTarget;
 use App\Models\Notification;
 use App\Models\Order;
 use App\Models\OrderItem;
@@ -14,6 +16,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Http;
+use Illuminate\Support\Facades\Log;
 
 class CartController extends Controller
 {
@@ -78,12 +81,13 @@ class CartController extends Controller
         $userId = Auth::id();
         $cart = Cart::where('user_id', $userId)->first();
         $order = Order::where('user_id', $userId)->first();
+        $product = Product::all();
         if (!$cart) {
             return view('homepages.auth.cart', ['items' => collect()]);
         }
 
         $cartItems = $cart->items()->with('product')->get();
-        return view('homepages.auth.cart', compact('cartItems','order'));
+        return view('homepages.auth.cart', compact('cartItems','order','product'));
     }
 
 
@@ -149,8 +153,6 @@ class CartController extends Controller
         $paymentMethod = $request->input('payment_method');
 
         if ($paymentMethod === 'cod') {
-
-
             // Lấy thông tin giỏ hàng
             $cart = Cart::where('user_id', $userId)->first();
             if (!$cart || $cart->items->isEmpty()) {
@@ -163,7 +165,34 @@ class CartController extends Controller
                 if (!$item->product) {
                     return redirect()->route('cart.cart')->with('error', 'Một sản phẩm trong giỏ hàng không còn tồn tại.');
                 }
-                $total += $item->product->price * $item->quantity;
+
+                $unitPrice = $item->product->is_sale ? $item->product->sale_price : $item->product->price;
+                $total += $unitPrice * $item->quantity;
+            }
+
+            // 2. Áp dụng mã giảm giá (nếu có)
+            $voucherCode = $request->input('voucher_code');
+            if ($voucherCode) {
+                $voucher = Discount::where('discount_code', $voucherCode)
+                    ->where('status', true)
+                    ->where('start_date', '<=', now())
+                    ->where('end_date', '>=', now())
+                    ->first();
+
+                if ($voucher) {
+                    $discountAmount = 0;
+
+                    foreach ($cart->items as $item) {
+                        $unitPrice = $item->product->is_sale ? $item->product->sale_price : $item->product->price;
+                        $discountAmount += ($unitPrice * $item->quantity) * ($voucher->discount_amount / 100);
+                    }
+
+                    if ($voucher->max_discount && $discountAmount > $voucher->max_discount) {
+                        $discountAmount = $voucher->max_discount;
+                    }
+
+                    $total = max(0, $total - $discountAmount);
+                }
             }
 
             $order = Order::create([
@@ -178,11 +207,13 @@ class CartController extends Controller
                     'order_id' => $order->order_id,
                     'product_detail_id' => $item->product->product_id,
                     'quantity' => $item->quantity,
-                    'price' => $item->product->price,
+                    'price' => $total,
                     'color' => $item->color,
                     'size' => $item->size,
                 ]);
             }
+
+
 
             // Xóa giỏ hàng
             $cart->items->each->delete();
@@ -245,7 +276,6 @@ class CartController extends Controller
     }
 
     // Thanh toán
-
     public function confirm()
     {
         $user = Auth::user();
@@ -259,13 +289,84 @@ class CartController extends Controller
         $cartItems = $cart->items;
 
         $total = $cartItems->sum(function ($item) {
-            return $item->product->price * $item->quantity;
+            $unitPrice = $item->product->is_sale ? $item->product->sale_price : $item->product->price;
+            return $unitPrice * $item->quantity;
         });
 
         return view('homepages.auth.payment', compact('cartItems', 'total'));
     }
 
+    public function applyVoucher(Request $request)
+    {
+        $code = $request->input('voucher_code');
+        Log::info("Voucher code nhận được: $code");
 
+        $discount = Discount::where('discount_code', $code)
+            ->where('status', 1)
+            ->where('start_date', '<=', now())
+            ->where('end_date', '>=', now())
+            ->first();
+
+        if (!$discount) {
+            Log::info("Voucher không hợp lệ hoặc hết hạn: $code");
+            return response()->json([
+                'success' => false,
+                'message' => 'Mã giảm giá không hợp lệ hoặc đã hết hạn.'
+            ]);
+        }
+
+        $userId = auth()->id();
+        Log::info("User ID: $userId");
+
+        $cartId = Cart::where('user_id', $userId)->value('cart_id');
+        Log::info("Cart ID: $cartId");
+
+        $cartItems = CartItem::with('product')
+            ->where('cart_id', $cartId)
+            ->get();
+
+        if ($cartItems->isEmpty()) {
+            Log::info("Giỏ hàng trống cho user: $userId");
+            return response()->json([
+                'success' => false,
+                'message' => 'Giỏ hàng của bạn đang trống.'
+            ]);
+        }
+
+        $originalTotal = 0;
+        $newTotal = 0;
+
+        foreach ($cartItems as $item) {
+            $product = $item->product;
+
+            if (!$product) {
+                Log::warning("Sản phẩm không tồn tại trong cart item ID: {$item->id}");
+                continue;
+            }
+
+            $price = $product->is_sale ? $product->sale_price : $product->price;
+            $quantity = $item->quantity;
+
+            $subtotal = $price * $quantity;
+            $originalTotal += $subtotal;
+
+            // **Bỏ qua kiểm tra isDiscountApplicable, áp dụng giảm cho tất cả**
+            $subtotal *= (1 - $discount->discount_amount / 100);
+
+            $newTotal += $subtotal;
+        }
+
+        Log::info("Tổng tiền gốc: $originalTotal, Tổng tiền sau giảm: $newTotal");
+
+        return response()->json([
+            'success' => true,
+            'message' => "Áp dụng thành công! Giảm {$discount->discount_amount}%.",
+            'discount_percent' => $discount->discount_amount,
+            'discount_amount' => round($originalTotal - $newTotal),
+            'original_total' => round($originalTotal),
+            'new_total' => round($newTotal),
+        ]);
+    }
 
     // Hủy đơn hàng
     public function cancelOrder(Request $request)

@@ -53,7 +53,15 @@
                 </div>
 
                 {{-- Giá --}}
-                <div class="product-price">{{ number_format($product->price, 0, ',', '.') }} đ</div>
+                @if ($product->is_sale && $product->sale_price < $product->price)
+                    <span class="current-price text-danger fw-bold">{{ number_format($product->sale_price) }}vnđ</span>
+                    <span class="original-price text-muted" style="text-decoration: line-through;">{{ number_format($product->price) }}vnđ</span>
+                    <span class="badge bg-danger" style="font-size: 0.75rem;">
+                                    -{{ round((($product->price - $product->sale_price) / $product->price) * 100) }}%
+                                </span>
+                @else
+                    <span class="current-price">{{ number_format($product->price) }}vnđ</span>
+                @endif
 
                 {{-- Hai nút căn đều nhau --}}
                 <div class="product-actions" style="display: flex; flex-direction: column; gap: 20px;">

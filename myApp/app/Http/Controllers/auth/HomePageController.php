@@ -21,11 +21,17 @@ class HomePageController extends Controller
 {
     public function index()
     {
-        // Lấy tất cả sản phẩm từ database
-        $products = Product::withAvg('reviews', 'rating')->withCount('reviews')->get();
+        // Chỉ lấy sản phẩm đang giảm giá
+        $products = Product::where('is_sale', true)
+            ->withAvg('reviews', 'rating')
+            ->withCount('reviews')
+            ->get();
+
+        // Lấy tất cả danh mục với products và images
         $categories = Category::with(['products.images'])->get();
 
-        // Lấy danh sách yêu thích
+
+        // Lấy danh sách yêu thích của user (nếu đăng nhập)
         $wishlistProductIds = [];
         if (auth()->check()) {
             $wishlistProductIds = Wishlist::where('user_id', auth()->id())
@@ -33,9 +39,8 @@ class HomePageController extends Controller
                 ->toArray();
         }
 
-        // Lượt truy cập web
+        // Lượt truy cập web hôm nay
         $today = Carbon::today()->toDateString();
-        // Nếu chưa có bản ghi hôm nay thì tạo, nếu có thì lấy ra
         if (!session()->has('view_counted_today')) {
             $view = ViewPage::firstOrCreate(
                 ['view_date' => $today],
@@ -44,9 +49,11 @@ class HomePageController extends Controller
             $view->increment('total_views');
             session(['view_counted_today' => true]);
         }
-        // Trả dữ liệu sang view
-        return view('homepages.homepage', compact('categories','products','wishlistProductIds','today'));
+
+        // Trả dữ liệu sang view, thêm $shoesProducts
+        return view('homepages.homepage', compact('categories', 'products', 'wishlistProductIds', 'today'));
     }
+
 
     // Profile User
     public function showProfile($id)
@@ -106,13 +113,19 @@ class HomePageController extends Controller
     // Hiển thị danh sách sản phẩm
     public function showProduct()
     {
-        // Lấy tất cả sản phẩm
+        // Lấy tất cả danh mục
         $categories = Category::all();
-        $products = Product::withAvg('reviews', 'rating')->withCount('reviews')->get();
+
+        // Chỉ lấy sản phẩm đang giảm giá
+        $products = Product::where('is_sale', true)
+            ->withAvg('reviews', 'rating')
+            ->withCount('reviews')
+            ->get();
 
         // Trả dữ liệu sang view
-        return view('homepages.item', compact('categories','products'));
+        return view('homepages.auth.item', compact('categories', 'products'));
     }
+
 
     // Hiển thị toàn bộ sản phẩm ở phần xem tất cả theo từng danh mục
     public function viewAll($category_id)

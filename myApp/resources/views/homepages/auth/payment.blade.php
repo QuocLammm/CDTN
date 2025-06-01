@@ -28,10 +28,14 @@
                                      class="img-fluid rounded">
                             </div>
                             <div class="cart-card-right col-md-8 d-flex flex-column justify-content-between">
+                                @php
+                                    $unitPrice = $item->product->is_sale ? $item->product->sale_price : $item->product->price;
+                                @endphp
                                 <h5 class="mb-2">{{ $item->product->product_name }}</h5>
                                 <p>Số lượng: {{ $item->quantity }}</p>
-                                <p>Đơn giá: {{ number_format($item->product->price) }}₫</p>
-                                <p class="fw-bold">Thành tiền: {{ number_format($item->product->price * $item->quantity) }}₫</p>
+                                <p>Đơn giá: {{ number_format($unitPrice * $item->quantity) }}₫</p>
+
+                                <p class="fw-bold">Thành tiền: {{ number_format($unitPrice * $item->quantity) }}₫</p>
                             </div>
                         </div>
                     @endforeach
@@ -39,7 +43,12 @@
 
                 {{-- Phần chọn thanh toán --}}
                 <div class="checkout-summary mt-4">
-                    <p style="text-align: right"><strong>Tổng cộng: {{ number_format($total, 0, ',', '.') }}₫</strong></p>
+
+                    <div class="text-end">
+                        <p><strong>Tạm tính: </strong><span id="original-total">{{ number_format($total, 0, ',', '.') }}₫</span></p>
+                        <p><strong>Khuyến mãi: </strong><span id="discount-amount">0₫</span></p>
+                        <p><strong>Tổng cộng: </strong><span id="new-total">{{ number_format($total, 0, ',', '.') }}₫</span></p>
+                    </div>
 
                     <form action="{{ route('checkout') }}" method="POST" id="payment-form">
                         @csrf
@@ -50,6 +59,16 @@
                             <option value="cod">Thanh toán tại quầy</option>
                             <option value="bank">Thanh toán qua VNPay</option>
                         </select>
+                        {{-- Form áp dụng voucher --}}
+                        <div class="voucher-section mt-3">
+                            <label for="voucher_code">Nhập mã giảm giá:</label>
+                            <input type="text" id="voucher_code" name="voucher_code" class="form-control mt-1 mb-2" placeholder="Nhập mã voucher...">
+                            <button type="button" class="btn btn-primary" id="apply-voucher-btn">Áp dụng mã</button>
+
+                            <p id="voucher-message" class="mt-2 text-success" style="display: none;"></p>
+                        </div>
+                        <input type="hidden" name="new_total" id="hidden-new-total" value="">
+                        <input type="hidden" name="discount_amount" id="hidden-discount-amount" value="">
 
                         <button type="submit" class="btn btn-success mt-3" id="confirm-payment-btn" style="display:none;">
                             Xác nhận thanh toán
@@ -62,6 +81,47 @@
 
 @endsection
 @push('js')
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <script>
+        document.getElementById('apply-voucher-btn').addEventListener('click', function () {
+            const voucherCode = document.getElementById('voucher_code').value;
+
+            axios.post('{{ route('apply.voucher') }}', {
+                voucher_code: voucherCode
+            }, {
+                headers: {
+                    'X-CSRF-TOKEN': '{{ csrf_token() }}'
+                }
+            })
+                .then(response => {
+                    const data = response.data;
+                    const messageEl = document.getElementById('voucher-message');
+
+                    if (data.success) {
+                        messageEl.innerText = `✅ ${data.message}`;
+                        messageEl.classList.remove('text-danger');
+                        messageEl.classList.add('text-success');
+
+                        document.getElementById('original-total').innerText = data.original_total.toLocaleString('vi-VN') + '₫';
+                        document.getElementById('discount-amount').innerText = '-' + data.discount_amount.toLocaleString('vi-VN') + '₫';
+                        document.getElementById('new-total').innerText = data.new_total.toLocaleString('vi-VN') + '₫';
+                        document.getElementById('hidden-new-total').value = data.new_total;
+                        document.getElementById('hidden-discount-amount').value = data.discount_amount;
+
+                    } else {
+                        messageEl.innerText = `❌ ${data.message}`;
+                        messageEl.classList.remove('text-success');
+                        messageEl.classList.add('text-danger');
+                    }
+
+                    messageEl.style.display = 'block';
+                })
+                .catch(error => {
+                    console.error('Lỗi:', error);
+                });
+        });
+
+    </script>
     <script>
         document.addEventListener('DOMContentLoaded', function() {
             const paymentSelect = document.getElementById('payment-method');

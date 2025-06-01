@@ -20,8 +20,18 @@
                     <div class="card">
                         <img src="{{ $product->images()->first()->image_path }}" alt="{{ $product->product_name }}" class="product-image"
                              style="width: 100%; height: 300px; object-fit: cover;">
-                        <h4 style="text-align: center;">{{ $product->product_name }}</h4>
-                        <p style="text-align: center;">{{ number_format($product->price, 0, ',', '.') }} đ</p>
+                        <h4 class="product-name" style="text-align: center;">{{ $product->product_name }}</h4>
+                        <div class="product-price d-flex align-items-center justify-content-center gap-2">
+                            @if ($product->is_sale && $product->sale_price < $product->price)
+                                <span class="current-price text-danger fw-bold">{{ number_format($product->sale_price) }}vnđ</span>
+                                <span class="original-price text-muted" style="text-decoration: line-through;">{{ number_format($product->price) }}vnđ</span>
+                                <span class="badge bg-danger" style="font-size: 0.75rem;">
+                                    -{{ round((($product->price - $product->sale_price) / $product->price) * 100) }}%
+                                </span>
+                            @else
+                                <span class="current-price">{{ number_format($product->price) }}vnđ</span>
+                            @endif
+                        </div>
                     </div>
                 </a>
             @endforeach
