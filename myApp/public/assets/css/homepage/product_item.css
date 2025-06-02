@@ -26,24 +26,24 @@ body {
 }
 
 .main-content {
-    margin-top: 8rem;
+    margin-top: 1rem;
     flex: 1;
     padding: 40px 20px;
     box-sizing: border-box;
     background-color: #fff;
 }
-.profile-container {
-    width: 90%;
-    max-width: 1100px;
-    margin: 30px auto;
-    display: flex;
-    background: #fff;
-    border: 1px solid #ccc;
-    border-radius: 10px;
-    overflow: hidden;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-    font-family: Arial, sans-serif;
-}
+/*.profile-container {*/
+/*    width: 90%;*/
+/*    max-width: 1100px;*/
+/*    margin: 30px auto;*/
+/*    display: flex;*/
+/*    background: #fff;*/
+/*    border: 1px solid #ccc;*/
+/*    border-radius: 10px;*/
+/*    overflow: hidden;*/
+/*    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);*/
+/*    font-family: Arial, sans-serif;*/
+/*}*/
 
 .profile-left {
     width: 30%;
@@ -125,7 +125,9 @@ body {
     display: flex;
     padding: 30px;
     gap: 40px;
+    align-items: flex-start;
 }
+
 
 .product-detail-image {
     width: 400px;
@@ -136,7 +138,7 @@ body {
 }
 
 .product-detail-info {
-    max-width: 600px;
+    max-width: 1000px;
 }
 
 .product-detail-info h2 {
@@ -165,6 +167,7 @@ body {
     justify-content: center;
     align-items: center;
     transition: background-color 0.3s ease;
+    flex: 0 !important;
 }
 
 .buy-button:hover {
@@ -184,6 +187,7 @@ body {
     justify-content: center;
     align-items: center;
     height: 40px;
+    flex: 1 !important;
 }
 
 .add-to-cart-button:hover {

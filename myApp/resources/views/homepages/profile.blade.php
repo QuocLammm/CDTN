@@ -201,7 +201,7 @@
 
 @section('footer')
     <div class="site-footer">
-        @include('homepages.auth.footer')
+        @include('homepages.auth.footer_no_sale')
     </div>
 @endsection
 @push('js')

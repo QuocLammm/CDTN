@@ -114,6 +114,7 @@
                         'contact_email' => 'Email',
                         'contact_opening_hours' => 'Giờ mở cửa',
                         'contact_google_map_iframe' => 'Iframe Bản đồ (HTML)',
+                        'contact_description' => 'Mô tả chân trang',
                     ] as $key => $label)
                         <div style="margin-bottom: 15px;">
                             <label>{{ $label }}</label><br>

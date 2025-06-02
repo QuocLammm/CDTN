@@ -109,7 +109,7 @@
                                 Sale
                             </span>
                         @endif
-                        <img src="{{ $product->images->first()->image_path ?? 'default.jpg' }}" alt="{{ $product->name }}">
+                        <img src="{{ $product->images->first()->image_path ?? 'default.jpg' }}" alt="{{ $product->product_name }}">
                         <div class="product-actions">
                             <form action="{{ route('wishlist.toggle', $product->product_id) }}" method="POST" style="display:inline;">
                                 @csrf
@@ -136,7 +136,7 @@
                         <div class="product-price d-flex align-items-center gap-2">
                             @if ($product->is_sale && $product->sale_price < $product->price)
                                 <span class="current-price text-danger fw-bold">{{ number_format($product->sale_price) }} đ</span>
-                                <span class="original-price text-muted" style="text-decoration: line-through;">{{ number_format($product->price) }} zđ</span>
+                                <span class="original-price text-muted" style="text-decoration: line-through;">{{ number_format($product->price) }} đ</span>
                                 <span class="badge bg-danger" style="font-size: 0.75rem;">
                     -{{ round((($product->price - $product->sale_price) / $product->price) * 100) }}%
                 </span>

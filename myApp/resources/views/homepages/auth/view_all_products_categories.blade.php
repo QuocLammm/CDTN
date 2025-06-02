@@ -3,16 +3,11 @@
     <link rel="stylesheet" href="{{ asset('assets/css/homepage/view_all_product.css') }}">
 @endpush
 @section('header')
-    @if(Auth::check())
-        @include('homepages.auth.header')
-    @else
-        @include('homepages.guest.header')
-    @endif
+    @include('homepages.auth.header')
 @endsection
 @section('content')
     <div class="main-content">
-        <h2>Tất cả sản phẩm của </h2>
-
+        <h2>Danh sách sản phẩm trong "{{ $category->category_name }}"</h2>
         {{-- Danh sách sản phẩm --}}
         <div class="features" id="product-list">
             @foreach ($products as $product)
@@ -67,6 +62,6 @@
 @endpush
 @section('footer')
     <div class="site-footer">
-        @include('homepages.auth.footer')
+        @include('homepages.auth.footer_no_sale')
     </div>
 @endsection

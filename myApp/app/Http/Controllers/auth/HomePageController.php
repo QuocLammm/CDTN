@@ -130,9 +130,11 @@ class HomePageController extends Controller
     // Hiển thị toàn bộ sản phẩm ở phần xem tất cả theo từng danh mục
     public function viewAll($category_id)
     {
-        $products = Product::where('category_id', $category_id)->get(); // Lấy sản phẩm theo danh mục
-        return view('homepages.auth.view_all_products_categories', compact('products'));
+        $category = Category::findOrFail($category_id);
+        $products = Product::where('category_id', $category_id)->get();
+        return view('homepages.auth.view_all_products_categories', compact('products','category'));
     }
+
 
     // Hiênr thị full sản phẩm
     public function viewAllProduct(){

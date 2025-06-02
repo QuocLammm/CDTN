@@ -27,7 +27,7 @@
             </div>
 
             <div class="product-detail-info">
-                <h2>{{ $product->product_name }}</h2>
+                <h4>{{ $product->product_name }}</h4>
 
                 {{-- Đánh giá trung bình --}}
                 @php
