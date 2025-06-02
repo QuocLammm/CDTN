@@ -80,6 +80,13 @@
                                             <p class="text-danger text-xs pt-1">{{ $message }}</p>
                                             @enderror
                                         </div>
+                                        <div class="mb-3">
+                                            <div class="g-recaptcha" data-sitekey="6LdlgFMrAAAAAM3EDhCo9Xr0-9s3PH4YT2A9eky9"></div>
+                                            @error('g-recaptcha-response')
+                                            <p class="text-danger text-xs pt-1">{{ $message }}</p>
+                                            @enderror
+                                        </div>
+
                                         <div class="text-center">
                                             <button type="submit" class="btn btn-lg btn-primary btn-lg w-100 mt-4 mb-0">Cập nhật</button>
                                         </div>
@@ -104,4 +111,5 @@
     </main>
 </div>
 </body>
+<script src="https://www.google.com/recaptcha/api.js" async defer></script>
 </html>

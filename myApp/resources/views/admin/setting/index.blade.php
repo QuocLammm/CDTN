@@ -13,6 +13,7 @@
                 <li class="group-item active" data-group="general" style="cursor: pointer; padding: 10px;">⚙️ Cài đặt chung</li>
                 <li class="group-item" data-group="email" style="cursor: pointer; padding: 10px;">📧 Email</li>
                 <li class="group-item" data-group="contact" style="cursor: pointer; padding: 10px;">📞 Liên hệ</li>
+{{--                <li class="group-item" data-group="contact" style="cursor: pointer; padding: 10px;">📞 Chân trang/li>--}}
             </ul>
         </div>
 
@@ -36,46 +37,71 @@
                         @endif
                         <input type="file" name="site_favicon" accept="/images/website/*" style="width: 100%; padding: 8px;">
                     </div>
-
-                    <div>
-                        <label>Ngôn ngữ</label><br>
-                        <select name="settings[site_language]" style="width: 100%; padding: 8px;">
-                            <option value="vi" {{ ($generalSettings->firstWhere('key', 'site_language')->value ?? '') == 'vi' ? 'selected' : '' }}>Vietnamese</option>
-                            <option value="en" {{ ($generalSettings->firstWhere('key', 'site_language')->value ?? '') == 'en' ? 'selected' : '' }}>English</option>
-                        </select>
+                    <!-- ReCapcha -->
+                    <div style="margin-top: 15px;">
+                        <label>reCAPTCHA Site Key</label><br>
+                        <input
+                            type="text"
+                            name="settings[recaptcha_site_key]"
+                            value="{{ $generalReCapchaSettings->firstWhere('key', 'recaptcha_site_key')->value ?? '' }}"
+                            style="width: 100%; padding: 8px;"
+                        >
                     </div>
+
+                    <div style="margin-top: 15px;">
+                        <label>reCAPTCHA Secret Key</label><br>
+                        <input
+                            type="text"
+                            name="settings[recaptcha_secret_key]"
+                            value="{{ $generalReCapchaSettings->firstWhere('key', 'recaptcha_secret_key')->value ?? '' }}"
+                            style="width: 100%; padding: 8px;"
+                        >
+                    </div>
+
+{{--                    <div>--}}
+{{--                        <label>Ngôn ngữ</label><br>--}}
+{{--                        <select name="settings[site_language]" style="width: 100%; padding: 8px;">--}}
+{{--                            <option value="vi" {{ ($generalSettings->firstWhere('key', 'site_language')->value ?? '') == 'vi' ? 'selected' : '' }}>Vietnamese</option>--}}
+{{--                            <option value="en" {{ ($generalSettings->firstWhere('key', 'site_language')->value ?? '') == 'en' ? 'selected' : '' }}>English</option>--}}
+{{--                        </select>--}}
+{{--                    </div>--}}
                     <button type="submit" style="padding: 8px 15px; cursor: pointer;">Lưu Cài Đặt</button>
                 </form>
             </div>
 
-            {{-- Email Settings --}}
-            <div class="group-content" data-group="email" style="display: none;">
-                <form action="{{ route('admin.setting.update') }}" method="POST">
-                    @csrf
-                    @method('PUT')
-                    @foreach([
-                      'mail_mailer' => 'Mailer',
-                      'mail_host' => 'Host',
-                      'mail_port' => 'Port',
-                      'mail_username' => 'Username',
-                      'mail_password' => 'Password',
-                      'mail_encryption' => 'Encryption',
-                      'mail_from_address' => 'From Address',
-                      'mail_from_name' => 'From Name',
-                    ] as $key => $label)
-                        <div style="margin-bottom: 15px;">
-                            <label>{{ $label }}</label><br>
-                            <input
-                                type="{{ $key == 'mail_password' ? 'password' : 'text' }}"
-                                name="settings[{{ $key }}]"
-                                value="{{ $emailSettings->firstWhere('key', $key)->value ?? '' }}"
-                                style="width: 100%; padding: 8px;"
-                            >
-                        </div>
-                    @endforeach
-                    <button type="submit" style="padding: 8px 15px; cursor: pointer;">Lưu Cài Đặt</button>
-                </form>
-            </div>
+                {{-- Email Settings --}}
+                <div class="group-content" data-group="email" style="display: none;">
+                    <form action="{{ route('admin.setting.update') }}" method="POST">
+                        @csrf
+                        @method('PUT')
+                        @foreach([
+                          'mail_mailer' => 'Mailer',
+                          'mail_host' => 'Host',
+                          'mail_port' => 'Port',
+                          'mail_username' => 'Username',
+                          'mail_password' => 'Password',
+                          'mail_encryption' => 'Encryption',
+                          'mail_from_address' => 'From Address',
+                          'mail_from_name' => 'From Name',
+                        ] as $key => $label)
+                            <div style="margin-bottom: 15px;">
+                                <label>{{ $label }}</label><br>
+                                <input
+                                    type="{{ $key == 'mail_password' ? 'password' : 'text' }}"
+                                    name="settings[{{ $key }}]"
+                                    value="{{ $emailSettings->firstWhere('key', $key)->value ?? [
+                                        'mail_mailer' => 'smtp',
+                                        'mail_host' => 'smtp.gmail.com',
+                                        'mail_port' => '587',
+                                        'mail_encryption' => 'tls',
+                                    ][$key] ?? '' }}"
+                                    style="width: 100%; padding: 8px;"
+                                >
+                            </div>
+                        @endforeach
+                        <button type="submit" style="padding: 8px 15px; cursor: pointer;">Lưu Cài Đặt</button>
+                    </form>
+                </div>
 
             {{-- Contact Settings --}}
             <div class="group-content" data-group="contact" style="display: none;">

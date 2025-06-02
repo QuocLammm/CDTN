@@ -58,6 +58,7 @@
         Scrollbar.init(document.querySelector('#sidenav-scrollbar'), options);
     }
 </script>
+<script src="https://www.google.com/recaptcha/api.js" async defer></script>
 <!-- Github buttons -->
 <script async defer src="https://buttons.github.io/buttons.js"></script>
 <script src="{{ asset('/assets/js/argon-dashboard.js') }}"></script>

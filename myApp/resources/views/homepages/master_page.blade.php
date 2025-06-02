@@ -75,6 +75,9 @@
 <!-- Embed iframe fb -->
 <script async defer crossorigin="anonymous" src="https://connect.facebook.net/en_GB/sdk.js#xfbml=1&version=v22.0"></script>
 <!-- Vendor JS Files -->
+<!-- Recapcha-->
+<script src="https://www.google.com/recaptcha/api.js" async defer></script>
+
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 <script src="{{asset('assets/vendor/bootstrap/js/bootstrap.bundle.min.js')}}"></script>
 <script src="{{asset('assets/vendor/php-email-form/validate.js')}}"></script>

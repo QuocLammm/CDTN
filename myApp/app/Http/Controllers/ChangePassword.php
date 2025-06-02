@@ -2,9 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Setting;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Models\User;
+use Illuminate\Support\Facades\Http;
 
 class ChangePassword extends Controller
 {
@@ -26,6 +28,20 @@ class ChangePassword extends Controller
 
     public function update(Request $request)
     {
+        $secretKey = Setting::where('key', 'recaptcha_secret_key')->value('value');
+
+        $response = Http::asForm()->post('https://www.google.com/recaptcha/api/siteverify', [
+            'secret' => $secretKey,
+            'response' => $request->input('g-recaptcha-response'),
+        ]);
+
+        $result = $response->json();
+
+        if (!($result['success'] ?? false)) {
+            return back()->withErrors(['g-recaptcha-response' => 'Xác minh reCAPTCHA không thành công. Vui lòng thử lại.'])->withInput();
+        }
+
+
         $attributes = $request->validate([
             'email' => ['required'],
             'password' => ['required', 'min:5'],

@@ -16,11 +16,13 @@ class SettingController extends Controller
 
         $generalSettings = $settings->filter(fn($item) => str_starts_with($item->key, 'site_'));
 
+        $generalReCapchaSettings = $settings->filter(fn($item) => str_starts_with($item->key, 'recaptcha_'));
+
         $emailSettings = $settings->filter(fn($item) => str_starts_with($item->key, 'mail_'));
 
         $contactSettings = $settings->filter(fn($item) => str_starts_with($item->key, 'contact_'));
 
-        return view('admin.setting.index', compact('generalSettings', 'emailSettings','contactSettings'));
+        return view('admin.setting.index', compact('generalSettings', 'emailSettings','contactSettings','generalReCapchaSettings'));
     }
 
 
