@@ -23,13 +23,13 @@
                         <h4 class="product-name" style="text-align: center;">{{ $product->product_name }}</h4>
                         <div class="product-price d-flex align-items-center justify-content-center gap-2">
                             @if ($product->is_sale && $product->sale_price < $product->price)
-                                <span class="current-price text-danger fw-bold">{{ number_format($product->sale_price) }}vnđ</span>
-                                <span class="original-price text-muted" style="text-decoration: line-through;">{{ number_format($product->price) }}vnđ</span>
+                                <span class="current-price text-danger fw-bold">{{ number_format($product->sale_price) }} đ</span>
+                                <span class="original-price text-muted" style="text-decoration: line-through;">{{ number_format($product->price) }} đ</span>
                                 <span class="badge bg-danger" style="font-size: 0.75rem;">
                                     -{{ round((($product->price - $product->sale_price) / $product->price) * 100) }}%
                                 </span>
                             @else
-                                <span class="current-price">{{ number_format($product->price) }}vnđ</span>
+                                <span class="current-price">{{ number_format($product->price) }} đ</span>
                             @endif
                         </div>
                     </div>

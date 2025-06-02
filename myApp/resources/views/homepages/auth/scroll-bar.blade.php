@@ -1,16 +1,3 @@
-{{--<!--Start of banner-->--}}
-{{--<header class="banner">--}}
-{{--    <div class="slider">--}}
-{{--        <div class="slides">--}}
-{{--            <img src="/images/banner-1.jpg" alt="Image 1" class="slide">--}}
-{{--            <img src="/images/banner-2.jpg" alt="Image 2" class="slide">--}}
-{{--            <img src="/images/banner-3.jpg" alt="Image 3" class="slide">--}}
-{{--        </div>--}}
-{{--        <!-- Navigation buttons -->--}}
-{{--        <button class="prev">&#10094;</button>--}}
-{{--        <button class="next">&#10095;</button>--}}
-{{--    </div>--}}
-{{--</header>--}}
 
 <!-- Hero Section -->
 <section class="ecommerce-hero-1 hero section" id="hero">
@@ -39,21 +26,18 @@
             </div>
             <div class="col-lg-6 image-col" data-aos="fade-left" data-aos-delay="200">
                 <div class="hero-image">
-                    <img src="{{asset('assets/img/product/product-f-9.webp')}}" alt="Fashion Product" class="main-product" loading="lazy">
-                    <div class="floating-product product-1" data-aos="fade-up" data-aos-delay="300">
-                        <img src="{{asset('images/products/product_EPrmGPhUsU.jpg')}}" alt="Product 2">
-                        <div class="product-info">
-                            <h4>Air Fort One</h4>
-                            <span class="price">$89.99</span>
+                    <img src="{{ asset('assets/img/product/product-f-9.webp') }}" alt="Fashion Product" class="main-product" loading="lazy">
+
+                    @foreach($heroProducts as $index => $product)
+                        <div class="floating-product product-{{ $index + 1 }}" data-aos="fade-up" data-aos-delay="{{ 300 + ($index * 100) }}">
+                            <img src="{{ $product->images->first()->image_path ?? 'default.jpg' }}" alt="{{ $product->product_name }}">
+                            <div class="product-info">
+                                <h4>{{ $product->product_name }}</h4>
+                                <span class="price">{{ number_format($product->price) }} đ</span>
+                            </div>
                         </div>
-                    </div>
-                    <div class="floating-product product-2" data-aos="fade-up" data-aos-delay="400">
-                        <img src="{{asset('images/products/product_EPrmGPhUsU.jpg')}}" alt="Product 3">
-                        <div class="product-info">
-                            <h4>Giày </h4>
-                            <span class="price">$59.99</span>
-                        </div>
-                    </div>
+                    @endforeach
+
                     <div class="discount-badge" data-aos="zoom-in" data-aos-delay="500">
                         <span class="percent">30%</span>
                         <span class="text">OFF</span>

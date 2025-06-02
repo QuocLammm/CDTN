@@ -55,5 +55,6 @@ class AppServiceProvider extends ServiceProvider
         View::composer('layouts.header', NavbarComposer::class);
         View::composer('pages.dashboard', DashboardComposer::class);
         View::composer('homepages.auth.header', HeaderComposer::class);
+        View::composer('homepages.auth.scroll-bar', HeaderComposer::class);
     }
 }

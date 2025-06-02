@@ -43,6 +43,12 @@
         .swal2-icon-success {
             color: #ffffff !important; /* biểu tượng cũng trắng cho đồng bộ */
         }
+        .product-info h4 {
+            white-space: nowrap;       /* Không xuống dòng */
+            overflow: hidden;          /* Ẩn phần vượt quá */
+            text-overflow: ellipsis;   /* Hiện dấu "..." */
+            max-width: 200px;          /* Giới hạn chiều rộng */
+        }
     </style>
 </head>
 <body class="index-page">
@@ -99,6 +105,22 @@
         })
         .catch(console.error);
 </script>
+
+<!--Scroll -->
+<script>
+    let index = 0;
+    const products = document.querySelectorAll('.fade-product');
+    const total = products.length;
+
+    function showNextProduct() {
+        products.forEach(p => p.classList.remove('active'));
+        products[index].classList.add('active');
+        index = (index + 1) % total;
+    }
+
+    setInterval(showNextProduct, 30000); // mỗi 30 giây đổi
+</script>
+
 <!-- Toast thông báo -->
 @if (session('status'))
     <script>

@@ -52,6 +52,6 @@ class CategoryController extends Controller
 
     public function destroy(Category $category){
         $category->delete();
-        return view('show-category.index')->with('success','Loại sản phẩm đã được xóa thành công');
+        return redirect()->route('show-category.index')->with('success','Loại sản phẩm đã được xóa thành công');
     }
 }

@@ -31,16 +31,30 @@
                             <i class="bi bi-person"></i>
                         </button>
                         <div class="dropdown-menu">
-                            <div class="dropdown-header">
-                                <h6 class="mb-0">Xin chào!</h6>
-                                <h5>{{ auth()->user()->full_name }}</h5>
-                                <span class="sitename">Đã đến với shop của chúng tôi</span>
-                            </div>
+                            @if (Auth::check())
+                                <div class="dropdown-header">
+                                    <h6 class="mb-0">Xin chào!</h6>
+                                    <h5>{{ auth()->user()->full_name }}</h5>
+                                    <span class="sitename">Đã đến với shop của chúng tôi</span>
+                                </div>
+                            @else
+                                <div class="dropdown-header">
+                                    <h6 class="mb-0">Chào mừng bạn!</h6>
+                                    <span class="sitename">Đã đến với shop của chúng tôi</span>
+                                </div>
+                            @endif
                             <div class="dropdown-body">
-                                <a class="dropdown-item d-flex align-items-center" href="{{ route('profile-user', ['id' => auth()->user()->user_id]) }}">
-                                    <i class="bi bi-person-circle me-2"></i>
-                                    <span>Trang cá nhân</span>
-                                </a>
+                                @if (Auth::check())
+                                    <a class="dropdown-item d-flex align-items-center" href="{{ route('profile-user', ['id' => auth()->user()->user_id]) }}">
+                                        <i class="bi bi-person-circle me-2"></i>
+                                        <span>Trang cá nhân</span>
+                                    </a>
+                                @else
+                                    <a class="dropdown-item d-flex align-items-center" href="{{ route('login') }}">
+                                        <i class="bi bi-person-circle me-2"></i>
+                                        <span>Trang cá nhân</span>
+                                    </a>
+                                @endif
                                 <a class="dropdown-item align-items-center header-action-btn " href="{{ route('cart.cart') }}">
                                     <i class="bi bi-bell me-2"></i>
                                     <span>Thông báo</span>
@@ -97,53 +111,6 @@
                         <li><a href="{{ route('about') }}">Về chúng tôi</a></li>
                         <!-- Products Mega Menu 1 -->
                         <li class="products-megamenu-1"><a href="#"><span>Danh mục sản phẩm</span> <i class="bi bi-chevron-down toggle-dropdown"></i></a>
-                            <!-- Products Mega Menu 1 Mobile ViewPage -->
-{{--                            <ul class="mobile-megamenu">--}}
-{{--                                <li><a href="#">Featured Products</a></li>--}}
-{{--                                <li><a href="#">New Arrivals</a></li>--}}
-{{--                                <li><a href="#">Sale Items</a></li>--}}
-
-{{--                                <li class="dropdown"><a href="#"><span>Clothing</span> <i class="bi bi-chevron-down toggle-dropdown"></i></a>--}}
-{{--                                    <ul>--}}
-{{--                                        <li><a href="#">Men's Wear</a></li>--}}
-{{--                                        <li><a href="#">Women's Wear</a></li>--}}
-{{--                                        <li><a href="#">Kids Collection</a></li>--}}
-{{--                                        <li><a href="#">Sportswear</a></li>--}}
-{{--                                        <li><a href="#">Accessories</a></li>--}}
-{{--                                    </ul>--}}
-{{--                                </li>--}}
-
-{{--                                <li class="dropdown"><a href="#"><span>Electronics</span> <i class="bi bi-chevron-down toggle-dropdown"></i></a>--}}
-{{--                                    <ul>--}}
-{{--                                        <li><a href="#">Smartphones</a></li>--}}
-{{--                                        <li><a href="#">Laptops</a></li>--}}
-{{--                                        <li><a href="#">Audio Devices</a></li>--}}
-{{--                                        <li><a href="#">Smart Home</a></li>--}}
-{{--                                        <li><a href="#">Accessories</a></li>--}}
-{{--                                    </ul>--}}
-{{--                                </li>--}}
-
-{{--                                <li class="dropdown"><a href="#"><span>Home &amp; Living</span> <i class="bi bi-chevron-down toggle-dropdown"></i></a>--}}
-{{--                                    <ul>--}}
-{{--                                        <li><a href="#">Furniture</a></li>--}}
-{{--                                        <li><a href="#">Decor</a></li>--}}
-{{--                                        <li><a href="#">Kitchen</a></li>--}}
-{{--                                        <li><a href="#">Bedding</a></li>--}}
-{{--                                        <li><a href="#">Lighting</a></li>--}}
-{{--                                    </ul>--}}
-{{--                                </li>--}}
-
-{{--                                <li class="dropdown"><a href="#"><span>Beauty</span> <i class="bi bi-chevron-down toggle-dropdown"></i></a>--}}
-{{--                                    <ul>--}}
-{{--                                        <li><a href="#">Skincare</a></li>--}}
-{{--                                        <li><a href="#">Makeup</a></li>--}}
-{{--                                        <li><a href="#">Haircare</a></li>--}}
-{{--                                        <li><a href="#">Fragrances</a></li>--}}
-{{--                                        <li><a href="#">Personal Care</a></li>--}}
-{{--                                    </ul>--}}
-{{--                                </li>--}}
-
-{{--                            </ul><!-- End Products Mega Menu 1 Mobile ViewPage -->--}}
                             <!-- Products Mega Menu 1 Desktop ViewPage -->
                             <div class="desktop-megamenu">
 
@@ -182,8 +149,8 @@
                                                         <h5 style="white-space: nowrap; overflow: hidden; text-overflow: ellipsis; max-width: 200px;">
                                                             {{ $product->product_name }}
                                                         </h5>
-                                                        <p class="price">{{ number_format($product->price, 2) }} vnđ</p>
-                                                        <a href="#" class="btn-view">Xem sản phẩm</a>
+                                                        <p class="price">{{ number_format($product->price, 2) }} đ</p>
+                                                        <a href="{{ route('product.show', $product->product_id) }}" class="btn-view">Xem sản phẩm</a>
                                                     </div>
                                                 </div>
                                             @endforeach
@@ -218,7 +185,7 @@
                                                             {{ $product->product_name }}
                                                         </h5>
                                                         <p class="price">{{ number_format($product->price, 2) }} vnđ</p>
-                                                        <a href="#" class="btn-view">Xem sản phẩm</a>
+                                                        <a href="{{ route('product.show', $product->product_id)}}" class="btn-view">Xem sản phẩm</a>
                                                     </div>
                                                 </div>
                                             @endforeach
@@ -237,23 +204,29 @@
                                     <!-- Sale Tab -->
                                     <div class="tab-pane fade" id="sale-content-1862" role="tabpanel" aria-labelledby="sale-tab">
                                         <div class="product-grid">
-                                            @foreach($shoesProducts as $product)
+                                            @foreach($saleProducts as $product)
                                                 <div class="product-card fade-in">
                                                     <div class="product-image">
                                                         <img
                                                             src="{{ $product->images->isNotEmpty() ? asset($product->images->first()->image_path) : asset('default-image.jpg') }}"
                                                             alt="{{ $product->product_name }}"
                                                             loading="lazy">
-                                                        <span class="badge {{ $product->is_new ? 'badge-new' : 'badge-old' }}">
-                                                            {{ $product->is_new ? 'New' : 'Old' }}
-                                                        </span>
+                                                        <span class="badge badge-sale">Sale</span>
+
                                                     </div>
                                                     <div class="product-info">
                                                         <h5 style="white-space: nowrap; overflow: hidden; text-overflow: ellipsis; max-width: 200px;">
                                                             {{ $product->product_name }}
                                                         </h5>
-                                                        <p class="price">{{ number_format($product->price, 2) }} vnđ</p>
-                                                        <a href="#" class="btn-view">Xem sản phẩm</a>
+                                                        <p class="price">
+                                                            @if($product->is_sale && $product->sale_price < $product->price)
+                                                                <span class="text-danger fw-bold">{{ number_format($product->sale_price) }} vnđ</span>
+                                                                <span class="text-muted" style="text-decoration: line-through;">{{ number_format($product->price) }} vnđ</span>
+                                                            @else
+                                                                <span>{{ number_format($product->price) }} vnđ</span>
+                                                            @endif
+                                                        </p>
+                                                        <a href="{{ route('product.show', $product->product_id)}}" class="btn-view">Xem sản phẩm</a>
                                                     </div>
                                                 </div>
                                             @endforeach
@@ -269,343 +242,56 @@
                                         </div>
                                     </div>
 
-                                    <!-- Categories Tab -->
-                                    <div class="tab-pane fade" id="category-content-1862" role="tabpanel" aria-labelledby="category-tab">
-                                        <div class="category-grid">
-                                            <div class="category-column">
-                                                <h4>Clothing</h4>
-                                                <ul>
-                                                    <li><a href="#">Men's Wear</a></li>
-                                                    <li><a href="#">Women's Wear</a></li>
-                                                    <li><a href="#">Kids Collection</a></li>
-                                                    <li><a href="#">Sportswear</a></li>
-                                                    <li><a href="#">Accessories</a></li>
-                                                </ul>
-                                            </div>
-                                            <div class="category-column">
-                                                <h4>Electronics</h4>
-                                                <ul>
-                                                    <li><a href="#">Smartphones</a></li>
-                                                    <li><a href="#">Laptops</a></li>
-                                                    <li><a href="#">Audio Devices</a></li>
-                                                    <li><a href="#">Smart Home</a></li>
-                                                    <li><a href="#">Accessories</a></li>
-                                                </ul>
-                                            </div>
-                                            <div class="category-column">
-                                                <h4>Home &amp; Living</h4>
-                                                <ul>
-                                                    <li><a href="#">Furniture</a></li>
-                                                    <li><a href="#">Decor</a></li>
-                                                    <li><a href="#">Kitchen</a></li>
-                                                    <li><a href="#">Bedding</a></li>
-                                                    <li><a href="#">Lighting</a></li>
-                                                </ul>
-                                            </div>
-                                            <div class="category-column">
-                                                <h4>Beauty</h4>
-                                                <ul>
-                                                    <li><a href="#">Skincare</a></li>
-                                                    <li><a href="#">Makeup</a></li>
-                                                    <li><a href="#">Haircare</a></li>
-                                                    <li><a href="#">Fragrances</a></li>
-                                                    <li><a href="#">Personal Care</a></li>
-                                                </ul>
-                                            </div>
-                                        </div>
-                                    </div>
+                                    <!-- Sale Tab -->
+{{--                                    <div class="tab-pane fade" id="category-content-1862" role="tabpanel" aria-labelledby="category-tab">--}}
+{{--                                        <div class="product-grid">--}}
+{{--                                            @if($saleProducts->isEmpty())--}}
+{{--                                                <p>Không có sản phẩm sale nào.</p>--}}
+{{--                                            @else--}}
+{{--                                                @foreach($saleProducts as $product)--}}
+{{--                                                    <div class="product-card fade-in">--}}
+{{--                                                        <div class="product-image">--}}
+{{--                                                            <img--}}
+{{--                                                                src="{{ $product->images->isNotEmpty() ? asset($product->images->first()->image_path) : asset('default-image.jpg') }}"--}}
+{{--                                                                alt="{{ $product->product_name }}"--}}
+{{--                                                                loading="lazy">--}}
+{{--                                                            <span class="badge badge-sale">Sale</span>--}}
+{{--                                                        </div>--}}
+{{--                                                        <div class="product-info">--}}
+{{--                                                            <h5 style="white-space: nowrap; overflow: hidden; text-overflow: ellipsis; max-width: 200px;">--}}
+{{--                                                                {{ $product->product_name }}--}}
+{{--                                                            </h5>--}}
+{{--                                                            <p class="price">--}}
+{{--                                                                @if($product->is_sale && $product->sale_price < $product->price)--}}
+{{--                                                                    <span class="text-danger fw-bold">{{ number_format($product->sale_price) }} vnđ</span>--}}
+{{--                                                                    <span class="text-muted" style="text-decoration: line-through;">{{ number_format($product->price) }} vnđ</span>--}}
+{{--                                                                @else--}}
+{{--                                                                    <span>{{ number_format($product->price) }} vnđ</span>--}}
+{{--                                                                @endif--}}
+{{--                                                            </p>--}}
 
+{{--                                                            <a href="#" class="btn-view">Xem sản phẩm</a>--}}
+{{--                                                        </div>--}}
+{{--                                                    </div>--}}
+{{--                                                @endforeach--}}
+{{--                                            @endif--}}
+{{--                                        </div>--}}
+{{--                                        <div style="text-align: center; margin-top: 20px;">--}}
+{{--                                            <a href="{{ route('products.all_products') }}"--}}
+{{--                                               style="display: inline-block; padding: 10px 25px; background-color: #333; color: #fff; border-radius: 25px;--}}
+{{--                                                text-decoration: none; transition: background-color 0.3s ease;"--}}
+{{--                                               onmouseover="this.style.backgroundColor='#555'"--}}
+{{--                                               onmouseout="this.style.backgroundColor='#333'">--}}
+{{--                                                Xem tất cả--}}
+{{--                                            </a>--}}
+{{--                                        </div>--}}
+{{--                                    </div>--}}
                                 </div>
-
-                            </div><!-- End Products Mega Menu 1 Desktop ViewPage -->
-
-                        </li><!-- End Products Mega Menu 1 -->
-                        <!-- Products Mega Menu 2 -->
-{{--                        <li class="products-megamenu-2"><a href="#"><span>Dép nữ</span> <i class="bi bi-chevron-down toggle-dropdown"></i></a>--}}
-
-{{--                            <!-- Products Mega Menu 2 Mobile ViewPage -->--}}
-{{--                            <ul class="mobile-megamenu">--}}
-
-{{--                                <li><a href="#">Women</a></li>--}}
-{{--                                <li><a href="#">Men</a></li>--}}
-{{--                                <li><a href="#">Kids'</a></li>--}}
-
-{{--                                <li class="dropdown"><a href="#"><span>Clothing</span> <i class="bi bi-chevron-down toggle-dropdown"></i></a>--}}
-{{--                                    <ul>--}}
-{{--                                        <li><a href="#">Shirts &amp; Tops</a></li>--}}
-{{--                                        <li><a href="#">Coats &amp; Outerwear</a></li>--}}
-{{--                                        <li><a href="#">Underwear</a></li>--}}
-{{--                                        <li><a href="#">Sweatshirts</a></li>--}}
-{{--                                        <li><a href="#">Dresses</a></li>--}}
-{{--                                        <li><a href="#">Swimwear</a></li>--}}
-{{--                                    </ul>--}}
-{{--                                </li>--}}
-
-{{--                                <li class="dropdown"><a href="#"><span>Shoes</span> <i class="bi bi-chevron-down toggle-dropdown"></i></a>--}}
-{{--                                    <ul>--}}
-{{--                                        <li><a href="#">Boots</a></li>--}}
-{{--                                        <li><a href="#">Sandals</a></li>--}}
-{{--                                        <li><a href="#">Heels</a></li>--}}
-{{--                                        <li><a href="#">Loafers</a></li>--}}
-{{--                                        <li><a href="#">Slippers</a></li>--}}
-{{--                                        <li><a href="#">Oxfords</a></li>--}}
-{{--                                    </ul>--}}
-{{--                                </li>--}}
-
-{{--                                <li class="dropdown"><a href="#"><span>Accessories</span> <i class="bi bi-chevron-down toggle-dropdown"></i></a>--}}
-{{--                                    <ul>--}}
-{{--                                        <li><a href="#">Handbags</a></li>--}}
-{{--                                        <li><a href="#">Eyewear</a></li>--}}
-{{--                                        <li><a href="#">Hats</a></li>--}}
-{{--                                        <li><a href="#">Watches</a></li>--}}
-{{--                                        <li><a href="#">Jewelry</a></li>--}}
-{{--                                        <li><a href="#">Belts</a></li>--}}
-{{--                                    </ul>--}}
-{{--                                </li>--}}
-
-{{--                                <li class="dropdown"><a href="#"><span>Specialty Sizes</span> <i class="bi bi-chevron-down toggle-dropdown"></i></a>--}}
-{{--                                    <ul>--}}
-{{--                                        <li><a href="#">Plus Size</a></li>--}}
-{{--                                        <li><a href="#">Petite</a></li>--}}
-{{--                                        <li><a href="#">Wide Shoes</a></li>--}}
-{{--                                        <li><a href="#">Narrow Shoes</a></li>--}}
-{{--                                    </ul>--}}
-{{--                                </li>--}}
-
-{{--                            </ul><!-- End Products Mega Menu 2 Mobile ViewPage -->--}}
-
-{{--                            <!-- Products Mega Menu 2 Desktop ViewPage -->--}}
-{{--                            <div class="desktop-megamenu">--}}
-
-{{--                                <div class="megamenu-tabs">--}}
-{{--                                    <ul class="nav nav-tabs" role="tablist">--}}
-{{--                                        <li class="nav-item" role="presentation">--}}
-{{--                                            <button class="nav-link active" id="womens-tab" data-bs-toggle="tab" data-bs-target="#womens-content-1883" type="button" aria-selected="true" role="tab">WOMEN</button>--}}
-{{--                                        </li>--}}
-{{--                                        <li class="nav-item" role="presentation">--}}
-{{--                                            <button class="nav-link" id="mens-tab" data-bs-toggle="tab" data-bs-target="#mens-content-1883" type="button" aria-selected="false" tabindex="-1" role="tab">MEN</button>--}}
-{{--                                        </li>--}}
-{{--                                        <li class="nav-item" role="presentation">--}}
-{{--                                            <button class="nav-link" id="kids-tab" data-bs-toggle="tab" data-bs-target="#kids-content-1883" type="button" aria-selected="false" tabindex="-1" role="tab">KIDS</button>--}}
-{{--                                        </li>--}}
-{{--                                    </ul>--}}
-{{--                                </div>--}}
-
-{{--                                <!-- Tabs Content -->--}}
-{{--                                <div class="megamenu-content tab-content">--}}
-
-{{--                                    <!-- Women Tab -->--}}
-{{--                                    <div class="tab-pane fade show active" id="womens-content-1883" role="tabpanel" aria-labelledby="womens-tab">--}}
-{{--                                        <div class="category-layout">--}}
-{{--                                            <div class="categories-section">--}}
-{{--                                                <div class="category-headers">--}}
-{{--                                                    <h4>Clothing</h4>--}}
-{{--                                                    <h4>Shoes</h4>--}}
-{{--                                                    <h4>Accessories</h4>--}}
-{{--                                                    <h4>Specialty Sizes</h4>--}}
-{{--                                                </div>--}}
-
-{{--                                                <div class="category-links">--}}
-{{--                                                    <div class="link-row">--}}
-{{--                                                        <a href="#">Shirts &amp; Tops</a>--}}
-{{--                                                        <a href="#">Boots</a>--}}
-{{--                                                        <a href="#">Handbags</a>--}}
-{{--                                                        <a href="#">Plus Size</a>--}}
-{{--                                                    </div>--}}
-{{--                                                    <div class="link-row">--}}
-{{--                                                        <a href="#">Coats &amp; Outerwear</a>--}}
-{{--                                                        <a href="#">Sandals</a>--}}
-{{--                                                        <a href="#">Eyewear</a>--}}
-{{--                                                        <a href="#">Petite</a>--}}
-{{--                                                    </div>--}}
-{{--                                                    <div class="link-row">--}}
-{{--                                                        <a href="#">Underwear</a>--}}
-{{--                                                        <a href="#">Heels</a>--}}
-{{--                                                        <a href="#">Hats</a>--}}
-{{--                                                        <a href="#">Wide Shoes</a>--}}
-{{--                                                    </div>--}}
-{{--                                                    <div class="link-row">--}}
-{{--                                                        <a href="#">Sweatshirts</a>--}}
-{{--                                                        <a href="#">Loafers</a>--}}
-{{--                                                        <a href="#">Watches</a>--}}
-{{--                                                        <a href="#">Narrow Shoes</a>--}}
-{{--                                                    </div>--}}
-{{--                                                    <div class="link-row">--}}
-{{--                                                        <a href="#">Dresses</a>--}}
-{{--                                                        <a href="#">Slippers</a>--}}
-{{--                                                        <a href="#">Jewelry</a>--}}
-{{--                                                        <a href="#"></a>--}}
-{{--                                                    </div>--}}
-{{--                                                    <div class="link-row">--}}
-{{--                                                        <a href="#">Swimwear</a>--}}
-{{--                                                        <a href="#">Oxfords</a>--}}
-{{--                                                        <a href="#">Belts</a>--}}
-{{--                                                        <a href="#"></a>--}}
-{{--                                                    </div>--}}
-{{--                                                    <div class="link-row">--}}
-{{--                                                        <a href="#">View all</a>--}}
-{{--                                                        <a href="#">View all</a>--}}
-{{--                                                        <a href="#">View all</a>--}}
-{{--                                                        <a href="#"></a>--}}
-{{--                                                    </div>--}}
-{{--                                                </div>--}}
-{{--                                            </div>--}}
-{{--                                            <div class="featured-section">--}}
-{{--                                                <div class="featured-image">--}}
-{{--                                                    <img src="assets/img/product/product-f-1.webp" alt="Women's Heels Collection">--}}
-{{--                                                    <div class="featured-content">--}}
-{{--                                                        <h3>Women's<br>Bags<br>Collection</h3>--}}
-{{--                                                        <a href="#" class="btn-shop">Shop now</a>--}}
-{{--                                                    </div>--}}
-{{--                                                </div>--}}
-{{--                                            </div>--}}
-{{--                                        </div>--}}
-{{--                                    </div>--}}
-
-{{--                                    <!-- Men Tab -->--}}
-{{--                                    <div class="tab-pane fade" id="mens-content-1883" role="tabpanel" aria-labelledby="mens-tab">--}}
-{{--                                        <div class="category-layout">--}}
-{{--                                            <div class="categories-section">--}}
-{{--                                                <div class="category-headers">--}}
-{{--                                                    <h4>Clothing</h4>--}}
-{{--                                                    <h4>Shoes</h4>--}}
-{{--                                                    <h4>Accessories</h4>--}}
-{{--                                                    <h4>Specialty Sizes</h4>--}}
-{{--                                                </div>--}}
-
-{{--                                                <div class="category-links">--}}
-{{--                                                    <div class="link-row">--}}
-{{--                                                        <a href="#">Shirts &amp; Polos</a>--}}
-{{--                                                        <a href="#">Sneakers</a>--}}
-{{--                                                        <a href="#">Watches</a>--}}
-{{--                                                        <a href="#">Big &amp; Tall</a>--}}
-{{--                                                    </div>--}}
-{{--                                                    <div class="link-row">--}}
-{{--                                                        <a href="#">Jackets &amp; Coats</a>--}}
-{{--                                                        <a href="#">Boots</a>--}}
-{{--                                                        <a href="#">Belts</a>--}}
-{{--                                                        <a href="#">Slim Fit</a>--}}
-{{--                                                    </div>--}}
-{{--                                                    <div class="link-row">--}}
-{{--                                                        <a href="#">Underwear</a>--}}
-{{--                                                        <a href="#">Loafers</a>--}}
-{{--                                                        <a href="#">Ties</a>--}}
-{{--                                                        <a href="#">Wide Shoes</a>--}}
-{{--                                                    </div>--}}
-{{--                                                    <div class="link-row">--}}
-{{--                                                        <a href="#">Hoodies</a>--}}
-{{--                                                        <a href="#">Dress Shoes</a>--}}
-{{--                                                        <a href="#">Wallets</a>--}}
-{{--                                                        <a href="#">Extended Sizes</a>--}}
-{{--                                                    </div>--}}
-{{--                                                    <div class="link-row">--}}
-{{--                                                        <a href="#">Suits</a>--}}
-{{--                                                        <a href="#">Sandals</a>--}}
-{{--                                                        <a href="#">Sunglasses</a>--}}
-{{--                                                        <a href="#"></a>--}}
-{{--                                                    </div>--}}
-{{--                                                    <div class="link-row">--}}
-{{--                                                        <a href="#">Activewear</a>--}}
-{{--                                                        <a href="#">Slippers</a>--}}
-{{--                                                        <a href="#">Hats</a>--}}
-{{--                                                        <a href="#"></a>--}}
-{{--                                                    </div>--}}
-{{--                                                    <div class="link-row">--}}
-{{--                                                        <a href="#">View all</a>--}}
-{{--                                                        <a href="#">View all</a>--}}
-{{--                                                        <a href="#">View all</a>--}}
-{{--                                                        <a href="#"></a>--}}
-{{--                                                    </div>--}}
-{{--                                                </div>--}}
-{{--                                            </div>--}}
-{{--                                            <div class="featured-section">--}}
-{{--                                                <div class="featured-image">--}}
-{{--                                                    <img src="assets/img/product/product-m-4.webp" alt="Men's Footwear Collection">--}}
-{{--                                                    <div class="featured-content">--}}
-{{--                                                        <h3>Men's<br>Footwear<br>Collection</h3>--}}
-{{--                                                        <a href="#" class="btn-shop">Shop now</a>--}}
-{{--                                                    </div>--}}
-{{--                                                </div>--}}
-{{--                                            </div>--}}
-{{--                                        </div>--}}
-{{--                                    </div>--}}
-
-{{--                                    <!-- Kids Tab -->--}}
-{{--                                    <div class="tab-pane fade" id="kids-content-1883" role="tabpanel" aria-labelledby="kids-tab">--}}
-{{--                                        <div class="category-layout">--}}
-{{--                                            <div class="categories-section">--}}
-{{--                                                <div class="category-headers">--}}
-{{--                                                    <h4>Clothing</h4>--}}
-{{--                                                    <h4>Shoes</h4>--}}
-{{--                                                    <h4>Accessories</h4>--}}
-{{--                                                    <h4>By Age</h4>--}}
-{{--                                                </div>--}}
-
-{{--                                                <div class="category-links">--}}
-{{--                                                    <div class="link-row">--}}
-{{--                                                        <a href="#">T-shirts &amp; Tops</a>--}}
-{{--                                                        <a href="#">Sneakers</a>--}}
-{{--                                                        <a href="#">Backpacks</a>--}}
-{{--                                                        <a href="#">Babies (0-24 months)</a>--}}
-{{--                                                    </div>--}}
-{{--                                                    <div class="link-row">--}}
-{{--                                                        <a href="#">Outerwear</a>--}}
-{{--                                                        <a href="#">Boots</a>--}}
-{{--                                                        <a href="#">Hats &amp; Caps</a>--}}
-{{--                                                        <a href="#">Toddlers (2-4 years)</a>--}}
-{{--                                                    </div>--}}
-{{--                                                    <div class="link-row">--}}
-{{--                                                        <a href="#">Pajamas</a>--}}
-{{--                                                        <a href="#">Sandals</a>--}}
-{{--                                                        <a href="#">Socks</a>--}}
-{{--                                                        <a href="#">Kids (4-7 years)</a>--}}
-{{--                                                    </div>--}}
-{{--                                                    <div class="link-row">--}}
-{{--                                                        <a href="#">Sweatshirts</a>--}}
-{{--                                                        <a href="#">Slippers</a>--}}
-{{--                                                        <a href="#">Gloves</a>--}}
-{{--                                                        <a href="#">Older Kids (8-14 years)</a>--}}
-{{--                                                    </div>--}}
-{{--                                                    <div class="link-row">--}}
-{{--                                                        <a href="#">Dresses</a>--}}
-{{--                                                        <a href="#">School Shoes</a>--}}
-{{--                                                        <a href="#">Scarves</a>--}}
-{{--                                                        <a href="#"></a>--}}
-{{--                                                    </div>--}}
-{{--                                                    <div class="link-row">--}}
-{{--                                                        <a href="#">Swimwear</a>--}}
-{{--                                                        <a href="#">Sports Shoes</a>--}}
-{{--                                                        <a href="#">Hair Accessories</a>--}}
-{{--                                                        <a href="#"></a>--}}
-{{--                                                    </div>--}}
-{{--                                                    <div class="link-row">--}}
-{{--                                                        <a href="#">View all</a>--}}
-{{--                                                        <a href="#">View all</a>--}}
-{{--                                                        <a href="#">View all</a>--}}
-{{--                                                        <a href="#"></a>--}}
-{{--                                                    </div>--}}
-{{--                                                </div>--}}
-{{--                                            </div>--}}
-{{--                                            <div class="featured-section">--}}
-{{--                                                <div class="featured-image">--}}
-{{--                                                    <img src="assets/img/product/product-9.webp" alt="Kids' New Arrivals">--}}
-{{--                                                    <div class="featured-content">--}}
-{{--                                                        <h3>Kids<br>New<br>Arrivals</h3>--}}
-{{--                                                        <a href="#" class="btn-shop">Shop now</a>--}}
-{{--                                                    </div>--}}
-{{--                                                </div>--}}
-{{--                                            </div>--}}
-{{--                                        </div>--}}
-{{--                                    </div>--}}
-
-{{--                                </div>--}}
-
-{{--                            </div><!-- End Products Mega Menu 2 Desktop ViewPage -->--}}
-
-{{--                        </li><!-- End Products Mega Menu 2 -->--}}
-
-                        <li><a href="{{route('contact.index')}}">Liên hệ</a></li>
-
+                            </div>
+                        </li>
+                        <li>
+                            <a href="{{route('contact.index')}}">Liên hệ</a>
+                        </li>
                     </ul>
                 </nav>
             </div>

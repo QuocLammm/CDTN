@@ -3,11 +3,7 @@
     <link rel="stylesheet" href="{{ asset('assets/css/homepage/about.css')}}">
 @endpush
 @section('header')
-    @if(Auth::check())
-        @include('homepages.auth.header')
-    @else
-        @include('homepages.guest.header')
-    @endif
+    @include('homepages.auth.header')
 @endsection
 
 @section('content')

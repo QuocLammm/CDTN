@@ -1,10 +1,6 @@
 @extends('homepages.master_page')
 @section('header')
-    @if(Auth::check())
-        @include('homepages.auth.header')
-    @else
-        @include('homepages.guest.header')
-    @endif
+    @include('homepages.auth.header')
 @endsection
 @section('scroll')
     @include('homepages.auth.scroll-bar')

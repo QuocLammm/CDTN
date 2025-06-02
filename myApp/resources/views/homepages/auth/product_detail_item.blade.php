@@ -4,11 +4,7 @@
     <link rel="stylesheet" href="{{ asset('assets/css/homepage/product_item.css') }}">
 @endpush
 @section('header')
-    @if(Auth::check())
-        @include('homepages.auth.header')
-    @else
-        @include('homepages.guest.header')
-    @endif
+    @include('homepages.auth.header')
 @endsection
 @section('content')
     <div class="main-content">
@@ -54,13 +50,13 @@
 
                 {{-- Giá --}}
                 @if ($product->is_sale && $product->sale_price < $product->price)
-                    <span class="current-price text-danger fw-bold">{{ number_format($product->sale_price) }}vnđ</span>
-                    <span class="original-price text-muted" style="text-decoration: line-through;">{{ number_format($product->price) }}vnđ</span>
+                    <span class="current-price text-danger fw-bold">{{ number_format($product->sale_price) }} đ</span>
+                    <span class="original-price text-muted" style="text-decoration: line-through;">{{ number_format($product->price) }} đ</span>
                     <span class="badge bg-danger" style="font-size: 0.75rem;">
                                     -{{ round((($product->price - $product->sale_price) / $product->price) * 100) }}%
                                 </span>
                 @else
-                    <span class="current-price">{{ number_format($product->price) }}vnđ</span>
+                    <span class="current-price">{{ number_format($product->price) }} đ</span>
                 @endif
 
                 {{-- Hai nút căn đều nhau --}}
