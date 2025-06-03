@@ -121,6 +121,45 @@
                                 </div>
                             </div>
                         </div>
+
+                        <!-- Thông tin đăng nhập-->
+                        <div class="card-header">
+                            <h2 class="text-uppercase text-sm">Thông tin đăng nhập</h2>
+                        </div>
+                        <div class="card-body">
+                            <div class="row">
+                                <!-- Cột trái: Tên tài khoản -->
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label for="account_name" class="form-control-label">Tên tài khoản</label>
+                                        <input class="form-control" type="text" name="account_name" value="{{ old('account_name', auth()->user()->account_name) }}">
+                                    </div>
+                                </div>
+
+                                <!-- Cột phải: Thay đổi mật khẩu -->
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <!-- Checkbox -->
+                                        <div class="form-check mt-2">
+                                            <input type="checkbox" class="form-check-input" id="changePasswordCheckbox">
+                                            <label class="form-check-label" for="changePasswordCheckbox">Thay đổi mật khẩu</label>
+                                        </div>
+
+                                        <!-- Các ô mật khẩu -->
+                                        <div id="passwordFields" class="mt-3 d-none">
+                                            <div class="form-group">
+                                                <label for="password" class="form-control-label">Mật khẩu mới</label>
+                                                <input type="password" name="password" class="form-control">
+                                            </div>
+                                            <div class="form-group mt-2">
+                                                <label for="password_confirmation" class="form-control-label">Xác nhận mật khẩu</label>
+                                                <input type="password" name="password_confirmation" class="form-control">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                     </form>
                 </div>
             </div>
@@ -258,4 +297,16 @@
         }
 
     </script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const checkbox = document.getElementById('changePasswordCheckbox');
+            const passwordFields = document.getElementById('passwordFields');
+
+            checkbox.addEventListener('change', function () {
+                passwordFields.classList.toggle('d-none', !this.checked);
+            });
+        });
+    </script>
+
+
 @endpush

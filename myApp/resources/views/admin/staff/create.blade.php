@@ -1,5 +1,4 @@
 @extends('layouts.app')
-
 @push('css')
     <style>
         #resetPasswordBtn {
@@ -13,7 +12,14 @@
     </style>
 @endpush
 
+@php
+    $breadcrumbItems = [
+        ['label' => 'Nhân viên', 'url' => route('show-staff.index')],
+        ['label' => 'Thêm mới nhân viên']
+    ];
+@endphp
 @section('content')
+    @include('layouts.header')
     <div class="container">
         <br>
         <h3>Thêm mới nhân viên</h3>

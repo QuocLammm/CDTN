@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\admin;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\SupplierRequest;
 use App\Models\Supplier;
 use Illuminate\Http\Request;
 
@@ -22,15 +23,18 @@ class SupplierController extends Controller
      */
     public function create()
     {
-        //
+        return view('admin.supplier.create');
     }
 
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(SupplierRequest $request)
     {
-        //
+        $suppliers = $request->validated();
+        Supplier::create($suppliers);
+
+        return redirect()->route('show-supplier.index')->with('success', 'Thêm nhà cung cấp thành công!');
     }
 
     /**
@@ -44,9 +48,10 @@ class SupplierController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(string $id)
+    public function edit($id)
     {
-        //
+        $supplier = Supplier::findOrFail($id);
+        return view('admin.supplier.edit', compact('supplier'));
     }
 
     /**
@@ -54,7 +59,7 @@ class SupplierController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        //
+
     }
 
     /**

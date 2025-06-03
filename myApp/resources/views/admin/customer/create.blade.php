@@ -13,7 +13,14 @@
     </style>
 @endpush
 
+@php
+    $breadcrumbItems = [
+        ['label' => 'Khách hàng', 'url' => route('show-customer.index')],
+        ['label' => 'Thêm mới khách hàng']
+    ];
+@endphp
 @section('content')
+    @include('layouts.header')
     <div class="container">
         <br>
         <h3>Thêm mới khách hàng</h3>
@@ -32,7 +39,7 @@
                     <div class="row">
                         <div class="col-md-4">
                             <x-form.input name="role_id" label="Vai trò" type="text" value="Khách hàng" readonly />
-                            <input type="hidden" name="role_id" value="2" /> 
+                            <input type="hidden" name="role_id" value="2" />
                         </div>
                         <div class="col-md-4">
                             <x-form.select name="gender" label="Giới tính" :options="$customers" />

@@ -28,9 +28,9 @@
                                 <td>{{ $supplier->phone }}</td>
                                 <td>{{ $supplier->email }}</td>
                                 <td class="text-center">
-                                    <a href="{{ route('show-category.edit', $supplier->supplier_id) }}"
+                                    <a href="{{ route('show-supplier.edit', $supplier->supplier_id) }}"
                                        class="btn btn-sm btn-outline-success me-1">Edit</a>
-                                    <form action="{{ route('show-category.destroy', $supplier->supplier_id) }}"
+                                    <form action="{{ route('show-supplier.destroy', $supplier->supplier_id) }}"
                                           method="POST" class="d-inline delete-form">
                                         @csrf
                                         @method('DELETE')
@@ -72,6 +72,26 @@
                     infoFiltered: "(lọc từ _MAX_ mục)"
                 }
             });
+
+            // SweetAlert xác nhận xóa
+            $('.btn-delete').click(function () {
+                const form = $(this).closest('form');
+                Swal.fire({
+                    title: 'Bạn có chắc muốn xóa?',
+                    text: "Thao tác này không thể hoàn tác!",
+                    icon: 'warning',
+                    showCancelButton: true,
+                    confirmButtonColor: '#d33',
+                    cancelButtonColor: '#6c757d',
+                    confirmButtonText: 'Xóa',
+                    cancelButtonText: 'Hủy'
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        form.submit();
+                    }
+                });
+            });
         });
     </script>
 @endpush
+
