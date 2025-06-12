@@ -8,14 +8,14 @@
                         document.write(new Date().getFullYear())
                     </script>,
                     được thực hiện <i class="fa fa-heart"></i> bởi
-                    <a href="https://www.facebook.com/an.tiue.3" class="font-weight-bold" target="_blank">Quốc Lâm SweetSoft</a>
+                    <a href="https://www.facebook.com/an.tiue.3" class="font-weight-bold" target="_blank">Quốc Lâm</a>
                 </div>
             </div>
             <div class="col-lg-6">
                 <ul class="nav nav-footer justify-content-center justify-content-lg-end">
-                    <li class="nav-item">
-                        <a href="https://sweetsoft.vn/" class="nav-link text-muted" target="_blank">SweetSoft</a>
-                    </li>
+{{--                    <li class="nav-item">--}}
+{{--                        <a href="https://sweetsoft.vn/" class="nav-link text-muted" target="_blank">SweetSoft</a>--}}
+{{--                    </li>--}}
                     <li class="nav-item">
                         <a href="https://www.facebook.com/an.tiue.3" class="nav-link text-muted" target="_blank">Quốc Lâm</a>
                     </li>

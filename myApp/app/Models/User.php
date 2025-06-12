@@ -31,7 +31,8 @@ class User extends Authenticatable
         'date_of_birth',
         'image',
         'gender',
-        'status'
+        'status',
+        'promo_code'
     ];
 
     public function role()

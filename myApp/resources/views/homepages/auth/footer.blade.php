@@ -5,14 +5,12 @@
                 <div class="col-lg-8 text-center">
                     <h2>Tham gia các chương trình khuyến mãi</h2>
                     <p>Đăng ký để nhận các ưu đãi đặc biệt, quà tặng miễn phí và các ưu đãi duy nhất.</p>
-                    <form action="forms/newsletter.php" method="post" class="php-email-form">
+                    <form action="{{ route('newsletter.subscribe') }}" method="POST">
+                        @csrf
                         <div class="newsletter-form d-flex">
-                            <input type="email" name="email" placeholder="Nhập địa chỉ email" required="">
-                            <button type="submit">Đăng ký</button>
+                        <input type="email" name="email" placeholder="Nhập địa chỉ email" required>
+                        <button type="submit">Đăng ký</button>
                         </div>
-                        <div class="loading">Loading</div>
-                        <div class="error-message"></div>
-                        <div class="sent-message">Your subscription request has been sent. Thank you!</div>
                     </form>
                 </div>
             </div>
@@ -49,9 +47,9 @@
                     <div class="footer-widget" style="text-align: center">
                         <h4>Cửa hàng</h4>
                         <ul class="footer-links">
-                            <li><a href="category.html">Thông tin cửa hàng</a></li>
-                            <li><a href="category.html">Đối tác cung cấp</a></li>
-                            <li><a href="category.html">Chính sách và hỗ trợ</a></li>
+                            <li><a href="{{route('about')}}">Thông tin cửa hàng</a></li>
+                            <li><a href="{{route('partners')}}">Đối tác cung cấp</a></li>
+                            <li><a href="{{route('policy')}}">Chính sách và hỗ trợ</a></li>
                         </ul>
                     </div>
                 </div>
@@ -73,7 +71,7 @@
                     <div class="footer-widget" style="text-align: center">
                         <h4>Hỗ trợ</h4>
                         <ul class="footer-links">
-                            <li><a href="support.html">Chính sách bảo hành</a></li>
+                            <li><a href="{{route('warranty')}}">Chính sách bảo hành</a></li>
                             <li><a href="{{ route('contact.index') }}">Liên hệ</a></li>
                         </ul>
                     </div>
@@ -101,7 +99,7 @@
     <div class="footer-bottom">
         <div class="container">
             <div class="copyright text-center">
-                <p>© <span>Copyright</span> <span class="sitename" style="color:red">Quốc Lâm SweetSoft</span></p>
+                <p>© <span>Copyright</span> <span class="sitename" style="color:red">Quốc Lâm</span></p>
             </div>
         </div>
     </div>

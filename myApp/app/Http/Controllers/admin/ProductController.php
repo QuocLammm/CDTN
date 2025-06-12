@@ -175,6 +175,7 @@ class ProductController extends Controller
 
         return response()->json([
             'qr_image_path' => $qr->qr_image_path,
+            'qr_data' => $qr->qr_data,
         ]);
     }
 

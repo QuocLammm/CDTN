@@ -20,11 +20,13 @@ use App\Http\Controllers\auth\HomePageController;
 use App\Http\Controllers\auth\LoginController;
 use App\Http\Controllers\auth\ResetPasswordController;
 use App\Http\Controllers\auth\WishListController;
+use App\Http\Controllers\ChangePassword;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\SettingController;
 use App\Models\Contact;
 use App\Models\Notification;
 use App\Models\Order;
+use App\Models\User;
 use App\Models\ViewPage;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
@@ -45,12 +47,28 @@ Route::get('/product/{id}', [ProductDetailController::class, 'show'])->name('pro
 Route::get('/contact', [HomePageController::class, 'showContact'])->name('contact.index');// Show contact
 Route::post('/contact/send', [HomePageController::class, 'send'])->name('contact.send'); // Contact Send
 
+Route::get('/api/captcha', [ChangePassword::class, 'getCaptcha']);
+
+// Gửi đăng ký mã sale
+Route::post('/newsletter', [HomePageController::class, 'subscribe'])->name('newsletter.subscribe');
+
+
 
 Route::post('/wishlist/toggle/{product_id}', [HomePageController::class, 'toggle'])->name('wishlist.toggle');
 
 // About Us
 Route::get('/about-us', [HomePageController::class, 'showAboutUs'])->name('about');
+Route::get('/doi-tac', function () {
+    return view('homepages.auth.partners');
+})->name('partners');
 
+Route::get('/chinh-sach', function () {
+    return view('homepages.auth.policy');
+})->name('policy');
+
+Route::get('/bao-hanh', function () {
+    return view('homepages.auth.warranty');
+})->name('warranty');
 
 
 Route::put('/profile/{id}', [HomePageController::class, 'updateProfile'])->name('profile.update');

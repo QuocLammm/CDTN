@@ -25,6 +25,7 @@ return new class extends Migration
             $table->tinyInteger('gender')->default(1);
             $table->string('email')->unique();
             $table->tinyInteger('status')->default(1);
+            $table->string('promo_code')->nullable();
             $table->rememberToken();
             $table->timestamps();
 

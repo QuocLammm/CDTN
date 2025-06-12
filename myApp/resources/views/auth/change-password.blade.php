@@ -81,8 +81,13 @@
                                             @enderror
                                         </div>
                                         <div class="mb-3">
-                                            <div class="g-recaptcha" data-sitekey="6LdlgFMrAAAAAM3EDhCo9Xr0-9s3PH4YT2A9eky9"></div>
-                                            @error('g-recaptcha-response')
+                                            <img id="captcha-img" src="" alt="CAPTCHA">
+                                            <button type="button" onclick="refreshCaptcha()">Tải lại</button>
+                                        </div>
+
+                                        <div class="mb-3">
+                                            <input type="text" name="captcha" class="form-control" placeholder="Nhập mã CAPTCHA">
+                                            @error('captcha')
                                             <p class="text-danger text-xs pt-1">{{ $message }}</p>
                                             @enderror
                                         </div>
@@ -112,4 +117,16 @@
 </div>
 </body>
 <script src="https://www.google.com/recaptcha/api.js" async defer></script>
+<script>
+    function refreshCaptcha() {
+        fetch('/api/captcha')
+            .then(response => response.json())
+            .then(data => {
+                if (data.status) {
+                    document.getElementById('captcha-img').src = data.captcha;
+                }
+            });
+    }
+    refreshCaptcha(); // Load lần đầu
+</script>
 </html>

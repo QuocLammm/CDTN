@@ -29,9 +29,9 @@
                     <div class="footer-widget" style="text-align: center">
                         <h4>Cửa hàng</h4>
                         <ul class="footer-links">
-                            <li><a href="category.html">Thông tin cửa hàng</a></li>
-                            <li><a href="category.html">Đối tác cung cấp</a></li>
-                            <li><a href="category.html">Chính sách và hỗ trợ</a></li>
+                            <li><a href="{{route('about')}}">Thông tin cửa hàng</a></li>
+                            <li><a href="{{route('partners')}}">Đối tác cung cấp</a></li>
+                            <li><a href="{{route('policy')}}">Chính sách và hỗ trợ</a></li>
                         </ul>
                     </div>
                 </div>
@@ -40,9 +40,9 @@
                     <div class="footer-widget" style="text-align: center">
                         <h4>Sản phẩm</h4>
                         <ul class="footer-links">
-                            <li><a href="category.html">Sản phẩm mới</a></li>
-                            <li><a href="category.html">Siêu giảm giá</a></li>
-                            <li><a href="category.html">Giày nữ</a></li>
+                            <li><a href="{{ route('homepage') }}#category-cards">Danh mục sản phẩm</a></li>
+                            <li><a href="{{ route('homepage') }}#best-sellers">Siêu giảm giá</a></li>
+                            <li><a href="{{ route('homepage') }}#info-cards">Giày nữ</a></li>
                             <li><a href="category.html">Dép nữ</a></li>
                         </ul>
                     </div>
@@ -53,7 +53,7 @@
                     <div class="footer-widget" style="text-align: center">
                         <h4>Hỗ trợ</h4>
                         <ul class="footer-links">
-                            <li><a href="support.html">Chính sách bảo hành</a></li>
+                            <li><a href="{{route('warranty')}}">Chính sách bảo hành</a></li>
                             <li><a href="{{ route('contact.index') }}">Liên hệ</a></li>
                         </ul>
                     </div>

@@ -63,10 +63,10 @@
                                     <i class="bi bi-heart me-2"></i>
                                     <span>Yêu thích</span>
                                 </a>
-                                <a class="dropdown-item d-flex align-items-center" href="account.html">
-                                    <i class="bi bi-gear me-2"></i>
-                                    <span>Cài đặt</span>
-                                </a>
+{{--                                <a class="dropdown-item d-flex align-items-center" href="account.html">--}}
+{{--                                    <i class="bi bi-gear me-2"></i>--}}
+{{--                                    <span>Cài đặt</span>--}}
+{{--                                </a>--}}
                             </div>
                             <div class="dropdown-footer">
                                 @if(auth()->check())

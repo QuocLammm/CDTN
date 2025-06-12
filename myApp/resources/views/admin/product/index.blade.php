@@ -54,10 +54,14 @@
                                         <a href="{{ route('show-product.edit', $product->product_id) }}"
                                            class="btn btn-sm btn-outline-success me-1">Edit</a>
                                         <button type="button" class="btn btn-sm btn-outline-primary me-1 btn-show-qr"
-                                                data-name="{{ $product->product_name }}"
+                                                data-name="{{ Str::limit($product->product_name, 30) }}"
+
                                                 data-id="{{ $product->product_id }}">
-                                            QR Code
+                                            <span style="display: inline-block; max-width: 100px; overflow: hidden;">
+                                                QR Code
+                                            </span>
                                         </button>
+
                                         <form action="{{ route('show-product.destroy', $product->product_id) }}"
                                               method="POST" class="d-inline delete-form">
                                             @csrf
@@ -122,12 +126,43 @@
                             // Hiển thị SweetAlert với mã QR và nút "Xuất"
                             Swal.fire({
                                 title: `QR Code của ${productName}`,
-                                html: `<img src="data:image/svg+xml;base64,${data.qr_image_path}" style="width: 200px; height: 200px;">`,
+                                html: `
+                                        <img src="data:image/svg+xml;base64,${data.qr_image_path}" style="width: 200px; height: 200px;"><br>
+                                        <button id="copyLinkBtn" class="swal2-styled" style="background-color: #2196F3; margin-top: 10px;">Chia sẻ</button>
+                                    `,
                                 showConfirmButton: true,
                                 confirmButtonText: 'OK',
                                 showCancelButton: true,
                                 cancelButtonText: 'Xuất',
-                                reverseButtons: true,  // Nếu muốn nút OK bên phải, Xuất bên trái
+                                reverseButtons: true,
+                                didOpen: () => {
+                                    const copyBtn = document.getElementById('copyLinkBtn');
+                                    copyBtn.addEventListener('click', () => {
+                                        navigator.clipboard.writeText(data.qr_data).then(() => {
+                                            Swal.fire({
+                                                toast: true,
+                                                position: 'top-end',
+                                                icon: 'success',
+                                                title: 'Sao chép thành công!',
+                                                showConfirmButton: false,
+                                                timer: 2000,
+                                                background: '#4CAF50',
+                                                color: 'white'
+                                            });
+                                        }).catch(() => {
+                                            Swal.fire({
+                                                toast: true,
+                                                position: 'top-end',
+                                                icon: 'error',
+                                                title: 'Sao chép thất bại!',
+                                                showConfirmButton: false,
+                                                timer: 2000,
+                                                background: '#f44336',
+                                                color: 'white'
+                                            });
+                                        });
+                                    });
+                                }
                             }).then((result) => {
                                 if (result.dismiss === Swal.DismissReason.cancel) {
                                     // Nút "Xuất" được bấm
@@ -237,3 +272,4 @@
         });
     </script>
 @endpush
+

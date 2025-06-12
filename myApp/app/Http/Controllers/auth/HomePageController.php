@@ -5,8 +5,10 @@ namespace App\Http\Controllers\auth;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\homepage\ContactRequest;
 use App\Http\Requests\homepage\ProfileRequest;
+use App\Mail\PromoCodeMail;
 use App\Models\Category;
 use App\Models\Contact;
+use App\Models\Discount;
 use App\Models\Order;
 use App\Models\Product;
 use App\Models\ProductReview;
@@ -16,6 +18,8 @@ use App\Models\ViewPage;
 use App\Models\WishList;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Mail;
+use Illuminate\Support\Str;
 
 class HomePageController extends Controller
 {
@@ -50,8 +54,20 @@ class HomePageController extends Controller
             session(['view_counted_today' => true]);
         }
 
+        // Lấy riêng sản phẩm thuộc danh mục "Giày nữ"
+        $shoes = Product::whereHas('category', function ($query) {
+            $query->where(function ($q) {
+                $q->where('product_name', 'like', '%nữ%');
+//                    ->orWhere('category_name', 'like', '%nữ%');
+            });
+        })
+            ->withAvg('reviews', 'rating')
+            ->withCount('reviews')
+            ->with('images')
+            ->get();
+
         // Trả dữ liệu sang view, thêm $shoesProducts
-        return view('homepages.homepage', compact('categories', 'products', 'wishlistProductIds', 'today'));
+        return view('homepages.homepage', compact('categories', 'products', 'wishlistProductIds', 'today','shoes'));
     }
 
 
@@ -116,15 +132,24 @@ class HomePageController extends Controller
         // Lấy tất cả danh mục
         $categories = Category::all();
 
-        // Chỉ lấy sản phẩm đang giảm giá
-        $products = Product::where('is_sale', true)
-            ->withAvg('reviews', 'rating')
+        $products = Product::withAvg('reviews', 'rating')
             ->withCount('reviews')
             ->get();
 
-        // Trả dữ liệu sang view
-        return view('homepages.auth.item', compact('categories', 'products'));
+
+        // Lấy riêng sản phẩm thuộc danh mục "Giày nữ"
+        $shoes = Product::whereHas('category', function ($query) {
+            $query->where('category_name', 'like', '%nữ%')
+                ->where('category_name', 'like', '%giày%');
+        })
+            ->withAvg('reviews', 'rating')
+            ->withCount('reviews')
+            ->with('images')
+            ->get();
+
+        return view('homepages.auth.item', compact('categories', 'products', 'shoes'));
     }
+
 
 
     // Hiển thị toàn bộ sản phẩm ở phần xem tất cả theo từng danh mục
@@ -216,6 +241,31 @@ class HomePageController extends Controller
         $users = collect([$admin])->merge($staffs);
 
         return view('homepages.auth.about_us', compact('users'));
+    }
+
+    public function subscribe(Request $request)
+    {
+        $request->validate(['email' => 'required|email|exists:users,email']);
+
+        // Tìm user theo email
+        $user = User::where('email', $request->email)->first();
+
+        // Nếu user đã có mã
+        if ($user->promo_code) {
+            return back()->with('message', 'Bạn đã nhận mã: ' . $user->promo_code);
+        }
+
+        // Gán mã khuyến mãi cố định
+        $promoCode = 'WELCOME10';
+
+        // Lưu vào user
+        $user->promo_code = $promoCode;
+        $user->save();
+
+        // Gửi email
+        Mail::to($request->email)->send(new PromoCodeMail($promoCode));
+
+        return redirect()->route('homepage')->with('status', 'Mã khuyến mãi đã được gửi đến email của bạn.');
     }
 
 
